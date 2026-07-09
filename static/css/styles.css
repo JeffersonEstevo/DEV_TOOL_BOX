@@ -60,6 +60,23 @@ p, h1, h2, h3 { overflow-wrap: break-word; }
 p { text-wrap: pretty; }
 h1, h2, h3 { text-wrap: balance; font-weight: 600; }
 
+
+/* 2. Garante que inputs, selects e textareas de QUALQUER página sigam o tema (Dark Mode) */
+body.dark-mode input[type="text"],
+body.dark-mode select,
+body.dark-mode textarea {
+  background-color: var(--bg-sidebar); 
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+
+/* Efeito Hover (Dark Mode) */
+body.dark-mode input[type="text"]:hover, 
+body.dark-mode select:hover, 
+body.dark-mode textarea:hover {
+  border-color: var(--text-muted, #64748b);
+}
+
 /* ==========================================================================
    2. ESTRUTURA DO LAYOUT (App Container)
    ========================================================================== */
@@ -177,7 +194,8 @@ details[open] summary::after {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  min-width: 0; /* Previne quebras no flexbox */
+  min-width: 0;
+  min-height: 100vh; /* Garante que o container ocupe a tela toda */
 }
 
 /* Top Bar */
@@ -220,10 +238,21 @@ details[open] summary::after {
   color: var(--accent);
 }
 
-/* Área de Conteúdo Útil */
+/* Área de Conteúdo Útil 
 #content-area {
   padding: 2rem;
   flex-grow: 1;
+}*/
+/* Área de Conteúdo Útil */
+#content-area {
+  padding: 2rem;
+  flex-grow: 1; /* Estica para empurrar o footer para a base da tela */
+  
+  /* Faz o conteúdo padrão alinhar no TOPO e esticar horizontalmente */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
 }
 
 .welcome-card {
@@ -489,10 +518,10 @@ body.dark-mode ::placeholder {
 }
 
 button {
-  background-color: var(--bg-sidebar); /* Ou var(--bg-main), o que preferir */
+  background-color: var(--bg-sidebar); 
   color: var(--text-main);
   border: 1px solid var(--border-color);
-} 
+}
 
 /* ==========================================================================
    7. ALERTA FLUTUANTE MODERNO DE CÓPIA
@@ -513,4 +542,72 @@ button {
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(5px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   8. USAR WORKSPACE LARGO NA PARTE CENTRAL DA PÁGINA
+   ========================================================================== */
+
+/* Força o contêiner principal desta ferramenta a ocupar quase toda a largura da tela */
+.tool-container:has(.workspace-largo) {
+  max-width: 1200px !important; /* Aumenta o limite máximo de 600px/700px para 1200px */
+  width: 95% !important;
+  margin: 0 auto !important;
+}
+
+/* Garante que o workspace use todo o novo espaço liberado */
+.workspace-largo {
+  max-width: 800% !important;
+  width: 80% !important;
+  padding: 1.5rem !important;
+}
+
+/* Força os textareas a preencherem as novas colunas gigantes */
+.workspace-largo .tool-grid {
+  grid-template-columns: repeat(2, 1fr) !important;
+  width: 100% !important;
+}
+
+
+/* ==========================================================================
+   9. REPRESENTAÇÂO DOS INPUTS
+   ========================================================================== */
+
+/* Aplica o design visual moderno e ajustado */
+input[type="text"], select, textarea {
+  width: 100%;
+  padding: 0.5rem 0.85rem; /* Diminuído de 0.75rem para 0.5rem (mais fino) */
+  border-radius: 6px;      /* Cantos ligeiramente menos arredondados para combinar com a espessura */
+  background-color: #ffffff;
+  color: #333333;
+  border: 1px solid #e2e8f0;
+  margin-bottom: 1rem;     /* Espaçamento essencial para NÃO colar no elemento de baixo */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Efeito Hover (Modo Claro) */
+input[type="text"]:hover, select:hover, textarea:hover {
+  border-color: #cbd5e1;
+}
+
+/* Efeito Focus/Clique (Funciona em ambos os modos) */
+input[type="text"]:focus, select:focus, textarea:focus {
+  border-color: #3b82f6 !important; 
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15); 
+}
+
+/* 2. Garante que inputs, selects e textareas de QUALQUER página sigam o tema (Dark Mode) */
+body.dark-mode input[type="text"],
+body.dark-mode select,
+body.dark-mode textarea {
+  background-color: var(--bg-sidebar); 
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+
+/* Efeito Hover (Dark Mode) */
+body.dark-mode input[type="text"]:hover, 
+body.dark-mode select:hover, 
+body.dark-mode textarea:hover {
+  border-color: var(--text-muted, #64748b);
 }

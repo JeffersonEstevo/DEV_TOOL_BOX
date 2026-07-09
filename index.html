@@ -103,19 +103,7 @@
         </aside>
 
         <main id="main-content">
-           <!-- <header id="top-bar">
-                <button id="sidebarToggle" class="icon-btn" aria-label="Toggle Sidebar">
-                    <i class="bi bi-chevron-left" id="toggle-icon"></i>
-                </button>
-                
-                <nav class="top-nav" style="display: flex; align-items: center; gap: 1rem;">
-                    <a href="index.html" class="active">Home</a>
-                    <a href="sobre.html">Sobre</a>
-                    <button id="theme-toggle" class="icon-btn" aria-label="Alternar Modo Escuro" style="margin-left: 1rem; font-size: 1.2rem;">
-                        <i class="bi bi-moon-stars"></i>
-                    </button>
-                </nav>
-            </header>-->
+
             <header id="top-bar">
                 <button id="sidebarToggle" class="icon-btn" onclick="toggleMenu()" aria-label="Toggle Sidebar">
                     <i class="bi bi-arrow-left-short" id="toggle-icon" style="font-size: 1.8rem;"></i>
@@ -129,10 +117,9 @@
                     </button>
                 </nav>
             </header>
-
-
             
-            <section id="content-area" style="display: flex; justify-content: center; align-items: center; min-height: calc(100vh - 180px);">
+            <!--<section id="content-area" style="display: flex; justify-content: center; align-items: center; min-height: calc(100vh - 180px);">-->
+                <section id="content-area">
     
                 <div class="welcome-card" style="max-width: 700px; width: 100%; text-align: center; padding: 3.5rem 2.5rem;">
                     
@@ -187,11 +174,10 @@
 
             </section>
 
-            <footer id="app-footer" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.5rem; padding: 1.5rem 2rem;">
+            <footer id="app-footer">
                 <div style="text-align: center;">
                     &copy; <span id="current-year"></span> <strong>Dev Tool Box</strong>. Todos os direitos reservados.
                 </div>
-
                 <span style="font-family: ui-monospace, SFMono-Regular, monospace; font-size: 0.75rem; background-color: var(--bg-main); color: var(--text-muted); padding: 0.15rem 0.5rem; border-radius: var(--radius); border: 1px solid var(--border-color); margin-top: 0.25rem;">
                     v1.0.0
                 </span>

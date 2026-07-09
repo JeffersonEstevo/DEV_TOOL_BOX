@@ -2,7 +2,7 @@
 
 
 /* ==========================================================================
-   15. CALCULADORA DE PORCENTAGEM
+   === 02. CALCULADORAS - 03. Porcentagem ===
    ========================================================================== */
 .percent-container-grid {
   display: flex;
@@ -50,6 +50,15 @@
   display: flex;
   max-width: 320px;
   gap: 0.25rem;
+  
+}
+
+/* Campos de Saída Acoplados com Botão */
+.percent-output-group {
+  display: flex;
+  max-width: 320px;
+  gap: 0.25rem;
+  align-items: stretch; /* Garante que os dois tentem ocupar a mesma altura */
 }
 
 .percent-output-group input[type="text"] {
@@ -59,6 +68,8 @@
   color: var(--success-color);
   cursor: default;
   font-size: 0.95rem;
+  flex: 1; /* Faz o input ocupar o espaço disponível */
+  margin-bottom: 0 !important; /* Evita que margens globais desalinho o fundo */
 }
 
 .percent-output-group button {
@@ -66,6 +77,16 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 0 !important; /* Evita que margens globais desalinho o fundo */
+  
+  /* --- AS TRAVAS DE ALTURA AQUI --- */
+  height: 35px !important; /* Ajusta e força a altura exata para casar com o input */
+}
+
+/* Controla o ícone de copiar para ele não esticar o botão */
+.percent-output-group button i {
+  line-height: 1 !important;  /* Zera o espaço extra vertical do ícone */
+  font-size: 1rem;            /* Mantém o tamanho do ícone controlado */
 }
 
 @media (max-width: 576px) {

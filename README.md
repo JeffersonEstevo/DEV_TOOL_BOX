@@ -15,7 +15,7 @@ A aplicação organiza suas ferramentas de forma modular em categorias acessíve
 * **Contador de Caracteres:** Análise quantitativa de caracteres, palavras e espaços.
 * **Frequência de Palavras:** Identificação de termos recorrentes em um texto.
 * **Inverter e Revirar Texto:** Inversão da ordem de caracteres ou palavras.
-* **Maiúscula & Minúscula:** Conversão rápida de caixa (*UPPERCASE*, *lowercase*, *Title Case*).
+* **Maiúscula & Minúscula:** Conversão rápida de caixa (*UPPERCASE*, *lowercase*, *CaMeL CaSe*).
 * **Remoção Avançada:** Módulos dedicados para remover acentos, espaços extras, pontuação, quebras de linha e textos contidos entre caracteres específicos.
 * **Similaridade e Comparação:** Ferramentas para confrontar dois textos e identificar diferenças ou o percentual de igualdade entre eles.
 * **Leitura Dinâmica:** Utilitário para aumentar a velocidade de absorção de leitura.
