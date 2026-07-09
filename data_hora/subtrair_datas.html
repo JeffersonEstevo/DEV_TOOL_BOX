@@ -1,0 +1,67 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Subtração e Diferença entre Datas</h2>
+        <p>Calcule o intervalo exato entre duas datas e obtenha a conversão do período em diferentes unidades de tempo simultaneamente.</p>
+    </header>
+
+    <div class="generator-workspace sub-datas-workspace">
+        
+        <div class="sub-datas-resultado-container">
+            <div class="resultado-principal">
+                <span class="resultado-label">Tempo Decorrido Exato</span>
+                <div id="sub-datas-decomposto" class="resultado-extenso">0 anos, 0 meses e 0 dias</div>
+            </div>
+            
+            <div class="resultado-divisor"></div>
+            
+            <div class="totais-grid">
+                <div class="total-card">
+                    <span class="total-card-label">Total de Dias</span>
+                    <div id="total-dias" class="total-card-valor">0</div>
+                </div>
+                <div class="total-card">
+                    <span class="total-card-label">Total de Semanas</span>
+                    <div id="total-semanas" class="total-card-valor">0</div>
+                </div>
+                <div class="total-card">
+                    <span class="total-card-label">Total de Meses (Aprox.)</span>
+                    <div id="total-meses" class="total-card-valor">0</div>
+                </div>
+                <div class="total-card">
+                    <span class="total-card-label">Total de Anos (Aprox.)</span>
+                    <div id="total-anos" class="total-card-valor">0</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="sub-datas-form">
+            <div class="sub-datas-grid-inputs">
+                <div class="sub-datas-field">
+                    <label for="sub-data-inicio">Data Inicial</label>
+                    <input type="date" id="sub-data-inicio" autocomplete="off">
+                </div>
+
+                <div class="sub-datas-field">
+                    <label for="sub-data-fim">Data Final</label>
+                    <input type="date" id="sub-data-fim" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="sub-datas-checkbox-field">
+                <input type="checkbox" id="sub-incluir-dia-final">
+                <label for="sub-incluir-dia-final">Incluir a data final no cálculo (+1 dia)</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center; gap: 1rem;">
+        <button id="btn-calcular-sub-datas" class="btn btn-primary">
+            <i class="bi bi-calculator"></i> Calcular Diferença
+        </button>
+        <button id="btn-limpar-sub-datas" class="btn btn-success">
+            <i class="bi bi-trash3-fill"></i> Limpar Campos
+        </button>
+    </div>
+</div>
+
+<script src="static/js/data_hora/subtrair_datas.js"></script>

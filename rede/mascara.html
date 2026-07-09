@@ -1,0 +1,84 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Calculadora de Máscara de Rede & CIDR</h2>
+        <p>Analise o endereçamento IPv4 (notação CIDR, IPs disponíveis e representação binária) e explore o particionamento de prefixos no padrão IPv6.</p>
+    </header>
+
+    <div class="rede-tabs">
+        <button class="tab-btn active" onclick="alternarAbaRede('aba-ipv4')">
+            <i class="bi bi-diagram-2"></i> Máscara IPv4 & CIDR
+        </button>
+        <button class="tab-btn" onclick="alternarAbaRede('aba-ipv6')">
+            <i class="bi bi-globe"></i> Prefixos IPv6
+        </button>
+    </div>
+
+    <div id="aba-ipv4" class="generator-workspace rede-workspace tab-content active">
+        <div class="rede-grid">
+            <div class="rede-field">
+                <label for="net-cidr">Notação CIDR (Sufixo /)</label>
+                <div class="input-prefix-wrapper">
+                    <span class="input-prefix">/</span>
+                    <input type="number" id="net-cidr" placeholder="Ex: 24" min="0" max="32" step="1">
+                </div>
+            </div>
+            <div class="rede-field">
+                <label for="net-mask">Máscara Decimal Sub-rede</label>
+                <input type="text" id="net-mask" placeholder="Ex: 255.255.255.0">
+            </div>
+        </div>
+
+        <div class="rede-resultados" style="margin-top: 1.5rem;">
+            <div class="resultado-linha">
+                <span class="res-label">Total de IPs na Rede:</span>
+                <span id="res-total-ips" class="res-valor">-</span>
+            </div>
+            <div class="resultado-linha">
+                <span class="res-label">IPs Úteis (Hosts Disponíveis):</span>
+                <span id="res-uteis-ips" class="res-valor">-</span>
+            </div>
+            <div class="resultado-linha">
+                <span class="res-label">Máscara Curinga (Wildcard):</span>
+                <span id="res-wildcard" class="res-valor">-</span>
+            </div>
+            <div class="resultado-linha full-width">
+                <span class="res-label">Representação Binária:</span>
+                <code id="res-binario" class="res-code">-</code>
+            </div>
+        </div>
+    </div>
+
+    <div id="aba-ipv6" class="generator-workspace rede-workspace tab-content">
+        <div class="rede-field" style="max-width: 300px; margin-bottom: 1.5rem;">
+            <label for="net-ipv6-prefixo">Selecione ou Digite o Prefixo IPv6:</label>
+            <div class="input-prefix-wrapper">
+                <span class="input-prefix">/</span>
+                <input type="number" id="net-ipv6-prefixo" placeholder="Ex: 64" min="1" max="128" step="1" value="64">
+            </div>
+        </div>
+
+        <div class="rede-resultados">
+            <div class="resultado-linha full-width">
+                <span class="res-label">Número de Endereços IP (/128 equivalente):</span>
+                <span id="res-v6-ips" class="res-valor" style="font-size: 1.05rem; word-break: break-all;">-</span>
+            </div>
+            <div class="resultado-linha full-width">
+                <span class="res-label">Uso Recomendado / Escopo Comum:</span>
+                <span id="res-v6-escopo" class="res-valor" style="font-weight: 500; font-size: 0.95rem;">-</span>
+            </div>
+        </div>
+        
+        <div class="ipv6-info-box">
+            <h5><i class="bi bi-info-circle-fill"></i> Nota sobre o IPv6</h5>
+            <p>O IPv6 utiliza 128 bits organizados em blocos hexadecimais. Diferente do IPv4, a sub-rede padrão para uma única LAN doméstica ou corporativa é quase universalmente um prefixo <strong>/64</strong>, fornecendo 18 quintilhões de endereços IP livres, eliminando a necessidade histórica de NAT.</p>
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="btn-limpar-rede" class="btn btn-success">
+            <i class="bi bi-trash3-fill"></i> Limpar Dados
+        </button>
+    </div>
+</div>
+
+<script src="static/js/rede/mascara.js"></script>

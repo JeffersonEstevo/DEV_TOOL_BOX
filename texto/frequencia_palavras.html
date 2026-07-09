@@ -1,0 +1,24 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Frequência de Palavras Repetidas</h2>
+        <p>Identifique quais palavras aparecem mais vezes no seu texto em tempo real.</p>
+    </header>
+
+    <div class="tool-grid grid-counter">
+        <div class="field-group">
+            <label for="original-text">Texto:</label>
+            <textarea id="original-text" rows="12" placeholder="Digite ou cole seu texto aqui para analisar a frequência..."></textarea>
+        </div>
+
+        <div class="result-card metrics-card">
+            <div class="card-header">Palavras Repetidas</div>
+            <div class="card-body">
+                <div id="repeated-words" class="freq-words-container">
+                    <p class="empty-state">As palavras repetidas aparecerão aqui...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="static/js/texto/frequencia_palavras.js"></script>

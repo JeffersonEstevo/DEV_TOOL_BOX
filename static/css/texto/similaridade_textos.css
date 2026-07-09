@@ -1,0 +1,67 @@
+/* Estilos focados em cores e preenchimento para similaridade de texto */
+
+/* ==========================================================================
+   33. SIMILARIDADE ENTRE TEXTOS (FOCO EM CORES)
+   ========================================================================== */
+
+.metrics-card .card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem !important;
+  min-height: 180px;
+}
+
+/* Container de exibição do resultado (retangular, ocupa toda a largura disponível) */
+.similarity-badge {
+  width: 100%;
+  padding: 1.25rem 1rem;
+  border-radius: var(--radius);
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.4;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+/* Nenhuma Similaridade ou Aguardando Dados (Cinza) */
+.similarity-none {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  border-color: var(--border-color);
+  font-size: 1rem;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+/* Baixa Similaridade: 1% a 35% (Vermelho) */
+.similarity-low {
+  background-color: #f8d7da;
+  color: #721c24;
+  border-color: #f5c6cb;
+}
+
+/* Média Similaridade: 36% a 70% (Amarelo) */
+.similarity-medium {
+  background-color: #fff3cd;
+  color: #856404;
+  border-color: #ffeeba;
+}
+
+/* Alta Similaridade: 71% a 99% (Verde Claro) */
+.similarity-high {
+  background-color: #d4edda;
+  color: #155724;
+  border-color: #c3e6cb;
+}
+
+/* Texto 100% Idêntico (Verde Intenso com texto branco) */
+.similarity-full {
+  background-color: #28a745;
+  color: #ffffff;
+  border-color: #1e7e34;
+}
+

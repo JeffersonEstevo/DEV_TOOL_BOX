@@ -1,0 +1,44 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Conversor de Bases Numéricas</h2>
+        <p>Insira um valor em qualquer uma das bases computacionais para convertê-lo instantaneamente em tempo real entre os sistemas Decimal, Binário, Octal e Hexadecimal.</p>
+    </header>
+
+    <div class="generator-workspace bases-workspace">
+        <div class="bases-grid">
+            
+            <div class="bases-field">
+                <label for="base-decimal">Decimal (Base 10)</label>
+                <input type="text" id="base-decimal" placeholder="Ex: 255" autocomplete="off">
+                <small class="field-help">Caracteres permitidos: 0-9</small>
+            </div>
+
+            <div class="bases-field">
+                <label for="base-binario">Binário (Base 2)</label>
+                <input type="text" id="base-binario" placeholder="Ex: 11111111" autocomplete="off">
+                <small class="field-help">Caracteres permitidos: 0 e 1</small>
+            </div>
+
+            <div class="bases-field">
+                <label for="base-octal">Octal (Base 8)</label>
+                <input type="text" id="base-octal" placeholder="Ex: 377" autocomplete="off">
+                <small class="field-help">Caracteres permitidos: 0-7</small>
+            </div>
+
+            <div class="bases-field">
+                <label for="base-hexadecimal">Hexadecimal (Base 16)</label>
+                <input type="text" id="base-hexadecimal" placeholder="Ex: FF" autocomplete="off">
+                <small class="field-help">Caracteres permitidos: 0-9, A-F</small>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="btn-limpar-bases" class="btn btn-success">
+            <i class="bi bi-trash3-fill"></i> Limpar Campos
+        </button>
+    </div>
+</div>
+
+<script src="static/js/rede/conversor_bases.js"></script>

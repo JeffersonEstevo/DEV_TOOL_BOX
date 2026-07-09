@@ -1,0 +1,516 @@
+/* ==========================================================================
+   1. RESET & VARIÁVEIS (Mantendo e expandindo sua base)
+   ========================================================================== */
+:root {
+  --bg-main: #f8fafc;        /* Fundo principal (Slate 50) */
+  --bg-sidebar: #ffffff;     /* Fundo da sidebar */
+  --bg-card: #ffffff;        /* Fundo de cards/conteúdo */
+  --border-color: #e2e8f0;    /* Linhas finas e discretas (Slate 200) */
+  
+  --text-main: #0f172a;      /* Texto principal quase preto (Slate 900) */
+  --text-muted: #64748b;     /* Texto secundário/prazos (Slate 500) */
+  --accent: #4f46e5;         /* Cor de destaque: Índigo Moderno */
+  --accent-hover: #4338ca;   
+  --accent-light: #eef2ff;
+
+  --sidebar-width: 260px;
+  --radius: 8px;
+  --transition: all 0.2s ease-in-out;
+}
+
+/* SOBREPOSIÇÃO PARA O MODO ESCURO */
+body.dark-mode {
+  --bg-main: #0f172a;        /* Slate 900 */
+  --bg-sidebar: #1e293b;     /* Slate 800 */
+  --bg-card: #1e293b;        /* Slate 800 */
+  --border-color: #334155;    /* Slate 700 */
+  
+  --text-main: #f8fafc;      /* Slate 50 */
+  --text-muted: #94a3b8;     /* Slate 400 */
+  --accent: #818cf8;         /* Índigo mais claro para contraste */
+  --accent-hover: #6366f1;
+  --accent-light: rgba(79, 70, 229, 0.15);
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+*:not(dialog) {
+  margin: 0;
+  padding: 0;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html { interpolate-size: allow-keywords; }
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Base de Mídias e Inputs */
+img, svg { display: block; max-width: 100%; }
+input, button, textarea, select { font: inherit; border: none; outline: none; }
+p, h1, h2, h3 { overflow-wrap: break-word; }
+p { text-wrap: pretty; }
+h1, h2, h3 { text-wrap: balance; font-weight: 600; }
+
+/* ==========================================================================
+   2. ESTRUTURA DO LAYOUT (App Container)
+   ========================================================================== */
+#app-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+#sidebar {
+  width: var(--sidebar-width);
+  background-color: var(--bg-sidebar);
+  border-right: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.sidebar-header {
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.logo-icon {
+  font-size: 1.5rem;
+  color: var(--accent);
+}
+
+.brand-name {
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: -0.025em;
+}
+
+/* Navegação por Details (Dropdowns Nativos) */
+.sidebar-nav {
+  padding: 1rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+details {
+  margin-bottom: 0.25rem;
+}
+
+summary {
+  list-style: none;
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: var(--radius);
+  transition: var(--transition);
+}
+
+summary::-webkit-details-marker { display: none; }
+
+summary:hover {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+}
+
+summary::after {
+  content: '\002303'; /* Seta minimalista */
+  margin-left: auto;
+  transform: rotate(180deg);
+  transition: transform 0.2s;
+  font-size: 0.8rem;
+}
+
+details[open] summary::after {
+  transform: rotate(0deg);
+}
+
+/* Links internos da Sidebar */
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding-left: 2.25rem;
+  margin-top: 0.25rem;
+}
+
+.nav-links .nav-link {
+  display: block;
+  padding: 0.5rem 0.75rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+  border-radius: var(--radius);
+  transition: var(--transition);
+}
+
+.nav-links .nav-link:hover {
+  color: var(--accent);
+  background-color: var(--accent-light);
+}
+
+.nav-links a:hover {
+  color: var(--accent);
+  background-color: var(--accent-light);
+}
+
+/* ==========================================================================
+   3. CONTEÚDO PRINCIPAL (Main Content)
+   ========================================================================== */
+#main-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0; /* Previne quebras no flexbox */
+}
+
+/* Top Bar */
+#top-bar {
+  height: 65px;
+  background-color: var(--bg-sidebar);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  padding: 0 2rem;
+  justify-content: space-between;
+}
+
+.icon-btn {
+  background: transparent;
+  font-size: 1.5rem;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  padding: 0.25rem;
+}
+
+.icon-btn:hover {
+  background-color: var(--bg-main);
+}
+
+.top-nav a {
+  text-decoration: none;
+  color: var(--text-muted);
+  font-weight: 500;
+  margin-left: 1.5rem;
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+.top-nav a:hover, .top-nav a.active {
+  color: var(--accent);
+}
+
+/* Área de Conteúdo Útil */
+#content-area {
+  padding: 2rem;
+  flex-grow: 1;
+}
+
+.welcome-card {
+  background-color: var(--bg-card);
+  padding: 2.5rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  max-width: 600px;
+}
+
+.welcome-card h1 {
+  font-size: 1.75rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+.welcome-card p {
+  color: var(--text-muted);
+}
+
+/* Footer */
+#app-footer {
+  padding: 1.5rem 2rem;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-sidebar);
+  text-align: center;
+}
+
+/* Responsive (Colapso simples se necessário) */
+@media (max-width: 768px) {
+  #app-container { flex-direction: column; }
+  #sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border-color); }
+}
+
+/* ==========================================================================
+   4. COMPONENTES DE FERRAMENTAS (Formulários, Botões e Diff)
+   ========================================================================== */
+
+.tool-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.tool-header h2 {
+  font-size: 1.5rem;
+  color: var(--text-main);
+  margin-bottom: 0.25rem;
+}
+
+.tool-header p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+/* Grid Inteligente Lado a Lado */
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.field-group label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* Estilização dos Textareas Profissionais */
+.tool-container textarea {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9rem;
+  resize: vertical;
+  transition: var(--transition);
+}
+
+.tool-container textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-light);
+}
+
+/* Botões Customizados */
+.action-bar {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  background-color: var(--bg-main);
+  color: var(--text-main);
+}
+
+/* Cards de Resultado Minimalistas */
+.result-card {
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.result-card .card-header {
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Cores Sutis de Alerta para os Cards (Padrão SaaS Moderno) */
+.card-danger .card-header {
+  background-color: #fef2f2;
+  color: #991b1b;
+  border-bottom: 1px solid #fca5a5;
+}
+
+.card-success .card-header {
+  background-color: #f0fdf4;
+  color: #166534;
+  border-bottom: 1px solid #86efac;
+}
+
+.result-card .card-body {
+  padding: 1rem;
+}
+
+/* Customização Cirúrgica do Diff */
+.diff-box {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  line-height: 1.6;
+  min-height: 150px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Marcações muito mais limpas visualmente */
+.diff-box del {
+  background-color: #fee2e2;
+  color: #991b1b;
+  text-decoration: none;
+  padding: 0.125rem 0.25rem;
+  border-radius: 4px;
+}
+
+.diff-box ins {
+  background-color: #dcfce7;
+  color: #166534;
+  text-decoration: none;
+  padding: 0.125rem 0.25rem;
+  border-radius: 4px;
+}
+
+.diff-box span.unchanged {
+  color: var(--text-muted);
+}
+
+/* Helper Utilitário */
+.hidden {
+  display: none !important;
+}
+
+/* ==========================================================================
+   5. COMPORTAMENTO DO BOTÃO TOGGLE (SCRIPT)
+   ========================================================================== */
+
+/* Garante a transição suave para a sidebar encolher */
+#sidebar {
+  transition: margin-left 0.25s ease-in-out, background-color 0.2s, border-color 0.2s;
+}
+
+/* Quando a classe 'sidebar-hidden' for injetada no container, joga a sidebar para fora */
+#app-container.sidebar-hidden #sidebar {
+  margin-left: calc(-1 * var(--sidebar-width)) !important;
+}
+
+/* Evita que o ícone intercepte o clique do botão */
+#sidebarToggle i {
+  pointer-events: none !important;
+}
+
+
+/* Garante que cliques dentro de botões peguem o botão e não os ícones internos */
+.btn i, 
+.btn span {
+  pointer-events: none;
+}
+
+
+/* PARA MENU LATERAL */
+.icon-btn i {
+  pointer-events: none;
+}
+
+
+/* ==========================================================================
+   6. DARK MODE
+   ========================================================================== */
+
+/* Garante que inputs, selects e textareas de QUALQUER página sigam o tema */
+body.dark-mode input,
+body.dark-mode select,
+body.dark-mode textarea {
+  background-color: var(--bg-sidebar); /* Ou var(--bg-main), o que preferir */
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+
+/* Ajuste para que as opções de dentro do select também fiquem escuras no Chrome/Edge/Firefox */
+body.dark-mode select option {
+  background-color: var(--bg-sidebar);
+  color: var(--text-main);
+}
+
+/* Melhora o contraste dos placeholders (textos de dica internos) no modo escuro */
+body.dark-mode ::placeholder {
+  color: var(--text-muted);
+  opacity: 0.8;
+}
+
+button {
+  background-color: var(--bg-sidebar); /* Ou var(--bg-main), o que preferir */
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+} 
+
+/* ==========================================================================
+   7. ALERTA FLUTUANTE MODERNO DE CÓPIA
+   ========================================================================== */
+.toast-alert {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #166534;
+  background-color: #eefaf2;
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}

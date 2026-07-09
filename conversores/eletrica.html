@@ -1,0 +1,106 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Calculadora e Conversor de Grandezas Elétricas</h2>
+        <p>Calcule parâmetros da Lei de Ohm e do Triângulo de Potências ou converta múltiplos e submúltiplos de unidades elétricas em tempo real.</p>
+    </header>
+
+    <div class="eletrica-tabs">
+        <button class="tab-btn active" onclick="alternarAbaEletrica('aba-calculadora')">
+            <i class="bi bi-calculator"></i> Lei de Ohm & Potências
+        </button>
+        <button class="tab-btn" onclick="alternarAbaEletrica('aba-prefixos')">
+            <i class="bi bi-arrow-left-right"></i> Conversor de Prefixos (milli, micro...)
+        </button>
+    </div>
+
+    <div id="aba-calculadora" class="generator-workspace eletrica-workspace tab-content active">
+        <h3 class="secao-titulo">Lei de Ohm (Preencha 2 campos para calcular)</h3>
+        <div class="eletrica-grid">
+            <div class="eletrica-field">
+                <label for="ele-tensao">Tensão / Voltagem (V - Volts)</label>
+                <input type="number" id="ele-tensao" placeholder="Ex: 220" step="any">
+            </div>
+            <div class="eletrica-field">
+                <label for="ele-corrente">Corrente Elétrica (I - Amperes)</label>
+                <input type="number" id="ele-corrente" placeholder="Ex: 10" step="any">
+            </div>
+            <div class="eletrica-field">
+                <label for="ele-resistencia">Resistência (R - Ohms Ω)</label>
+                <input type="number" id="ele-resistencia" placeholder="Ex: 22" step="any">
+            </div>
+            <div class="eletrica-field">
+                <label for="ele-potencia">Potência Ativa (P - Watts W)</label>
+                <input type="number" id="ele-potencia" placeholder="Ex: 2200" step="any">
+            </div>
+        </div>
+
+        <h3 class="secao-titulo" style="margin-top: 1.5rem;">Triângulo de Potências & Fator de Potência</h3>
+        <div class="eletrica-grid">
+            <div class="eletrica-field">
+                <label for="ele-fp">Fator de Potência (FP / cos φ)</label>
+                <input type="number" id="ele-fp" placeholder="Ex: 0.92 (0 a 1)" step="any" min="0" max="1">
+            </div>
+            <div class="eletrica-field">
+                <label for="ele-aparente">Potência Aparente (S - VA)</label>
+                <input type="number" id="ele-aparente" placeholder="Calculado" readonly style="background-color: var(--bg-main); opacity: 0.7;">
+            </div>
+            <div class="eletrica-field">
+                <label for="ele-reativa">Potência Reativa (Q - VAr)</label>
+                <input type="number" id="ele-reativa" placeholder="Calculado" readonly style="background-color: var(--bg-main); opacity: 0.7;">
+            </div>
+            <div class="eletrica-field">
+                <label for="ele-nominal">Potência Nominal Sugerida (VA)</label>
+                <input type="text" id="ele-nominal" placeholder="Calculado (+Margem)" readonly style="background-color: var(--bg-main); opacity: 0.7;">
+            </div>
+        </div>
+    </div>
+
+    <div id="aba-prefixos" class="generator-workspace eletrica-workspace tab-content">
+        <div class="prefixos-container">
+            <div class="prefixo-grupo">
+                <label>Selecione a Grandeza Base:</label>
+                <select id="prefixo-grandeza" onchange="atualizarLabelsPrefixos()">
+                    <option value="V">Tensão (Volts - V)</option>
+                    <option value="A">Corrente (Amperes - A)</option>
+                    <option value="W">Potência (Watts - W)</option>
+                    <option value="Ω">Resistência (Ohms - Ω)</option>
+                </select>
+            </div>
+
+            <div class="eletrica-grid" style="margin-top: 1.5rem;">
+                <div class="eletrica-field">
+                    <label id="lbl-mega">Megavolts (MV)</label>
+                    <input type="number" id="pref-mega" placeholder="0" step="any">
+                </div>
+                <div class="eletrica-field">
+                    <label id="lbl-quilo">Quilovolts (kV)</label>
+                    <input type="number" id="pref-quilo" placeholder="0" step="any">
+                </div>
+                <div class="eletrica-field">
+                    <label id="lbl-unidade" style="color: var(--primary-color); font-weight:700;">Unidade Base (V)</label>
+                    <input type="number" id="pref-base" placeholder="0" step="any">
+                </div>
+                <div class="eletrica-field">
+                    <label id="lbl-mili">Milivolts (mV)</label>
+                    <input type="number" id="pref-mili" placeholder="0" step="any">
+                </div>
+                <div class="eletrica-field">
+                    <label id="lbl-micro">Microvolts (µV)</label>
+                    <input type="number" id="pref-micro" placeholder="0" step="any">
+                </div>
+                <div class="eletrica-field">
+                    <label id="lbl-nano">Nanovolts (nV)</label>
+                    <input type="number" id="pref-nano" placeholder="0" step="any">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="btn-limpar-eletrica" class="btn btn-success">
+            <i class="bi bi-trash3-fill"></i> Limpar Campos
+        </button>
+    </div>
+</div>
+
+<script src="static/js/conversores/eletrica.js"></script>

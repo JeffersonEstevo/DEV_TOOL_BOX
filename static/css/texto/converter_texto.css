@@ -1,0 +1,18 @@
+/* Estilos específicos para converter_texto */
+
+
+/* ==========================================================================
+   7. CONVERSOR DE TEXTO (CASINGS)
+   ========================================================================== */
+.flex-wrap {
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.border-top-bar {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-color);
+  align-items: center;
+}
+

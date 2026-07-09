@@ -1,0 +1,168 @@
+/* Estilos específicos e layouts da página Sobre Mim baseados nas suas variáveis */
+        body {
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Barra de navegação superior para conter o Voltar */
+        .top-bar-nav {
+            height: 65px;
+            background-color: var(--bg-sidebar);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+            width: 100%;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            padding: 0.5rem 0.75rem;
+            border-radius: var(--radius);
+        }
+
+        .btn-back:hover {
+            color: var(--accent);
+            background-color: var(--accent-light);
+        }
+
+        /* Container Principal do Conteúdo */
+        .about-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2.5rem 1.5rem;
+            width: 100%;
+            flex-grow: 1;
+        }
+
+        /* Seção Principal / Grid */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .profile-grid {
+                grid-template-columns: 320px 1fr;
+            }
+        }
+
+        /* Coluna da Esquerda (Foto e Contato) */
+        .profile-sidebar {
+            background-color: var(--bg-card);
+            padding: 2.5rem 2rem;
+            border-radius: var(--radius);
+            text-align: center;
+            border: 1px solid var(--border-color);
+            height: fit-content;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .profile-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--accent);
+            margin: 0 auto 1.25rem auto;
+        }
+
+        .profile-sidebar h2 {
+            font-size: 1.5rem;
+            color: var(--text-main);
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-sidebar p {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 1.75rem;
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        /* Sobrescrita controlada para os botões utilizarem as classes do seu CSS */
+        .social-links .btn {
+            width: 100%;
+            justify-content: center;
+            text-decoration: none;
+        }
+
+        /* Coluna da Direita (Conteúdo Principal) */
+        .profile-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.25rem;
+            background: linear-gradient(to right, var(--accent), #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .bio-text {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .bio-text p {
+            margin-bottom: 1rem;
+        }
+
+        /* Tech Stack */
+        .skills-section h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.25rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category {
+            background-color: var(--bg-card);
+            padding: 1.25rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border-color);
+        }
+
+        .skill-category h4 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tag {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            padding: 0.35rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid var(--border-color);
+        }

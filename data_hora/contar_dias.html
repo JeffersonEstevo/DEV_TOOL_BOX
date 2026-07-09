@@ -1,0 +1,50 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Contador de Dias entre Datas</h2>
+        <p>Selecione duas datas para calcular o intervalo total de dias e a decomposição exata em anos, meses e dias.</p>
+    </header>
+
+    <div class="generator-workspace dias-workspace">
+        <div class="dias-resultado-container">
+            <div class="resultado-bloco">
+                <span class="resultado-label">Total de Dias</span>
+                <div id="dias-total" class="resultado-display">0 dias</div>
+            </div>
+            <div class="resultado-divisor"></div>
+            <div class="resultado-bloco">
+                <span class="resultado-label">Período Decomposto</span>
+                <div id="dias-decomposto" class="resultado-extenso">0 anos, 0 meses e 0 dias</div>
+            </div>
+        </div>
+
+        <div class="dias-form">
+            <div class="dias-grid-inputs">
+                <div class="dias-field">
+                    <label for="data-inicio">Data Inicial (DE)</label>
+                    <input type="date" id="data-inicio" autocomplete="off">
+                </div>
+
+                <div class="dias-field">
+                    <label for="data-fim">Data Final (PARA)</label>
+                    <input type="date" id="data-fim" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="dias-checkbox-field">
+                <input type="checkbox" id="incluir-dia-inicial">
+                <label for="incluir-dia-inicial">Incluir o dia inicial no cálculo (+1 dia)</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center; gap: 1rem;">
+        <button id="btn-calcular-dias" class="btn btn-primary">
+            <i class="bi bi-calculator"></i> Calcular Intervalo
+        </button>
+        <button id="btn-limpar-dias" class="btn btn-success">
+            <i class="bi bi-trash3-fill"></i> Limpar Campos
+        </button>
+    </div>
+</div>
+
+<script src="static/js/data_hora/contar_dias.js"></script>

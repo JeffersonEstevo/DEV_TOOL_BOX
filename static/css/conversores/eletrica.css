@@ -1,0 +1,101 @@
+/* Estilos avançados para conversor elétrico com Abas */
+
+.tool-container .eletrica-workspace {
+  max-width: 700px !important;
+  width: 100% !important;
+  text-align: left !important;
+  padding: 1.5rem 2rem 2rem 2rem !important;
+}
+
+/* Estilo do menu de abas */
+.eletrica-tabs {
+  display: flex;
+  gap: 0.5rem;
+  max-width: 700px;
+  margin: 0 auto 0.5rem auto;
+}
+
+.tab-btn {
+  background: var(--bg-sidebar);
+  border: 1px solid var(--border-color);
+  border-bottom: none;
+  color: var(--text-main);
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius) var(--radius) 0 0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab-btn.active {
+  background: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+}
+
+/* Controle de exibição das abas */
+.tab-content {
+  display: none !important;
+}
+.tab-content.active {
+  display: block !important;
+}
+
+.secao-titulo {
+  font-size: 0.9rem;
+  color: var(--primary-color);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.eletrica-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.eletrica-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.eletrica-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+  opacity: 0.9;
+}
+
+.eletrica-field input, .prefixo-grupo select {
+  width: 100%;
+  padding: 0.65rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  color: var(--primary-color);
+  border-radius: var(--radius);
+  box-sizing: border-box;
+}
+
+.prefixo-grupo select {
+  font-size: 0.95rem;
+  color: var(--text-main);
+}
+
+.eletrica-field input:focus, .prefixo-grupo select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background-color: var(--bg-sidebar);
+}
+
+.eletrica-field input[type="number"]::-webkit-inner-spin-button,
+.eletrica-field input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

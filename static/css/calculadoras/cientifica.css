@@ -1,0 +1,98 @@
+/* Estilos específicos para cientifica */
+
+
+/* ==========================================================================
+   17. CALCULADORA CIENTÍFICA
+   ========================================================================== */
+.scientific-calc-box {
+  background-color: #1e1e24;
+  border-radius: 18px;
+  padding: 1.25rem;
+  max-width: 340px;
+  margin: 0 auto 1.5rem auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border: 1px solid #2d2d35;
+}
+
+.calc-screen {
+  background-color: #0f0f12;
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+  text-align: right;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.expression-preview {
+  font-size: 0.85rem;
+  color: #858593;
+  min-height: 1.2rem;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.calc-screen input {
+  background: transparent !important;
+  border: none !important;
+  color: #ffffff !important;
+  font-size: 2rem !important;
+  font-weight: 700;
+  text-align: right;
+  padding: 0;
+  width: 100%;
+  box-shadow: none !important;
+  pointer-events: none;
+}
+
+.calc-keyboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+}
+
+.btn-calc {
+  border: none;
+  padding: 0.85rem 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.05s ease;
+  color: #ffffff;
+}
+
+.btn-calc:active {
+  transform: scale(0.96);
+}
+
+/* Diferenciação de Cores das Teclas */
+.btn-num { background-color: #2d2d38; }
+.btn-num:hover { background-color: #3b3b47; }
+
+.btn-sci { background-color: #383842; color: #a5a5b5; font-size: 0.95rem; }
+.btn-sci:hover { background-color: #454552; color: #ffffff; }
+
+.btn-op { background-color: #4f46e5; color: #ffffff; }
+.btn-op:hover { background-color: #6366f1; }
+
+.btn-meta { background-color: #e11d48; color: #ffffff; }
+.btn-meta:hover { background-color: #f43f5e; }
+
+.btn-action-equal {
+  grid-row: span 2;
+  background-color: #10b981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+.btn-action-equal:hover { background-color: #059669; }
+
+.zero-btn {
+  grid-column: span 2;
+}
+

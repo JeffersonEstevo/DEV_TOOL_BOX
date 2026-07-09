@@ -1,0 +1,38 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Similaridade entre Textos</h2>
+        <p>Compare dois blocos de texto e descubra a porcentagem de semelhança e vocabulário compartilhado entre eles.</p>
+    </header>
+
+    <div class="tool-grid grid-counter">
+        <div class="flex-column-gap">
+            <div class="field-group">
+                <label for="text1">Primeiro Texto (Texto 1):</label>
+                <textarea id="text1" rows="5" placeholder="Digite ou cole o primeiro texto para comparação..."></textarea>
+            </div>
+            
+            <div class="field-group">
+                <label for="text2">Segundo Texto (Texto 2):</label>
+                <textarea id="text2" rows="5" placeholder="Digite ou cole o segundo texto para comparação..."></textarea>
+            </div>
+        </div>
+
+        <div class="result-card metrics-card">
+            <div class="card-header">Resultado da Análise</div>
+            <div class="card-body container-center">
+                <div id="similarity-result" class="similarity-badge similarity-none">
+                    Aguardando dados...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <button id="calc-similarity-button" class="btn btn-primary">
+            <i class="bi bi-calculator"></i> Calcular Similaridade
+        </button>
+        <button id="clean-similarity-button" class="btn btn-secondary">Limpar</button>
+    </div>
+</div>
+
+<script src="static/js/texto/similaridade_textos.js"></script>

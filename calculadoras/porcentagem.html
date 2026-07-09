@@ -1,0 +1,100 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Calculadora de Porcentagem</h2>
+        <p>Solucione de forma rápida e instantânea os 5 cenários mais comuns de cálculos e variações percentuais.</p>
+    </header>
+
+    <div class="percent-container-grid">
+        <div class="percent-card">
+            <h3>Quanto é X% de Y?</h3>
+            <div class="percent-inline-inputs">
+                <span>Quanto é</span>
+                <input type="number" id="percentage-of-value" placeholder="Porcentagem (X)">
+                <span>% de</span>
+                <input type="number" id="value-of-percentage" placeholder="Valor (Y)">
+            </div>
+            <div class="percent-output-group">
+                <input type="text" id="result-quantity" readonly placeholder="Resultado">
+                <button id="copy-pct-quantity" class="btn btn-success" title="Copiar resultado">
+                    <i class="bi bi-clipboard"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="percent-card">
+            <h3>O valor X é qual porcentagem de Y?</h3>
+            <div class="percent-inline-inputs">
+                <span>O valor</span>
+                <input type="number" id="partial-value" placeholder="Parte (X)">
+                <span>é de um total de</span>
+                <input type="number" id="total-value" placeholder="Total (Y)">
+            </div>
+            <div class="percent-output-group">
+                <input type="text" id="result-percentage" readonly placeholder="Resultado">
+                <button id="copy-pct-percentage" class="btn btn-success" title="Copiar resultado">
+                    <i class="bi bi-clipboard"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="percent-card">
+            <h3>O valor X representa Y% de quanto?</h3>
+            <div class="percent-inline-inputs">
+                <span>O valor</span>
+                <input type="number" id="partial-value-of-total" placeholder="Parte (X)">
+                <span>representa</span>
+                <input type="number" id="percentage-of-total" placeholder="Porcentagem (Y)">
+                <span>% de:</span>
+            </div>
+            <div class="percent-output-group">
+                <input type="text" id="result-total-value" readonly placeholder="Resultado">
+                <button id="copy-pct-total" class="btn btn-success" title="Copiar resultado">
+                    <i class="bi bi-clipboard"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="percent-card">
+            <h3>Valor X aumentado em Y%</h3>
+            <div class="percent-inline-inputs">
+                <span>O valor</span>
+                <input type="number" id="base-value-increase" placeholder="Base (X)">
+                <span>aumentado em</span>
+                <input type="number" id="percentage-increase" placeholder="Aumento (Y)">
+                <span>% resulta em:</span>
+            </div>
+            <div class="percent-output-group">
+                <input type="text" id="result-increase" readonly placeholder="Resultado">
+                <button id="copy-pct-increase" class="btn btn-success" title="Copiar resultado">
+                    <i class="bi bi-clipboard"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="percent-card">
+            <h3>Valor X diminuído em Y%</h3>
+            <div class="percent-inline-inputs">
+                <span>O valor</span>
+                <input type="number" id="base-value-decrease" placeholder="Base (X)">
+                <span>diminuído em</span>
+                <input type="number" id="percentage-decrease" placeholder="Desconto (Y)">
+                <span>% resulta em:</span>
+            </div>
+            <div class="percent-output-group">
+                <input type="text" id="result-decrease" readonly placeholder="Resultado">
+                <button id="copy-pct-decrease" class="btn btn-success" title="Copiar resultado">
+                    <i class="bi bi-clipboard"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar">
+        <button id="clean-percentage-button" class="btn btn-secondary">Limpar Todos os Campos</button>
+        <span id="percentage-global-alert" class="toast-alert hidden">
+            <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
+        </span>
+    </div>
+</div>
+
+<script src="static/js/calculadoras/porcentagem.js"></script>

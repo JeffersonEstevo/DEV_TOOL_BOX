@@ -1,0 +1,75 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Calcular Média Aritmética</h2>
+        <p>Insira seus dados numéricos em bloco para obter média, extremos, amplitude e contagem total de termos instantaneamente.</p>
+    </header>
+
+    <div class="tool-grid">
+        <div class="field-group">
+            <label for="input-numbers">Valores para análise:</label>
+            <textarea id="input-numbers" rows="12" placeholder="Digite os valores separados por vírgula ou um por linha... Ex&#10;10&#10;20, 35, 42&#10;50"></textarea>
+            
+            <div class="action-bar mt-2">
+                <button id="clean-mean-button" class="btn btn-secondary">Limpar Entrada</button>
+            </div>
+        </div>
+
+        <div class="metrics-panel">
+            <div class="metric-row-card">
+                <div class="metric-info">
+                    <span class="metric-label">Número de Termos</span>
+                    <input type="text" id="number-of-terms" value="Nenhum valor" readonly>
+                </div>
+                <button id="copy-terms-btn" class="btn btn-success icon-btn" title="Copiar quantidade de termos">
+                    <i class="bi bi-clipboard"></i>
+                </button>
+            </div>
+
+            <div class="metric-row-card">
+                <div class="metric-info">
+                    <span class="metric-label">Valor Mínimo</span>
+                    <input type="text" id="min-value" value="Nenhum valor" readonly>
+                </div>
+                <button id="copy-min-btn" class="btn btn-success icon-btn" title="Copiar valor mínimo">
+                    <i class="bi bi-clipboard"></i>
+                </button>
+            </div>
+
+            <div class="metric-row-card">
+                <div class="metric-info">
+                    <span class="metric-label">Valor Máximo</span>
+                    <input type="text" id="max-value" value="Nenhum valor" readonly>
+                </div>
+                <button id="copy-max-btn" class="btn btn-success icon-btn" title="Copiar valor máximo">
+                    <i class="bi bi-clipboard"></i>
+                </button>
+            </div>
+
+            <div class="metric-row-card">
+                <div class="metric-info">
+                    <span class="metric-label">Intervalo (Amplitude)</span>
+                    <input type="text" id="range-values" value="Nenhum valor" readonly>
+                </div>
+                <button id="copy-range-btn" class="btn btn-success icon-btn" title="Copiar intervalo">
+                    <i class="bi bi-clipboard"></i>
+                </button>
+            </div>
+
+            <div class="metric-row-card highlight-metric">
+                <div class="metric-info">
+                    <span class="metric-label">Média Aritmética ($x̄$)</span>
+                    <input type="text" id="mean-value" value="Nenhum valor" readonly>
+                </div>
+                <button id="copy-mean-btn" class="btn btn-primary icon-btn" title="Copiar média aritmética">
+                    <i class="bi bi-clipboard"></i>
+                </button>
+            </div>
+            
+            <div id="mean-metrics-alert" class="toast-alert hidden mt-2">
+                <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="static/js/calculadoras/media_aritmetica.js"></script>

@@ -1,0 +1,84 @@
+/* Estilos específicos para porcentagem */
+
+
+/* ==========================================================================
+   15. CALCULADORA DE PORCENTAGEM
+   ========================================================================== */
+.percent-container-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.percent-card {
+  background-color: var(--bg-sidebar);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+}
+
+.percent-card h3 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.percent-inline-inputs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.percent-inline-inputs span {
+  font-size: 0.9rem;
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.percent-inline-inputs input[type="number"] {
+  width: 140px;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* Campos de Saída Acoplados com Botão */
+.percent-output-group {
+  display: flex;
+  max-width: 320px;
+  gap: 0.25rem;
+}
+
+.percent-output-group input[type="text"] {
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  font-weight: 700;
+  color: var(--success-color);
+  cursor: default;
+  font-size: 0.95rem;
+}
+
+.percent-output-group button {
+  padding: 0 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 576px) {
+  .percent-inline-inputs {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+  }
+  .percent-inline-inputs input[type="number"] {
+    width: 100%;
+  }
+  .percent-output-group {
+    max-width: 100%;
+  }
+}
+

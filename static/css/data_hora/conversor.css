@@ -1,0 +1,141 @@
+/* ==========================================================================
+   36. CONVERSOR INTEGRADO DE DATA E HORA
+   ========================================================================== */
+
+.tool-container .dh-workspace {
+  max-width: 650px !important;
+  width: 100% !important;
+  text-align: left !important;
+  padding: 2rem !important;
+  margin: 0 auto;
+}
+
+/* Controle de visibilidade das Abas */
+.tab-content {
+  display: none !important;
+}
+.tab-content.active {
+  display: block !important;
+}
+
+/* Estilização dos botões das abas (Seguindo o padrão rede-tabs) */
+.data-hora-tabs {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 2px solid var(--border-color);
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+}
+
+.data-hora-tabs .tab-btn {
+  background: none;
+  border: none;
+  padding: 0.75rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+  opacity: 0.7;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.data-hora-tabs .tab-btn:hover {
+  opacity: 1;
+  color: var(--primary-color);
+}
+
+.data-hora-tabs .tab-btn.active {
+  opacity: 1;
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
+}
+
+/* Grids e Campos */
+.dh-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.dh-grid-vertical {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+@media (max-width: 480px) {
+  .dh-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.dh-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.dh-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.dh-field input {
+  width: 100%;
+  padding: 0.65rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-family: monospace;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  color: var(--primary-color);
+  border-radius: var(--radius);
+  box-sizing: border-box;
+}
+
+.dh-field input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background-color: var(--bg-sidebar);
+}
+
+.dh-field input[type="datetime-local"] {
+  font-family: inherit;
+}
+
+.field-help {
+  font-size: 0.75rem;
+  color: var(--text-main);
+  opacity: 0.6;
+}
+
+/* Caixa de informações adicionais */
+.dh-info-box {
+  background-color: var(--bg-sidebar);
+  border-left: 4px solid var(--primary-color);
+  padding: 1rem;
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+.dh-info-box h5 {
+  margin: 0 0 0.4rem 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.dh-info-box p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--text-main);
+  opacity: 0.8;
+  line-height: 1.4;
+}

@@ -1,0 +1,67 @@
+/* Estilos específicos para media_aritmetica */
+
+
+/* ==========================================================================
+   14. CALCULADORA DE MÉDIA ARITMÉTICA
+   ========================================================================== */
+.metrics-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.metric-row-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--bg-sidebar);
+  border: 1px solid var(--border-color);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  gap: 1rem;
+}
+
+.metric-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.metric-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.metric-row-card input[type="text"] {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-main);
+  width: 100%;
+  margin-top: 0.15rem;
+  pointer-events: none; /* Evita focar campo readonly */
+}
+
+.highlight-metric {
+  border-color: var(--primary-color);
+  background-color: rgba(var(--primary-rgb, 79, 70, 229), 0.04);
+}
+
+.highlight-metric input[type="text"] {
+  color: var(--primary-color);
+  font-size: 1.3rem;
+}
+
+.icon-btn {
+  padding: 0.5rem 0.7rem;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+

@@ -1,0 +1,121 @@
+/* Estilos específicos para fracao */
+
+
+
+/* ==========================================================================
+   13. CALCULADORA DE FRAÇÕES (CORRIGIDO)
+   ========================================================================== */
+.fraction-workspace {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  background-color: var(--bg-sidebar);
+  border: 1px solid var(--border-color);
+  padding: 2rem 1rem;
+  border-radius: var(--radius);
+  max-width: 450px; /* Reduzido para não extrapolar */
+  margin: 0 auto 1.5rem auto;
+}
+
+.fraction-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100px; /* Largura controlada do bloco */
+}
+
+.fraction-block .field-group {
+  width: 100%;
+}
+
+.fraction-block input[type="number"] {
+  text-align: center;
+  font-size: 1.25rem;
+  font-weight: 600;
+  padding: 0.5rem;
+  width: 100%; /* Ocupa exatamente os 100px do bloco */
+  box-sizing: border-box;
+}
+
+.fraction-line {
+  width: 100%;
+  height: 2px;
+  background-color: var(--text-main);
+  border-radius: 1px;
+}
+
+.fraction-operator {
+  display: flex;
+  align-items: center;
+}
+
+.fraction-operator select {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 0.5rem;
+  text-align: center;
+  cursor: pointer;
+  width: 65px;
+}
+
+.text-center-card {
+  text-align: center;
+}
+
+/* Exibição do Resultado da Fração */
+.fraction-output-display {
+  font-size: 2rem;
+  font-weight: 700;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+  min-width: 60px;
+}
+
+/* Força a exibição da linha de divisão no resultado */
+.fraction-output-line {
+  width: 100%;
+  min-width: 40px;
+  height: 3px; /* Espessura ideal para a barra */
+  background-color: var(--text-main) !important; /* Usa a cor do texto principal do seu tema */
+  margin: 0.3rem 0;
+  display: block; /* Garante a renderização no DOM */
+}
+
+.decimal-output-display {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--success-color);
+}
+
+@media (max-width: 480px) {
+  .fraction-workspace {
+    gap: 1rem;
+    padding: 1.5rem 0.5rem;
+  }
+  .fraction-block {
+    width: 80px;
+  }
+}
+
+fraction-block input[type="number"] {
+  text-align: center;
+  font-size: 0.95rem; /* Diminui o tamanho da fonte do texto digitado */
+  font-weight: 600;
+  padding: 0.4rem 0.2rem; /* Reduz o espaçamento interno para sobrar mais espaço */
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Alvo específico para diminuir a fonte apenas dos placeholders */
+.fraction-block input[type="number"]::placeholder {
+  font-size: 0.8rem; /* Deixa o texto do placeholder ainda menor */
+  font-weight: 400;
+  opacity: 0.7;
+}
+
+

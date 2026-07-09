@@ -1,0 +1,91 @@
+/* ==========================================================================
+   37. SELETOR E CONVERSOR DE CORES
+   ========================================================================== */
+
+.tool-container .cores-workspace {
+  max-width: 550px !important;
+  width: 100% !important;
+  text-align: left !important;
+  padding: 2rem !important;
+  margin: 0 auto;
+}
+
+/* Container do Visualizador */
+.picker-topo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.preview-caixa {
+  width: 120px;
+  height: 120px;
+  border-radius: var(--radius);
+  border: 3px solid var(--border-color);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.preview-caixa:hover {
+  transform: scale(1.03);
+}
+
+/* Esconde o botão feio nativo do input e expande ele por toda a caixa */
+#picker-nativo {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  width: 140px;
+  height: 140px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Grid de Inputs de Códigos */
+.cores-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.cores-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.cores-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.cores-field input[type="text"] {
+  width: 100%;
+  padding: 0.65rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-family: monospace;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  color: var(--primary-color);
+  border-radius: var(--radius);
+  box-sizing: border-box;
+}
+
+.cores-field input[type="text"]:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background-color: var(--bg-sidebar);
+}
+
+.text-center {
+  text-align: center;
+  margin-top: 0.5rem;
+}

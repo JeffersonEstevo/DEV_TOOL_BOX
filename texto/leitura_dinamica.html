@@ -1,0 +1,51 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Leitura Dinâmica</h2>
+        <p>Treine sua velocidade de leitura exibindo uma palavra por vez de forma focada.</p>
+    </header>
+
+    <div class="tool-grid">
+        <div class="field-group">
+            <label for="input-text">Texto para leitura:</label>
+            <textarea id="input-text" rows="12" placeholder="Cole o texto que você deseja ler dinamicamente..."></textarea>
+        </div>
+
+        <div class="result-card">
+            <div class="card-header">Configurações do Leitor</div>
+            <div class="card-body metrics-list">
+                <div class="field-group">
+                    <label for="speed">Velocidade (ms por palavra):</label>
+                    <input id="speed" type="number" value="300" min="50">
+                </div>
+                <div class="field-group">
+                    <label for="font-size">Tamanho da Fonte (px):</label>
+                    <input id="font-size" type="number" value="48" min="20">
+                </div>
+                <div class="field-group">
+                    <label for="theme">Modo Visual:</label>
+                    <select id="theme">
+                        <option value="light">Claro</option>
+                        <option value="dark">Escuro</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <button id="start-button" class="btn btn-primary">
+            <i class="bi bi-play-fill"></i> Iniciar Leitura
+        </button>
+    </div>
+</div>
+
+<div id="dynamic-reader" class="fullscreen-overlay hidden">
+    <div id="reader-container" class="reader-view reader-light">
+        <span id="current-word" class="word-display"></span>
+    </div>
+    <button id="stop-button" class="btn btn-danger stop-floating-btn">
+        <i class="bi bi-x-lg"></i> Parar (Esc)
+    </button>
+</div>
+
+<script src="static/js/texto/leitura_dinamica.js"></script>

@@ -1,0 +1,58 @@
+/* Estilos específicos para conversor de velocidade */
+
+/* ==========================================================================
+   28. CONVERSOR DE VELOCIDADE
+   ========================================================================== */
+
+.tool-container .velocidade-workspace {
+  max-width: 650px !important;
+  width: 100% !important;
+  text-align: left !important;
+  padding: 2rem !important;
+}
+
+.velocidade-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.velocidade-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.velocidade-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+  opacity: 0.9;
+}
+
+.velocidade-field input[type="number"] {
+  width: 100%;
+  padding: 0.65rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  color: var(--primary-color);
+  border-radius: var(--radius);
+  box-sizing: border-box;
+}
+
+.velocidade-field input[type="number"]:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background-color: var(--bg-sidebar);
+}
+
+.velocidade-field input[type="number"]::-webkit-inner-spin-button,
+.velocidade-field input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.velocidade-field input[type="number"] {
+  -moz-appearance: textfield;
+}

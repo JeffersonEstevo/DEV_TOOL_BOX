@@ -1,0 +1,44 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Gerador de Cartão de Crédito</h2>
+        <p>Gere números de cartões de crédito válidos pelo algoritmo de Luhn com ou sem formatação para fins de testes de software e validação de plataformas de pagamento.</p>
+    </header>
+
+    <div class="generator-workspace">
+        <div class="generator-options" style="flex-direction: column; gap: 1rem;">
+            <div style="display: flex; gap: 1.5rem; justify-content: center; font-size: 0.95rem; color: var(--text-main);">
+                <label style="cursor: pointer; display: flex; align-items: center; gap: 0.3rem;">
+                    <input type="radio" name="bandeira-cartao" value="visa" checked> Visa
+                </label>
+                <label style="cursor: pointer; display: flex; align-items: center; gap: 0.3rem;">
+                    <input type="radio" name="bandeira-cartao" value="mastercard"> Mastercard
+                </label>
+            </div>
+            
+            <label class="checkbox-container">
+                <input type="checkbox" id="cartao-formatar" checked>
+                <span class="checkmark"></span>
+                Gerar com espaçamento (Ex: 0000 0000 0000 0000)
+            </label>
+        </div>
+
+        <div class="generator-output-box">
+            <input type="text" id="cartao-resultado" readonly placeholder="Clique em Gerar Cartão">
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar">
+        <button id="btn-gerar-cartao" class="btn btn-primary">
+            <i class="bi bi-gear-fill"></i> Gerar Cartão
+        </button>
+        <button id="btn-copiar-cartao" class="btn btn-success">
+            <i class="bi bi-clipboard"></i> Copiar Número
+        </button>
+        
+        <span id="cartao-generator-alert" class="toast-alert hidden">
+            <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
+        </span>
+    </div>
+</div>
+
+<script src="static/js/geradores/gerar_cartao_credito.js"></script>

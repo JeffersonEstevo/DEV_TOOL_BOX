@@ -1,0 +1,47 @@
+<div class="tool-container workspace-largo">
+    <header class="tool-header">
+        <h2>Similaridade & Comparação de Textos</h2>
+        <p>Insira os dois textos abaixo para destacar as diferenças lado a lado.</p>
+    </header>
+
+    <div class="tool-grid">
+        <div class="field-group">
+            <label for="text-before">Texto Original (A):</label>
+            <textarea id="text-before" rows="10" placeholder="Cole o texto original aqui..."></textarea>
+        </div>
+        
+        <div class="field-group">
+            <label for="text-after">Texto Modificado (B):</label>
+            <textarea id="text-after" rows="10" placeholder="Cole o texto modificado aqui..."></textarea>
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <button id="compare-button" class="btn btn-primary">
+            <i class="bi bi-layout-split"></i> Comparar Textos
+        </button>
+        <button id="clear-button" class="btn btn-secondary">Limpar</button>
+    </div>
+
+    <div id="result-panel" class="hidden">
+        <h3>Resultado da Comparação:</h3>
+        
+        <div class="tool-grid">
+            <div class="result-card card-danger">
+                <div class="card-header">Modificações no Texto A (Remoções)</div>
+                <div class="card-body">
+                    <div id="diff-output-before" class="diff-box"></div>
+                </div>
+            </div>
+
+            <div class="result-card card-success">
+                <div class="card-header">Modificações no Texto B (Adições)</div>
+                <div class="card-body">
+                    <div id="diff-output-after" class="diff-box"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="static/js/texto/comparar_textos.js"></script>

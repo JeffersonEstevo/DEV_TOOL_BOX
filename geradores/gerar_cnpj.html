@@ -1,0 +1,35 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Gerador de CNPJ</h2>
+        <p>Gere números de CNPJ válidos com ou sem formatação para fins de testes de software, homologação e validação de sistemas.</p>
+    </header>
+
+    <div class="generator-workspace">
+        <div class="generator-options">
+            <label class="checkbox-container">
+                <input type="checkbox" id="cnpj-formatar" checked>
+                <span class="checkmark"></span>
+                Gerar com pontuação (Ex: 00.000.000/0001-00)
+            </label>
+        </div>
+
+        <div class="generator-output-box">
+            <input type="text" id="cnpj-resultado" readonly placeholder="Clique em Gerar CNPJ">
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar">
+        <button id="btn-gerar-cnpj" class="btn btn-primary">
+            <i class="bi bi-gear-fill"></i> Gerar CNPJ
+        </button>
+        <button id="btn-copiar-cnpj" class="btn btn-success">
+            <i class="bi bi-clipboard"></i> Copiar CNPJ
+        </button>
+        
+        <span id="cnpj-generator-alert" class="toast-alert hidden">
+            <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
+        </span>
+    </div>
+</div>
+
+<script src="static/js/geradores/gerar_cnpj.js"></script>

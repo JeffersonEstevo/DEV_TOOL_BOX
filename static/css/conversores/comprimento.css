@@ -1,0 +1,70 @@
+/* Estilos específicos para conversor de comprimento */
+
+/* ==========================================================================
+   24. CONVERSOR DE COMPRIMENTO
+   ========================================================================== */
+
+/* Alarga o painel para organizar os campos em duas ou quatro colunas */
+.tool-container .comprimento-workspace {
+  max-width: 650px !important;
+  width: 100% !important;
+  text-align: left !important;
+  padding: 2rem !important;
+}
+
+/* Sistema de Grid Responsivo */
+.comprimento-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 colunas em telas normais */
+  gap: 1.25rem;
+}
+
+/* Se o usuário estiver numa tela maior, divide em 4 colunas */
+@media (min-width: 580px) {
+  .comprimento-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.comprimento-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.comprimento-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+  opacity: 0.9;
+}
+
+/* Customização dos inputs numéricos */
+.comprimento-field input[type="number"] {
+  width: 100%;
+  padding: 0.65rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  color: var(--primary-color);
+  border-radius: var(--radius);
+  box-sizing: border-box;
+}
+
+.comprimento-field input[type="number"]:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background-color: var(--bg-sidebar);
+}
+
+/* Remove as setinhas padrão do input de número para um visual mais limpo */
+.comprimento-field input[type="number"]::-webkit-inner-spin-button,
+.comprimento-field input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.comprimento-field input[type="number"] {
+  -moz-appearance: textfield;
+}
+

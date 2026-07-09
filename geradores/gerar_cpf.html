@@ -1,0 +1,35 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Gerador de CPF</h2>
+        <p>Gere números de CPF válidos com ou sem formatação para fins de testes de software, homologação e validação de sistemas.</p>
+    </header>
+
+    <div class="generator-workspace">
+        <div class="generator-options">
+            <label class="checkbox-container">
+                <input type="checkbox" id="cpf-formatar" checked>
+                <span class="checkmark"></span>
+                Gerar com pontuação (Ex: 000.000.000-00)
+            </label>
+        </div>
+
+        <div class="generator-output-box">
+            <input type="text" id="cpf-resultado" readonly placeholder="Clique em Gerar CPF">
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar">
+        <button id="btn-gerar-cpf" class="btn btn-primary">
+            <i class="bi bi-gear-fill"></i> Gerar CPF
+        </button>
+        <button id="btn-copiar-cpf" class="btn btn-success">
+            <i class="bi bi-clipboard"></i> Copiar CPF
+        </button>
+        
+        <span id="cpf-generator-alert" class="toast-alert hidden">
+            <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
+        </span>
+    </div>
+</div>
+
+<script src="static/js/geradores/gerar_cpf.js"></script>

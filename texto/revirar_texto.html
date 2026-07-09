@@ -1,0 +1,36 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Revirar Texto (De Ponta-Cabeça)</h2>
+        <p>Gere textos divertidos virados de cabeça para baixo e invertidos para usar em redes sociais ou jogos.</p>
+    </header>
+
+    <div class="tool-grid">
+        <div class="field-group">
+            <label for="original-text">Texto Entrada:</label>
+            <textarea id="original-text" rows="10" placeholder="Digite ou cole seu texto normal aqui..."></textarea>
+        </div>
+
+        <div class="field-group">
+            <label for="turned-text">Texto Revirado:</label>
+            <textarea id="turned-text" rows="10" placeholder="˙ʇno dᴉʃɟ o pɹǝɔǝɹɐdɐ ᴉnbɐ" readonly></textarea>
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <button id="turn-button" class="btn btn-primary">
+            <i class="bi bi-arrow-repeat"></i> Revirar Texto
+        </button>
+    </div>
+
+    <div class="action-bar border-top-bar">
+        <button id="clean-flip-button" class="btn btn-secondary">Limpar</button>
+        <button id="copy-flip-button" class="btn btn-success">
+            <i class="bi bi-clipboard"></i> Copiar Resultado
+        </button>
+        <span id="copy-flip-alert" class="toast-alert hidden">
+            <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
+        </span>
+    </div>
+</div>
+
+<script src="static/js/texto/revirar_texto.js"></script>

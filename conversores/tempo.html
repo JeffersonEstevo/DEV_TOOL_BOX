@@ -1,0 +1,50 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Conversor de Tempo</h2>
+        <p>Insira a quantidade em qualquer uma das caixas para convertê-la simultaneamente em tempo real entre diferentes intervalos cronológicos.</p>
+    </header>
+
+    <div class="generator-workspace tempo-workspace">
+        <div class="tempo-grid">
+            
+            <div class="tempo-field">
+                <label for="tempo-segundo">Segundos (s)</label>
+                <input type="number" id="tempo-segundo" placeholder="0" step="any">
+            </div>
+
+            <div class="tempo-field">
+                <label for="tempo-minuto">Minutos (min)</label>
+                <input type="number" id="tempo-minuto" placeholder="0" step="any">
+            </div>
+
+            <div class="tempo-field">
+                <label for="tempo-hora">Horas (h)</label>
+                <input type="number" id="tempo-hora" placeholder="0" step="any">
+            </div>
+
+            <div class="tempo-field">
+                <label for="tempo-dia">Dias</label>
+                <input type="number" id="tempo-dia" placeholder="0" step="any">
+            </div>
+
+            <div class="tempo-field">
+                <label for="tempo-semana">Semanas</label>
+                <input type="number" id="tempo-semana" placeholder="0" step="any">
+            </div>
+
+            <div class="tempo-field">
+                <label for="tempo-ano">Anos (365 dias)</label>
+                <input type="number" id="tempo-ano" placeholder="0" step="any">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="btn-limpar-tempo" class="btn btn-success">
+            <i class="bi bi-trash3-fill"></i> Limpar Campos
+        </button>
+    </div>
+</div>
+
+<script src="static/js/conversores/tempo.js"></script>

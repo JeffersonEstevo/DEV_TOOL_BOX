@@ -1,0 +1,78 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Conversor de Tensão Trifásica (Relação √3)</h2>
+        <p>Consulte as relações de tensões comerciais ou utilize a calculadora livre para converter qualquer valor de tensão entre Fase-Fase e Fase-Neutro.</p>
+    </header>
+
+    <div class="generator-workspace trifasica-workspace">
+        
+        <h3 class="secao-titulo">Guia de Consulta: Tensões Comerciais Padrão</h3>
+        <div class="trifasica-tabela-consulta">
+            <div class="consulta-card">
+                <span class="card-label">Fase-Neutro (V<sub>FN</sub>)</span>
+                <span class="card-valor-fn">127 V</span>
+                <div class="card-seta"><i class="bi bi-arrow-left-right"></i></div>
+                <span class="card-label">Fase-Fase (V<sub>FF</sub>)</span>
+                <span class="card-valor-ff">220 V</span>
+            </div>
+            <div class="consulta-card">
+                <span class="card-label">Fase-Neutro (V<sub>FN</sub>)</span>
+                <span class="card-valor-fn">220 V</span>
+                <div class="card-seta"><i class="bi bi-arrow-left-right"></i></div>
+                <span class="card-label">Fase-Fase (V<sub>FF</sub>)</span>
+                <span class="card-valor-ff">380 V</span>
+            </div>
+            <div class="consulta-card">
+                <span class="card-label">Fase-Neutro (V<sub>FN</sub>)</span>
+                <span class="card-valor-fn">380 V</span>
+                <div class="card-seta"><i class="bi bi-arrow-left-right"></i></div>
+                <span class="card-label">Fase-Fase (V<sub>FF</sub>)</span>
+                <span class="card-valor-ff">660 V</span>
+            </div>
+            <div class="consulta-card">
+                <span class="card-label">Fase-Neutro (V<sub>FN</sub>)</span>
+                <span class="card-valor-fn">440 V</span>
+                <div class="card-seta"><i class="bi bi-arrow-left-right"></i></div>
+                <span class="card-label">Fase-Fase (V<sub>FF</sub>)</span>
+                <span class="card-valor-ff">762 V</span>
+            </div>
+        </div>
+
+        <h3 class="secao-titulo" style="margin-top: 2rem;">Calculadora de Tensão Livre</h3>
+        <div class="trifasica-grid">
+            
+            <div class="trifasica-field">
+                <label for="tri-calc-fn">Digitar Tensão Fase-Neutro (V<sub>FN</sub>)</label>
+                <div class="input-unidade-wrapper">
+                    <input type="number" id="tri-calc-fn" placeholder="Digite Vfn..." step="any">
+                    <span class="input-unidade">V</span>
+                </div>
+                <small class="field-help">Calcula automaticamente V<sub>FF</sub> multiplicando por √3.</small>
+            </div>
+
+            <div class="trifasica-field">
+                <label for="tri-calc-ff">Digitar Tensão Fase-Fase (V<sub>FF</sub>)</label>
+                <div class="input-unidade-wrapper">
+                    <input type="number" id="tri-calc-ff" placeholder="Digite Vff..." step="any">
+                    <span class="input-unidade">V</span>
+                </div>
+                <small class="field-help">Calcula automaticamente V<sub>FN</sub> dividindo por √3.</small>
+            </div>
+
+        </div>
+
+        <div class="trifasica-formula-box">
+            <p><strong>Constante de Cálculo Utilizada:</strong></p>
+            <code>√3 ≈ 1.73205</code>
+        </div>
+
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="btn-limpar-trifasica" class="btn btn-success">
+            <i class="bi bi-trash3-fill"></i> Limpar Calculadora
+        </button>
+    </div>
+</div>
+
+<script src="static/js/conversores/tensao_trifasica.js"></script>

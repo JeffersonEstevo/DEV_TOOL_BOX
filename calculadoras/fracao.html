@@ -1,0 +1,62 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Calculadora de Frações</h2>
+        <p>Realize operações de soma, subtração, multiplicação e divisão entre frações com redução automática ao menor denominador comum.</p>
+    </header>
+
+    <div class="fraction-workspace">
+        <div class="fraction-block">
+            <div class="field-group">
+                <input type="number" id="numerator1" placeholder="Numerador 1" aria-label="Numerador 1">
+            </div>
+            <div class="fraction-line"></div>
+            <div class="field-group">
+                <input type="number" id="denominator1" placeholder="Denominador 1" aria-label="Denominador 1">
+            </div>
+        </div>
+
+        <div class="fraction-operator">
+            <select id="operation" aria-label="Operação Matemática">
+                <option value="add">+</option>
+                <option value="subtract">−</option>
+                <option value="multiply">×</option>
+                <option value="divide">÷</option>
+            </select>
+        </div>
+
+        <div class="fraction-block">
+            <div class="field-group">
+                <input type="number" id="numerator2" placeholder="Numerador 2" aria-label="Numerador 2">
+            </div>
+            <div class="fraction-line"></div>
+            <div class="field-group">
+                <input type="number" id="denominator2" placeholder="Denominador 2" aria-label="Denominador 2">
+            </div>
+        </div>
+    </div>
+
+    <div class="action-bar text-center">
+        <button id="calc-fraction-button" class="btn btn-primary">
+            <i class="bi bi-calculator"></i> Calcular Fração
+        </button>
+        <button id="clean-fraction-button" class="btn btn-secondary">Limpar</button>
+    </div>
+
+    <div class="tool-grid mt-4">
+        <div class="result-card text-center-card">
+            <div class="card-header">Resultado em Fração</div>
+            <div class="card-body container-center" id="fraction-result">
+                <span class="text-muted">Aguardando dados...</span>
+            </div>
+        </div>
+
+        <div class="result-card text-center-card">
+            <div class="card-header">Resultado em Decimal</div>
+            <div class="card-body container-center" id="decimal-result">
+                <span class="text-muted">Aguardando dados...</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="static/js/calculadoras/fracao.js"></script>

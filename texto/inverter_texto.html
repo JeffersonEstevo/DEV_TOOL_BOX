@@ -1,0 +1,36 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Inversor de Texto</h2>
+        <p>Inverta a ordem dos caracteres do seu texto de trás para frente instantaneamente.</p>
+    </header>
+
+    <div class="tool-grid">
+        <div class="field-group">
+            <label for="original-text">Texto Entrada:</label>
+            <textarea id="original-text" rows="10" placeholder="Digite ou cole seu texto aqui..."></textarea>
+        </div>
+
+        <div class="field-group">
+            <label for="inverted-text">Texto Invertido:</label>
+            <textarea id="inverted-text" rows="10" placeholder="O resultado invertido aparecerá aqui..." readonly></textarea>
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <button id="invert-button" class="btn btn-primary">
+            <i class="bi bi-arrow-left-right"></i> Inverter Texto
+        </button>
+    </div>
+
+    <div class="action-bar border-top-bar">
+        <button id="clean-invert-button" class="btn btn-secondary">Limpar</button>
+        <button id="copy-invert-button" class="btn btn-success">
+            <i class="bi bi-clipboard"></i> Copiar Resultado
+        </button>
+        <span id="copy-invert-alert" class="toast-alert hidden">
+            <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
+        </span>
+    </div>
+</div>
+
+<script src="static/js/texto/inverter_texto.js"></script>

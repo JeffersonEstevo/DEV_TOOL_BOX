@@ -1,0 +1,35 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Gerador de CEP</h2>
+        <p>Gere números de CEP válidos com ou sem formatação para fins de testes de software, homologação e validação de sistemas de entrega ou localização.</p>
+    </header>
+
+    <div class="generator-workspace">
+        <div class="generator-options">
+            <label class="checkbox-container">
+                <input type="checkbox" id="cep-formatar" checked>
+                <span class="checkmark"></span>
+                Gerar com pontuação (Ex: 00000-000)
+            </label>
+        </div>
+
+        <div class="generator-output-box">
+            <input type="text" id="cep-resultado" readonly placeholder="Clique em Gerar CEP">
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar">
+        <button id="btn-gerar-cep" class="btn btn-primary">
+            <i class="bi bi-gear-fill"></i> Gerar CEP
+        </button>
+        <button id="btn-copiar-cep" class="btn btn-success">
+            <i class="bi bi-clipboard"></i> Copiar CEP
+        </button>
+        
+        <span id="cep-generator-alert" class="toast-alert hidden">
+            <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
+        </span>
+    </div>
+</div>
+
+<script src="static/js/geradores/gerar_cep.js"></script>

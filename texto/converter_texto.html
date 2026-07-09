@@ -1,0 +1,38 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Maiúscula, Minúscula & Casings</h2>
+        <p>Transforme o formato do seu texto instantaneamente entre vários padrões.</p>
+    </header>
+
+    <div class="tool-grid">
+        <div class="field-group">
+            <label for="original-text">Texto Entrada:</label>
+            <textarea id="original-text" rows="10" placeholder="Digite ou cole seu texto aqui..."></textarea>
+        </div>
+
+        <div class="field-group">
+            <label for="modified-text">Texto Convertido:</label>
+            <textarea id="modified-text" rows="10" placeholder="O resultado aparecerá aqui..." readonly></textarea>
+        </div>
+    </div>
+
+    <div class="action-bar flex-wrap">
+        <button id="lowercase-letter-button" class="btn btn-primary">letra minúscula</button>
+        <button id="uppercase-letter-button" class="btn btn-primary">LETRA MAIÚSCULA</button>
+        <button id="capitalize-button" class="btn btn-primary">Capitalizar texto</button>
+        <button id="alternate-button" class="btn btn-primary">LeTrAs AlTeRnAdAs</button>
+        <button id="camelcase-button" class="btn btn-primary">camelCase</button>
+    </div>
+
+    <div class="action-bar border-top-bar">
+        <button id="clean-button" class="btn btn-secondary">Limpar</button>
+        <button id="copy-button" class="btn btn-success">
+            <i class="bi bi-clipboard"></i> Copiar Resultado
+        </button>
+        <span id="copy-alert" class="toast-alert hidden">
+            <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
+        </span>
+    </div>
+</div>
+
+<script src="static/js/texto/converter_texto.js"></script>

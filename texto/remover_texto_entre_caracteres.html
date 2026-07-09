@@ -1,0 +1,52 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Extrair / Remover Texto entre Caracteres</h2>
+        <p>Capture ou isole rapidamente trechos de texto que estejam contidos dentro de parênteses, aspas, chaves e outros delimitadores.</p>
+    </header>
+
+    <div class="tool-grid">
+        <div class="flex-column-gap">
+            <div class="field-group">
+                <label for="original-text">Texto Base:</label>
+                <textarea id="original-text" rows="8" placeholder="Cole o texto contendo os delimitadores aqui..."></textarea>
+            </div>
+            
+            <div class="field-group">
+                <label for="delimiter">Escolha o delimitador:</label>
+                <select id="delimiter">
+                    <option value="()">Parênteses ( )</option>
+                    <option value="{}">Chaves { }</option>
+                    <option value="[]">Colchetes [ ]</option>
+                    <option value="<>">Menores e Maiores &lt; &gt;</option>
+                    <option value="''">Aspas Simples ' '</option>
+                    <option value='""'>Aspas Duplas " "</option>
+                    <option value="//">Barras / /</option>
+                    <option value="--">Traços - -</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <label for="extracted-text">Informações Extraídas:</label>
+            <textarea id="extracted-text" rows="12" placeholder="Os termos extraídos aparecerão aqui, um por linha..." readonly></textarea>
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <button id="extract-button" class="btn btn-primary">
+            <i class="bi bi-scissors"></i> Extrair Informações
+        </button>
+    </div>
+
+    <div class="action-bar border-top-bar">
+        <button id="clean-delimiters-button" class="btn btn-secondary">Limpar</button>
+        <button id="copy-delimiters-button" class="btn btn-success">
+            <i class="bi bi-clipboard"></i> Copiar Resultado
+        </button>
+        <span id="copy-delimiters-alert" class="toast-alert hidden">
+            <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
+        </span>
+    </div>
+</div>
+
+<script src="static/js/texto/remover_texto_entre_caracteres.js"></script>

@@ -1,0 +1,52 @@
+/* Estilos específicos para leitura_dinamica */
+
+
+/* ==========================================================================
+   9. LEITURA DINÂMICA (FULLSCREEN OVERLAY)
+   ========================================================================== */
+.fullscreen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.reader-view {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Temas do Leitor */
+.reader-light {
+  background-color: #f8fafc;
+  color: #0f172a;
+}
+.reader-dark {
+  background-color: #0f172a;
+  color: #f8fafc;
+}
+
+.word-display {
+  font-weight: 700;
+  text-align: center;
+  word-break: break-word;
+  padding: 0 2rem;
+}
+
+.stop-floating-btn {
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+

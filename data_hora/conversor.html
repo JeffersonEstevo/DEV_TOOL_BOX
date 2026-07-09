@@ -1,0 +1,66 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Conversores de Tempo & Datas</h2>
+        <p>Alterne entre as abas para converter horas sexagesimais em valores decimais ou transformar datas civis em formatos computacionais (Excel e Unix).</p>
+    </header>
+
+    <div class="data-hora-tabs">
+        <button class="tab-btn active" onclick="alternarAbaDataHora('aba-hora-decimal')">
+            <i class="bi bi-clock-fill"></i> Horas ⇄ Decimal
+        </button>
+        <button class="tab-btn" onclick="alternarAbaDataHora('aba-data-decimal')">
+            <i class="bi bi-calendar-date-fill"></i> Data ⇄ Excel / Unix
+        </button>
+    </div>
+
+    <div id="aba-hora-decimal" class="generator-workspace dh-workspace tab-content active">
+        <div class="dh-grid">
+            <div class="dh-field">
+                <label for="conv-hora-relogio">Hora Digital (HH:MM)</label>
+                <input type="text" id="conv-hora-relogio" placeholder="Ex: 02:30" autocomplete="off">
+                <small class="field-help">Insira no formato de horas e minutos</small>
+            </div>
+
+            <div class="dh-field">
+                <label for="conv-hora-decimal">Valor Decimal (Horas)</label>
+                <input type="text" id="conv-hora-decimal" placeholder="Ex: 2.5" autocomplete="off">
+                <small class="field-help">Horas representadas de forma centesimal</small>
+            </div>
+        </div>
+
+        <div class="dh-info-box" style="margin-top: 1.5rem;">
+            <h5><i class="bi bi-info-circle-fill"></i> Como funciona?</h5>
+            <p>Para transformar minutos em decimais, dividimos os minutos por 60 (ex: 30min / 60 = 0.5). Útil para cálculos de folhas de pagamento, relatórios de ponto e faturamento de horas trabalhadas.</p>
+        </div>
+    </div>
+
+    <div id="aba-data-decimal" class="generator-workspace dh-workspace tab-content">
+        <div class="dh-grid-vertical">
+            <div class="dh-field">
+                <label for="conv-data-civil">Data / Hora Local</label>
+                <input type="datetime-local" id="conv-data-civil" autocomplete="off">
+                <small class="field-help">Data legível padrão do calendário</small>
+            </div>
+
+            <div class="dh-field">
+                <label for="conv-decimal-excel">Serial do Excel (Base 1900)</label>
+                <input type="text" id="conv-decimal-excel" placeholder="Ex: 45291.5" autocomplete="off">
+                <small class="field-help">Dias corridos desde 01/01/1900</small>
+            </div>
+
+            <div class="dh-field">
+                <label for="conv-decimal-unix">Unix Timestamp (Segundos)</label>
+                <input type="text" id="conv-decimal-unix" placeholder="Ex: 1719835200" autocomplete="off">
+                <small class="field-help">Segundos desde a Era Unix (01/01/1970)</small>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="btn-limpar-conv-datas" class="btn btn-success">
+            <i class="bi bi-trash3-fill"></i> Limpar Dados da Aba
+        </button>
+    </div>
+</div>
+
+<script src="static/js/data_hora/conversor.js"></script>

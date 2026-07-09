@@ -1,0 +1,50 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Calculadora de Regra de Três</h2>
+        <p>Descubra o valor desconhecido (X) proporcionalmente baseado em três valores conhecidos de forma instantânea.</p>
+    </header>
+
+    <div class="rule-three-workspace">
+        <div class="rule-three-title">Se os valores seguem a proporção:</div>
+        
+        <div class="rule-three-grid-table">
+            <div class="rule-cell">
+                <label for="value-a">Valor (A)</label>
+                <input type="number" id="value-a" placeholder="Ex: 100">
+            </div>
+            
+            <div class="rule-arrow"><i class="bi bi-arrow-right"></i></div>
+            
+            <div class="rule-cell">
+                <label for="value-b">está para (B)</label>
+                <input type="number" id="value-b" placeholder="Ex: 20">
+            </div>
+
+            <div class="rule-divider-row">assim como...</div>
+
+            <div class="rule-cell">
+                <label for="value-c">Logo, o valor (C)</label>
+                <input type="number" id="value-c" placeholder="Ex: 50">
+            </div>
+            
+            <div class="rule-arrow"><i class="bi bi-arrow-right"></i></div>
+            
+            <div class="rule-cell highlight-x-cell">
+                <label for="value-x">estará para (X)</label>
+                <input type="text" id="value-x" readonly placeholder="Resultado">
+            </div>
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar">
+        <button id="clean-rule-button" class="btn btn-secondary">Limpar Tudo</button>
+        <button id="copy-rule-button" class="btn btn-success">
+            <i class="bi bi-clipboard"></i> Copiar Valor de X
+        </button>
+        <span id="rule-three-alert" class="toast-alert hidden">
+            <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
+        </span>
+    </div>
+</div>
+
+<script src="static/js/calculadoras/regra_de_tres.js"></script>

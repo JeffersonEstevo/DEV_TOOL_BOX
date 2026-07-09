@@ -1,0 +1,91 @@
+/* Estilos específicos para regra_de_tres */
+
+
+/* ==========================================================================
+   16. CALCULADORA DE REGRA DE TRÊS (CORRIGIDO)
+   ========================================================================== */
+.rule-three-workspace {
+  background-color: var(--bg-sidebar);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 1.5rem 1rem;
+  max-width: 400px; /* Reduzido para conter perfeitamente os campos */
+  margin: 0 auto 1.5rem auto;
+}
+
+.rule-three-title {
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 1.25rem;
+}
+
+.rule-three-grid-table {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 0.75rem; /* Ajustado o espaço para evitar vazamentos */
+}
+
+.rule-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  width: 100%; /* Força a obedecer a coluna do grid */
+  min-width: 0; /* Evita que o input ignore o tamanho do container pai */
+}
+
+.rule-cell label {
+  font-size: 0.75rem; /* Fonte das labels ligeiramente reduzida */
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0;
+  white-space: nowrap; /* Impede quebras de linha feias */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rule-cell input {
+  padding: 0.5rem;
+  font-size: 1rem; /* Tamanho ajustado da fonte interna */
+  font-weight: 600;
+  text-align: center;
+  width: 100%;
+  box-sizing: border-box; /* Garante que padding não aumente o tamanho real do input */
+}
+
+.rule-arrow {
+  font-size: 1.1rem;
+  color: var(--primary-color);
+  padding-top: 1.2rem; /* Alinha perfeitamente com o centro do input */
+  text-align: center;
+}
+
+.rule-divider-row {
+  grid-column: span 3;
+  text-align: center;
+  font-size: 0.8rem;
+  font-style: italic;
+  color: var(--text-muted);
+  padding: 0.25rem 0;
+}
+
+/* Destaque visual da incógnita X */
+.highlight-x-cell input {
+  background-color: var(--bg-main) !important;
+  border-color: var(--primary-color) !important;
+  color: var(--success-color) !important;
+  font-weight: 700;
+}
+
+@media (max-width: 400px) {
+  .rule-three-grid-table {
+    gap: 0.5rem;
+  }
+  .rule-cell input {
+    font-size: 0.9rem;
+    padding: 0.4rem;
+  }
+}
+

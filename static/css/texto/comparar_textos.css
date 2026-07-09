@@ -1,0 +1,95 @@
+/* Estilos específicos para ferramentas de texto (Similaridade e Comparação) */
+
+/* ==========================================================================
+   11. COMPARAÇÃO LADO A LADO E ESTRUTURA DE GRID LARGO
+   ========================================================================== */
+
+/* Força os elementos do grid a ocuparem 100% da largura da coluna útil */
+.tool-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important; /* Sempre cria 2 colunas */
+  gap: 1.5rem !important;
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100% !important;
+}
+
+/* Força os textareas de comparação a ficarem largos e responsivos */
+.tool-container textarea {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  padding: 0.75rem !important;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  box-sizing: border-box;
+  resize: vertical; /* Permite esticar apenas para baixo sem quebrar os lados */
+}
+
+/* Configuração para as caixas de exibição de diferenças geradas */
+.result-card {
+  width: 100% !important;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.diff-box {
+  width: 100% !important;
+  min-height: 220px;
+  padding: 1rem;
+  background-color: var(--bg-sidebar);
+  border-radius: var(--radius);
+  font-family: monospace;
+  white-space: pre-wrap; /* Preserva parágrafos e quebras de linha */
+  word-break: break-all; /* Força quebra de palavras longas se estourarem o card */
+}
+
+#result-panel {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+#result-panel h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: var(--text-main);
+}
+
+/* Responsividade: Empilha em 1 coluna apenas se for dispositivo móvel (telas pequenas) */
+@media (max-width: 768px) {
+  .tool-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Força o contêiner principal desta ferramenta a ocupar quase toda a largura da tela */
+.tool-container:has(.workspace-largo) {
+  max-width: 1200px !important; /* Aumenta o limite máximo de 600px/700px para 1200px */
+  width: 95% !important;
+  margin: 0 auto !important;
+}
+
+/* Garante que o workspace use todo o novo espaço liberado */
+.workspace-largo {
+  max-width: 100% !important;
+  width: 100% !important;
+  padding: 1.5rem !important;
+}
+
+/* Força os textareas a preencherem as novas colunas gigantes */
+.workspace-largo .tool-grid {
+  grid-template-columns: repeat(2, 1fr) !important;
+  width: 100% !important;
+}
+

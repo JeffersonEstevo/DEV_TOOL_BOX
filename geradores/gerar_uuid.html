@@ -1,0 +1,35 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Gerador de UUID (v4)</h2>
+        <p>Gere identificadores únicos universais (UUID versão 4) aleatórios para uso em chaves primárias de bancos de dados, sessões e identificação de registros.</p>
+    </header>
+
+    <div class="generator-workspace">
+        <div class="generator-options">
+            <label class="checkbox-container">
+                <input type="checkbox" id="uuid-maiusculo">
+                <span class="checkmark"></span>
+                Gerar em letras maiúsculas
+            </label>
+        </div>
+
+        <div class="generator-output-box">
+            <input type="text" id="uuid-resultado" readonly placeholder="Clique em Gerar UUID">
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar">
+        <button id="btn-gerar-uuid" class="btn btn-primary">
+            <i class="bi bi-gear-fill"></i> Gerar UUID
+        </button>
+        <button id="btn-copiar-uuid" class="btn btn-success">
+            <i class="bi bi-clipboard"></i> Copiar UUID
+        </button>
+        
+        <span id="uuid-generator-alert" class="toast-alert hidden">
+            <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
+        </span>
+    </div>
+</div>
+
+<script src="static/js/geradores/gerar_uuid.js"></script>

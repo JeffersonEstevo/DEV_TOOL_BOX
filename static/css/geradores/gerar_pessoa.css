@@ -1,0 +1,74 @@
+/* Estilos específicos para gerar_pessoa */
+
+/* ==========================================================================
+   23. GERADOR DE PESSOA
+   ========================================================================== */
+
+/* Alarga o painel para organizar os dados em colunas */
+.tool-container .pessoa-workspace {
+  max-width: 750px !important;
+  width: 100% !important;
+  text-align: left !important;
+  padding: 1.5rem !important;
+}
+
+/* Estilização dos grupos de dados */
+.pessoa-section {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  background-color: var(--bg-main);
+}
+
+.pessoa-section legend {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--primary-color);
+  padding: 0 0.5rem;
+  letter-spacing: 0.5px;
+}
+
+/* Grid System Responsivo para as seções */
+.pessoa-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+.pessoa-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.pessoa-field label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-main);
+  opacity: 0.8;
+}
+
+/* Modificadores de tamanho das colunas no grid */
+.pessoa-field.full-width { grid-column: span 4; }
+.pessoa-field.triple-width { grid-column: span 3; }
+.pessoa-field.double-width { grid-column: span 2; }
+
+/* Estilização uniforme dos inputs individuais */
+.pessoa-field input[type="text"] {
+  width: 100%;
+  padding: 0.55rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background-color: var(--bg-sidebar);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  border-radius: var(--radius);
+  box-sizing: border-box;
+}
+
+.pessoa-field input[type="text"]:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}

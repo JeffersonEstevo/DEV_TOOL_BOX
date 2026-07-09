@@ -1,0 +1,60 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Localizar e Substituir Palavras</h2>
+        <p>Substitua termos em lote ou converta tabulações ocultas em espaços comuns de forma rápida.</p>
+    </header>
+
+    <div class="tool-grid">
+        <div class="flex-column-gap">
+            <div class="field-group">
+                <label for="original-text">Texto Original:</label>
+                <textarea id="original-text" rows="6" placeholder="Digite ou cole o texto original aqui..."></textarea>
+            </div>
+
+            <div class="form-row-2col">
+                <div class="field-group">
+                    <label for="word-to-replace">Localizar:</label>
+                    <input type="text" id="word-to-replace" placeholder="Ex: antigo">
+                </div>
+                <div class="field-group">
+                    <label for="replacement-word">Substituir por:</label>
+                    <input type="text" id="replacement-word" placeholder="Ex: novo">
+                </div>
+            </div>
+
+            <div class="card-inner-options">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="replace-tabs">
+                    <label for="replace-tabs">Substituir tabulações (\t)</label>
+                </div>
+                <div class="field-group mt-2">
+                    <label for="tab-replacement">Substituir tabulação por:</label>
+                    <input type="text" id="tab-replacement" placeholder="Deixe em branco para usar 4 espaços comuns">
+                </div>
+            </div>
+        </div>
+
+        <div class="field-group">
+            <label for="final-text">Texto Final:</label>
+            <textarea id="final-text" rows="14" placeholder="O resultado com as substituições aplicadas aparecerá aqui..." readonly></textarea>
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <button id="replace-button" class="btn btn-primary">
+            <i class="bi bi-arrow-left-right"></i> Executar Substituição
+        </button>
+    </div>
+
+    <div class="action-bar border-top-bar">
+        <button id="clean-replace-button" class="btn btn-secondary">Limpar</button>
+        <button id="copy-replace-button" class="btn btn-success">
+            <i class="bi bi-clipboard"></i> Copiar Resultado
+        </button>
+        <span id="copy-replace-alert" class="toast-alert hidden">
+            <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
+        </span>
+    </div>
+</div>
+
+<script src="static/js/texto/substituir_palavra.js"></script>

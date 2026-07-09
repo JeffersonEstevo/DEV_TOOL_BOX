@@ -1,0 +1,50 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Conversor de Velocidade</h2>
+        <p>Insira a velocidade em qualquer uma das unidades para realizar a conversão simultânea e em tempo real entre sistemas métricos, imperiais e náuticos.</p>
+    </header>
+
+    <div class="generator-workspace velocidade-workspace">
+        <div class="velocidade-grid">
+            
+            <div class="velocidade-field">
+                <label for="vel-kmh">Quilômetros por Hora (km/h)</label>
+                <input type="number" id="vel-kmh" placeholder="0" step="any">
+            </div>
+
+            <div class="velocidade-field">
+                <label for="vel-ms">Metros por Segundo (m/s)</label>
+                <input type="number" id="vel-ms" placeholder="0" step="any">
+            </div>
+
+            <div class="velocidade-field">
+                <label for="vel-mph">Milhas por Hora (mph)</label>
+                <input type="number" id="vel-mph" placeholder="0" step="any">
+            </div>
+
+            <div class="velocidade-field">
+                <label for="vel-fps">Pés por Segundo (fps)</label>
+                <input type="number" id="vel-fps" placeholder="0" step="any">
+            </div>
+
+            <div class="velocidade-field">
+                <label for="vel-nos">Nós (kt / knots)</label>
+                <input type="number" id="vel-nos" placeholder="0" step="any">
+            </div>
+
+            <div class="velocidade-field">
+                <label for="vel-mach">Velocidade do Som (Mach)</label>
+                <input type="number" id="vel-mach" placeholder="0" step="any">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="btn-limpar-velocidade" class="btn btn-success">
+            <i class="bi bi-trash3-fill"></i> Limpar Campos
+        </button>
+    </div>
+</div>
+
+<script src="static/js/conversores/velocidade.js"></script>

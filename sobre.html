@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Mim | Desenvolvedor Fullstack</title>
+    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="stylesheet" href="static/css/sobre.css">
+</head>
+<body>
+
+    <header class="top-bar-nav">
+        <a href="index.html" class="btn-back">
+            &larr; Voltar para o Início
+        </a>
+    </header>
+
+    <div class="about-container">
+        <main class="profile-grid">
+            
+            <section class="profile-sidebar">
+                <img src="img/62241112.png" alt="Jefferson Estevo" class="profile-img">
+                <h2>Jefferson Estevo</h2>
+                <p>Fullstack Developer</p>
+                
+                <div class="social-links">
+                    <a href="https://github.com/JeffersonEstevo" target="_blank" class="btn btn-primary">GitHub</a>
+                    <a href="https://br.linkedin.com/in/jefferson-estevo-908a67237" target="_blank" class="btn btn-secondary">LinkedIn</a>
+                    <a href="mailto:jefferson-estevo@dominio.com" class="btn btn-secondary">Entre em contato</a>
+                </div>
+            </section>
+
+            <section class="profile-content">
+                <h1>Olá, eu sou o Jefferson Estevo</h1>
+                
+                <div class="bio-text">
+                    <p>Sou um desenvolvedor Fullstack apaixonado por transformar linhas de código em soluções digitais eficientes, escaláveis e visualmente impactantes. Adoro a dinâmica de transitar entre a lógica robusta do backend e a experiência fluida do frontend.</p>
+                    <p>Com experiência no desenvolvimento de aplicações web completas, APIs RESTful e otimização de banco de dados, busco sempre escrever código limpo e seguir as melhores práticas de mercado (Clean Code, SOLID, etc). Estou sempre pronto para aprender novas tecnologias e resolver problemas complexos.</p>
+                </div>
+
+                <div class="skills-section">
+                    <h3>Minhas Techs</h3>
+                    
+                    <div class="skills-grid">
+                        <div class="skill-category">
+                            <h4>Frontend</h4>
+                            <div class="tag-container">
+                                <span class="tag">HTML5 / CSS3</span>
+                                <span class="tag">JavaScript (ES6+)</span>
+                                <span class="tag">TypeScript</span>
+                                <span class="tag">React.js / Next.js</span>
+                                <span class="tag">Tailwind CSS</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h4>Backend</h4>
+                            <div class="tag-container">
+                                <span class="tag">Node.js</span>
+                                <span class="tag">Python (FastAPI / Django)</span>
+                                <span class="tag">Express</span>
+                                <span class="tag">NestJS</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h4>Bancos de Dados</h4>
+                            <div class="tag-container">
+                                <span class="tag">PostgreSQL</span>
+                                <span class="tag">MongoDB</span>
+                                <span class="tag">MySQL</span>
+                                <span class="tag">Redis</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-category">
+                            <h4>DevOps & Ferramentas</h4>
+                            <div class="tag-container">
+                                <span class="tag">Git / GitHub</span>
+                                <span class="tag">Docker</span>
+                                <span class="tag">AWS (S3 / EC2)</span>
+                                <span class="tag">CI/CD</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Verifica a chave do tema guardada no seu index.html.
+            // (Ajuste o valor 'dark' ou a chave 'theme' caso use nomes diferentes no script do index)
+            const savedTheme = localStorage.getItem('theme');
+            
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-mode');
+            } else {
+                document.body.classList.remove('dark-mode');
+            }
+        });
+    </script>
+</body>
+</html>

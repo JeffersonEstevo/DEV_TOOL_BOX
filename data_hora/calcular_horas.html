@@ -1,0 +1,94 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Calculadora de Soma de Horas</h2>
+        <p>Insira a quantidade de horas e minutos em cada campo para obter o somatório total calculado dinamicamente em tempo real.</p>
+    </header>
+
+    <div class="generator-workspace horas-workspace">
+        <div class="horas-resultado-container">
+            <span class="resultado-label">Total Acumulado:</span>
+            <div id="horas-resultado-total" class="resultado-display">00:00</div>
+            <small id="horas-resultado-extenso" class="field-help">0 horas e 0 minutos</small>
+        </div>
+
+        <div class="horas-grid">
+            <div class="horas-linha">
+                <span class="linha-index">1#</span>
+                <div class="horas-field">
+                    <input type="number" class="input-hora" placeholder="Horas" min="0" autocomplete="off">
+                </div>
+                <div class="horas-field">
+                    <input type="number" class="input-minuto" placeholder="Minutos" min="0" max="59" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="horas-linha">
+                <span class="linha-index">2#</span>
+                <div class="horas-field">
+                    <input type="number" class="input-hora" placeholder="Horas" min="0" autocomplete="off">
+                </div>
+                <div class="horas-field">
+                    <input type="number" class="input-minuto" placeholder="Minutos" min="0" max="59" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="horas-linha">
+                <span class="linha-index">3#</span>
+                <div class="horas-field">
+                    <input type="number" class="input-hora" placeholder="Horas" min="0" autocomplete="off">
+                </div>
+                <div class="horas-field">
+                    <input type="number" class="input-minuto" placeholder="Minutos" min="0" max="59" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="horas-linha">
+                <span class="linha-index">4#</span>
+                <div class="horas-field">
+                    <input type="number" class="input-hora" placeholder="Horas" min="0" autocomplete="off">
+                </div>
+                <div class="horas-field">
+                    <input type="number" class="input-minuto" placeholder="Minutos" min="0" max="59" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="horas-linha">
+                <span class="linha-index">5#</span>
+                <div class="horas-field">
+                    <input type="number" class="input-hora" placeholder="Horas" min="0" autocomplete="off">
+                </div>
+                <div class="horas-field">
+                    <input type="number" class="input-minuto" placeholder="Minutos" min="0" max="59" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="horas-linha">
+                <span class="linha-index">6#</span>
+                <div class="horas-field">
+                    <input type="number" class="input-hora" placeholder="Horas" min="0" autocomplete="off">
+                </div>
+                <div class="horas-field">
+                    <input type="number" class="input-minuto" placeholder="Minutos" min="0" max="59" autocomplete="off">
+                </div>
+            </div>
+
+            <div class="horas-linha">
+                <span class="linha-index">7#</span>
+                <div class="horas-field">
+                    <input type="number" class="input-hora" placeholder="Horas" min="0" autocomplete="off">
+                </div>
+                <div class="horas-field">
+                    <input type="number" class="input-minuto" placeholder="Minutos" min="0" max="59" autocomplete="off">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="btn-limpar-horas" class="btn btn-success">
+            <i class="bi bi-trash3-fill"></i> Limpar Campos
+        </button>
+    </div>
+</div>
+
+<script src="static/js/data_hora/calcular_horas.js"></script>

@@ -1,0 +1,51 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Calculadora Científica</h2>
+        <p>Efetue cálculos aritméticos simples, funções trigonométricas, logaritmos e exponenciais em tempo real.</p>
+    </header>
+
+    <div class="scientific-calc-box">
+        <div class="calc-screen">
+            <div id="calc-expression-preview" class="expression-preview"></div>
+            <input type="text" id="calc-display" readonly value="0" aria-label="Visor da Calculadora">
+        </div>
+
+        <div class="calc-keyboard" id="calc-buttons-container">
+            <button class="btn-calc btn-meta" data-action="clear">AC</button>
+            <button class="btn-calc btn-meta" data-action="backspace">⌫</button>
+            <button class="btn-calc btn-meta" data-action="toggle-sign">±</button>
+            <button class="btn-calc btn-op" data-token="/">÷</button>
+
+            <button class="btn-calc btn-sci" data-action="sin">sin</button>
+            <button class="btn-calc btn-sci" data-action="cos">cos</button>
+            <button class="btn-calc btn-sci" data-action="tan">tan</button>
+            <button class="btn-calc btn-op" data-token="*">×</button>
+
+            <button class="btn-calc btn-sci" data-action="sqr">x²</button>
+            <button class="btn-calc btn-sci" data-action="sqrt">√x</button>
+            <button class="btn-calc btn-sci" data-action="log">log</button>
+            <button class="btn-calc btn-op" data-token="-">−</button>
+
+            <button class="btn-calc btn-num" data-token="7">7</button>
+            <button class="btn-calc btn-num" data-token="8">8</button>
+            <button class="btn-calc btn-num" data-token="9">9</button>
+            <button class="btn-calc btn-op" data-token="+">+</button>
+
+            <button class="btn-calc btn-num" data-token="4">4</button>
+            <button class="btn-calc btn-num" data-token="5">5</button>
+            <button class="btn-calc btn-num" data-token="6">6</button>
+            <button class="btn-calc btn-sci" data-token="*Math.PI">π</button>
+
+            <button class="btn-calc btn-num" data-token="1">1</button>
+            <button class="btn-calc btn-num" data-token="2">2</button>
+            <button class="btn-calc btn-num" data-token="3">3</button>
+            <button class="btn-calc btn-action-equal" data-action="equals">=</button>
+
+            <button class="btn-calc btn-num zero-btn" data-token="0">0</button>
+            <button class="btn-calc btn-num" data-token=".">,</button>
+            <button class="btn-calc btn-sci" data-token="/100">%</button>
+        </div>
+    </div>
+</div>
+
+<script src="static/js/calculadoras/cientifica.js"></script>

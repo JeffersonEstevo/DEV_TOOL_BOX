@@ -1,0 +1,157 @@
+/* ==========================================================================
+   35. SUBTRAÇÃO DE DATAS
+   ========================================================================== */
+
+.tool-container .sub-datas-workspace {
+  max-width: 650px !important;
+  width: 100% !important;
+  text-align: left !important;
+  padding: 1.5rem !important;
+  margin: 0 auto;
+}
+
+/* Painel de Resultados */
+.sub-datas-resultado-container {
+  background-color: var(--bg-sidebar);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.resultado-principal {
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+
+.sub-datas-resultado-container .resultado-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-main);
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: block;
+}
+
+.sub-datas-resultado-container .resultado-extenso {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  margin-top: 0.4rem;
+}
+
+.sub-datas-resultado-container .resultado-divisor {
+  height: 1px;
+  background-color: var(--border-color);
+  width: 100%;
+  margin: 1rem 0;
+}
+
+/* Grid de Totais Absolutos */
+.totais-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+@media (max-width: 560px) {
+  .totais-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.total-card {
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 0.75rem;
+  text-align: center;
+}
+
+.total-card-label {
+  font-size: 0.75rem;
+  color: var(--text-main);
+  opacity: 0.6;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.total-card-valor {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main);
+  font-family: monospace;
+}
+
+/* Inputs e Checkbox */
+.sub-datas-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.sub-datas-grid-inputs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2rem;
+}
+
+@media (max-width: 480px) {
+  .sub-datas-grid-inputs {
+    grid-template-columns: 1fr;
+  }
+}
+
+.sub-datas-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.sub-datas-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.sub-datas-field input[type="date"] {
+  width: 100%;
+  padding: 0.65rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  border-radius: var(--radius);
+  box-sizing: border-box;
+}
+
+.sub-datas-field input[type="date"]:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background-color: var(--bg-sidebar);
+}
+
+.sub-datas-checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.3rem;
+  cursor: pointer;
+}
+
+.sub-datas-checkbox-field input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--primary-color);
+  cursor: pointer;
+}
+
+.sub-datas-checkbox-field label {
+  font-size: 0.9rem;
+  color: var(--text-main);
+  user-select: none;
+  cursor: pointer;
+}

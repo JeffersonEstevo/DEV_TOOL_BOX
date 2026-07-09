@@ -1,0 +1,37 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Contador de Caracteres</h2>
+        <p>Digite ou cole seu texto para obter estatísticas detalhadas em tempo real.</p>
+    </header>
+
+    <div class="tool-grid grid-counter">
+        <div class="field-group">
+            <label for="original-text">Texto:</label>
+            <textarea id="original-text" rows="12" placeholder="Comece a digitar aqui..."></textarea>
+        </div>
+
+        <div class="result-card metrics-card">
+            <div class="card-header">Contagens</div>
+            <div class="card-body metrics-list">
+                <div class="metric-item">
+                    <span>Caracteres:</span>
+                    <span id="char-count" class="count-text metric-primary">0</span>
+                </div>
+                <div class="metric-item">
+                    <span>Palavras:</span>
+                    <span id="word-count" class="count-text metric-success">0</span>
+                </div>
+                <div class="metric-item">
+                    <span>Parágrafos:</span>
+                    <span id="paragraph-count" class="count-text metric-danger">0</span>
+                </div>
+                <div class="metric-item">
+                    <span>Linhas:</span>
+                    <span id="line-count" class="count-text metric-warning">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="static/js/texto/contador_caracteres.js"></script>

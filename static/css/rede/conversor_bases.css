@@ -1,0 +1,63 @@
+/* Estilos específicos para o conversor de bases numéricas */
+
+/* ==========================================================================
+   32. CONVERSOR DE BASES NUMÉRICAS
+   ========================================================================== */
+
+.tool-container .bases-workspace {
+  max-width: 650px !important;
+  width: 100% !important;
+  text-align: left !important;
+  padding: 2rem !important;
+}
+
+.bases-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 480px) {
+  .bases-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.bases-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.bases-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.bases-field input[type="text"] {
+  width: 100%;
+  padding: 0.65rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  font-family: monospace; /* Fonte mono ajuda na leitura de binários e hexas */
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  color: var(--primary-color);
+  border-radius: var(--radius);
+  box-sizing: border-box;
+}
+
+.bases-field input[type="text"]:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background-color: var(--bg-sidebar);
+}
+
+.field-help {
+  font-size: 0.75rem;
+  color: var(--text-main);
+  opacity: 0.6;
+}
+
+

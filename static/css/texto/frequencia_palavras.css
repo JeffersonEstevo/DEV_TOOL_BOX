@@ -1,0 +1,47 @@
+/* Estilos específicos para frequencia_palavras */
+
+
+/* ==========================================================================
+   8. FREQUÊNCIA DE PALAVRAS
+   ========================================================================== */
+.freq-words-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.freq-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+}
+
+.freq-word-name {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.freq-badge {
+  background-color: var(--accent-light);
+  color: var(--accent);
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+.empty-state {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-style: italic;
+  text-align: center;
+  padding: 1rem 0;
+}
+

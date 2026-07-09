@@ -1,0 +1,43 @@
+/* Estilos específicos para gerar_cnpj */
+
+/* ==========================================================================
+   20. GERADOR DE CNPJ
+   ========================================================================== */
+.generator-workspace {
+  background-color: var(--bg-sidebar);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 2rem;
+  max-width: 450px;
+  margin: 0 auto 1.5rem auto;
+  text-align: center;
+}
+
+.generator-options {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  cursor: pointer;
+  user-select: none;
+}
+
+.generator-output-box input[type="text"] {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1.35rem; /* Levemente menor para acomodar os 14 dígitos do CNPJ sem quebrar linha */
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 1px;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  color: var(--primary-color);
+  border-radius: var(--radius);
+}

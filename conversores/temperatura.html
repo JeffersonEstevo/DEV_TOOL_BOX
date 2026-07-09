@@ -1,0 +1,45 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Conversor de Temperatura</h2>
+        <p>Insira o valor em qualquer escala térmica para convertê-lo instantaneamente em tempo real para as principais escalas científicas e históricas.</p>
+    </header>
+
+    <div class="generator-workspace temperatura-workspace">
+        <div class="temperatura-grid">
+            
+            <div class="temperatura-field">
+                <label for="temp-c">Celsius (°C)</label>
+                <input type="number" id="temp-c" placeholder="0" step="any">
+            </div>
+
+            <div class="temperatura-field">
+                <label for="temp-f">Fahrenheit (°F)</label>
+                <input type="number" id="temp-f" placeholder="0" step="any">
+            </div>
+
+            <div class="temperatura-field">
+                <label for="temp-k">Kelvin (K)</label>
+                <input type="number" id="temp-k" placeholder="0" step="any">
+            </div>
+
+            <div class="temperatura-field">
+                <label for="temp-ra">Rankine (°Ra)</label>
+                <input type="number" id="temp-ra" placeholder="0" step="any">
+            </div>
+
+            <div class="temperatura-field full-width-mobile">
+                <label for="temp-re">Réaumur (°Ré)</label>
+                <input type="number" id="temp-re" placeholder="0" step="any">
+            </div>
+
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="btn-limpar-temperatura" class="btn btn-success">
+            <i class="bi bi-trash3-fill"></i> Limpar Campos
+        </button>
+    </div>
+</div>
+
+<script src="static/js/conversores/temperatura.js"></script>

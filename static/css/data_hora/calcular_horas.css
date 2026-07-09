@@ -1,0 +1,95 @@
+/* ==========================================================================
+   33. CALCULADORA DE HORAS
+   ========================================================================== */
+
+.tool-container .horas-workspace {
+  max-width: 500px !important;
+  width: 100% !important;
+  text-align: left !important;
+  padding: 1.5rem !important;
+  margin: 0 auto;
+}
+
+/* Painel superior de exibição do resultado */
+.horas-resultado-container {
+  background-color: var(--bg-sidebar);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius);
+  padding: 1.2rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.resultado-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.resultado-display {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  font-family: monospace;
+  margin: 0.3rem 0;
+}
+
+/* Alinhamento dos inputs */
+.horas-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.horas-linha {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.linha-index {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+  opacity: 0.4;
+  width: 25px;
+  text-align: right;
+}
+
+.horas-field {
+  flex: 1;
+}
+
+.horas-field input[type="number"] {
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 1.05rem;
+  font-weight: 600;
+  font-family: monospace;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  border-radius: var(--radius);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* Remove as setas padrões de input do tipo number para um visual mais limpo */
+.horas-field input[type="number"]::-webkit-inner-spin-button,
+.horas-field input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.horas-field input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.horas-field input[type="number"]:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  background-color: var(--bg-sidebar);
+}

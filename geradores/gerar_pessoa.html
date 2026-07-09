@@ -1,0 +1,136 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Gerador de Pessoas (Dados Fictícios)</h2>
+        <p>Gere perfis completos com dados pessoais, endereço, credenciais e características físicas fictícias para testes de sistemas e preenchimento de cenários.</p>
+    </header>
+
+    <div class="generator-workspace pessoa-workspace">
+        
+        <div class="generator-options" style="gap: 1.5rem; margin-bottom: 2rem;">
+            <label class="checkbox-container">
+                <input type="radio" name="pessoa-sexo" value="I" checked> Ambos
+            </label>
+            <label class="checkbox-container">
+                <input type="radio" name="pessoa-sexo" value="F"> Feminino
+            </label>
+            <label class="checkbox-container">
+                <input type="radio" name="pessoa-sexo" value="M"> Masculino
+            </label>
+        </div>
+
+        <fieldset class="pessoa-section">
+            <legend>Dados Pessoais</legend>
+            <div class="pessoa-grid">
+                <div class="pessoa-field full-width">
+                    <label>Nome Completo</label>
+                    <input type="text" id="p-nome" readonly>
+                </div>
+                <div class="pessoa-field">
+                    <label>CPF</label>
+                    <input type="text" id="p-cpf" readonly>
+                </div>
+                <div class="pessoa-field">
+                    <label>Telefone</label>
+                    <input type="text" id="p-telefone" readonly>
+                </div>
+                <div class="pessoa-field">
+                    <label>Data de Nascimento</label>
+                    <input type="text" id="p-nascimento" readonly>
+                </div>
+                <div class="pessoa-field">
+                    <label>Idade / Signo</label>
+                    <input type="text" id="p-idade-signo" readonly>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="pessoa-section">
+            <legend>Endereço</legend>
+            <div class="pessoa-grid">
+                <div class="pessoa-field">
+                    <label>CEP</label>
+                    <input type="text" id="p-cep" readonly>
+                </div>
+                <div class="pessoa-field triple-width">
+                    <label>Logradouro / Endereço</label>
+                    <input type="text" id="p-endereco" readonly>
+                </div>
+                <div class="pessoa-field triple-width">
+                    <label>Cidade</label>
+                    <input type="text" id="p-cidade" readonly>
+                </div>
+                <div class="pessoa-field">
+                    <label>Estado</label>
+                    <input type="text" id="p-estado" readonly>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="pessoa-section">
+            <legend>Conta Online</legend>
+            <div class="pessoa-grid">
+                <div class="pessoa-field double-width">
+                    <label>E-mail</label>
+                    <input type="text" id="p-email" readonly style="font-size: 0.9rem;">
+                </div>
+                <div class="pessoa-field">
+                    <label>Nome de Usuário</label>
+                    <input type="text" id="p-usuario" readonly>
+                </div>
+                <div class="pessoa-field">
+                    <label>Senha</label>
+                    <input type="text" id="p-senha" readonly>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="pessoa-section">
+            <legend>Cartão de Crédito</legend>
+            <div class="pessoa-grid">
+                <div class="pessoa-field">
+                    <label>Bandeira</label>
+                    <input type="text" id="p-cartao-bandeira" readonly>
+                </div>
+                <div class="pessoa-field double-width">
+                    <label>Número do Cartão</label>
+                    <input type="text" id="p-cartao-numero" readonly>
+                </div>
+                <div class="pessoa-field">
+                    <label>Expiração / CVV2</label>
+                    <input type="text" id="p-cartao-detalhe" readonly>
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="pessoa-section">
+            <legend>Características Físicas & Nacionalidade</legend>
+            <div class="pessoa-grid">
+                <div class="pessoa-field">
+                    <label>Sexo</label>
+                    <input type="text" id="p-sexo" readonly>
+                </div>
+                <div class="pessoa-field">
+                    <label>Altura / Peso</label>
+                    <input type="text" id="p-fisico" readonly>
+                </div>
+                <div class="pessoa-field">
+                    <label>Tipo Sanguíneo</label>
+                    <input type="text" id="p-sangue" readonly>
+                </div>
+                <div class="pessoa-field">
+                    <label>Nacionalidade</label>
+                    <input type="text" id="p-nacionalidade" readonly>
+                </div>
+            </div>
+        </fieldset>
+
+    </div>
+
+    <div class="action-bar border-top-bar">
+        <button id="btn-gerar-pessoa" class="btn btn-primary">
+            <i class="bi bi-person-plus-fill"></i> Gerar Perfil de Pessoa
+        </button>
+    </div>
+</div>
+
+<script src="static/js/geradores/gerar_pessoa.js"></script>

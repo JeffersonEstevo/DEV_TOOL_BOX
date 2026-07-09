@@ -1,0 +1,36 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Remover Pontuação de Texto</h2>
+        <p>Remova pontos, vírgulas, exclamações e demais caracteres de pontuação do seu texto instantaneamente.</p>
+    </header>
+
+    <div class="tool-grid">
+        <div class="field-group">
+            <label for="original-text">Texto Entrada:</label>
+            <textarea id="original-text" rows="10" placeholder="Digite ou cole seu texto com pontuações aqui..."></textarea>
+        </div>
+
+        <div class="field-group">
+            <label for="modified-text">Texto Sem Pontuação:</label>
+            <textarea id="modified-text" rows="10" placeholder="O resultado limpo sem pontuações aparecerá aqui..." readonly></textarea>
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <button id="remove-punctuation-button" class="btn btn-primary">
+            <i class="bi bi-chat-square-dots-fill"></i> Remover Pontuação
+        </button>
+    </div>
+
+    <div class="action-bar border-top-bar">
+        <button id="clean-punctuation-button" class="btn btn-secondary">Limpar</button>
+        <button id="copy-punctuation-button" class="btn btn-success">
+            <i class="bi bi-clipboard"></i> Copiar Resultado
+        </button>
+        <span id="copy-punctuation-alert" class="toast-alert hidden">
+            <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
+        </span>
+    </div>
+</div>
+
+<script src="static/js/texto/remover_pontuacao.js"></script>
