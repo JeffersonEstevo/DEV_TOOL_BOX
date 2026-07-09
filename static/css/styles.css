@@ -274,6 +274,13 @@ details[open] summary::after {
   color: var(--text-muted);
 }
 
+/* Helper para centralizar blocos horizontalmente */
+/* Centralizando Horizontalmente o coteúdo inicial */
+.wc-center{
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
 /* Footer */
 #app-footer {
   padding: 1.5rem 2rem;
