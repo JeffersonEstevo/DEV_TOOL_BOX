@@ -1,0 +1,71 @@
+/* ==========================================================================
+   === TEXTO - Gerador de Lorem Ipsum ===
+   ========================================================================== */
+
+/* Agrupador do Input Numérico junto ao Select */
+.input-with-select {
+    display: flex;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    background-color: var(--bg-main);
+    overflow: hidden;
+}
+
+.input-with-select input[type="number"] {
+    flex: 1;
+    border: none;
+    padding: 0.5rem;
+    font-size: 0.95rem;
+    outline: none;
+    background: transparent;
+}
+
+.input-with-select select {
+    border: none;
+    border-left: 1px solid var(--border-color);
+    padding: 0 0.5rem;
+    background-color: rgba(0, 0, 0, 0.02);
+    font-size: 0.9rem;
+    color: var(--text-main);
+    cursor: pointer;
+    outline: none;
+}
+
+/* Grupo de Opções de Radio */
+.radio-group {
+    display: flex;
+    gap: 1.5rem;
+    padding: 0.25rem 0;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.95rem;
+    color: var(--text-main);
+    cursor: pointer;
+}
+
+.radio-label input[type="radio"] {
+    cursor: pointer;
+}
+
+/* Container do Bloco de Saída de Dados */
+.lorem-output-container {
+    max-height: 520px; /* Alinhado estritamente à altura máxima da tabela ASCII */
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    background-color: var(--bg-main);
+}
+
+/* Área interna editável/copiável */
+.lorem-text-area {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--text-main);
+    white-space: pre-wrap; /* Garante as quebras de linha corretas da saída em HTML */
+    word-wrap: break-word;
+}

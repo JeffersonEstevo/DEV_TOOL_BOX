@@ -363,6 +363,21 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             if (typeof limparBuscaASCII === "function") limparBuscaASCII();
         }
+        // === 01. TEXTO - 14. Gerador de Lorem Ipsum ===
+        if (event.target.closest('#generate-lorem-button')) {
+            event.preventDefault();
+            if (typeof processarGeracaoLorem === "function") processarGeracaoLorem();
+        }
+
+        if (event.target.closest('#clean-lorem-button')) {
+            event.preventDefault();
+            if (typeof limparLorem === "function") limparLorem();
+        }
+
+        if (event.target.closest('#copy-lorem-button')) {
+            event.preventDefault();
+            if (typeof copiarLoremParaAreaTransferencia === "function") copiarLoremParaAreaTransferencia();
+        }
 
         // === 02. CALCULADORAS - 01. Frações ===
         if (event.target.closest('#calc-fraction-button')) {

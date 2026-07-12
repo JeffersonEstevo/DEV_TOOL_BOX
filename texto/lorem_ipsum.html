@@ -1,0 +1,66 @@
+<div class="tool-container workspace-largo">
+    <header class="tool-header">
+        <h2>Gerador de Lorem Ipsum</h2>
+        <p>Gere textos temporários personalizados em formato de texto comum ou com tags HTML para seus layouts e códigos.</p>
+    </header>
+
+    <div class="tool-grid">
+        <div class="flex-column-gap">
+            <div class="field-group">
+                <label for="lorem-amount">Digite a quantidade:</label>
+                <div class="input-with-select">
+                    <input type="number" id="lorem-amount" value="3" min="1" max="100">
+                    <select id="lorem-unit">
+                        <option value="paragraphs">Parágrafos</option>
+                        <option value="words">Palavras</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="field-group">
+                <label>Tipo de Texto:</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="lorem-type" value="text" checked> Texto
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="lorem-type" value="html"> HTML
+                    </label>
+                </div>
+            </div>
+
+            <div class="field-group">
+                <label>Iniciar texto com "Lorem Ipsum":</label>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="lorem-start" value="yes" checked> Sim
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="lorem-start" value="no"> Não
+                    </label>
+                </div>
+            </div>
+            
+            <button id="generate-lorem-button" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Gerar Texto</button>
+        </div>
+
+        <div class="field-group">
+            <label for="lorem-output-wrapper">Resultado Gerado:</label>
+            <div class="lorem-output-container">
+                <div id="lorem-output" class="lorem-text-area"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar">
+        <button id="clean-lorem-button" class="btn btn-secondary">Limpar</button>
+        <button id="copy-lorem-button" class="btn btn-success">
+            <i class="bi bi-clipboard"></i> Copiar Resultado
+        </button>
+        <span id="copy-lorem-alert" class="toast-alert hidden">
+            <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
+        </span>
+    </div>
+</div>
+
+<script src="static/js/texto/lorem_ipsum.js"></script>
