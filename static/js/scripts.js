@@ -368,16 +368,25 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             if (typeof processarGeracaoLorem === "function") processarGeracaoLorem();
         }
-
         if (event.target.closest('#clean-lorem-button')) {
             event.preventDefault();
             if (typeof limparLorem === "function") limparLorem();
         }
-
         if (event.target.closest('#copy-lorem-button')) {
             event.preventDefault();
             if (typeof copiarLoremParaAreaTransferencia === "function") copiarLoremParaAreaTransferencia();
         }
+        // === 01. TEXTO - 15. Conversor de Markdown para HTML ===
+        if (event.target.closest('#clean-markdown-button')) {
+            event.preventDefault();
+            if (typeof limparMarkdown === "function") limparMarkdown();
+        }
+
+        if (event.target.closest('#copy-markdown-button')) {
+            event.preventDefault();
+            if (typeof copiarHtmlConvertido === "function") copiarHtmlConvertido();
+        }
+
 
         // === 02. CALCULADORAS - 01. Frações ===
         if (event.target.closest('#calc-fraction-button')) {
