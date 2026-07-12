@@ -570,6 +570,16 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             if (typeof limparTodosCamposBases === "function") limparTodosCamposBases();
         }
+        // === 05. REDE - 03. Conversor JSON / YAML ===
+        if (event.target.closest('#clean-format-button')) {
+            event.preventDefault();
+            if (typeof limparConversorFormatos === "function") limparConversorFormatos();
+        }
+
+        if (event.target.closest('#copy-format-button')) {
+            event.preventDefault();
+            if (typeof copiarFormatoConvertido === "function") copiarFormatoConvertido();
+        }
 
         // === 06. DATA/HORA - 01. Calculadora de Horas ===
         if (event.target.closest('#btn-limpar-horas')) {

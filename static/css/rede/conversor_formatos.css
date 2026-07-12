@@ -1,0 +1,57 @@
+/* ==========================================================================
+   === REDE - Conversor JSON ⇄ YAML ===
+   ========================================================================== */
+
+/* Área de digitação principal */
+.format-textarea {
+    width: 100%;
+    height: 520px;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--font-mono, monospace);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    resize: none;
+    outline: none;
+}
+
+/* Janela de Resultados */
+.format-output-container {
+    height: 520px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 1rem;
+    background-color: var(--bg-main);
+}
+
+.format-text-area {
+    margin: 0;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--text-main);
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Caixa flutuante ou de topo para exibir erros de compilação/sintaxe */
+.format-error-box {
+    background-color: rgba(217, 56, 58, 0.08);
+    border: 1px solid #d9383a;
+    color: #d9383a;
+    border-radius: var(--radius);
+    padding: 0.75rem;
+    font-size: 0.85rem;
+    font-family: var(--font-mono, monospace);
+    margin-bottom: 0.75rem;
+    line-height: 1.4;
+    word-break: break-all;
+}
+
+.format-error-box.hidden {
+    display: none !important;
+}

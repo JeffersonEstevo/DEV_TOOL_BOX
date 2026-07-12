@@ -1,0 +1,42 @@
+<div class="tool-container workspace-largo">
+    <header class="tool-header">
+        <h2>Conversor Multiformatos (JSON, YAML, XML)</h2>
+        <p>Converta arquivos de configuração entre os formatos JSON, YAML e XML instantaneamente com validação de sintaxe em tempo real.</p>
+    </header>
+
+    <div class="tool-grid">
+        <div class="field-group">
+            <label for="format-input">Entrada (Digite ou cole aqui):</label>
+            <div class="input-with-select" style="border: 1px solid var(--border-color); border-radius: var(--radius); display: flex; background: var(--bg-main); margin-bottom: 0.5rem;">
+                <select id="format-direction" style="border: none; width: 100%; padding: 0.5rem; background: transparent; font-size: 0.9rem; color: var(--text-main); cursor: pointer; outline: none;">
+                    <option value="json2yaml">JSON para YAML</option>
+                    <option value="json2xml">JSON para XML</option>
+                    <option value="yaml2json">YAML para JSON</option>
+                    <option value="xml2json">XML para JSON</option>
+                </select>
+            </div>
+            <textarea id="format-input" class="format-textarea" placeholder='{\n  "status": "sucesso",\n  "porta": 8080\n}' autocomplete="off" spellcheck="false"></textarea>
+        </div>
+
+        <div class="field-group">
+            <label for="format-output-container">Resultado Convertido:</label>
+            <div id="format-error-display" class="format-error-box hidden"></div>
+            <div class="format-output-container">
+                <pre id="format-output" class="format-text-area"></pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="clean-format-button" class="btn btn-secondary">Limpar Campos</button>
+        <button id="copy-format-button" class="btn btn-success">
+            <i class="bi bi-clipboard"></i> Copiar Resultado
+        </button>
+        <span id="copy-format-alert" class="toast-alert hidden">
+            <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
+        </span>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+<script src="static/js/rede/conversor_formatos.js"></script>
