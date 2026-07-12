@@ -632,8 +632,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+
+
     // ==========================================
-    // 10. CONTAGEM DE ACESSOS À PAGINA
+    // 7. CONTAGEM DE ACESSOS À PAGINA
     // ==========================================
     const visitsElement = document.getElementById('visits');
     if (!visitsElement) return;
@@ -667,9 +669,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     document.head.appendChild(script);    
 
-    /* ==========================================================================
-    7. DELEGAÇÃO DE CLIQUES PARA FERRAMENTAS INTERNAS (PÁGINAS INJETADAS)
-    ========================================================================== */
+    // ==========================================================================
+    //8. DELEGAÇÃO DE CLIQUES PARA FERRAMENTAS INTERNAS (PÁGINAS INJETADAS)
+    // ========================================================================== 
     document.addEventListener("click", function (event) {
         // Captura o clique do botão Comparar Textos
         const compareBtn = event.target.closest("#compare-button");
@@ -701,7 +703,7 @@ document.getElementById('current-year').textContent = new Date().getFullYear();
 
 
 // ==========================================================================
-// 8. SISTEMA AUTOMÁTICO DE CARREGAMENTO DE CSS SOB DEMANDA (SPA)
+// 9. SISTEMA AUTOMÁTICO DE CARREGAMENTO DE CSS SOB DEMANDA (SPA)
 // ==========================================================================
 function gerenciarCSSDaFerramenta() {
     // 1. Remove o CSS da ferramenta anterior para não acumular lixo na página
@@ -790,7 +792,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 // ==========================================
-// 9. CAPTURA DE EVENTOS TIPO INPUT (GLOBAL PARA SPA)
+// 10. CAPTURA DE EVENTOS TIPO INPUT (GLOBAL PARA SPA)
 // ==========================================
 document.addEventListener('input', (event) => {
     // 1. Se o usuário mexer no Input Nativo (Color Picker)
