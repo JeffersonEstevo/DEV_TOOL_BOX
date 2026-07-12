@@ -357,6 +357,11 @@ document.addEventListener("DOMContentLoaded", function () {
         if (event.target.closest('#copy-replace-button')) {
             event.preventDefault();
             window.copiarTextoDeElemento('final-text', 'copy-replace-alert');
+        }  
+        // === 01. TEXTO - 13. Tabela ASCII ===
+        if (event.target.closest('#clean-ascii-button')) {
+            event.preventDefault();
+            if (typeof limparBuscaASCII === "function") limparBuscaASCII();
         }
 
         // === 02. CALCULADORAS - 01. Frações ===

@@ -1,0 +1,52 @@
+<div class="tool-container workspace-largo">
+    <header class="tool-header">
+        <h2>Tabela ASCII Completa</h2>
+        <p>Consulte códigos de controle, caracteres padrão e estendidos (0 a 255) com busca em tempo real.</p>
+        
+        <div class="ascii-brief-info" style="margin-top: 1rem; font-size: 0.85rem; color: var(--text-muted); line-height: 1.4;">
+            <p>
+                <strong>O que é a Tabela ASCII?</strong> Criada nos anos 60, a ASCII funciona como um dicionário universal para computadores, traduzindo letras e comandos em números. 
+                Ela é dividida em três partes principais:
+            </p>
+            <ul style="margin: 0.5rem 0 0 1.2rem; padding: 0;">
+                <li><strong>0 a 31:</strong> Comandos invisíveis de controle (como quebras de linha).</li>
+                <li><strong>32 a 127:</strong> Caracteres visíveis padrão (letras do alfabeto inglês, números e pontuações).</li>
+                <li><strong>128 a 255:</strong> Caracteres estendidos regionalmente (acentos como <em>á, ç</em> e símbolos como <em>€</em> através da codificação Windows-1252).</li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="tool-grid">
+        <!-- Coluna de Opções/Busca -->
+        <div class="flex-column-gap">
+            <div class="field-group">
+                <label for="ascii-search">Buscar na Tabela:</label>
+                <input type="text" id="ascii-search" placeholder="Digite um código (ex: 65) ou caractere (ex: A)">
+            </div>
+
+            <div class="card-inner-options">
+                <span style="font-weight: 600; display: block; margin-bottom: 0.5rem;">Legenda de Controles Comuns:</span>
+                <ul style="margin: 0; padding-left: 1.2rem; font-size: 0.9rem; color: var(--text-muted);">
+                    <li><strong>NUL (0):</strong> Null (Nulo)</li>
+                    <li><strong>LF (10):</strong> Line Feed (Quebra de Linha)</li>
+                    <li><strong>CR (13):</strong> Carriage Return</li>
+                    <li><strong>SP (32):</strong> Space (Espaço em Branco)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Coluna de Visualização da Tabela -->
+        <div class="field-group">
+            <label>Visualização dos Códigos:</label>
+            <div id="ascii-tables-container" class="ascii-tables-wrapper">
+                <!-- As tabelas serão injetadas dinamicamente aqui pelo JS -->
+            </div>
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar">
+        <button id="clean-ascii-button" class="btn btn-secondary">Limpar Busca</button>
+    </div>
+</div>
+
+<script src="static/js/texto/tabela_ascii.js"></script>

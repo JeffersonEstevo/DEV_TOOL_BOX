@@ -1,0 +1,65 @@
+/* ==========================================================================
+   === 01. TEXTO - 13. Tabela ASCII ===
+   ========================================================================== */
+
+.ascii-tables-wrapper {
+  max-height: 520px; /* Alinhado proporcionalmente ao rows="14" do seu painel */
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 1rem;
+  background-color: var(--bg-main);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.ascii-section h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.25rem;
+}
+
+.ascii-table-data {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.9rem;
+}
+
+.ascii-table-data th,
+.ascii-table-data td {
+  padding: 0.4rem 0.6rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.ascii-table-data th {
+  background-color: rgba(0, 0, 0, 0.02);
+  font-weight: 600;
+}
+
+.ascii-row:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.ascii-code {
+  width: 30%;
+  color: var(--text-main);
+}
+
+.ascii-char {
+  font-family: var(--font-mono, monospace);
+  color: var(--text-main);
+}
+
+.control-char {
+  color: #d9383a; /* Destaque leve em tom avermelhado/laranja para caracteres invisíveis */
+  font-style: italic;
+  font-size: 0.85rem;
+}
+
+.hidden-row {
+  display: none !important;
+}
