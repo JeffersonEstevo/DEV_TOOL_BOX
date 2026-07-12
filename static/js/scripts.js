@@ -386,6 +386,16 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             if (typeof copiarHtmlConvertido === "function") copiarHtmlConvertido();
         }
+        // === 01. TEXTO - 16. Gerador de PDF a partir de HTML ===
+        if (event.target.closest('#clean-pdf-button')) {
+            event.preventDefault();
+            if (typeof limparGeradorPdf === "function") limparGeradorPdf();
+        }
+
+        if (event.target.closest('#download-pdf-button')) {
+            event.preventDefault();
+            if (typeof baixarPdfGerado === "function") baixarPdfGerado();
+        }
 
 
         // === 02. CALCULADORAS - 01. Frações ===

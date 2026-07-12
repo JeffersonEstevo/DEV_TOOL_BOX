@@ -1,0 +1,34 @@
+<div class="tool-container workspace-largo">
+    <header class="tool-header">
+        <h2>Gerador de PDF a partir de HTML</h2>
+        <p>Insira seu código HTML para visualizar a renderização e exportar um documento PDF de alta fidelidade instantaneamente.</p>
+        <small class="field-help" style="margin-top: 0.25rem; display: block; color: var(--text-muted);">
+            <i class="bi bi-exclamation-circle-fill" style="color: var(--accent);"></i> 
+            <strong>Dica de Impressão:</strong> O PDF herdará o tema atual da tela. Para gerar um documento com fundo branco tradicional, mude seu painel para o <strong>Modo Claro</strong> antes de exportar.
+        </small>
+    </header>
+
+    <div class="tool-grid">
+        <div class="field-group">
+            <label for="pdf-html-input">Código HTML de Origem:</label>
+            <textarea id="pdf-html-input" class="pdf-textarea" placeholder="<h1>Meu Relatório</h1>&#10;<p>Este é um parágrafo em <strong>negrito</strong>.</p>&#10;<table border='1'><tr><td>Item</td><td>Valor</td></tr><tr><td>A</td><td>10</td></tr></table>" autocomplete="off" spellcheck="false"></textarea>
+        </div>
+
+        <div class="field-group">
+            <label>Pré-visualização do PDF:</label>
+            <div class="pdf-preview-container">
+                <div id="pdf-preview-area" class="pdf-page-preview"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="clean-pdf-button" class="btn btn-secondary">Limpar</button>
+        <button id="download-pdf-button" class="btn btn-success">
+            <i class="bi bi-file-earmark-pdf-fill"></i> Baixar PDF
+        </button>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script src="static/js/texto/html_to_pdf.js"></script>
