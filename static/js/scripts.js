@@ -632,40 +632,40 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-
+    // ==========================================
+    // 10. CONTAGEM DE ACESSOS À PAGINA
+    // ==========================================
     const visitsElement = document.getElementById('visits');
-    if (visitsElement) {
-        // Usando o serviço do Hrishikesh (o mais famoso e estável para GitHub Pages)
-        // Mudamos o link para a versão JSONP que passa por cima de qualquer bloqueio de CORS!
-        const namespace = 'dev-tool-box-prod-2026';
-        const key = 'main-visits';
-        
-        // Criamos um elemento de script dinâmico (técnica JSONP) que nenhum navegador ou localhost bloqueia
-        const script = document.createElement('script');
-        
-        // Esta função global vai receber o número real da API e atualizar a tela
-        window.atualizarTextoContador = function(response) {
-            if (response && response.value) {
-                visitsElement.innerText = Number(response.value).toLocaleString('pt-BR');
-            } else {
-                visitsElement.innerText = "150"; // Fallback amigável
-            }
-        };
+    if (!visitsElement) return;
 
-        // Chamamos a API passando a nossa função como 'callback'
-        script.src = `https://api.countapi.xyz/hit/${namespace}/${key}?callback=atualizarTextoContador`;
-        
-        // Se a api.countapi original falhar, usamos o plano B comercial e ultra-estável da CounterAPI usando imagem:
-        script.onerror = function() {
-            // Se o script falhar (como no localhost), fazemos um truque de contagem incremental local para você conseguir testar se o número muda!
-            let localVisits = parseInt(localStorage.getItem('local_user_visits')) || 142;
-            localVisits++;
-            localStorage.setItem('local_user_visits', localVisits);
-            visitsElement.innerText = localVisits.toLocaleString('pt-BR');
-        };
+    const namespace = 'dev-tool-box-prod-2026';
+    const key = 'main-visits';
+    
+    // Criamos a função global de callback
+    window.atualizarTextoContador = function(response) {
+        if (response && response.value) {
+            visitsElement.innerText = Number(response.value).toLocaleString('pt-BR');
+        } else {
+            usarFallbackLocal();
+        }
+    };
 
-        document.head.appendChild(script);
+    // Função separada para o plano B caso a rede falhe
+    function usarFallbackLocal() {
+        let localVisits = parseInt(localStorage.getItem('local_user_visits')) || 142;
+        localVisits++;
+        localStorage.setItem('local_user_visits', localVisits);
+        visitsElement.innerText = localVisits.toLocaleString('pt-BR');
     }
+
+    // Criamos o script dinâmico apontando para um servidor ATIVO (countapi.lystit.com)
+    const script = document.createElement('script');
+    script.src = `https://countapi.lystit.com/hit/${namespace}/${key}?callback=atualizarTextoContador`;
+    
+    // Se o novo servidor falhar, o fallback entra instantaneamente
+    script.onerror = usarFallbackLocal;
+
+    document.head.appendChild(script);    
 
     /* ==========================================================================
     7. DELEGAÇÃO DE CLIQUES PARA FERRAMENTAS INTERNAS (PÁGINAS INJETADAS)
@@ -814,6 +814,8 @@ document.addEventListener('input', (event) => {
     if (event.target.id === 'cor-hsl') {
         atualizarInterfacePorHsl(event.target.value);
     }
+
+    
 
 });
 
