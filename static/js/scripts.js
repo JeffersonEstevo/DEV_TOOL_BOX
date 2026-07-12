@@ -633,6 +633,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
+    const visitsElement = document.getElementById('visits');
+    if (visitsElement) {
+        const namespace = 'dev-tool-box-githubio'; 
+        const key = 'home-visits';
+
+        fetch(`https://api.counterapi.dev/v1/${namespace}/${key}/increment`)
+            .then(res => res.json())
+            .then(data => {
+                visitsElement.innerText = Number(data.value).toLocaleString('pt-BR');
+            })
+            .catch(() => visitsElement.innerText = '1');
+    }
 
     /* ==========================================================================
     7. DELEGAÇÃO DE CLIQUES PARA FERRAMENTAS INTERNAS (PÁGINAS INJETADAS)
@@ -781,4 +793,11 @@ document.addEventListener('input', (event) => {
     if (event.target.id === 'cor-hsl') {
         atualizarInterfacePorHsl(event.target.value);
     }
+
 });
+
+
+
+
+
+
