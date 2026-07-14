@@ -22,19 +22,13 @@
         </div>
     </div>
 
-    <div class="action-bar border-top-bar" style="justify-content: center; gap: 1rem;">
+    <div class="action-bar border-top-bar" style="justify-content: center;">
         <button id="clean-pdf-button" class="btn btn-secondary">Limpar</button>
         <button id="download-pdf-button" class="btn btn-success">
-            <span class="btn-content">
-                <i class="bi bi-file-earmark-pdf-fill"></i> Baixar PDF
-            </span>
-            <span class="btn-loading hidden">
-                <span class="spinner"></span> Gerando PDF...
-            </span>
+            <i class="bi bi-file-earmark-pdf-fill"></i> Baixar PDF
         </button>
     </div>
 </div>
 
-<!-- Dependências -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-<script type="module" src="static/js/texto/html_to_pdf.js"></script>
+<script src="static/js/texto/html_to_pdf.js"></script>

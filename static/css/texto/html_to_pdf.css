@@ -1,6 +1,6 @@
 /* ==========================================================================
-   === TEXTO - Gerador de PDF a partir de HTML ===
-   ========================================================================== */
+=== TEXTO - Gerador de PDF a partir de HTML ===
+========================================================================== */
 
 /* Área de input do código HTML bruto */
 .pdf-textarea {
@@ -16,6 +16,11 @@
     line-height: 1.5;
     resize: none;
     outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.pdf-textarea:focus {
+    border-color: rgba(0, 0, 0, 0.25);
 }
 
 /* Container de scroll da Preview */
@@ -25,64 +30,187 @@
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
     padding: 1.5rem;
-    background-color: var(--bg-sidebar); /* Cor de fundo ligeiramente diferente para destacar o papel */
+    background-color: var(--bg-sidebar); 
     display: flex;
     justify-content: center;
+}
+
+/* Estado vazio da visualização */
+.preview-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    text-align: center;
 }
 
 /* Área que simula a página física do PDF */
 .pdf-page-preview {
     width: 100%;
     min-height: 100%;
-    background-color: #ffffff; /* Fundo sempre branco igual ao PDF */
-    color: #333333;            /* Cor de texto padrão de documentos */
-    padding: 20px;
-    border-radius: 2px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
+    background-color: #ffffff; 
+    color: #1e293b; /* Tom cinza escuro profissional, melhor que preto puro */
+    padding: 30px;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     font-size: 0.95rem;
     line-height: 1.6;
     word-wrap: break-word;
 }
 
-/* Estilizações base dentro do PDF para que tabelas e elementos inseridos fiquem bonitos */
+/* --------------------------------------------------------------------------
+   DESIGN SYSTEM PARA O CONTEÚDO DO PDF (Renders Elegantes)
+   -------------------------------------------------------------------------- */
+
+/* Títulos Editoriais */
+.pdf-page-preview h1 {
+    font-size: 2rem;
+    color: #0f172a;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.5rem;
+}
+
+.pdf-page-preview h2 {
+    font-size: 1.5rem;
+    color: #1e293b;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.pdf-page-preview h3 {
+    font-size: 1.2rem;
+    color: #334155;
+    font-weight: 600;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+/* ==========================================================================
+   TABELAS CORPORATIVAS CORRIGIDAS (ALINHAMENTO, BORDAS E PROPORÇÕES)
+   ========================================================================== */
 .pdf-page-preview table {
-    width: 100%;
+    width: 100% !important;        /* Força a tabela a ocupar toda a largura útil da folha */
+    max-width: 100% !important;
+    table-layout: fixed;           /* Distribui as colunas de forma estável e impede que passem do limite da página */
     border-collapse: collapse;
-    margin: 1rem 0;
+    margin: 1.5rem 0;
+    font-size: 0.85rem;            /* Tamanho de fonte ideal para relatórios impressos */
+    box-sizing: border-box;
 }
 
 .pdf-page-preview th, 
 .pdf-page-preview td {
-    border: 1px solid #cccccc;
-    padding: 8px;
-    text-align: left;
+    border: 1px solid #cbd5e1;
+    padding: 10px 12px;
+    text-align: left;              /* Alinhamento padrão elegante para a esquerda */
+    vertical-align: middle;        /* Alinha o conteúdo verticalmente no meio da linha */
+    word-wrap: break-word;         /* Força a quebra de linha em palavras grandes para não esticar a coluna */
+    overflow-wrap: break-word;
+    white-space: normal;           /* Garante fluxo de texto multilinha em vez de expandir a tabela lateralmente */
 }
 
+/* th elegante e contrastante */
 .pdf-page-preview th {
-    background-color: #f2f2f2;
+    background-color: #f1f5f9;
+    color: #0f172a;
+    font-weight: 600;
 }
 
+/* Linhas alternadas (zebra) */
+.pdf-page-preview tr:nth-child(even) {
+    background-color: #f8fafc;
+}
+
+/* Classes utilitárias de alinhamento para o HTML do usuário */
+.pdf-page-preview .text-center { text-align: center !important; }
+.pdf-page-preview .text-right { text-align: right !important; }
+.pdf-page-preview .text-left { text-align: left !important; }
+
+
+/* Listas formatadas */
+.pdf-page-preview ul, 
+.pdf-page-preview ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1.2rem;
+}
+
+.pdf-page-preview li {
+    margin-bottom: 0.4rem;
+}
+
+/* Citações / Blockquotes profissionais */
+.pdf-page-preview blockquote {
+    border-left: 4px solid #6366f1; /* Tom índigo moderno */
+    background-color: #f8fafc;
+    padding: 0.75rem 1.25rem;
+    margin: 1.5rem 0;
+    color: #475569;
+    font-style: italic;
+    border-radius: 0 4px 4px 0;
+}
+
+/* Elementos de Código */
 .pdf-page-preview code {
-    background-color: #f4f4f4;
-    padding: 2px 4px;
+    background-color: #f1f5f9;
+    color: #e11d48;
+    padding: 2px 5px;
     border-radius: 4px;
-    font-family: monospace;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 0.85em;
 }
 
-/* Garante que os blocos de texto ajam como elementos estruturais tratáveis */
+.pdf-page-preview pre {
+    background-color: #0f172a;
+    color: #f8fafc;
+    padding: 1rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 1.2rem 0;
+}
+
+.pdf-page-preview pre code {
+    background-color: transparent;
+    color: inherit;
+    padding: 0;
+    font-size: 0.9em;
+}
+
+/* Elemento de Callout / Informativos (.info-box ou .alert-box no HTML do usuário) */
+.pdf-page-preview .callout {
+    background-color: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-left: 4px solid #3b82f6;
+    padding: 1rem;
+    border-radius: 4px;
+    margin: 1.2rem 0;
+}
+
+/* --------------------------------------------------------------------------
+   REGRAS DE QUEBRA FÍSICA CORRIGIDAS (NÃO QUEBRA O ALINHAMENTO DA TABELA)
+   -------------------------------------------------------------------------- */
 .pdf-page-preview p, 
 .pdf-page-preview li, 
-.pdf-page-preview tr,
-.pdf-page-preview div {
-    display: block; /* Essencial para o html2canvas calcular a altura correta */
+.pdf-page-preview blockquote,
+.pdf-page-preview .callout {
+    display: block; 
     page-break-inside: avoid !important;
     break-inside: avoid !important;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
 }
 
-/* Força títulos a quebrarem antes deles caso fiquem espremidos */
+/* Tratamento de quebra seguro sem alterar o display nativo da tabela (previne bugs de render) */
+.pdf-page-preview table,
+.pdf-page-preview tr {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+}
+
 .pdf-page-preview h1, 
 .pdf-page-preview h2, 
 .pdf-page-preview h3 {
@@ -92,8 +220,44 @@
     break-after: avoid !important;
 }
 
-/* Classe utilitária manual: Se o usuário quiser forçar uma quebra de página no HTML dele */
 .break-before {
     page-break-before: always !important;
     break-before: always !important;
+}
+
+.break-after {
+    page-break-after: always !important;
+    break-after: always !important;
+}
+
+.avoid-break {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+}
+
+/* --------------------------------------------------------------------------
+   INTERFACES E EFEITOS DE CARREGAMENTO (UI)
+   -------------------------------------------------------------------------- */
+.hidden {
+    display: none !important;
+}
+
+/* Estilo do Spinner do botão de carregamento */
+.btn-loading {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.spinner {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: spin-anim 0.8s linear infinite;
+}
+
+@keyframes spin-anim {
+    to { transform: rotate(360deg); }
 }

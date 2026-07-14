@@ -817,7 +817,7 @@ document.addEventListener('input', (event) => {
         atualizarInterfacePorHsl(event.target.value);
     }
 
-    
+    new HtmlToPdfConverter();
 
 });
 

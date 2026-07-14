@@ -1,76 +1,124 @@
-// Configurações básicas do processador Marked para quebras de linha amigáveis
-if (typeof marked !== 'undefined') {
-    marked.setOptions({
-        breaks: true,   // Converte quebras de linha simples em <br>
-        gfm: true       // Ativa o GitHub Flavored Markdown (tabelas, riscado, etc.)
-    });
-}
+/**
+ * Conversor de Markdown para HTML
+ * Módulo ES6 estruturado para rodar de forma segura e com suporte a GFM.
+ */
+(() => {
+    'use strict';
 
-function processarConversaoMarkdown() {
+    // Elementos do DOM baseados no seu HTML atual
     const inputArea = document.getElementById("markdown-input");
     const outputPre = document.getElementById("markdown-output");
-    
-    if (!inputArea || !outputPre) return;
-    if (typeof marked === 'undefined') {
-        outputPre.innerText = "Erro: Biblioteca de conversão não carregada.";
-        return;
-    }
-
-    const markdownTexto = inputArea.value;
-
-    if (!markdownTexto.trim()) {
-        outputPre.innerText = "";
-        return;
-    }
-
-    // Processa o Markdown e converte para String HTML
-    try {
-        const htmlGerado = marked.parse(markdownTexto);
-        // Usamos innerText para exibir o código bruto do HTML em vez de renderizá-lo
-        outputPre.innerText = htmlGerado;
-    } catch (erro) {
-        outputPre.innerText = "Erro ao processar o Markdown: " + erro.message;
-    }
-}
-
-function limparMarkdown() {
-    const inputArea = document.getElementById("markdown-input");
-    const outputPre = document.getElementById("markdown-output");
-    
-    if (inputArea) inputArea.value = "";
-    if (outputPre) outputPre.innerText = "";
-}
-
-function copiarHtmlConvertido() {
-    const outputPre = document.getElementById("markdown-output");
+    const cleanButton = document.getElementById("clean-markdown-button");
+    const copyButton = document.getElementById("copy-markdown-button");
     const alertSpan = document.getElementById("copy-markdown-alert");
-    if (!outputPre) return;
 
-    const textoParaCopiar = outputPre.innerText || outputPre.textContent;
-
-    if (!textoParaCopiar.trim()) return;
-
-    navigator.clipboard.writeText(textoParaCopiar).then(() => {
-        if (alertSpan) {
-            alertSpan.classList.remove("hidden");
-            setTimeout(() => {
-                alertSpan.classList.add("hidden");
-            }, 2000);
+    /**
+     * Configura o processador de Markdown (Marked)
+     */
+    function initMarked() {
+        if (typeof marked !== 'undefined') {
+            marked.setOptions({
+                breaks: true, // Converte quebras de linha simples em <br>
+                gfm: true,    // Ativa GitHub Flavored Markdown (tabelas, riscado, etc.)
+                mangle: false,
+                headerIds: false
+            });
         }
-    }).catch(err => {
-        console.error("Erro ao copiar o código: ", err);
-    });
-}
-
-function inicializarConversorMarkdown() {
-    const inputArea = document.getElementById("markdown-input");
-
-    if (inputArea) {
-        // Vincula a conversão ao digitar (input) para acontecer em tempo real
-        inputArea.removeEventListener("input", processarConversaoMarkdown);
-        inputArea.addEventListener("input", processarConversaoMarkdown);
     }
-}
 
-// Inicialização do módulo
-inicializarConversorMarkdown();
+    /**
+     * Processa a conversão em tempo real
+     */
+    function processMarkdown() {
+        if (!inputArea || !outputPre) return;
+
+        if (typeof marked === 'undefined') {
+            outputPre.textContent = "Erro: Biblioteca de conversão 'marked' não foi carregada.";
+            return;
+        }
+
+        const markdownText = inputArea.value;
+
+        if (!markdownText.trim()) {
+            outputPre.textContent = "";
+            return;
+        }
+
+        try {
+            // Converte o Markdown para string HTML pura
+            const rawHtml = marked.parse(markdownText);
+            
+            // Exibe o código bruto gerado dentro da tag <pre> de forma segura
+            outputPre.textContent = rawHtml;
+        } catch (error) {
+            outputPre.textContent = "Erro ao processar o Markdown: " + error.message;
+        }
+    }
+
+    /**
+     * Limpa as áreas de entrada e saída
+     */
+    function clearFields() {
+        if (inputArea) inputArea.value = "";
+        if (outputPre) outputPre.textContent = "";
+    }
+
+    /**
+     * Copia o HTML gerado para a área de transferência
+     */
+    async function copyToClipboard() {
+        if (!outputPre) return;
+
+        const textToCopy = outputPre.textContent;
+        if (!textToCopy.trim()) return;
+
+        try {
+            await navigator.clipboard.writeText(textToCopy);
+            showCopyAlert();
+        } catch (err) {
+            console.error("Falha ao copiar o HTML: ", err);
+        }
+    }
+
+    /**
+     * Exibe o feedback visual de cópia bem-sucedida
+     */
+    function showCopyAlert() {
+        if (!alertSpan) return;
+        
+        alertSpan.classList.remove("hidden");
+        // Adiciona classe de animação caso exista em seu ecossistema CSS
+        alertSpan.classList.add("visible"); 
+
+        setTimeout(() => {
+            alertSpan.classList.remove("visible");
+            alertSpan.classList.add("hidden");
+        }, 2000);
+    }
+
+    /**
+     * Inicializa os ouvintes de eventos
+     */
+    function init() {
+        initMarked();
+
+        if (inputArea) {
+            inputArea.addEventListener("input", processMarkdown);
+        }
+
+        if (cleanButton) {
+            cleanButton.addEventListener("click", clearFields);
+        }
+
+        if (copyButton) {
+            copyButton.addEventListener("click", copyToClipboard);
+        }
+    }
+
+    // Inicializa o módulo assim que o DOM estiver pronto
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+    } else {
+        init();
+    }
+})();

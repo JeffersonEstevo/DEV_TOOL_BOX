@@ -1,3 +1,4 @@
+
 /* ==========================================================================
 === 01. TEXTO - 15. Conversor de Markdown para HTML ===
 ========================================================================== */
@@ -16,11 +17,10 @@
     line-height: 1.5;
     resize: none;
     outline: none;
-    transition: border-color 0.2s ease;
 }
 
 .markdown-textarea:focus {
-    border-color: rgba(0, 0, 0, 0.2); /* Altere para sua variável de foco se houver */
+    border-color: rgba(0, 0, 0, 0.2); /* Altere para sua variável de foco, se houver */
 }
 
 /* Container do Bloco de Saída do Código HTML */
@@ -33,7 +33,7 @@
     background-color: var(--bg-main);
 }
 
-/* Área interna do preformatted text para o código */
+/* Área interna do prefomated text para o código */
 .markdown-text-area {
     margin: 0;
     font-family: var(--font-mono, monospace);
@@ -42,21 +42,4 @@
     color: var(--text-main);
     white-space: pre-wrap;
     word-wrap: break-word;
-}
-
-/* Controle de visibilidade do alerta/toast */
-.toast-alert.hidden {
-    display: none !important;
-}
-
-.toast-alert.visible {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(4px); }
-    to { opacity: 1; transform: translateY(0); }
 }
