@@ -3,8 +3,11 @@
         <h2>Gerador de PDF a partir de HTML</h2>
         <p>Insira seu código HTML para visualizar a renderização e exportar um documento PDF de alta fidelidade instantaneamente.</p>
         <small class="field-help" style="margin-top: 0.25rem; display: block; color: var(--text-muted);">
-            <i class="bi bi-exclamation-circle-fill" style="color: var(--accent);"></i> 
-            <strong>Dica de Impressão:</strong> O PDF herdará o tema atual da tela. Para gerar um documento com fundo branco tradicional, mude seu painel para o <strong>Modo Claro</strong> antes de exportar.
+            <i class="bi bi-exclamation-circle-fill" style="color: var(--accent);"></i>
+            <strong>Como funciona:</strong> ao clicar em "Gerar PDF", abrimos uma aba com o documento pronto para impressão
+            e disparamos automaticamente a caixa de diálogo de impressão do navegador — basta escolher
+            <strong>"Salvar como PDF"</strong> como destino. O documento é sempre gerado em fundo claro, com texto
+            selecionável, independente do tema atual da tela.
         </small>
     </header>
 
@@ -26,15 +29,13 @@
         <button id="clean-pdf-button" class="btn btn-secondary">Limpar</button>
         <button id="download-pdf-button" class="btn btn-success">
             <span class="btn-content">
-                <i class="bi bi-file-earmark-pdf-fill"></i> Baixar PDF
+                <i class="bi bi-file-earmark-pdf-fill"></i> Gerar PDF
             </span>
             <span class="btn-loading hidden">
-                <span class="spinner"></span> Gerando PDF...
+                <span class="spinner"></span> Abrindo impressão...
             </span>
         </button>
     </div>
 </div>
 
-<!-- Dependências -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script type="module" src="static/js/texto/html_to_pdf.js"></script>

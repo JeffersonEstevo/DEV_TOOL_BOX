@@ -30,7 +30,7 @@
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
     padding: 1.5rem;
-    background-color: var(--bg-sidebar); 
+    background-color: var(--bg-sidebar);
     display: flex;
     justify-content: center;
 }
@@ -46,12 +46,19 @@
     text-align: center;
 }
 
-/* Área que simula a página física do PDF */
+/* --------------------------------------------------------------------------
+   PRÉ-VISUALIZAÇÃO EM TELA (aproximada)
+   O resultado final e definitivo do PDF é gerado à parte, em documento
+   isolado, usando a folha de estilos PRINT_STYLES definida em
+   html_to_pdf.js — esta seção aqui serve só para dar um preview rápido
+   ao usuário enquanto ele edita o HTML, sem precisar abrir a impressão
+   a cada alteração.
+   -------------------------------------------------------------------------- */
 .pdf-page-preview {
     width: 100%;
     min-height: 100%;
-    background-color: #ffffff; 
-    color: #1e293b; /* Tom cinza escuro profissional, melhor que preto puro */
+    background-color: #ffffff;
+    color: #1e293b;
     padding: 30px;
     border-radius: 4px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -59,13 +66,9 @@
     font-size: 0.95rem;
     line-height: 1.6;
     word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
-/* --------------------------------------------------------------------------
-   DESIGN SYSTEM PARA O CONTEÚDO DO PDF (Renders Elegantes)
-   -------------------------------------------------------------------------- */
-
-/* Títulos Editoriais */
 .pdf-page-preview h1 {
     font-size: 2rem;
     color: #0f172a;
@@ -92,50 +95,44 @@
     margin-bottom: 0.5rem;
 }
 
-/* ==========================================================================
-   TABELAS CORPORATIVAS CORRIGIDAS (ALINHAMENTO, BORDAS E PROPORÇÕES)
-   ========================================================================== */
+/* Tabelas: mesma lógica de largura estável usada no PDF final,
+   para que o preview em tela já reflita fielmente o resultado. */
 .pdf-page-preview table {
-    width: 100% !important;        /* Força a tabela a ocupar toda a largura útil da folha */
+    width: 100% !important;
     max-width: 100% !important;
-    table-layout: fixed;           /* Distribui as colunas de forma estável e impede que passem do limite da página */
+    table-layout: fixed;
     border-collapse: collapse;
     margin: 1.5rem 0;
-    font-size: 0.85rem;            /* Tamanho de fonte ideal para relatórios impressos */
+    font-size: 0.85rem;
     box-sizing: border-box;
 }
 
-.pdf-page-preview th, 
+.pdf-page-preview th,
 .pdf-page-preview td {
     border: 1px solid #cbd5e1;
     padding: 10px 12px;
-    text-align: left;              /* Alinhamento padrão elegante para a esquerda */
-    vertical-align: middle;        /* Alinha o conteúdo verticalmente no meio da linha */
-    word-wrap: break-word;         /* Força a quebra de linha em palavras grandes para não esticar a coluna */
-    overflow-wrap: break-word;
-    white-space: normal;           /* Garante fluxo de texto multilinha em vez de expandir a tabela lateralmente */
+    text-align: left;
+    vertical-align: top;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+    white-space: normal;
 }
 
-/* th elegante e contrastante */
 .pdf-page-preview th {
     background-color: #f1f5f9;
     color: #0f172a;
     font-weight: 600;
 }
 
-/* Linhas alternadas (zebra) */
 .pdf-page-preview tr:nth-child(even) {
     background-color: #f8fafc;
 }
 
-/* Classes utilitárias de alinhamento para o HTML do usuário */
 .pdf-page-preview .text-center { text-align: center !important; }
 .pdf-page-preview .text-right { text-align: right !important; }
 .pdf-page-preview .text-left { text-align: left !important; }
 
-
-/* Listas formatadas */
-.pdf-page-preview ul, 
+.pdf-page-preview ul,
 .pdf-page-preview ol {
     padding-left: 1.5rem;
     margin-bottom: 1.2rem;
@@ -145,9 +142,8 @@
     margin-bottom: 0.4rem;
 }
 
-/* Citações / Blockquotes profissionais */
 .pdf-page-preview blockquote {
-    border-left: 4px solid #6366f1; /* Tom índigo moderno */
+    border-left: 4px solid #6366f1;
     background-color: #f8fafc;
     padding: 0.75rem 1.25rem;
     margin: 1.5rem 0;
@@ -156,7 +152,6 @@
     border-radius: 0 4px 4px 0;
 }
 
-/* Elementos de Código */
 .pdf-page-preview code {
     background-color: #f1f5f9;
     color: #e11d48;
@@ -166,6 +161,9 @@
     font-size: 0.85em;
 }
 
+/* Em tela, blocos de código longos rolam horizontalmente (útil durante a
+   edição); no PDF final (PRINT_STYLES) eles quebram linha em vez de rolar,
+   já que papel não tem scroll. */
 .pdf-page-preview pre {
     background-color: #0f172a;
     color: #f8fafc;
@@ -182,7 +180,6 @@
     font-size: 0.9em;
 }
 
-/* Elemento de Callout / Informativos (.info-box ou .alert-box no HTML do usuário) */
 .pdf-page-preview .callout {
     background-color: #eff6ff;
     border: 1px solid #bfdbfe;
@@ -193,56 +190,12 @@
 }
 
 /* --------------------------------------------------------------------------
-   REGRAS DE QUEBRA FÍSICA CORRIGIDAS (NÃO QUEBRA O ALINHAMENTO DA TABELA)
-   -------------------------------------------------------------------------- */
-.pdf-page-preview p, 
-.pdf-page-preview li, 
-.pdf-page-preview blockquote,
-.pdf-page-preview .callout {
-    display: block; 
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-}
-
-/* Tratamento de quebra seguro sem alterar o display nativo da tabela (previne bugs de render) */
-.pdf-page-preview table,
-.pdf-page-preview tr {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-}
-
-.pdf-page-preview h1, 
-.pdf-page-preview h2, 
-.pdf-page-preview h3 {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-    page-break-after: avoid !important;
-    break-after: avoid !important;
-}
-
-.break-before {
-    page-break-before: always !important;
-    break-before: always !important;
-}
-
-.break-after {
-    page-break-after: always !important;
-    break-after: always !important;
-}
-
-.avoid-break {
-    page-break-inside: avoid !important;
-    break-inside: avoid !important;
-}
-
-/* --------------------------------------------------------------------------
    INTERFACES E EFEITOS DE CARREGAMENTO (UI)
    -------------------------------------------------------------------------- */
 .hidden {
     display: none !important;
 }
 
-/* Estilo do Spinner do botão de carregamento */
 .btn-loading {
     display: inline-flex;
     align-items: center;
