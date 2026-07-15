@@ -585,6 +585,11 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             if (typeof limparConversorFormatos === "function") limparConversorFormatos();
         }
+        // === 05. REDE - 03. Calculadora de Sub-redes ===
+        if (event.target.closest('#btn-limpar-subredes')) {
+            event.preventDefault();
+            if (typeof limparTodosCamposSubredes === "function") limparTodosCamposSubredes();
+        }
 
         if (event.target.closest('#copy-format-button')) {
             event.preventDefault();

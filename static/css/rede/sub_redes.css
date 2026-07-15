@@ -1,0 +1,170 @@
+/* Estilos específicos para o calculador de sub-redes */
+
+/* ==========================================================================
+   === 05. REDE - 04. Calculadora de Sub-redes ===
+   ========================================================================== */
+
+.tool-container .subredes-workspace {
+  max-width: 650px !important;
+  width: 100% !important;
+  text-align: left !important;
+  padding: 2rem !important;
+}
+
+.subredes-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+}
+
+@media (max-width: 480px) {
+  .subredes-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.subredes-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.subredes-field label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.subredes-field input[type="text"],
+.subredes-field select {
+  width: 100%;
+  padding: 0.5rem 0.75rem; /* Reduzido o padding para não ficar muito grosso */
+  font-size: 0.85rem;         /* Reduzido de 1.15rem para 0.85rem (tamanho padrão confortável) */
+  font-weight: 500;        /* Mudado de 700 (negrito pesado) para 500 (médio/padrão) */
+  font-family: monospace;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  color: var(--primary-color);
+  border-radius: var(--radius);
+  box-sizing: border-box;
+  height: 38px;            /* Altura fixa padrão de mercado para inputs e selects alinharem perfeitamente */
+}
+
+.subredes-field input[type="text"]:focus,
+.subredes-field select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  background-color: var(--bg-sidebar);
+}
+
+/* Estilo para a tabela informativa de bolso */
+.subredes-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background-color: var(--bg-sidebar);
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.subredes-table th {
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+.subredes-table td {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+.subredes-table tr:last-child td {
+  border-bottom: none;
+}
+
+.mono-text {
+  font-family: monospace;
+  font-size: 0.85rem !important;
+  color: var(--primary-color) !important;
+}
+
+
+
+
+
+
+
+/* Estrutura de Abas (Idêntico ao seu padrão do máscara.css) */
+.rede-tabs {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-main);
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tab-btn:hover {
+  opacity: 1;
+  background-color: var(--bg-main);
+}
+
+.tab-btn.active {
+  opacity: 1;
+  color: var(--primary-color);
+  background-color: var(--bg-main);
+}
+
+.tab-content {
+  display: none !important;
+}
+
+.tab-content.active {
+  display: block !important;
+}
+
+/* Novo Grid para 3 elementos (Aba 2) */
+.subredes-grid-tres {
+  display: grid;
+  grid-template-columns: 1.5fr 1.5fr 1.5fr;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+@media (max-width: 600px) {
+  .subredes-grid-tres {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Customização para Tabela de Particionamento Responsiva */
+.part-tabela-container {
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+}
+
+.linha-local {
+  border-left: 4px solid #28a745;
+}

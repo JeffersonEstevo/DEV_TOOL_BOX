@@ -1,0 +1,87 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Calculadora de Sub-redes (IPv4)</h2>
+        <p>Insira um endereço IP e selecione a máscara CIDR para calcular instantaneamente as informações de sub-rede e obter dados de bolso úteis para o seu desenvolvimento.</p>
+    </header>
+
+    <div class="generator-workspace subredes-workspace">
+        <div class="subredes-grid">
+            
+            <div class="subredes-field">
+                <label for="subrede-ip">Endereço IP</label>
+                <input type="text" id="subrede-ip" placeholder="Ex: 192.168.0.1" value="192.168.0.1" autocomplete="off">
+                <small class="field-help">Formato: Decimais separados por ponto (0-255)</small>
+            </div>
+
+            <div class="subredes-field">
+                <label for="subrede-cidr">Máscara CIDR</label>
+                <select id="subrede-cidr">
+                    <!-- Gerado dinamicamente via JS do /24 ao /32, ou todos os /1 ao /32 -->
+                </select>
+                <small class="field-help">Selecione o prefixo de sub-rede</small>
+            </div>
+
+        </div>
+
+        <!-- Tabela de Resultados de Bolso -->
+        <div class="subredes-resultados" id="subredes-resultados" style="display: none; margin-top: 1.5rem;">
+            <table class="subredes-table">
+                <thead>
+                    <tr>
+                        <th colspan="2">Informações da Rede</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Endereço de Rede:</strong></td>
+                        <td id="res-rede">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Máscara de Rede:</strong></td>
+                        <td id="res-mascara">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Primeiro IP Útil:</strong></td>
+                        <td id="res-primeiro-ip">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Último IP Útil:</strong></td>
+                        <td id="res-ultimo-ip">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Endereço de Broadcast:</strong></td>
+                        <td id="res-broadcast">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total de IPs Host:</strong></td>
+                        <td id="res-total-ips">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hosts Utilizáveis:</strong></td>
+                        <td id="res-hosts-uteis">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Classe do IP:</strong></td>
+                        <td id="res-classe">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>IP em Binário:</strong></td>
+                        <td id="res-binario" class="mono-text">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Máscara em Binário:</strong></td>
+                        <td id="res-mascara-binario" class="mono-text">-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="btn-limpar-subredes" class="btn btn-success">
+            <i class="bi bi-trash3-fill"></i> Limpar Campos
+        </button>
+    </div>
+</div>
+
+<script src="static/js/rede/sub_redes.js"></script>

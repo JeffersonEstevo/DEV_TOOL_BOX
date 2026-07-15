@@ -5,6 +5,7 @@
 /* Área de digitação principal */
 .format-textarea {
     width: 100%;
+    max-width: 500px; /* Deixa o input mais fino/estreito horizontalmente */
     height: 520px;
     padding: 1rem;
     border: 1px solid var(--border-color);
@@ -16,16 +17,20 @@
     line-height: 1.5;
     resize: none;
     outline: none;
+    box-sizing: border-box;
 }
 
 /* Janela de Resultados */
 .format-output-container {
+    width: 100%;
+    max-width: 500px; /* Mantém a simetria com o campo de entrada */
     height: 520px;
     overflow-y: auto;
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
     padding: 1rem;
     background-color: var(--bg-main);
+    box-sizing: border-box;
 }
 
 .format-text-area {
@@ -50,6 +55,7 @@
     margin-bottom: 0.75rem;
     line-height: 1.4;
     word-break: break-all;
+    max-width: 500px; /* Alinha a largura do erro com a dos blocos */
 }
 
 .format-error-box.hidden {

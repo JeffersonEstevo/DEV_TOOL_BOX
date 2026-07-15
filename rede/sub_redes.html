@@ -1,0 +1,140 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Calculadora de Sub-redes & Particionamento (IPv4)</h2>
+        <p>Calcule o endereçamento de hosts ou planeje o fatiamento de sub-redes (Subnetting) descobrindo instantaneamente quais redes se comunicam diretamente no mesmo switch (L2) ou precisam de roteador (L3).</p>
+    </header>
+
+    <!-- Estrutura de Abas exatamente no seu padrão -->
+    <div class="rede-tabs">
+        <button class="tab-btn active" onclick="alternarAbaSubrede('aba-calculadora')">
+            <i class="bi bi-calculator"></i> Calculadora IPv4
+        </button>
+        <button class="tab-btn" onclick="alternarAbaSubrede('aba-particionamento')">
+            <i class="bi bi-diagram-3"></i> Particionamento & Comunicação
+        </button>
+    </div>
+
+    <!-- ABA 1: Calculadora Principal (Preservada) -->
+    <div id="aba-calculadora" class="generator-workspace subredes-workspace tab-content active">
+        <div class="subredes-grid">
+            <div class="subredes-field">
+                <label for="subrede-ip">Endereço IP</label>
+                <input type="text" id="subrede-ip" placeholder="Ex: 192.168.0.1" value="192.168.0.1" autocomplete="off">
+                <small class="field-help">Formato: Decimais separados por ponto (0-255)</small>
+            </div>
+
+            <div class="subredes-field">
+                <label for="subrede-cidr">Máscara CIDR</label>
+                <select id="subrede-cidr">
+                    <!-- Gerado dinamicamente via JS -->
+                </select>
+                <small class="field-help">Selecione o prefixo de sub-rede</small>
+            </div>
+        </div>
+
+        <div class="subredes-resultados" id="subredes-resultados" style="display: none; margin-top: 1.5rem;">
+            <table class="subredes-table">
+                <thead>
+                    <tr>
+                        <th colspan="2">Informações da Rede</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Endereço de Rede:</strong></td>
+                        <td id="res-rede">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Máscara de Rede:</strong></td>
+                        <td id="res-mascara">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Primeiro IP Útil:</strong></td>
+                        <td id="res-primeiro-ip">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Último IP Útil:</strong></td>
+                        <td id="res-ultimo-ip">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Endereço de Broadcast:</strong></td>
+                        <td id="res-broadcast">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Total de IPs Host:</strong></td>
+                        <td id="res-total-ips">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Hosts Utilizáveis:</strong></td>
+                        <td id="res-hosts-uteis">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Classe do IP:</strong></td>
+                        <td id="res-classe">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>IP em Binário:</strong></td>
+                        <td id="res-binario" class="mono-text">-</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Máscara em Binário:</strong></td>
+                        <td id="res-mascara-binario" class="mono-text">-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ABA 2: NOVO Particionamento & Comunicação -->
+    <div id="aba-particionamento" class="generator-workspace subredes-workspace tab-content">
+        <div class="subredes-grid-tres">
+            <div class="subredes-field">
+                <label for="part-ip">Endereço IP do Host</label>
+                <input type="text" id="part-ip" placeholder="Ex: 192.168.1.50" value="192.168.1.50" autocomplete="off">
+                <small class="field-help">IP que você deseja testar</small>
+            </div>
+
+            <div class="subredes-field">
+                <label for="part-cidr-origem">Rede Mãe (Máscara)</label>
+                <select id="part-cidr-origem">
+                    <!-- Preenchido via JS -->
+                </select>
+                <small class="field-help">Rede total disponível</small>
+            </div>
+
+            <div class="subredes-field">
+                <label for="part-cidr-destino">Sub-redes Desejadas</label>
+                <select id="part-cidr-destino">
+                    <!-- Preenchido dinamicamente via JS baseado na Rede Mãe -->
+                </select>
+                <small class="field-help">Tamanho das divisões menores</small>
+            </div>
+        </div>
+
+        <div class="part-resultados" id="part-resultados" style="display: none; margin-top: 1.5rem;">
+            <div class="part-tabela-container">
+                <table class="subredes-table">
+                    <thead>
+                        <tr>
+                            <th>Sub-rede</th>
+                            <th>Faixa de IPs Úteis</th>
+                            <th>Broadcast</th>
+                            <th>Comunicação com o Host</th>
+                        </tr>
+                    </thead>
+                    <tbody id="part-tabela-corpo">
+                        <!-- Linhas geradas dinamicamente via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="btn-limpar-subredes" class="btn btn-success">
+            <i class="bi bi-trash3-fill"></i> Limpar Campos
+        </button>
+    </div>
+</div>
+
+<script src="static/js/rede/sub_redes.js"></script>
