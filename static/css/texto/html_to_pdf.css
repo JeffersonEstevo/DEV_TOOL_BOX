@@ -2,9 +2,25 @@
 === TEXTO - Gerador de PDF a partir de HTML ===
 ========================================================================== */
 
+/* 1. Forçar que o grid divida o espaço igualmente e impeça expansões */
+.tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.field-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* IMPEDE QUE CONTEÚDOS LARGOS ESTIQUEM O GRID */
+    width: 100%;
+}
+
 /* Área de input do código HTML bruto */
 .pdf-textarea {
     width: 100%;
+    max-width: 100%; /* Força a respeitar o limite lateral */
     height: 520px;
     padding: 1rem;
     border: 1px solid var(--border-color);
@@ -17,22 +33,36 @@
     resize: none;
     outline: none;
     transition: border-color 0.2s ease;
+    box-sizing: border-box; /* Inclui padding no cálculo de largura */
 }
 
 .pdf-textarea:focus {
     border-color: rgba(0, 0, 0, 0.25);
 }
 
+
 /* Container de scroll da Preview */
 .pdf-preview-container {
+    width: 100%;
+    max-width: 100%; 
     height: 520px;
+    
+    /* MUDANÇA CHAVE: Ativa barras de rolagem tanto vertical quanto horizontal 
+       apenas para a área do preview, sem quebrar as colunas do seu painel */
     overflow-y: auto;
+    overflow-x: auto; 
+    
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
     padding: 1.5rem;
     background-color: var(--bg-sidebar);
+    
+    /* Alinha a folha de papel no início esquerdo se houver scroll, 
+       mas a mantém centralizada se a tela for muito larga */
     display: flex;
-    justify-content: center;
+    justify-content: flex-start; 
+    align-items: flex-start;
+    box-sizing: border-box;
 }
 
 /* Estado vazio da visualização */
@@ -48,23 +78,25 @@
 
 /* --------------------------------------------------------------------------
    PRÉ-VISUALIZAÇÃO EM TELA (aproximada)
-   O resultado final e definitivo do PDF é gerado à parte, em documento
-   isolado, usando a folha de estilos PRINT_STYLES definida em
-   html_to_pdf.js — esta seção aqui serve só para dar um preview rápido
-   ao usuário enquanto ele edita o HTML, sem precisar abrir a impressão
-   a cada alteração.
    -------------------------------------------------------------------------- */
 .pdf-page-preview {
+    /* MUDANÇA CHAVE: Definimos uma largura mínima confortável para a "folha",
+       garantindo que ela não fique espremida e pareça de fato um documento. */
     width: 100%;
+    min-width: 650px; /* Largura mínima para manter a fidelidade do layout A4 */
+    
     min-height: 100%;
     background-color: #ffffff;
     color: #1e293b;
-    padding: 30px;
+    padding: 40px; /* Um pouco mais de margem para parecer papel */
     border-radius: 4px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     font-size: 0.95rem;
     line-height: 1.6;
+    box-sizing: border-box;
+    
+    /* Mantém quebras naturais de palavras, sem forçar quebras artificiais */
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
@@ -77,6 +109,8 @@
     margin-bottom: 1rem;
     border-bottom: 2px solid #e2e8f0;
     padding-bottom: 0.5rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .pdf-page-preview h2 {
@@ -95,8 +129,7 @@
     margin-bottom: 0.5rem;
 }
 
-/* Tabelas: mesma lógica de largura estável usada no PDF final,
-   para que o preview em tela já reflita fielmente o resultado. */
+/* Tabelas: Ajustadas para manter a largura sem empurrar o layout */
 .pdf-page-preview table {
     width: 100% !important;
     max-width: 100% !important;
@@ -159,18 +192,19 @@
     border-radius: 4px;
     font-family: Consolas, Monaco, monospace;
     font-size: 0.85em;
+    word-break: break-all; /* Impede que termos longos inline quebrem a página */
 }
 
-/* Em tela, blocos de código longos rolam horizontalmente (útil durante a
-   edição); no PDF final (PRINT_STYLES) eles quebram linha em vez de rolar,
-   já que papel não tem scroll. */
+/* Controlando blocos de código grandes para não quebrarem o design responsivo */
 .pdf-page-preview pre {
     background-color: #0f172a;
     color: #f8fafc;
     padding: 1rem;
     border-radius: 6px;
-    overflow-x: auto;
+    overflow-x: auto; /* Mantém a rolagem local do bloco de código sem afetar a página inteira */
+    max-width: 100%;  /* Garante que o pre não cresça além do limite da folha */
     margin: 1.2rem 0;
+    box-sizing: border-box;
 }
 
 .pdf-page-preview pre code {
@@ -178,6 +212,7 @@
     color: inherit;
     padding: 0;
     font-size: 0.9em;
+    white-space: pre; /* Permite a rolagem interna do código */
 }
 
 .pdf-page-preview .callout {
