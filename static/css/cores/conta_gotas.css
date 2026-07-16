@@ -1,0 +1,214 @@
+/* ==========================================================================
+   === 07. CORES - 02. Conta-Gotas de Imagens ===
+   ========================================================================== */
+
+.conta-gotas-workspace {
+    max-width: 600px !important;
+    width: 100% !important;
+    text-align: left !important;
+    padding: 2rem !important;
+    margin: 0 auto;
+}
+
+/* Upload e Botão */
+.upload-secao {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.btn-upload-foto {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--primary-color, #4e73df);
+    color: #fff;
+    font-weight: 600;
+    border-radius: var(--radius, 6px);
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.btn-upload-foto:hover {
+    background-color: #3751a6;
+    transform: translateY(-1px);
+}
+
+/* Área da Imagem (Canvas) */
+.wrapper-canvas {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+/*
+.canvas-container {
+    width: 100%;
+    max-height: 380px;
+    border: 2px dashed var(--border-color, #e3e6f0);
+    border-radius: var(--radius, 8px);
+    overflow: auto;
+    background-color: var(--bg-main, #f8f9fc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}*/
+
+.canvas-container {
+    position: relative; /* Isso diz à lupa: "se posicione a partir dos meus limites" */
+    width: 100%;
+    height: 380px;
+    border: 2px dashed var(--border-color, #e3e6f0);
+    border-radius: var(--radius, 8px);
+    overflow: visible; /* Permite que a lupa saia um pouco das bordas se necessário */
+    background-color: var(--bg-main, #f8f9fc);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/*
+#canvas-foto {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    cursor: crosshair; /* Mira de precisão 
+}*/
+
+#canvas-foto {
+    max-width: 100%;
+    max-height: 100%; /* Impede que a foto estoure a altura do container */
+    object-fit: contain; /* Mantém a proporção da imagem */
+    display: block;
+    cursor: crosshair;
+}
+
+.ajuda-instrucao {
+    font-size: 0.8rem;
+    color: var(--text-muted, #858796);
+    text-align: center;
+}
+
+.divisor-ferramenta {
+    border: 0;
+    border-top: 1px solid var(--border-color, #e3e6f0);
+    margin: 1.5rem 0;
+}
+
+/* Exibição de Resultados */
+.visualizador-principal {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.caixa-cor-atual {
+    width: 60px;
+    height: 60px;
+    border-radius: var(--radius, 6px);
+    border: 2px solid var(--border-color, #e3e6f0);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    background-color: #3498DB;
+    transition: background-color 0.15s ease;
+}
+
+.info-texto {
+    display: flex;
+    flex-direction: column;
+}
+
+.label-cor {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted, #858796);
+    text-transform: uppercase;
+}
+
+.codigo-destaque {
+    font-size: 1.4rem;
+    font-weight: 800;
+    font-family: monospace;
+    color: var(--text-main, #2e59d9);
+}
+
+/* Grid de Inputs */
+.valores-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.campo-valor {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.campo-valor label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-main, #4e73df);
+}
+
+.campo-valor input[type="text"] {
+    width: 100%;
+    padding: 0.6rem;
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: monospace;
+    background-color: var(--bg-main, #f8f9fc);
+    border: 1px solid var(--border-color, #e3e6f0);
+    color: var(--text-main, #5a5c69);
+    border-radius: var(--radius, 6px);
+    box-sizing: border-box;
+    outline: none;
+}
+
+
+
+
+
+
+
+/* Container da Lupa Flutuante */
+.lupa-zoom-container {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border: 3px solid #ffffff;
+    border-radius: 50%; /* Lupa redonda clássica */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    pointer-events: none; /* Ignora eventos do mouse para não atrapalhar o cursor no canvas principal */
+    z-index: 1000;
+    background-color: #000000;
+}
+
+/* Canvas interno da Lupa que renderiza os quadradinhos de pixel */
+#canvas-lupa {
+    width: 100%;
+    height: 100%;
+    display: block;
+    image-rendering: pixelated; /* Crucial para mostrar os pixels quadradinhos e nítidos, sem desfoque */
+    image-rendering: crisp-edges;
+}
+
+/* Mira centralizada para precisão milimétrica */
+.lupa-mira-central {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    transform: translate(-50%, -50%);
+    border: 2px solid #ffffff;
+    box-sizing: border-box;
+    pointer-events: none;
+    box-shadow: 0 0 4px rgba(0,0,0,0.8);
+    background-color: transparent;
+}

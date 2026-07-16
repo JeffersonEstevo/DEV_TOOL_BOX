@@ -643,6 +643,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 atualizarInterfacePorHex('#3498DB'); // Reseta para o azul padrão
             }
         }
+        // === 07. CORES - 02. Conta-Gotas de Imagens ===
+        if (event.target.closest('#btn-reset-conta-gotas')) {
+            event.preventDefault();
+            if (typeof limparContaGotas === "function") {
+                limparContaGotas();
+            }
+        }
+
+
 
         // Atalho global para fechar o leitor dinâmico
         document.addEventListener("keydown", function (event) {

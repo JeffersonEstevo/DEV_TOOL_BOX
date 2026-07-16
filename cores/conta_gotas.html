@@ -1,0 +1,74 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Conta-Gotas de Imagens</h2>
+        <p>Faça o upload de uma foto ou imagem e passe o mouse ou clique sobre ela para extrair instantaneamente o código de qualquer pixel em HEX, RGB e HSL.</p>
+    </header>
+
+    <div class="generator-workspace conta-gotas-workspace">
+        <!-- Seção de Upload de Imagem -->
+        <div class="upload-secao">
+            <input type="file" id="upload-foto" accept="image/*" style="display: none;">
+            <label for="upload-foto" class="btn-upload-foto">
+                <i class="bi bi-image"></i> Escolher Foto do Computador
+            </label>
+        </div>
+
+        <!-- Área de Interação (Canvas) -->
+        <div id="wrapper-preview-foto" class="wrapper-canvas" style="display: none; position: relative;">
+            <div class="canvas-container">
+                <canvas id="canvas-foto"></canvas>
+                
+                <!-- A lupa como filha direta do canvas-container -->
+                <div id="lupa-zoom" class="lupa-zoom-container" style="display: none;">
+                    <canvas id="canvas-lupa" width="120" height="120"></canvas>
+                    <div class="lupa-mira-central"></div>
+                </div>
+            </div>
+            <span class="ajuda-instrucao">Clique ou arraste o mouse sobre a imagem para coletar a cor do pixel</span>
+        </div>
+
+        <hr class="divisor-ferramenta">
+
+        <!-- Mostrador de Resultado e Inputs de Códigos -->
+        <div class="resultado-secao">
+            <div class="visualizador-principal">
+                <div id="box-cor-atual" class="caixa-cor-atual"></div>
+                <div class="info-texto">
+                    <span class="label-cor">Cor Selecionada</span>
+                    <span id="txt-cor-atual-hex" class="codigo-destaque">#3498DB</span>
+                </div>
+            </div>
+
+            <div class="valores-grid">
+                <div class="campo-valor">
+                    <label for="valor-hex">Formato HEX</label>
+                    <div class="input-grupo-copiar">
+                        <input type="text" id="valor-hex" readonly value="#3498DB">
+                    </div>
+                </div>
+
+                <div class="campo-valor">
+                    <label for="valor-rgb">Formato RGB</label>
+                    <div class="input-grupo-copiar">
+                        <input type="text" id="valor-rgb" readonly value="rgb(52, 152, 219)">
+                    </div>
+                </div>
+
+                <div class="campo-valor">
+                    <label for="valor-hsl">Formato HSL</label>
+                    <div class="input-grupo-copiar">
+                        <input type="text" id="valor-hsl" readonly value="hsl(204, 70%, 53%)">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="btn-reset-conta-gotas" class="btn btn-secondary">
+            <i class="bi bi-arrow-counterclockwise"></i> Resetar Ferramenta
+        </button>
+    </div>
+</div>
+
+<script src="static/js/cores/conta_gotas.js"></script>
