@@ -331,7 +331,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (typeof limparCalculoDeSimilaridade === "function") limparCalculoDeSimilaridade();
         }
 
-        // === 01. TEXTO - 11. Comparação de Textos ===
+        // === 01. TEXTO - 11. Comparar Textos ===
         if (event.target.closest('#compare-button')) {
             event.preventDefault();
             if (typeof executarComparacaoDeTextos === "function") {
@@ -363,7 +363,7 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             if (typeof limparBuscaASCII === "function") limparBuscaASCII();
         }
-        // === 01. TEXTO - 14. Gerador de Lorem Ipsum ===
+        // === 01. TEXTO - 14. Gerar Lorem Ipsum ===
         if (event.target.closest('#generate-lorem-button')) {
             event.preventDefault();
             if (typeof processarGeracaoLorem === "function") processarGeracaoLorem();
@@ -376,7 +376,7 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             if (typeof copiarLoremParaAreaTransferencia === "function") copiarLoremParaAreaTransferencia();
         }
-        // === 01. TEXTO - 15. Conversor de Markdown para HTML ===
+        // === 01. TEXTO - 15. Converter de Markdown para HTML ===
         if (event.target.closest('#clean-markdown-button')) {
             event.preventDefault();
             if (typeof limparMarkdown === "function") limparMarkdown();
@@ -396,7 +396,22 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             if (typeof baixarPdfGerado === "function") baixarPdfGerado();
         }
+        // === 01. TEXTO - 17. Comparar de Listas ===
+        if (event.target.closest('#compare-lists-button')) {
+            event.preventDefault();
+            if (typeof executarComparacaoDeListas === "function") {
+                executarComparacaoDeListas();
+            } else {
+                console.error("[Erro] A engine de comparação de listas não está carregada na memória.");
+            }
+        }
 
+        if (event.target.closest('#clear-lists-button')) {
+            event.preventDefault();
+            if (typeof limparComparacaoDeListas === "function") {
+                limparComparacaoDeListas();
+            }
+        }
 
         // === 02. CALCULADORAS - 01. Frações ===
         if (event.target.closest('#calc-fraction-button')) {

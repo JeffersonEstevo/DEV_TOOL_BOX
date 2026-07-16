@@ -1,0 +1,75 @@
+<div class="tool-container workspace-largo">
+    <header class="tool-header">
+        <h2>Comparador de Listas</h2>
+        <p>Insira duas listas (uma linha por item) para identificar as diferenças e semelhanças entre elas.</p>
+    </header>
+
+    <div class="tool-grid">
+        <div class="field-group">
+            <label for="list-a">Lista A:</label>
+            <textarea id="list-a" rows="10" placeholder="Cole os itens da Lista A aqui (um por linha)..."></textarea>
+            <div class="list-counter">Itens: <span id="counter-a">0</span></div>
+        </div>
+        
+        <div class="field-group">
+            <label for="list-b">Lista B:</label>
+            <textarea id="list-b" rows="10" placeholder="Cole os itens da Lista B aqui (um por linha)..."></textarea>
+            <div class="list-counter">Itens: <span id="counter-b">0</span></div>
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <button id="compare-lists-button" class="btn btn-primary">
+            <i class="bi bi-arrow-left-right"></i> Comparar Listas
+        </button>
+        <button id="clear-lists-button" class="btn btn-secondary">Limpar</button>
+    </div>
+
+    <div id="result-panel" class="hidden">
+        <h3>Resultado da Comparação:</h3>
+        
+        <!-- Grid de 3 colunas para os resultados solicitados -->
+        <div class="result-grid-three">
+            <!-- Apenas na Lista A -->
+            <div class="result-card card-danger">
+                <div class="card-header">
+                    <span>Apenas na Lista A (<span id="count-only-a">0</span>)</span>
+                    <button class="btn-copy-card" onclick="copiarColuna('output-only-a', this)" title="Copiar itens">
+                        <i class="bi bi-clipboard"></i> Copiar
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div id="output-only-a" class="diff-box"></div>
+                </div>
+            </div>
+
+            <!-- Em ambas as listas -->
+            <div class="result-card card-info">
+                <div class="card-header">
+                    <span>Em ambas as listas (<span id="count-both">0</span>)</span>
+                    <button class="btn-copy-card" onclick="copiarColuna('output-both', this)" title="Copiar itens">
+                        <i class="bi bi-clipboard"></i> Copiar
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div id="output-both" class="diff-box"></div>
+                </div>
+            </div>
+
+            <!-- Apenas na Lista B -->
+            <div class="result-card card-success">
+                <div class="card-header">
+                    <span>Apenas na Lista B (<span id="count-only-b">0</span>)</span>
+                    <button class="btn-copy-card" onclick="copiarColuna('output-only-b', this)" title="Copiar itens">
+                        <i class="bi bi-clipboard"></i> Copiar
+                    </button>
+                </div>
+                <div class="card-body">
+                    <div id="output-only-b" class="diff-box"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="static/js/texto/comparar_listas.js"></script>

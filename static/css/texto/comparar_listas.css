@@ -1,0 +1,117 @@
+/* ==========================================================================
+   === TEXTO - Comparação de Listas ===
+   ========================================================================== */
+
+/* Grid de resultados de 3 colunas para acomodar os 3 blocos de comparação */
+.result-grid-three {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important; /* Cria exatamente 3 colunas no desktop */
+  gap: 1.25rem !important;
+  width: 100% !important;
+  box-sizing: border-box;
+  margin-top: 1rem;
+}
+
+/* Contador discreto posicionado abaixo de cada textarea de entrada */
+.list-counter {
+  font-size: 0.85rem;
+  color: var(--text-muted, #777);
+  text-align: right;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+/* Mensagem amigável para listas de resultados vazias */
+.empty-list-msg {
+  color: var(--text-muted, #888);
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* Ajustes de cores para as novas bordas/headers de cards de resultado */
+.card-info {
+  border-top: 4px solid var(--info-color, #17a2b8);
+}
+.card-info .card-header {
+  background-color: rgba(23, 162, 184, 0.1);
+  color: var(--info-color, #17a2b8);
+  font-weight: bold;
+  padding: 0.75rem;
+}
+
+.card-danger {
+  border-top: 4px solid var(--danger-color, #dc3545);
+}
+.card-danger .card-header {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: var(--danger-color, #dc3545);
+  font-weight: bold;
+  padding: 0.75rem;
+}
+
+.card-success {
+  border-top: 4px solid var(--success-color, #28a745);
+}
+.card-success .card-header {
+  background-color: rgba(40, 167, 69, 0.1);
+  color: var(--success-color, #28a745);
+  font-weight: bold;
+  padding: 0.75rem;
+}
+
+/* Garante o comportamento idêntico ao diff-box original */
+.diff-box {
+  width: 100% !important;
+  min-height: 220px;
+  padding: 1rem;
+  background-color: var(--bg-sidebar, #f8f9fa);
+  border-radius: var(--radius);
+  font-family: monospace;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+/* Responsividade: Adapta o grid para 1 única coluna em telas menores de 992px */
+@media (max-width: 992px) {
+  .result-grid-three {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Alinha o título do card e o botão de copiar nas extremidades */
+.result-card .card-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 0.5rem 0.75rem !important; /* Ajuste leve de padding */
+}
+
+/* Estilo do botão de copiar individual */
+.btn-copy-card {
+  background: transparent;
+  border: 1px solid currentColor;
+  color: inherit; /* Herda a cor do respectivo header (.card-danger, .card-success, etc) */
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius, 4px);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.2s ease;
+  opacity: 0.8;
+}
+
+.btn-copy-card:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Efeito de sucesso quando copiado */
+.btn-copy-card.copied {
+  background-color: rgba(40, 167, 69, 0.2) !important;
+  border-color: #28a745 !important;
+  color: #28a745 !important;
+  opacity: 1;
+}
+
