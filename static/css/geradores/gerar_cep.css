@@ -129,10 +129,16 @@
 /* ==========================================================================
    === ALERTA DE CÓPIA E BARRA DE AÇÕES (CEP) ===
    ========================================================================== */
-
+/*
 .tool-container .action-bar {
   justify-content: flex-start !important;
   gap: 1rem !important; 
+}*/
+
+/* Força a barra a se manter centralizada neste componente */
+.tool-container .action-bar {
+  position: relative !important; /* Cria a base para o posicionamento absoluto do toast */
+  justify-content: center !important; /* Mantém os botões centralizados */
 }
 
 .action-bar .grupo-acoes {
@@ -141,12 +147,20 @@
   align-items: center;
 }
 
+/*
 .tool-container .toast-alert {
   white-space: nowrap !important;
   flex-shrink: 0 !important;
   align-items: center !important;
   gap: 0.35rem !important;
+}*/
+/* Transforma apenas o toast desta ferramenta em absoluto para não empurrar os botões */
+.tool-container .toast-alert {
+  position: absolute !important;
+  right: 1.5rem !important; /* Fixa o balão no canto direito */
+  pointer-events: none;
 }
+
 
 #cep-generator-alert.hidden {
   display: none !important;

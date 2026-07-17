@@ -547,15 +547,28 @@ document.addEventListener("DOMContentLoaded", function () {
             if (typeof focarEResetarValidadorCEP === "function") focarEResetarValidadorCEP();
         }
 
-        // === 03. GERADORES - 03. Gerar CNPJ ===
+        // === 03. GERADORES - 03. Gerar/Validar CNPJ ===
+        // Ação de Gerar Novo CNPJ (Aba de Geração)
         if (event.target.closest('#btn-gerar-cnpj')) {
             event.preventDefault();
             if (typeof dispararGeracaoCNPJ === "function") dispararGeracaoCNPJ();
         }
+        // Ação de Copiar CNPJ Gerado (Aba de Geração)
         if (event.target.closest('#btn-copiar-cnpj')) {
             event.preventDefault();
             window.copiarTextoDeElemento('cnpj-resultado', 'cnpj-generator-alert');
         }
+        // Ação de Copiar CNPJ Digitado (Aba de Validação)
+        if (event.target.closest('#btn-copiar-validar-cnpj')) {
+            event.preventDefault();
+            window.copiarTextoDeElemento('cnpj-input-validar', 'cnpj-generator-alert');
+        }
+        // Ação de Limpar Campo de Validação (Aba de Validação)
+        if (event.target.closest('#btn-limpar-validar-cnpj')) {
+            event.preventDefault();
+            if (typeof focarEResetarValidadorCNPJ === "function") focarEResetarValidadorCNPJ();
+        }
+
 
         // === 03. GERADORES - 04. Cartão de Crédito ===
         if (event.target.closest('#btn-gerar-cartao')) {

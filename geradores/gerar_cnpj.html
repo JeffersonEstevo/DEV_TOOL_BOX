@@ -1,10 +1,21 @@
 <div class="tool-container">
     <header class="tool-header">
-        <h2>Gerador de CNPJ</h2>
-        <p>Gere números de CNPJ válidos com ou sem formatação para fins de testes de software, homologação e validação de sistemas.</p>
+        <h2>Gerador e Validador de CNPJ</h2>
+        <p>Gere números de CNPJ válidos para testes de software ou valide estruturas de CNPJ de forma instantânea.</p>
     </header>
 
-    <div class="generator-workspace">
+    <!-- Estrutura de Abas no Padrão Unificado -->
+    <div class="rede-tabs">
+        <button class="tab-btn active" onclick="alternarAbaCNPJ('aba-cnpj-gerar')">
+            <i class="bi bi-gear-fill"></i> Gerar CNPJ
+        </button>
+        <button class="tab-btn" onclick="alternarAbaCNPJ('aba-cnpj-validar')">
+            <i class="bi bi-shield-check"></i> Validar CNPJ
+        </button>
+    </div>
+
+    <!-- ABA 1: GERAR CNPJ -->
+    <div id="aba-cnpj-gerar" class="generator-workspace cnpj-workspace tab-content active">
         <div class="generator-options">
             <label class="checkbox-container">
                 <input type="checkbox" id="cnpj-formatar" checked>
@@ -18,13 +29,43 @@
         </div>
     </div>
 
+    <!-- ABA 2: VALIDAR CNPJ -->
+    <div id="aba-cnpj-validar" class="generator-workspace cnpj-workspace tab-content">
+        <div class="generator-options" style="flex-direction: column; gap: 0.5rem; align-items: center;">
+            <label style="font-size: 0.95rem; font-weight: 600; color: var(--text-main);">Digite o CNPJ para validação</label>
+        </div>
+
+        <div class="generator-output-box">
+            <input type="text" id="cnpj-input-validar" placeholder="00.000.000/0001-00" maxlength="18" autocomplete="off" style="color: var(--text-main); font-size: 1.35rem;">
+        </div>
+        
+        <!-- Box de Feedback Visual da Validação -->
+        <div id="cnpj-validation-feedback" class="validation-feedback neutral" style="margin-top: 1rem; font-weight: 600; font-size: 0.95rem;">
+            Aguardando entrada...
+        </div>
+    </div>
+
+    <!-- Barra de Ações Dinâmica -->
     <div class="action-bar border-top-bar">
-        <button id="btn-gerar-cnpj" class="btn btn-primary">
-            <i class="bi bi-gear-fill"></i> Gerar CNPJ
-        </button>
-        <button id="btn-copiar-cnpj" class="btn btn-success">
-            <i class="bi bi-clipboard"></i> Copiar CNPJ
-        </button>
+        <!-- Botões de Geração (Visíveis por padrão) -->
+        <div id="grupo-cnpj-acoes-gerar" class="grupo-acoes">
+            <button id="btn-gerar-cnpj" class="btn btn-primary">
+                <i class="bi bi-gear-fill"></i> Gerar CNPJ
+            </button>
+            <button id="btn-copiar-cnpj" class="btn btn-success">
+                <i class="bi bi-clipboard"></i> Copiar CNPJ
+            </button>
+        </div>
+
+        <!-- Botões de Validação (Ocultados por padrão) -->
+        <div id="grupo-cnpj-acoes-validar" class="grupo-acoes" style="display: none;">
+            <button id="btn-copiar-validar-cnpj" class="btn btn-primary">
+                <i class="bi bi-clipboard"></i> Copiar CNPJ
+            </button>
+            <button id="btn-limpar-validar-cnpj" class="btn btn-success">
+                <i class="bi bi-trash3-fill"></i> Limpar
+            </button>
+        </div>
         
         <span id="cnpj-generator-alert" class="toast-alert hidden">
             <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
