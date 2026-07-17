@@ -1,0 +1,95 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Gerador de Arrays e Estruturas de Dados</h2>
+        <p>Gere conjuntos de dados fictícios customizados, ordenados ou aleatórios para testes rápidos em múltiplas linguagens.</p>
+    </header>
+
+    <div class="generator-workspace array-workspace" style="max-width: 650px !important;">
+        <div class="generator-options" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; text-align: left; margin-bottom: 1.5rem;">
+            
+            <!-- Coluna 1 -->
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <div>
+                    <label class="hash-label">Linguagem</label>
+                    <select id="array-linguagem" class="form-select" style="width: 100%; padding: 0.4rem; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border-color); border-radius: var(--radius);">
+                        <option value="javascript">JavaScript</option>
+                        <option value="python">Python</option>
+                        <option value="java">Java</option>
+                        <option value="php">PHP</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="hash-label">Estrutura de Dados</label>
+                    <select id="array-estrutura" class="form-select" style="width: 100%; padding: 0.4rem; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border-color); border-radius: var(--radius);">
+                        <option value="array">Array / Lista Padrão</option>
+                        <option value="tupla">Tupla</option>
+                        <option value="conjunto">Conjunto (Set)</option>
+                        <option value="dicionario">Dicionário / Objeto (Chave-Valor)</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label class="hash-label">Tipo do Elemento</label>
+                    <select id="array-tipo-dado" class="form-select" style="width: 100%; padding: 0.4rem; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border-color); border-radius: var(--radius);">
+                        <option value="number">Números Inteiros</option>
+                        <option value="string">Textos / Strings</option>
+                        <option value="boolean">Booleanos (true/false)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Coluna 2 -->
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <div style="display: flex; flex-direction: column;">
+                    <label class="hash-label">Qtd. Elementos: <span id="array-qtd-val">10</span></label>
+                    <input type="range" id="array-quantidade" min="1" max="100" value="10" style="cursor: pointer; margin-top: 0.4rem;">
+                </div>
+
+                <div id="container-tamanho-string" style="display: none;">
+                    <label class="hash-label">Tam. de cada String</label>
+                    <input type="number" id="array-tamanho-string" min="1" max="20" value="5" style="width: 100%; padding: 0.35rem; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border-color); border-radius: var(--radius);">
+                </div>
+
+                <div>
+                    <label class="hash-label">Ordenação</label>
+                    <select id="array-ordenacao" class="form-select" style="width: 100%; padding: 0.4rem; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border-color); border-radius: var(--radius);">
+                        <option value="aleatorio">Aleatório / Misturado</option>
+                        <option value="crescente">Ordenado Crescente</option>
+                        <option value="decrescente">Ordenado Decrescente</option>
+                    </select>
+                </div>
+
+                <div style="padding-top: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="array-repetidos" checked>
+                        <span class="checkmark"></span>
+                        Permitir valores repetidos
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div class="generator-output-box">
+            <textarea id="array-resultado" readonly rows="6" placeholder="Aguardando geração..." style="width: 100%; background: var(--bg-main); color: var(--primary-color); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 0.75rem; font-family: monospace; font-size: 0.9rem; resize: none; text-align: left;"></textarea>
+        </div>
+    </div>
+
+    <!-- Barra de Ações Dinâmica -->
+    <div class="action-bar border-top-bar">
+        <div class="grupo-acoes">
+            <button id="btn-gerar-array" class="btn btn-primary">
+                <i class="bi bi-gear-fill"></i> Gerar Estrutura
+            </button>
+            <button id="btn-copiar-array" class="btn btn-success">
+                <i class="bi bi-clipboard"></i> Copiar Dados
+            </button>
+        </div>
+        
+        <span id="array-generator-alert" class="toast-alert hidden">
+            <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
+        </span>
+    </div>
+</div>
+
+<script src="static/js/geradores/gerar_array.js"></script>

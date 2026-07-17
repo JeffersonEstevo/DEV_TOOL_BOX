@@ -1,0 +1,71 @@
+/* ==========================================================================
+   === 03. GERADORES - 08. Gerador de Arrays e Colecoes ====
+   ========================================================================== */
+.tool-container .array-workspace {
+  background-color: var(--bg-sidebar);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin: 0 auto 1.5rem auto;
+  width: 100% !important;
+}
+
+.tool-container .form-select {
+  width: 100%;
+  padding: 0.45rem;
+  background-color: var(--bg-main) !important;
+  color: var(--text-main) !important;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.tool-container .form-select:focus,
+.tool-container input[type="number"]:focus {
+  border-color: var(--primary-color) !important;
+  outline: none;
+}
+
+.tool-container .checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-main);
+  cursor: pointer;
+  user-select: none;
+  margin-top: 0.25rem;
+}
+
+/* ==========================================================================
+   === POSICIONAMENTO E ESPACAMENTO DO TOAST DE COPIA ===
+   ========================================================================== */
+.tool-container .action-bar {
+  position: relative !important;
+  justify-content: center !important;
+}
+
+.tool-container .action-bar .grupo-acoes {
+  display: flex;
+  gap: 0.75rem !important;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.tool-container .toast-alert {
+  position: absolute !important;
+  right: 1.5rem !important;
+  pointer-events: none;
+}
+
+#array-generator-alert.hidden {
+  display: none !important;
+}
+
+#array-generator-alert:not(.hidden) {
+  display: inline-flex !important;
+}
+

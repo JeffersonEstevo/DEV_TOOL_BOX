@@ -630,6 +630,16 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             if (typeof focarEResetarVerificadorSenha === "function") focarEResetarVerificadorSenha();
         }
+        // === 03. GERADORES - 08. Gerador de Arrays ===
+        if (event.target.closest('#btn-gerar-array')) {
+            event.preventDefault();
+            if (typeof dispararGeracaoArray === "function") dispararGeracaoArray();
+        }
+
+        if (event.target.closest('#btn-copiar-array')) {
+            event.preventDefault();
+            window.copiarTextoDeElemento('array-resultado', 'array-generator-alert');
+        }
 
         if (event.target.closest('#btn-copiar-senha')) {
             event.preventDefault();
