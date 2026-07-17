@@ -1,5 +1,3 @@
-/* Estilos específicos para gerar_cpf */
-
 /* ==========================================================================
    === 03. GERADORES - 01. Gerar CPF ===
    ========================================================================== */
@@ -11,6 +9,15 @@
   max-width: 450px;
   margin: 0 auto 1.5rem auto;
   text-align: center;
+}
+
+/* Garante o comportamento oculto/visível das abas */
+.tab-content {
+  display: none !important;
+}
+
+.tab-content.active {
+  display: block !important;
 }
 
 .generator-options {
@@ -40,4 +47,118 @@
   border: 1px solid var(--border-color);
   color: var(--primary-color);
   border-radius: var(--radius);
+  transition: color 0.2s ease;
+}
+
+/* Feedbacks de Validação */
+.validation-feedback {
+  padding: 0.5rem;
+  border-radius: var(--radius);
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.validation-feedback.neutral {
+  background-color: transparent;
+  color: var(--text-main);
+  opacity: 0.6;
+}
+
+.validation-feedback.valid {
+  background-color: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+}
+
+.validation-feedback.invalid {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+}
+
+.grupo-acoes {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+  justify-content: center;
+}
+
+
+/* ==========================================================================
+   === AJUSTE DE ABAS NO PADRÃO SUPERIOR (CPF) ===
+   ========================================================================== */
+
+/* Barra de abas unificada */
+.rede-tabs {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 2px solid var(--border-color);
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+  max-width: 450px; /* Alinhado perfeitamente com a largura do workspace de CPF */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Botões de aba de CPF */
+.rede-tabs .tab-btn {
+  background: none !important;
+  border: none !important;
+  padding: 0.75rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+  opacity: 0.7;
+  cursor: pointer;
+  border-bottom: 3px solid transparent !important;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0 !important; /* Remove qualquer arredondamento herdado */
+}
+
+.rede-tabs .tab-btn:hover {
+  opacity: 1;
+  color: var(--primary-color);
+}
+
+.rede-tabs .tab-btn.active {
+  opacity: 1;
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color) !important;
+}
+
+
+/* ==========================================================================
+   === CORREÇÃO DO ALERTA DE CÓPIA (CPF) ===
+   ========================================================================== */
+
+/* Força a barra de ações a alinhar os itens colados à esquerda */
+.tool-container .action-bar {
+  justify-content: flex-start !important;
+  gap: 1rem !important; /* Espaço fixo e elegante entre os botões e o toast */
+}
+
+/* Garante que os grupos de ações usem display flex correto */
+.action-bar .grupo-acoes {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Corrige o comportamento do SPAN transformando-o em inline-flex */
+.tool-container .toast-alert {
+  white-space: nowrap !important; /* Impede que o texto quebre */
+  flex-shrink: 0 !important;     /* Impede que o balão seja espremido */
+  align-items: center !important;
+  gap: 0.35rem !important;
+}
+
+/* Garante que o display do alerta respeite a classe de ocultar (.hidden) */
+#cpf-generator-alert.hidden {
+  display: none !important;
+}
+
+/* Quando visível, força o comportamento inline-flex para respeitar o alinhamento e gaps */
+#cpf-generator-alert:not(.hidden) {
+  display: inline-flex !important;
 }

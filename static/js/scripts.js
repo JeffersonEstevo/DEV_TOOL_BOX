@@ -486,14 +486,40 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         // === 02. CALCULADORAS - 05. Calculadora Científica ===
 
-        // === 03. GERADORES - 01. Gerar CPF ===
+        // === 03. GERADORES - 01. Gerar/Validar CPF ===
+        // Ação de Gerar Novo CPF (Aba de Geração)
         if (event.target.closest('#btn-gerar-cpf')) {
             event.preventDefault();
             if (typeof dispararGeracaoCPF === "function") dispararGeracaoCPF();
         }
+
+        // Ação de Copiar CPF Gerado (Aba de Geração)
         if (event.target.closest('#btn-copiar-cpf')) {
             event.preventDefault();
             window.copiarTextoDeElemento('cpf-resultado', 'cpf-generator-alert');
+        }
+
+        // Ação de Copiar CPF Digitado (Aba de Validação)
+        if (event.target.closest('#btn-copiar-validar-cpf')) {
+            event.preventDefault();
+            window.copiarTextoDeElemento('cpf-input-validar', 'cpf-generator-alert');
+        }
+
+        // Ação de Limpar Campo de Validação (Aba de Validação)
+        if (event.target.closest('#btn-limpar-validar-cpf')) {
+            event.preventDefault();
+            if (typeof focarEResetarValidador === "function") focarEResetarValidador();
+        }
+
+        // === Eventos para aba de Validação de CPF ===
+        if (event.target.closest('#btn-copiar-validar-cpf')) {
+            event.preventDefault();
+            // Copia o valor do campo de validação
+            window.copiarTextoDeElemento('cpf-input-validar', 'cpf-generator-alert');
+        }
+        if (event.target.closest('#btn-limpar-validar-cpf')) {
+            event.preventDefault();
+            if (typeof focarEResetarValidador === "function") focarEResetarValidador();
         }
 
         // === 03. GERADORES - 02. Gerar CEP ===
