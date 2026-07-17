@@ -756,7 +756,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
 
-
         // Atalho global para fechar o leitor dinâmico
         document.addEventListener("keydown", function (event) {
             if (event.key === "Escape") {
