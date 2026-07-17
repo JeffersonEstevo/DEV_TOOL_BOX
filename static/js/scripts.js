@@ -576,39 +576,64 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             if (typeof dispararGeracaoCartao === "function") dispararGeracaoCartao();
         }
-
         // Ação de Copiar Cartão Gerado (Aba de Geração)
         if (event.target.closest('#btn-copiar-cartao')) {
             event.preventDefault();
             window.copiarTextoDeElemento('cartao-resultado', 'cartao-generator-alert');
         }
-
         // Ação de Copiar Cartão Digitado (Aba de Validação)
         if (event.target.closest('#btn-copiar-validar-cartao')) {
             event.preventDefault();
             window.copiarTextoDeElemento('cartao-input-validar', 'cartao-generator-alert');
         }
-
         // Ação de Limpar Campo de Validação (Aba de Validação)
         if (event.target.closest('#btn-limpar-validar-cartao')) {
             event.preventDefault();
             if (typeof focarEResetarValidadorCartao === "function") focarEResetarValidadorCartao();
         }
 
-        // === 03. GERADORES - 05. Gerar UUID ===
+        // === 03. GERADORES - 05. Gerar/Validar UUID ===
+        // Ação de Gerar Novo UUID (Aba de Geração)
         if (event.target.closest('#btn-gerar-uuid')) {
             event.preventDefault();
             if (typeof dispararGeracaoUUID === "function") dispararGeracaoUUID();
         }
+        // Ação de Copiar UUID Gerado (Aba de Geração)
         if (event.target.closest('#btn-copiar-uuid')) {
             event.preventDefault();
             window.copiarTextoDeElemento('uuid-resultado', 'uuid-generator-alert');
+        }
+        // Ação de Copiar UUID Digitado (Aba de Validação)
+        if (event.target.closest('#btn-copiar-validar-uuid')) {
+            event.preventDefault();
+            window.copiarTextoDeElemento('uuid-input-validar', 'uuid-generator-alert');
+        }
+        // Ação de Limpar Campo de Validação (Aba de Validação)
+        if (event.target.closest('#btn-limpar-validar-uuid')) {
+            event.preventDefault();
+            if (typeof focarEResetarValidadorUUID === "function") focarEResetarValidadorUUID();
         }
 
         // === 03. GERADORES - 06. Perfil de Pessoa ===
         if (event.target.closest('#btn-gerar-pessoa')) {
             event.preventDefault();
             if (typeof dispararGeracaoPessoa === "function") dispararGeracaoPessoa();
+        }
+
+        // === 03. GERADORES - 07. Gerador de Senhas e Hashes ===
+        if (event.target.closest('#btn-gerar-senha')) {
+            event.preventDefault();
+            if (typeof dispararGeracaoSenha === "function") dispararGeracaoSenha();
+        }
+        // Ação de Limpar Campos de Verificação (Aba de Validação de Hash)
+        if (event.target.closest('#btn-limpar-verificar-senha')) {
+            event.preventDefault();
+            if (typeof focarEResetarVerificadorSenha === "function") focarEResetarVerificadorSenha();
+        }
+
+        if (event.target.closest('#btn-copiar-senha')) {
+            event.preventDefault();
+            window.copiarTextoDeElemento('senha-resultado', 'senha-generator-alert');
         }
 
         // === 04. CONVERSORES - 01. Comprimento ===

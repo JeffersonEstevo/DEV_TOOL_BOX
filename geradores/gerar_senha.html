@@ -1,0 +1,133 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Gerador de Senhas e Hashes</h2>
+        <p>Gere senhas seguras aleatórias ou digite seu próprio texto para obter instantaneamente as assinaturas criptográficas (Hashes).</p>
+    </header>
+
+    <!-- Estrutura de Abas no Padrão Unificado -->
+    <div class="rede-tabs">
+        <button class="tab-btn active" onclick="alternarAbaSenha('aba-senha-gerar')">
+            <i class="bi bi-shield-lock-fill"></i> Gerar Senha
+        </button>
+        <button class="tab-btn" onclick="alternarAbaSenha('aba-senha-hashes')">
+            <i class="bi bi-hash"></i> Hashes da Senha Aleatória
+        </button>
+        <button class="tab-btn" onclick="alternarAbaSenha('aba-senha-verificar')">
+            <i class="bi bi-keyboard"></i> Inserir Senha Manual
+        </button>
+    </div>
+
+    <!-- ABA 1: GERAR SENHA -->
+    <div id="aba-senha-gerar" class="generator-workspace senha-workspace tab-content active">
+        <div class="generator-options" style="flex-direction: column; gap: 0.85rem; align-items: stretch; text-align: left; max-width: 360px; margin: 0 auto 1.5rem auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; color: var(--text-main); font-size: 0.95rem; font-weight: 600;">
+                <span>Comprimento: <span id="senha-comprimento-val">16</span> caracteres</span>
+                <input type="range" id="senha-comprimento" min="6" max="64" value="16" style="width: 50%; cursor: pointer;">
+            </div>
+            <label class="checkbox-container">
+                <input type="checkbox" id="senha-maiusculas" checked>
+                <span class="checkmark"></span>
+                Letras Maiúsculas (A-Z)
+            </label>
+            <label class="checkbox-container">
+                <input type="checkbox" id="senha-minusculas" checked>
+                <span class="checkmark"></span>
+                Letras Minúsculas (a-z)
+            </label>
+            <label class="checkbox-container">
+                <input type="checkbox" id="senha-numeros" checked>
+                <span class="checkmark"></span>
+                Números (0-9)
+            </label>
+            <label class="checkbox-container">
+                <input type="checkbox" id="senha-especiais" checked>
+                <span class="checkmark"></span>
+                Caracteres Especiais (!@#$%^&*)
+            </label>
+        </div>
+        <div class="generator-output-box">
+            <input type="text" id="senha-resultado" readonly placeholder="Clique em Gerar Senha">
+        </div>
+    </div>
+
+    <!-- ABA 2: VISUALIZAR HASHES DA SENHA ALEATÓRIA -->
+    <div id="aba-senha-hashes" class="generator-workspace senha-workspace tab-content">
+        <div class="hash-container-grid" style="display: flex; flex-direction: column; gap: 0.75rem; text-align: left;">
+            <div>
+                <label class="hash-label">MD5 (Senha Aleatória)</label>
+                <div class="hash-row">
+                    <input type="text" id="hash-md5" readonly placeholder="Aguardando geração...">
+                    <button class="btn btn-primary btn-mini-copy" data-alvo="hash-md5"><i class="bi bi-clipboard"></i></button>
+                </div>
+            </div>
+            <div>
+                <label class="hash-label">SHA-256 (Senha Aleatória)</label>
+                <div class="hash-row">
+                    <input type="text" id="hash-sha256" readonly placeholder="Aguardando geração...">
+                    <button class="btn btn-primary btn-mini-copy" data-alvo="hash-sha256"><i class="bi bi-clipboard"></i></button>
+                </div>
+            </div>
+            <div>
+                <label class="hash-label">SHA-512 (Senha Aleatória)</label>
+                <div class="hash-row">
+                    <input type="text" id="hash-sha512" readonly placeholder="Aguardando geração...">
+                    <button class="btn btn-primary btn-mini-copy" data-alvo="hash-sha512"><i class="bi bi-clipboard"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABA 3: INSERIR SENHA MANUAL E GERAR HASHES EM TEMPO REAL -->
+    <div id="aba-senha-verificar" class="generator-workspace senha-workspace tab-content">
+        <div style="display: flex; flex-direction: column; gap: 0.85rem; text-align: left;">
+            <div>
+                <label class="hash-label" style="color: var(--primary-color);">Digite sua Senha ou Texto:</label>
+                <input type="text" id="verificar-senha-input" placeholder="Ex: admin" autocomplete="off" style="width: 100%; background-color: var(--bg-main); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 0.5rem 0.75rem; color: var(--text-main); font-size: 0.95rem; font-weight: 600;">
+            </div>
+            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 0.5rem 0;">
+            <div>
+                <label class="hash-label">MD5 Calculado</label>
+                <div class="hash-row">
+                    <input type="text" id="manual-hash-md5" readonly placeholder="Resultados aparecerão aqui...">
+                    <button class="btn btn-primary btn-mini-copy" data-alvo="manual-hash-md5"><i class="bi bi-clipboard"></i></button>
+                </div>
+            </div>
+            <div>
+                <label class="hash-label">SHA-256 Calculado</label>
+                <div class="hash-row">
+                    <input type="text" id="manual-hash-sha256" readonly placeholder="Resultados aparecerão aqui...">
+                    <button class="btn btn-primary btn-mini-copy" data-alvo="manual-hash-sha256"><i class="bi bi-clipboard"></i></button>
+                </div>
+            </div>
+            <div>
+                <label class="hash-label">SHA-512 Calculado</label>
+                <div class="hash-row">
+                    <input type="text" id="manual-hash-sha512" readonly placeholder="Resultados aparecerão aqui...">
+                    <button class="btn btn-primary btn-mini-copy" data-alvo="manual-hash-sha512"><i class="bi bi-clipboard"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra de Ações Dinâmica -->
+    <div class="action-bar border-top-bar">
+        <div id="grupo-senha-acoes-padrao" class="grupo-acoes">
+            <button id="btn-gerar-senha" class="btn btn-primary">
+                <i class="bi bi-gear-fill"></i> Gerar Senha
+            </button>
+            <button id="btn-copiar-senha" class="btn btn-success">
+                <i class="bi bi-clipboard"></i> Copiar Senha
+            </button>
+        </div>
+        <div id="grupo-senha-acoes-verificar" class="grupo-acoes" style="display: none;">
+            <button id="btn-limpar-verificar-senha" class="btn btn-success">
+                <i class="bi bi-trash3-fill"></i> Limpar Campo
+            </button>
+        </div>
+        <span id="senha-generator-alert" class="toast-alert hidden">
+            <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
+        </span>
+    </div>
+</div>
+
+<script src="static/js/geradores/gerar_senha.js"></script>
