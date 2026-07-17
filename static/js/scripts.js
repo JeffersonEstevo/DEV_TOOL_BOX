@@ -571,13 +571,28 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         // === 03. GERADORES - 04. Cartão de Crédito ===
+        // Ação de Gerar Novo Cartão (Aba de Geração)
         if (event.target.closest('#btn-gerar-cartao')) {
             event.preventDefault();
             if (typeof dispararGeracaoCartao === "function") dispararGeracaoCartao();
         }
+
+        // Ação de Copiar Cartão Gerado (Aba de Geração)
         if (event.target.closest('#btn-copiar-cartao')) {
             event.preventDefault();
             window.copiarTextoDeElemento('cartao-resultado', 'cartao-generator-alert');
+        }
+
+        // Ação de Copiar Cartão Digitado (Aba de Validação)
+        if (event.target.closest('#btn-copiar-validar-cartao')) {
+            event.preventDefault();
+            window.copiarTextoDeElemento('cartao-input-validar', 'cartao-generator-alert');
+        }
+
+        // Ação de Limpar Campo de Validação (Aba de Validação)
+        if (event.target.closest('#btn-limpar-validar-cartao')) {
+            event.preventDefault();
+            if (typeof focarEResetarValidadorCartao === "function") focarEResetarValidadorCartao();
         }
 
         // === 03. GERADORES - 05. Gerar UUID ===

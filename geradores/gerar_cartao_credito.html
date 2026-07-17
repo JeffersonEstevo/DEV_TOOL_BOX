@@ -1,24 +1,44 @@
 <div class="tool-container">
     <header class="tool-header">
-        <h2>Gerador de Cartão de Crédito</h2>
-        <p>Gere números de cartões de crédito válidos pelo algoritmo de Luhn com ou sem formatação para fins de testes de software e validação de plataformas de pagamento.</p>
+        <h2>Gerador e Validador de Cartão de Crédito</h2>
+        <p>Gere números de cartões de crédito válidos pelo algoritmo de Luhn ou valide e identifique bandeiras de forma instantânea.</p>
     </header>
 
-    <div class="generator-workspace">
+    <!-- Estrutura de Abas no Padrão Unificado -->
+    <div class="rede-tabs">
+        <button class="tab-btn active" onclick="alternarAbaCartao('aba-cartao-gerar')">
+            <i class="bi bi-gear-fill"></i> Gerar Cartão
+        </button>
+        <button class="tab-btn" onclick="alternarAbaCartao('aba-cartao-validar')">
+            <i class="bi bi-shield-check"></i> Validar Cartão
+        </button>
+    </div>
+
+    <!-- ABA 1: GERAR CARTÃO -->
+    <div id="aba-cartao-gerar" class="generator-workspace cartao-workspace tab-content active">
         <div class="generator-options" style="flex-direction: column; gap: 1rem;">
-            <div style="display: flex; gap: 1.5rem; justify-content: center; font-size: 0.95rem; color: var(--text-main);">
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; font-size: 0.95rem; color: var(--text-main);">
                 <label style="cursor: pointer; display: flex; align-items: center; gap: 0.3rem;">
                     <input type="radio" name="bandeira-cartao" value="visa" checked> Visa
                 </label>
                 <label style="cursor: pointer; display: flex; align-items: center; gap: 0.3rem;">
                     <input type="radio" name="bandeira-cartao" value="mastercard"> Mastercard
                 </label>
+                <label style="cursor: pointer; display: flex; align-items: center; gap: 0.3rem;">
+                    <input type="radio" name="bandeira-cartao" value="amex"> Amex
+                </label>
+                <label style="cursor: pointer; display: flex; align-items: center; gap: 0.3rem;">
+                    <input type="radio" name="bandeira-cartao" value="elo"> Elo
+                </label>
+                <label style="cursor: pointer; display: flex; align-items: center; gap: 0.3rem;">
+                    <input type="radio" name="bandeira-cartao" value="hipercard"> Hipercard
+                </label>
             </div>
             
             <label class="checkbox-container">
                 <input type="checkbox" id="cartao-formatar" checked>
                 <span class="checkmark"></span>
-                Gerar com espaçamento (Ex: 0000 0000 0000 0000)
+                Gerar com espaçamento
             </label>
         </div>
 
@@ -27,13 +47,43 @@
         </div>
     </div>
 
+    <!-- ABA 2: VALIDAR CARTÃO -->
+    <div id="aba-cartao-validar" class="generator-workspace cartao-workspace tab-content">
+        <div class="generator-options" style="flex-direction: column; gap: 0.5rem; align-items: center;">
+            <label style="font-size: 0.95rem; font-weight: 600; color: var(--text-main);">Digite o número do cartão para validação</label>
+        </div>
+
+        <div class="generator-output-box">
+            <input type="text" id="cartao-input-validar" placeholder="0000 0000 0000 0000" maxlength="23" autocomplete="off" style="color: var(--text-main); font-size: 1.35rem;">
+        </div>
+        
+        <!-- Box de Feedback Visual da Validação -->
+        <div id="cartao-validation-feedback" class="validation-feedback neutral" style="margin-top: 1rem; font-weight: 600; font-size: 0.95rem;">
+            Aguardando entrada...
+        </div>
+    </div>
+
+    <!-- Barra de Ações Dinâmica -->
     <div class="action-bar border-top-bar">
-        <button id="btn-gerar-cartao" class="btn btn-primary">
-            <i class="bi bi-gear-fill"></i> Gerar Cartão
-        </button>
-        <button id="btn-copiar-cartao" class="btn btn-success">
-            <i class="bi bi-clipboard"></i> Copiar Número
-        </button>
+        <!-- Botões de Geração -->
+        <div id="grupo-cartao-acoes-gerar" class="grupo-acoes">
+            <button id="btn-gerar-cartao" class="btn btn-primary">
+                <i class="bi bi-gear-fill"></i> Gerar Cartão
+            </button>
+            <button id="btn-copiar-cartao" class="btn btn-success">
+                <i class="bi bi-clipboard"></i> Copiar Número
+            </button>
+        </div>
+
+        <!-- Botões de Validação -->
+        <div id="grupo-cartao-acoes-validar" class="grupo-acoes" style="display: none;">
+            <button id="btn-copiar-validar-cartao" class="btn btn-primary">
+                <i class="bi bi-clipboard"></i> Copiar Número
+            </button>
+            <button id="btn-limpar-validar-cartao" class="btn btn-success">
+                <i class="bi bi-trash3-fill"></i> Limpar
+            </button>
+        </div>
         
         <span id="cartao-generator-alert" class="toast-alert hidden">
             <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
