@@ -4,11 +4,22 @@
    === 05. REDE - 04. Calculadora de Sub-redes ===
    ========================================================================== */
 
+ /*  
 .tool-container .subredes-workspace {
   max-width: 650px !important;
   width: 100% !important;
   text-align: left !important;
   padding: 2rem !important;
+}*/
+
+/* Workspace centralizada e flexível para comportar as tabelas sem quebrar */
+.tool-container .subredes-workspace {
+  max-width: 800px !important; /* Aumentado para acomodar confortavelmente a tabela da aba 2 */
+  width: 100% !important;
+  text-align: left !important;
+  padding: 2rem !important;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .subredes-grid {
@@ -99,7 +110,7 @@
 
 
 
-/* Estrutura de Abas (Idêntico ao seu padrão do máscara.css) */
+/* Estrutura de Abas (Idêntico ao seu padrão do máscara.css) 
 .rede-tabs {
   display: flex;
   gap: 0.5rem;
@@ -122,6 +133,49 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}*/
+
+/* Barra de abas unificada */
+.rede-tabs {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 2px solid var(--border-color);
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Botões de aba de sub-redes */
+.rede-tabs .tab-btn {
+  background: none;
+  border: none;
+  padding: 0.75rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+  opacity: 0.7;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0; /* Remove bordas arredondadas para seguir o padrão visual */
+}
+
+.rede-tabs .tab-btn:hover {
+  opacity: 1;
+  color: var(--primary-color);
+  background: none;
+}
+
+.rede-tabs .tab-btn.active {
+  opacity: 1;
+  background: none;
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
 }
 
 .tab-btn:hover {

@@ -1,3 +1,4 @@
+/*
 // Mapeamento e controle das abas no mesmo padrão do seu sistema
 function alternarAbaSubrede(idAba) {
     document.querySelectorAll('.subredes-workspace.tab-content').forEach(aba => {
@@ -12,6 +13,29 @@ function alternarAbaSubrede(idAba) {
 
     const btnAlvo = Array.from(document.querySelectorAll('.rede-tabs .tab-btn')).find(btn => 
         btn.getAttribute('onclick').includes(idAba)
+    );
+    if (btnAlvo) btnAlvo.classList.add('active');
+}*/
+
+// Mapeamento e controle das abas de Sub-redes no mesmo padrão dinâmico
+function alternarAbaSubrede(idAba) {
+    // 1. Remove a classe ativa de todos os conteúdos de sub-redes
+    document.querySelectorAll('.subredes-workspace.tab-content').forEach(aba => {
+        aba.classList.remove('active');
+    });
+
+    // 2. Remove a classe ativa dos botões contidos em .rede-tabs
+    document.querySelectorAll('.rede-tabs .tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+
+    // 3. Ativa o container correspondente
+    const abaAlvo = document.getElementById(idAba);
+    if (abaAlvo) abaAlvo.classList.add('active');
+
+    // 4. Ativa o botão dinamicamente com base no atributo onclick
+    const btnAlvo = Array.from(document.querySelectorAll('.rede-tabs .tab-btn')).find(btn => 
+        btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(idAba)
     );
     if (btnAlvo) btnAlvo.classList.add('active');
 }
