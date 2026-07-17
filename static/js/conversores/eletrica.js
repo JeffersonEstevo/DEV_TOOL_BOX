@@ -1,3 +1,4 @@
+/*
 // Controle de Alternância de Abas
 function alternarAbaEletrica(abaId) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -8,6 +9,23 @@ function alternarAbaEletrica(abaId) {
     // Identifica o botão clicado através do evento ou mapeamento
     const btnIdx = abaId === 'aba-calculadora' ? 0 : 1;
     document.querySelectorAll('.tab-btn')[btnIdx].classList.add('active');
+}*/
+
+// Controle de Alternância de Abas (Padrão Dinâmico)
+function alternarAbaEletrica(abaId) {
+    // Remove a classe ativa de todos os botões pertencentes às abas elétricas
+    document.querySelectorAll('.eletrica-tabs .tab-btn').forEach(btn => btn.classList.remove('active'));
+    
+    // Remove a classe ativa de todas as áreas de conteúdo elétrico
+    document.querySelectorAll('.eletrica-workspace.tab-content').forEach(content => content.classList.remove('active'));
+
+    // Adiciona classe ativa dinamicamente ao botão que contém o evento de clique para esta aba
+    const btnClicado = Array.from(document.querySelectorAll('.eletrica-tabs .tab-btn')).find(btn => btn.getAttribute('onclick').includes(abaId));
+    if (btnClicado) btnClicado.classList.add('active');
+    
+    // Mostra o conteúdo correspondente
+    const conteudoAba = document.getElementById(abaId);
+    if (conteudoAba) conteudoAba.classList.add('active');
 }
 
 // ==========================================
