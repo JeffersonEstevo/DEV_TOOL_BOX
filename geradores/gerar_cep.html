@@ -1,10 +1,21 @@
 <div class="tool-container">
     <header class="tool-header">
-        <h2>Gerador de CEP</h2>
-        <p>Gere números de CEP válidos com ou sem formatação para fins de testes de software, homologação e validação de sistemas de entrega ou localização.</p>
+        <h2>Gerador e Validador de CEP</h2>
+        <p>Gere números de CEP válidos para testes de software ou valide estruturas de CEP de forma instantânea.</p>
     </header>
 
-    <div class="generator-workspace">
+    <!-- Estrutura de Abas no Padrão Unificado -->
+    <div class="rede-tabs">
+        <button class="tab-btn active" onclick="alternarAbaCEP('aba-cep-gerar')">
+            <i class="bi bi-gear-fill"></i> Gerar CEP
+        </button>
+        <button class="tab-btn" onclick="alternarAbaCEP('aba-cep-validar')">
+            <i class="bi bi-shield-check"></i> Validar CEP
+        </button>
+    </div>
+
+    <!-- ABA 1: GERAR CEP -->
+    <div id="aba-cep-gerar" class="generator-workspace cep-workspace tab-content active">
         <div class="generator-options">
             <label class="checkbox-container">
                 <input type="checkbox" id="cep-formatar" checked>
@@ -18,13 +29,43 @@
         </div>
     </div>
 
+    <!-- ABA 2: VALIDAR CEP -->
+    <div id="aba-cep-validar" class="generator-workspace cep-workspace tab-content">
+        <div class="generator-options" style="flex-direction: column; gap: 0.5rem; align-items: center;">
+            <label style="font-size: 0.95rem; font-weight: 600; color: var(--text-main);">Digite o CEP para validação</label>
+        </div>
+
+        <div class="generator-output-box">
+            <input type="text" id="cep-input-validar" placeholder="00000-000" maxlength="9" autocomplete="off" style="color: var(--text-main);">
+        </div>
+        
+        <!-- Box de Feedback Visual da Validação -->
+        <div id="cep-validation-feedback" class="validation-feedback neutral" style="margin-top: 1rem; font-weight: 600; font-size: 0.95rem;">
+            Aguardando entrada...
+        </div>
+    </div>
+
+    <!-- Barra de Ações Dinâmica -->
     <div class="action-bar border-top-bar">
-        <button id="btn-gerar-cep" class="btn btn-primary">
-            <i class="bi bi-gear-fill"></i> Gerar CEP
-        </button>
-        <button id="btn-copiar-cep" class="btn btn-success">
-            <i class="bi bi-clipboard"></i> Copiar CEP
-        </button>
+        <!-- Botões de Geração (Visíveis por padrão) -->
+        <div id="grupo-cep-acoes-gerar" class="grupo-acoes">
+            <button id="btn-gerar-cep" class="btn btn-primary">
+                <i class="bi bi-gear-fill"></i> Gerar CEP
+            </button>
+            <button id="btn-copiar-cep" class="btn btn-success">
+                <i class="bi bi-clipboard"></i> Copiar CEP
+            </button>
+        </div>
+
+        <!-- Botões de Validação (Ocultados por padrão) -->
+        <div id="grupo-cep-acoes-validar" class="grupo-acoes" style="display: none;">
+            <button id="btn-copiar-validar-cep" class="btn btn-primary">
+                <i class="bi bi-clipboard"></i> Copiar CEP
+            </button>
+            <button id="btn-limpar-validar-cep" class="btn btn-success">
+                <i class="bi bi-trash3-fill"></i> Limpar
+            </button>
+        </div>
         
         <span id="cep-generator-alert" class="toast-alert hidden">
             <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!

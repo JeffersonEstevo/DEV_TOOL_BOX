@@ -522,14 +522,29 @@ document.addEventListener("DOMContentLoaded", function () {
             if (typeof focarEResetarValidador === "function") focarEResetarValidador();
         }
 
-        // === 03. GERADORES - 02. Gerar CEP ===
+        // === 03. GERADORES - 02. Gerar/Validar CEP ===
+        // Ação de Gerar Novo CEP (Aba de Geração)
         if (event.target.closest('#btn-gerar-cep')) {
             event.preventDefault();
             if (typeof dispararGeracaoCEP === "function") dispararGeracaoCEP();
         }
+
+        // Ação de Copiar CEP Gerado (Aba de Geração)
         if (event.target.closest('#btn-copiar-cep')) {
             event.preventDefault();
             window.copiarTextoDeElemento('cep-resultado', 'cep-generator-alert');
+        }
+
+        // Ação de Copiar CEP Digitado (Aba de Validação)
+        if (event.target.closest('#btn-copiar-validar-cep')) {
+            event.preventDefault();
+            window.copiarTextoDeElemento('cep-input-validar', 'cep-generator-alert');
+        }
+
+        // Ação de Limpar Campo de Validação (Aba de Validação)
+        if (event.target.closest('#btn-limpar-validar-cep')) {
+            event.preventDefault();
+            if (typeof focarEResetarValidadorCEP === "function") focarEResetarValidadorCEP();
         }
 
         // === 03. GERADORES - 03. Gerar CNPJ ===
