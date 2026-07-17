@@ -1,4 +1,4 @@
-// Controle de Abas Internas
+/*// Controle de Abas Internas
 function alternarAbaRede(abaId) {
     document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
     document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
@@ -7,7 +7,25 @@ function alternarAbaRede(abaId) {
     
     const btnIdx = abaId === 'aba-ipv4' ? 0 : 1;
     document.querySelectorAll('.tab-btn')[btnIdx].classList.add('active');
+}*/
+
+// Controle de Abas Internas (Padrão Dinâmico)
+function alternarAbaRede(abaId) {
+    // 1. Remove classe ativa dos botões exclusivos do módulo de rede
+    document.querySelectorAll('.rede-tabs .tab-btn').forEach(btn => btn.classList.remove('active'));
+    
+    // 2. Remove classe ativa do conteúdo de abas de rede
+    document.querySelectorAll('.rede-workspace.tab-content').forEach(content => content.classList.remove('active'));
+
+    // 3. Adiciona classe ativa ao botão que possui o evento associado a este ID
+    const btnClicado = Array.from(document.querySelectorAll('.rede-tabs .tab-btn')).find(btn => btn.getAttribute('onclick').includes(abaId));
+    if (btnClicado) btnClicado.classList.add('active');
+    
+    // 4. Mostra o painel de conteúdo correto
+    const conteudoAba = document.getElementById(abaId);
+    if (conteudoAba) conteudoAba.classList.add('active');
 }
+
 
 // ==========================================
 // MÓDULO IPV4: CÁLCULOS DE MÁSCARA E CIDR
