@@ -1,0 +1,70 @@
+/* ==========================================================================
+   === 07. CORES - 04. Misturador de Cores (Color Mixer) ===
+   ========================================================================== */
+
+.mixer-seletores-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  gap: 1rem;
+  width: 100%;
+}
+
+.mixer-icone-separador {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+/* Faixa de gradiente do CSS */
+.faixa-gradiente-barra {
+  width: 100%;
+  height: 50px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+/* Contêiner para a listagem dos blocos de cores gerados */
+.lista-codigos-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 0.6rem;
+  background-color: var(--bg-main);
+}
+
+/* Linha contendo o bloco de cor e o respectivo código textual */
+.item-codigo-mistura {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.1s ease;
+}
+
+.item-codigo-mistura:hover {
+  background-color: var(--bg-sidebar);
+}
+
+.bloco-cor-amostra {
+  width: 30px;
+  height: 20px;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,0.15);
+  flex-shrink: 0;
+}
+
+.texto-codigo-amostra {
+  font-family: monospace;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+}

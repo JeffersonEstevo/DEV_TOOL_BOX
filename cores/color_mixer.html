@@ -1,0 +1,63 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Misturador de Cores (Color Mixer)</h2>
+        <p>Escolha duas cores para calcular a interpolação matemática entre elas, gerando uma escala de gradiente e seus respectivos códigos hexadecimais.</p>
+    </header>
+
+    <div class="generator-workspace cores-workspace">
+        
+        <!-- Contêiner dos Dois Seletores -->
+        <div class="mixer-seletores-container">
+            <!-- Cor A -->
+            <div class="picker-topo-container">
+                <label class="titulo-subsecao">Cor Inicial (A)</label>
+                <div id="preview-mixer-a" class="preview-caixa">
+                    <input type="color" id="picker-mixer-a" value="#66FF99" title="Selecione a Cor A">
+                </div>
+                <div class="cores-field" style="margin-top: 0.5rem; width: 110px;">
+                    <input type="text" id="input-mixer-a" placeholder="#66FF99" autocomplete="off" style="font-size: 0.9rem; padding: 0.4rem; text-align: center;">
+                </div>
+            </div>
+
+            <!-- Ícone de Conexão/Mistura -->
+            <div class="mixer-icone-separador">
+                <i class="bi bi-plus-circle-fill" style="font-size: 1.5rem; color: var(--border-color);"></i>
+            </div>
+
+            <!-- Cor B -->
+            <div class="picker-topo-container">
+                <label class="titulo-subsecao">Cor Final (B)</label>
+                <div id="preview-mixer-b" class="preview-caixa">
+                    <input type="color" id="picker-mixer-b" value="#33CCFF" title="Selecione a Cor B">
+                </div>
+                <div class="cores-field" style="margin-top: 0.5rem; width: 110px;">
+                    <input type="text" id="input-mixer-b" placeholder="#33CCFF" autocomplete="off" style="font-size: 0.9rem; padding: 0.4rem; text-align: center;">
+                </div>
+            </div>
+        </div>
+
+        <hr class="divisor-ferramenta">
+
+        <!-- Visualização do Resultado da Mistura -->
+        <div class="secao-resultado-mixer">
+            <label class="titulo-subsecao">Gradiente Gerado</label>
+            <!-- Faixa visual contínua em CSS -->
+            <div id="faixa-gradiente-resultado" class="faixa-gradiente-barra"></div>
+            
+            <label class="titulo-subsecao" style="margin-top: 1.2rem;">Escala de Códigos Gerados (Clique na cor para copiar!)</label>
+            <!-- Lista lateral/grid com a cor e o código correspondente -->
+            <div id="lista-codigos-mixer" class="lista-codigos-container">
+                <!-- Injetado via JS dinamicamente -->
+            </div>
+        </div>
+
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="btn-limpar-mixer" class="btn btn-secondary">
+            <i class="bi bi-arrow-counterclockwise"></i> Resetar Cores Padrão
+        </button>
+    </div>
+</div>
+
+<script src="static/js/cores/color_mixer.js"></script>

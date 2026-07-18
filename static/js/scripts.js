@@ -761,6 +761,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 atualizarInterfaceGradiente('#3498DB'); // Reseta para o azul padrão da aplicação
             }
         }
+        // === 07. CORES - 04. Misturador de Cores ===
+        if (event.target.closest('#btn-limpar-mixer')) {
+            event.preventDefault();
+            const inputA = document.getElementById('input-mixer-a');
+            const inputB = document.getElementById('input-mixer-b');
+            
+            if (inputA && inputB && typeof calcularEMisturarCores === "function") {
+                inputA.value = '#66FF99';
+                inputB.value = '#33CCFF';
+                calcularEMisturarCores(); // Executa o recálculo do estado inicial
+            }
+        }
 
 
         // Atalho global para fechar o leitor dinâmico
