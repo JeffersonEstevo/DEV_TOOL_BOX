@@ -6,46 +6,72 @@ function dispararGeracaoArray() {
     const tamString = parseInt(document.getElementById("array-tamanho-string")?.value || 5, 10);
     const ordenacao = document.getElementById("array-ordenacao")?.value || "aleatorio";
     const permitirRepetidos = document.getElementById("array-repetidos")?.checked;
+    const apenasPositivos = document.getElementById("array-positivos")?.checked; 
     const output = document.getElementById("array-resultado");
 
     if (!output) return;
 
+    const ehMatriz = estrutura === "matriz";
+    let dadosParaFormatar;
+
+    if (ehMatriz) {
+        let matriz = [];
+        // Limita o tamanho da matriz para evitar travamento visual (máximo 15x15)
+        const tamMatriz = Math.min(quantidade, 15); 
+        for (let i = 0; i < tamMatriz; i++) {
+            matriz.push(gerarLinhaDados(tamMatriz, tipoDado, tamString, permitirRepetidos, apenasPositivos));
+        }
+        dadosParaFormatar = matriz;
+    } else {
+        dadosParaFormatar = gerarLinhaDados(quantidade, tipoDado, tamString, permitirRepetidos, apenasPositivos);
+    }
+
+    // Aplicação de Ordenação
+    if (!ehMatriz) {
+        aplicarOrdenacao(dadosParaFormatar, ordenacao);
+    } else {
+        dadosParaFormatar.forEach(linha => aplicarOrdenacao(linha, ordenacao));
+    }
+
+    // Formatação Baseada na Linguagem e Tipo de Estrutura
+    output.value = formatarEstrutura(dadosParaFormatar, linguagem, estrutura, tipoDado);
+}
+
+// Função auxiliar para gerar uma lista simples de dados
+function gerarLinhaDados(qtd, tipo, tamStr, repetir, positivos) {
     let elementos = [];
-    const maxTentativas = quantidade * 10; 
+    const maxTentativas = qtd * 20; // Aumentado para evitar loops infinitos se repetidos for falso
     let tentativas = 0;
 
-    // 1. Geração de Dados Brutos
-    while (elementos.length < quantidade && tentativas < maxTentativas) {
+    while (elementos.length < qtd && tentativas < maxTentativas) {
         tentativas++;
         let novoItem;
 
-        if (tipoDado === "number") {
-            novoItem = Math.floor(Math.random() * 200) - 50; // Valores entre -50 e 150
-        } else if (tipoDado === "string") {
-            novoItem = gerarStringAleatoria(tamString);
+        if (tipo === "number") {
+            novoItem = positivos 
+                ? Math.floor(Math.random() * 150) 
+                : Math.floor(Math.random() * 200) - 50;
+        } else if (tipo === "string") {
+            novoItem = gerarStringAleatoria(tamStr);
         } else {
             novoItem = Math.random() >= 0.5;
         }
 
-        if (!permitirRepetidos && elementos.includes(novoItem)) {
-            if (tipoDado === "boolean") { 
-                // Booleanos só possuem 2 estados. Força interrupção se já populou ambos.
-                if (elementos.length >= 2) break;
-            }
-            continue; 
+        if (!repetir && elementos.includes(novoItem)) {
+            if (tipo === "boolean" && elementos.length >= 2) break;
+            continue;
         }
         elementos.push(novoItem);
     }
+    return elementos;
+}
 
-    // 2. Aplicação de Ordenação (se aplicável ao tipo)
+function aplicarOrdenacao(elementos, ordenacao) {
     if (ordenacao === "crescente") {
         elementos.sort((a, b) => typeof a === 'boolean' ? a - b : (a > b ? 1 : -1));
     } else if (ordenacao === "decrescente") {
         elementos.sort((a, b) => typeof a === 'boolean' ? b - a : (a < b ? 1 : -1));
     }
-
-    // 3. Formatação Baseada na Linguagem e Tipo de Estrutura escolhida
-    output.value = formatarEstrutura(elementos, linguagem, estrutura, tipoDado);
 }
 
 function gerarStringAleatoria(tamanho) {
@@ -58,11 +84,9 @@ function gerarStringAleatoria(tamanho) {
 }
 
 function formatarEstrutura(itens, lang, est, tipo) {
-    // Tratamento preventivo: conjuntos/tuplas não fazem sentido como dicionários clássicos.
-    // Se selecionado dicionário, vamos mapear chaves "item_X" ou "kX".
     const ehDicionario = est === "dicionario";
+    const ehMatriz = est === "matriz";
 
-    // Normaliza strings colocando aspas corretas para a representação do código
     const prepararItem = (v) => {
         if (typeof v === 'string') return `"${v}"`;
         if (typeof v === 'boolean') {
@@ -72,6 +96,10 @@ function formatarEstrutura(itens, lang, est, tipo) {
         }
         return v;
     };
+
+    if (ehMatriz) {
+        return formatarMatriz(itens, lang, prepararItem, tipo);
+    }
 
     let corpo = "";
     if (ehDicionario) {
@@ -84,7 +112,6 @@ function formatarEstrutura(itens, lang, est, tipo) {
         corpo = itens.map(prepararItem).join(", ");
     }
 
-    // Estruturação sintática por alvo de Compilação/Linguagem
     switch (lang) {
         case "javascript":
             if (est === "array") return `const meuArray = [${corpo}];`;
@@ -99,10 +126,7 @@ function formatarEstrutura(itens, lang, est, tipo) {
             return `meu_dict = {\n    ${corpo.split(', ').join(',\n    ')}\n}`;
 
         case "java":
-            let jTipo = "Integer";
-            if (tipo === "string") jTipo = "String";
-            if (tipo === "boolean") jTipo = "Boolean";
-
+            let jTipo = tipo === "string" ? "String" : (tipo === "boolean" ? "Boolean" : "Integer");
             if (est === "array") return `${jTipo}[] meuArray = new ${jTipo}[]{${corpo}};`;
             if (est === "tupla") return `// Java não possui Tuplas nativas\nList<${jTipo}> minhaTupla = List.of(${corpo});`;
             if (est === "conjunto") return `Set<${jTipo}> meuSet = new HashSet<>(Arrays.asList(${corpo}));`;
@@ -115,6 +139,26 @@ function formatarEstrutura(itens, lang, est, tipo) {
 
         default:
             return corpo;
+    }
+}
+
+function formatarMatriz(matriz, lang, prepararItem, tipo) {
+    const linhasFormatadas = matriz.map(linha => `[${linha.map(prepararItem).join(", ")}]`);
+    
+    switch (lang) {
+        case "javascript":
+            return `const minhaMatriz = [\n  ${linhasFormatadas.join(",\n  ")}\n];`;
+        case "python":
+            return `minha_matriz = [\n    ${linhasFormatadas.join(",\n    ")}\n]`;
+        case "java":
+            let jTipo = tipo === "string" ? "String" : (tipo === "boolean" ? "boolean" : "int");
+            // Substitui colchetes por chaves para a sintaxe de matriz do Java
+            const linhasJava = linhasFormatadas.join(",\n  ").replace(/\[/g, '{').replace(/\]/g, '}');
+            return `${jTipo}[][] minhaMatriz = {\n  ${linhasJava}\n};`;
+        case "php":
+            return `$minhaMatriz = [\n    ${linhasFormatadas.join(",\n    ")}\n];`;
+        default:
+            return linhasFormatadas.join("\n");
     }
 }
 
@@ -138,13 +182,12 @@ function inicializarEventosArray() {
         });
     }
 
-    // Escuta mudanças gerais nos selects para rebuild imediato em tempo real
-    const seletores = ["array-linguagem", "array-estrutura", "array-ordenacao", "array-repetidos", "array-tamanho-string"];
+    const seletores = ["array-linguagem", "array-estrutura", "array-ordenacao", "array-repetidos", "array-positivos", "array-tamanho-string"];
     seletores.forEach(id => {
         document.getElementById(id)?.addEventListener("change", dispararGeracaoArray);
     });
 }
 
-// Inicializadores Dinâmicos
+// Inicializadores
 inicializarEventosArray();
 dispararGeracaoArray();
