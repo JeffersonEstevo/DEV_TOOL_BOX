@@ -5,6 +5,7 @@
 // BANCO DE DADOS DE COMPONENTES UI (Atualizado com Cards, Tabelas e Menus)
 // ==========================================================================
 const BANCO_COMPONENTES_UI = [
+    // 1. CARDS - 1. card-produto-moderno 
     {
         id: "card-produto-moderno",
         nome: "Card de Produto Glassmorphism",
@@ -47,6 +48,7 @@ const BANCO_COMPONENTES_UI = [
 }
 .ui-card-btn:hover { background: #334155; }`
     },
+    // 1. CARDS - 2. card-perfil-usuario
     {
         id: "card-perfil-usuario",
         nome: "Card de Perfil Profissional / Redes Sociais",
@@ -89,6 +91,7 @@ const BANCO_COMPONENTES_UI = [
 }
 .ui-user-btn:hover { filter: brightness(0.9); }`
     },
+    // 1. CARDS - 3. card-precificacao-saas
     {
         id: "card-precificacao-saas",
         nome: "Card de Plano / Precificação Pro",
@@ -132,6 +135,7 @@ const BANCO_COMPONENTES_UI = [
 }
 .ui-price-btn:hover { background: #2563eb; }`
     },
+    // 1. CARDS - 4. card-artigo-blog
     {
         id: "card-artigo-blog",
         nome: "Card de Artigo / Post de Blog",
@@ -142,7 +146,7 @@ const BANCO_COMPONENTES_UI = [
         <span class="ui-blog-meta">18 Julho, 2026 • 5 min leitura</span>
         <h4 class="ui-blog-titulo">O Futuro das Lógicas de Estado em Arquiteturas SPA Modernas</h4>
         <p class="ui-blog-resumo">Descubra como o gerenciamento reativo e componentizado pode transformar a velocidade de renderização no front-end.</p>
-        <a href="#" class="ui-blog-link">Ler artigo completo →</a>
+        <a href="javascript:void(0)" class="ui-blog-link">Ler artigo completo →</a>
     </div>
 </div>`,
         css: `/* Estilos do Card de Blog */
@@ -160,6 +164,7 @@ const BANCO_COMPONENTES_UI = [
 .ui-blog-link { color: #6366f1; text-decoration: none; font-weight: 700; font-size: 0.85rem; transition: color 0.2s; }
 .ui-blog-link:hover { color: #4f46e5; }`
     },
+    // 1. CARDS - 5. card-dashboard-metrica  
     {
         id: "card-dashboard-metrica",
         nome: "Card de Métrica / Dashboard Analytics",
@@ -189,6 +194,8 @@ const BANCO_COMPONENTES_UI = [
 .ui-dash-indicador.positivo { background: #dcfce7; color: #16a34a; }
 .ui-dash-comparativo { margin: 0; color: #94a3b8; font-size: 0.75rem; text-align: left; }`
     },
+
+    // 2. MENUS & NAV - 1. header-minimalista-dropdown
     {
         id: "header-minimalista-dropdown",
         nome: "Header Minimalista com Dropdown Hover",
@@ -196,16 +203,16 @@ const BANCO_COMPONENTES_UI = [
         html: `<header class="ui-nav-minimal">
     <div class="ui-nav-logo">⚡ TechFlow</div>
     <nav class="ui-nav-links">
-        <a href="#" class="ui-nav-item">Home</a>
+        <a href="javascript:void(0)" class="ui-nav-item">Home</a>
         <div class="ui-nav-dropdown-wrapper">
-            <a href="#" class="ui-nav-item drop-trigger">Recursos ▼</a>
+            <a href="javascript:void(0)" class="ui-nav-item drop-trigger">Recursos ▼</a>
             <div class="ui-nav-dropdown-box">
-                <a href="#">Componentes UI</a>
-                <a href="#">API Integrations</a>
-                <a href="#">Segurança Pro</a>
+                <a href="javascript:void(0)">Componentes UI</a>
+                <a href="javascript:void(0)">API Integrations</a>
+                <a href="javascript:void(0)">Segurança Pro</a>
             </div>
         </div>
-        <a href="#" class="ui-nav-item">Preços</a>
+        <a href="javascript:void(0)" class="ui-nav-item">Preços</a>
     </nav>
     <div class="ui-nav-action">
         <button class="ui-nav-btn-light">Login</button>
@@ -238,6 +245,8 @@ const BANCO_COMPONENTES_UI = [
     border-radius: 6px; font-weight: 600; font-size: 0.85rem; cursor: pointer;
 }`
     },
+
+    // 2. MENUS & NAV - 2. navbar-corporativa-busca
     {
         id: "navbar-corporativa-busca",
         nome: "Navbar Corporativa com Busca e CTA",
@@ -248,7 +257,7 @@ const BANCO_COMPONENTES_UI = [
         <input type="text" placeholder="Buscar no site...">
     </div>
     <div class="ui-corp-right">
-        <a href="#">Suporte</a>
+        <a href="javascript:void(0)">Suporte</a>
         <button class="ui-corp-btn-cta">Agendar Demo</button>
     </div>
 </header>`,
@@ -273,14 +282,16 @@ const BANCO_COMPONENTES_UI = [
 }
 .ui-corp-btn-cta:hover { background: #2563eb; }`
     },
+
+    // 2. MENUS & NAV - 3. menu-floating-glassmorphism
     {
         id: "menu-floating-glassmorphism",
         nome: "Menu Flutuante Glassmorphism Style",
         categoria: "menus",
         html: `<div class="ui-nav-glass-blur">
-    <a href="#" class="ui-glass-item active">Dashboard</a>
-    <a href="#" class="ui-glass-item">Analytics</a>
-    <a href="#" class="ui-glass-item">Settings</a>
+    <a href="javascript:void(0)" class="ui-glass-item active">Dashboard</a>
+    <a href="javascript:void(0)" class="ui-glass-item">Analytics</a>
+    <a href="javascript:void(0)" class="ui-glass-item">Settings</a>
 </div>`,
         css: `/* Estilos do Menu Flutuante */
 .ui-nav-glass-blur {
@@ -296,6 +307,8 @@ const BANCO_COMPONENTES_UI = [
 .ui-glass-item:hover { color: #0f172a; background: rgba(0, 0, 0, 0.02); }
 .ui-glass-item.active { background: #0f172a; color: #ffffff; }`
     },
+
+    // 3. TABELAS - 1. tabela-dados-minimalista
     {
         id: "tabela-dados-minimalista",
         nome: "Tabela de Clientes Administrativa",
@@ -314,13 +327,13 @@ const BANCO_COMPONENTES_UI = [
             <td><strong>Carlos Eduardo</strong><br><small>carlos@email.com</small></td>
             <td>Admin</td>
             <td><span class="ui-status-badge online">Ativo</span></td>
-            <td><a href="#" class="ui-tabela-link">Editar</a></td>
+            <td><a href="javascript:void(0)" class="ui-tabela-link">Editar</a></td>
         </tr>
         <tr>
             <td><strong>Ana Beatriz</strong><br><small>ana@email.com</small></td>
             <td>Editor</td>
             <td><span class="ui-status-badge offline">Inativo</span></td>
-            <td><a href="#" class="ui-tabela-link">Editar</a></td>
+            <td><a href="javascript:void(0)" class="ui-tabela-link">Editar</a></td>
         </tr>
     </tbody>
 </table>`,
@@ -343,7 +356,129 @@ const BANCO_COMPONENTES_UI = [
 .ui-tabela-link { color: #3b82f6; text-decoration: none; font-weight: 600; font-size: 0.85rem; }
 .ui-tabela-link:hover { text-decoration: underline; }`
     },
-    // 1. BLOCADO DE MODAL DE CONFIRMAÇÃO (UI MODERNA)
+    
+    
+    
+    // 3. TABELAS - 2. tabela-produtos-ecommerce
+    {
+        id: "tabela-produtos-ecommerce",
+        nome: "Tabela de Inventário / E-commerce com Imagem",
+        categoria: "tabelas",
+        html: `<table class="ui-tabela-prod">
+        <thead>
+            <tr>
+                <th>Produto</th>
+                <th>Estoque</th>
+                <th>Preço</th>
+                <th>Categoria</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="ui-prod-cell">
+                        <span class="ui-prod-icon">📱</span>
+                        <div>
+                            <strong>iPhone 15 Pro</strong><br>
+                            <small>SKU: IPH15-256-BLK</small>
+                        </div>
+                    </div>
+                </td>
+                <td><span class="ui-badge-estoque em-alta">18 em estoque</span></td>
+                <td class="ui-txt-preco">R$ 7.299,00</td>
+                <td><span class="ui-tag-cat">Eletrônicos</span></td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ui-prod-cell">
+                        <span class="ui-prod-icon">🎧</span>
+                        <div>
+                            <strong>AirPods Max</strong><br>
+                            <small>SKU: APD-MAX-GRY</small>
+                        </div>
+                    </div>
+                </td>
+                <td><span class="ui-badge-estoque esgotando">2 restando</span></td>
+                <td class="ui-txt-preco">R$ 4.890,00</td>
+                <td><span class="ui-tag-cat">Áudio</span></td>
+            </tr>
+        </tbody>
+    </table>`,
+        css: `/* Estilos da Tabela de Produtos */
+    .ui-tabela-prod {
+        width: 100%; max-width: 650px; border-collapse: collapse;
+        background: #ffffff; border-radius: 12px; overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.02); font-family: system-ui, sans-serif;
+    }
+    .ui-tabela-prod th {
+        background: #f8fafc; color: #64748b; text-align: left;
+        padding: 1rem; font-size: 0.85rem; font-weight: 600; border-bottom: 1px solid #edf2f7;
+    }
+    .ui-tabela-prod td { padding: 1rem; color: #334155; font-size: 0.9rem; border-bottom: 1px solid #f1f5f9; vertical-align: middle; }
+    .ui-tabela-prod tr:last-child td { border-bottom: none; }
+    .ui-prod-cell { display: flex; align-items: center; gap: 0.75rem; text-align: left; }
+    .ui-prod-icon { width: 32px; height: 32px; background: #f1f5f9; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .ui-tabela-prod small { color: #94a3b8; font-size: 0.75rem; }
+    .ui-badge-estoque { padding: 0.25rem 0.5rem; font-size: 0.75rem; font-weight: 600; border-radius: 4px; }
+    .ui-badge-estoque.em-alta { background: #e0f2fe; color: #0369a1; }
+    .ui-badge-estoque.esgotando { background: #fef3c7; color: #b45309; }
+    .ui-txt-preco { font-weight: 700; color: #0f172a; }
+    .ui-tag-cat { background: #f1f5f9; color: #475569; padding: 0.2rem 0.5rem; border-radius: 6px; font-size: 0.8rem; font-weight: 500; }`
+    },
+
+    // 3. TABELAS - 3. tabela-logs-dark
+    {
+        id: "tabela-logs-dark",
+        nome: "Tabela Dark Mode de Logs e Eventos API",
+        categoria: "tabelas",
+        html: `<table class="ui-tabela-dark">
+        <thead>
+            <tr>
+                <th>Método / Endpoint</th>
+                <th>Status</th>
+                <th>Origem</th>
+                <th>Tempo</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="ui-log-method get">GET</span> <code class="ui-log-route">/api/v1/users</code></td>
+                <td><span class="ui-log-status s200">200 OK</span></td>
+                <td class="ui-log-mono">192.168.1.45</td>
+                <td class="ui-log-mono">14ms</td>
+            </tr>
+            <tr>
+                <td><span class="ui-log-method post">POST</span> <code class="ui-log-route">/api/v1/auth/login</code></td>
+                <td><span class="ui-log-status s401">401 Unauth</span></td>
+                <td class="ui-log-mono">187.45.12.110</td>
+                <td class="ui-log-mono">42ms</td>
+            </tr>
+        </tbody>
+    </table>`,
+        css: `/* Estilos da Tabela Dark Mode */
+    .ui-tabela-dark {
+        width: 100%; max-width: 650px; border-collapse: collapse;
+        background: #0f172a; border-radius: 10px; overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.15); font-family: monospace;
+    }
+    .ui-tabela-dark th {
+        background: #1e293b; color: #94a3b8; text-align: left;
+        padding: 0.85rem 1rem; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid #334155;
+        font-family: system-ui, sans-serif;
+    }
+    .ui-tabela-dark td { padding: 0.85rem 1rem; color: #e2e8f0; font-size: 0.85rem; border-bottom: 1px solid #1e293b; text-align: left; }
+    .ui-tabela-dark tr:last-child td { border-bottom: none; }
+    .ui-log-method { font-size: 0.75rem; font-weight: 800; padding: 0.15rem 0.4rem; border-radius: 4px; margin-right: 0.5rem; }
+    .ui-log-method.get { background: #10b981; color: #ffffff; }
+    .ui-log-method.post { background: #3b82f6; color: #ffffff; }
+    .ui-log-route { color: #38bdf8; }
+    .ui-log-status { font-weight: 700; font-size: 0.8rem; }
+    .ui-log-status.s200 { color: #4ade80; }
+    .ui-log-status.s401 { color: #f87171; }
+    .ui-log-mono { color: #94a3b8; }`
+    },
+
+    // 4. MODAL - 1. modal-confirmacao-moderno
     {
         id: "modal-confirmacao-moderno",
         nome: "Modal de Confirmação / Alerta Clássico",
@@ -377,7 +512,7 @@ const BANCO_COMPONENTES_UI = [
     .ui-modal-btn.confirm:hover { background: #dc2626; }`
     },
 
-    // 2. BLOCO DE FOOTER CORPORATIVO (RICH FOOTER)
+    // 5. FOOTER - 1. footer-institucional-completo
     {
         id: "footer-institucional-completo",
         nome: "Footer Corporativo com Colunas e Newsletter",
@@ -390,15 +525,15 @@ const BANCO_COMPONENTES_UI = [
             </div>
             <div class="ui-footer-col">
                 <h5>Produto</h5>
-                <a href="#">Componentes</a>
-                <a href="#">Preços</a>
-                <a href="#">Roadmap</a>
+                <a href="javascript:void(0)">Componentes</a>
+                <a href="javascript:void(0)">Preços</a>
+                <a href="javascript:void(0)">Roadmap</a>
             </div>
             <div class="ui-footer-col">
                 <h5>Suporte</h5>
-                <a href="#">Documentação</a>
-                <a href="#">Guias</a>
-                <a href="#">Contato</a>
+                <a href="javascript:void(0)">Documentação</a>
+                <a href="javascript:void(0)">Guias</a>
+                <a href="javascript:void(0)">Contato</a>
             </div>
         </div>
         <div class="ui-footer-bottom">
@@ -419,7 +554,8 @@ const BANCO_COMPONENTES_UI = [
     .ui-footer-bottom { padding-top: 1rem; display: flex; justify-content: space-between; align-items: center; }
     .ui-footer-bottom p { color: #64748b; font-size: 0.75rem; margin: 0; }`
     },
-    // 1. BOTÕES DE MARCA (SISTEMA DE DESIGN STANDARD)
+    
+    // 6. BOTOÕES - 1. botoes-design-system
     {
         id: "botoes-design-system",
         nome: "Botões de Marca (Primary, Secondary & Outline)",
@@ -443,7 +579,7 @@ const BANCO_COMPONENTES_UI = [
     .ui-btn-ds.outline:hover { background: #f8fafc; border-color: #94a3b8; color: #0f172a; }`
     },
 
-    // 2. BOTÃO COM GRADIENTE E EFEITO GLOW (GLOW GRADIENT)
+    // 6. BOTOÕES - 2. botao-glow-gradient
     {
         id: "botao-glow-gradient",
         nome: "Botão de Destaque com Gradiente e Brilho",
@@ -466,7 +602,7 @@ const BANCO_COMPONENTES_UI = [
     .ui-btn-glow:active { transform: translateY(0); }`
     },
 
-    // 3. BOTÕES SEMÂNTICOS DE STATUS
+   // 6. BOTOÕES - 3. botoes-semanticos-status
     {
         id: "botoes-semanticos-status",
         nome: "Botões de Estado / Feedback Semântico",
@@ -488,7 +624,7 @@ const BANCO_COMPONENTES_UI = [
     .ui-btn-status.danger { background: #ef4444; }`
     },
 
-    // 4. BOTÃO MINIMALISTA COM SETA ANIMADA (SLIDE ACTION)
+    // 6. BOTOÕES - 4. botao-slide-arrow
     {
         id: "botao-slide-arrow",
         nome: "Botão Textual com Seta Deslizante (Hover Effect)",
