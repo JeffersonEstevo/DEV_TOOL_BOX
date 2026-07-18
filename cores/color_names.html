@@ -1,0 +1,24 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Nomes de Cores CSS (Color Names)</h2>
+        <p>Explore a lista oficial de cores nomeadas do CSS. Clique sobre qualquer bloco para copiar instantaneamente o seu código hexadecimal.</p>
+    </header>
+
+    <!-- Barra de busca rápida para filtrar as cores -->
+    <div class="cores-field" style="max-width: 400px; margin: 0 auto 1.5rem auto; padding: 0 1rem;">
+        <input type="text" id="busca-nome-cor" placeholder="🔍 Digite o nome ou código hex para buscar..." autocomplete="off" style="font-size: 1rem; padding: 0.6rem;">
+    </div>
+
+    <div class="generator-workspace workspace-nomes-cores">
+        <!-- Grid dinâmico onde os retângulos de cores serão injetados -->
+        <div id="grid-nomes-cores" class="grid-cores-container"></div>
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="btn-limpar-busca-cores" class="btn btn-secondary">
+            <i class="bi bi-arrow-counterclockwise"></i> Limpar Filtro
+        </button>
+    </div>
+</div>
+
+<script src="static/js/cores/color_names.js"></script>

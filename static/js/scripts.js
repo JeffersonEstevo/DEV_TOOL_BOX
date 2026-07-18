@@ -773,6 +773,17 @@ document.addEventListener("DOMContentLoaded", function () {
                 calcularEMisturarCores(); // Executa o recálculo do estado inicial
             }
         }
+        // === 07. CORES - 05. Nomes de Cores CSS ===
+        if (event.target.closest('#btn-limpar-busca-cores')) {
+            event.preventDefault();
+            const inputBusca = document.getElementById('busca-nome-cor');
+            if (inputBusca) {
+                inputBusca.value = ''; // Reseta o campo textual
+                if (typeof renderizarGridCores === "function") {
+                    renderizarGridCores(''); // Força a re-renderização completa da lista
+                }
+            }
+        }
 
 
         // Atalho global para fechar o leitor dinâmico

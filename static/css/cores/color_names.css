@@ -1,0 +1,67 @@
+/* ==========================================================================
+   === 07. CORES - 05. Nomes de Cores CSS (Color Names) ===
+   ========================================================================== */
+
+.workspace-nomes-cores {
+  max-width: 100% !important;
+  padding: 1rem 2rem !important;
+}
+
+.grid-cores-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Estilo do Retângulo/Card de Cor */
+.card-nome-cor {
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.card-nome-cor:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* Área visual do preenchimento da cor */
+.card-cor-preview {
+  width: 100%;
+  height: 80px;
+  border-bottom: 1px solid var(--border-color);
+  transition: opacity 0.15s ease;
+}
+
+/* Informações de texto internas */
+.card-cor-info {
+  padding: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  text-align: left;
+}
+
+.card-cor-titulo {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-cor-hex {
+  font-family: monospace;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--primary-color);
+}
