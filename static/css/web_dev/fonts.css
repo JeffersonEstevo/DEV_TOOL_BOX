@@ -1,0 +1,32 @@
+/* ==========================================================================
+   === 08. DEV_WEB - 01. Visualizador de Web Fonts ===
+   ========================================================================== */
+
+/* Layout responsivo se a tela encolher (quebra em 1 coluna no mobile) */
+@media (max-width: 768px) {
+  .grid-layout-fontes {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+}
+
+/* Modificadores visuais temporários das tags na janela de simulação */
+#container-preview-tipografia h1,
+#container-preview-tipografia h2,
+#container-preview-tipografia h3,
+#container-preview-tipografia h4,
+#container-preview-tipografia p {
+  margin: 0 0 1rem 0;
+  color: var(--text-main);
+  transition: font-family 0.2s ease;
+}
+
+#container-preview-tipografia p {
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+/* Elemento invisível que gerencia os links dinâmicos injetados */
+.link-fonte-dinamica-spa {
+  display: none;
+}

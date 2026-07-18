@@ -785,6 +785,26 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
 
+        // === 08. DEV_WEB - 01. Visualizador de Web Fonts ===
+        if (event.target.closest('#btn-limpar-selecao-fontes')) {
+            event.preventDefault();
+            const seletorFont = document.getElementById('seletor-google-font');
+            const inputTexto = document.getElementById('texto-customizado-fonte');
+            
+            if (seletorFont) {
+                seletorFont.value = 'Roboto'; // Alinha o seletor na opção base
+            }
+            if (inputTexto) {
+                inputTexto.value = ''; // Limpa a string customizada
+                if (typeof aplicarTextoCustomizado === "function") {
+                    aplicarTextoCustomizado('');
+                }
+            }
+            if (typeof atualizarFontePreview === "function" && seletorFont) {
+                atualizarFontePreview(seletorFont.value); // Dispara o recálculo estético
+            }
+        }
+
 
         // Atalho global para fechar o leitor dinâmico
         document.addEventListener("keydown", function (event) {

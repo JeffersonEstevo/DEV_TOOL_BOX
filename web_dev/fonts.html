@@ -1,0 +1,87 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Visualizador e Importador de Web Fonts</h2>
+        <p>Explore e teste fontes populares do Google Fonts diretamente em elementos HTML estruturados. Copie os códigos de integração instantaneamente.</p>
+    </header>
+
+    <div class="generator-workspace webdev-workspace" style="max-width: 100% !important; padding: 1rem 2rem !important;">
+        
+        <!-- Configurações e Seleção da Fonte -->
+        <div class="config-fontes-topo" style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem;">
+            <div class="cores-field" style="flex: 1; min-width: 250px;">
+                <label for="seletor-google-font">Escolha uma Fonte</label>
+                <select id="seletor-google-font" style="width: 100%; padding: 0.65rem; font-size: 1rem; border-radius: var(--radius); border: 1px solid var(--border-color); background-color: var(--bg-main); color: var(--text-main); font-weight: 600;">
+                    <option value="Roboto">Roboto (Sans-serif)</option>
+                    <option value="Open Sans">Open Sans (Sans-serif)</option>
+                    <option value="Lato">Lato (Sans-serif)</option>
+                    <option value="Montserrat">Montserrat (Sans-serif)</option>
+                    <option value="Inter">Inter (Sans-serif)</option>
+                    <option value="Poppins">Poppins (Sans-serif)</option>
+                    <option value="Playfair Display">Playfair Display (Serif)</option>
+                    <option value="Merriweather">Merriweather (Serif)</option>
+                    <option value="Lora">Lora (Serif)</option>
+                    <option value="Fira Code">Fira Code (Monospace)</option>
+                    <option value="Source Code Pro">Source Code Pro (Monospace)</option>
+                    <option value="Inconsolata">Inconsolata (Monospace)</option>
+                    <option value="Pacifico">Pacifico (Handwriting)</option>
+                    <option value="Dancing Script">Dancing Script (Handwriting)</option>
+                    <option value="Cinzel">Cinzel (Display)</option>
+                </select>
+            </div>
+
+            <div class="cores-field" style="flex: 1; min-width: 250px;">
+                <label for="texto-customizado-fonte">Texto de Amostra Opcional</label>
+                <input type="text" id="texto-customizado-fonte" placeholder="Digite algo para testar..." autocomplete="off" style="font-size: 1rem; padding: 0.6rem;">
+            </div>
+        </div>
+
+        <!-- Grid de duas colunas: Visualização das Tags vs Painel de Integração -->
+        <div class="grid-layout-fontes" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+            
+            <!-- Coluna 1: Preview Real das Tags HTML -->
+            <div class="painel-preview-tags" style="border: 1px solid var(--border-color); padding: 1.5rem; border-radius: var(--radius); background-color: var(--bg-main);">
+                <label class="titulo-subsecao" style="margin-bottom: 1rem; display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main);">Visualização das Tags HTML</label>
+                
+                <div id="container-preview-tipografia">
+                    <h1 class="alvo-fonte">Título Principal H1</h1>
+                    <h2 class="alvo-fonte">Subtítulo Estrutural H2</h2>
+                    <h3 class="alvo-fonte">Título de Seção H3</h3>
+                    <h4 class="alvo-fonte">Subseção Menor H4</h4>
+                    <p class="alvo-fonte">Este é um parágrafo de texto corrido (&lt;p&gt;) renderizado para você avaliar o espaçamento, legibilidade, peso visual e o contraste do corpo da fonte escolhida.</p>
+                </div>
+            </div>
+
+            <!-- Coluna 2: Caixas de Código para Copiar -->
+            <div class="painel-codigos-fontes" style="display: flex; flex-direction: column; gap: 1.2rem;">
+                
+                <!-- Bloco HTML Link -->
+                <div class="caixa-codigo-copia">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                        <label class="titulo-subsecao" style="margin-bottom: 0; font-size: 0.85rem; font-weight: 600; color: var(--text-main);">1. Injetar no &lt;head&gt; do HTML</label>
+                        <button class="btn-copiar-codigo-fonte" data-alvo="codigo-html-link" style="background: none; border: none; color: var(--primary-color); font-weight: 700; font-size: 0.85rem; cursor: pointer;">Copiar HTML</button>
+                    </div>
+                    <textarea id="codigo-html-link" readonly style="width: 100%; height: 65px; font-family: monospace; font-size: 0.85rem; padding: 0.6rem; border-radius: var(--radius); border: 1px solid var(--border-color); background-color: var(--bg-sidebar); color: var(--text-main); resize: none; box-sizing: border-box;"></textarea>
+                </div>
+
+                <!-- Bloco CSS Rule -->
+                <div class="caixa-codigo-copia">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                        <label class="titulo-subsecao" style="margin-bottom: 0; font-size: 0.85rem; font-weight: 600; color: var(--text-main);">2. Declarar nas regras do CSS</label>
+                        <button class="btn-copiar-codigo-fonte" data-alvo="codigo-css-rule" style="background: none; border: none; color: var(--primary-color); font-weight: 700; font-size: 0.85rem; cursor: pointer;">Copiar CSS</button>
+                    </div>
+                    <textarea id="codigo-css-rule" readonly style="width: 100%; height: 65px; font-family: monospace; font-size: 0.85rem; padding: 0.6rem; border-radius: var(--radius); border: 1px solid var(--border-color); background-color: var(--bg-sidebar); color: var(--text-main); resize: none; box-sizing: border-box;"></textarea>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="btn-limpar-selecao-fontes" class="btn btn-secondary">
+            <i class="bi bi-arrow-counterclockwise"></i> Resetar para Fonte Padrão
+        </button>
+    </div>
+</div>
+
+<script src="static/js/web_dev/fonts.js"></script>
