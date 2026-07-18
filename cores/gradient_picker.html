@@ -1,0 +1,57 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Gerador de Gradiente e Contraste</h2>
+        <p>Insira ou selecione uma cor base para gerar automaticamente sua escala tonal e testar a legibilidade de textos sob diferentes contrastes.</p>
+    </header>
+
+    <div class="generator-workspace cores-workspace">
+        
+        <!-- Seletor da Cor Base -->
+        <div class="picker-topo-container">
+            <div id="preview-grad-cor" class="preview-caixa">
+                <input type="color" id="picker-grad-nativo" value="#3498db" title="Clique para abrir o seletor visual">
+            </div>
+            <small class="field-help text-center">Clique no quadrado acima para alterar a cor base</small>
+        </div>
+
+        <!-- Entrada de Texto Manual -->
+        <div class="cores-grid">
+            <div class="cores-field">
+                <label for="grad-cor-hex">Cor Base (HEX)</label>
+                <input type="text" id="grad-cor-hex" placeholder="#3498DB" autocomplete="off">
+                <small class="field-help">Ex: #3498DB ou #FF5733</small>
+            </div>
+        </div>
+
+        <hr class="divisor-ferramenta">
+
+        <!-- Área de Escala Tonal (Claro ao Escuro) -->
+        <div class="secao-escala">
+            <label class="titulo-subsecao">Escala Tonal (Gradiente)</label>
+            <div id="escala-tonal-container" class="escala-tonal-barra">
+                <!-- Injetado via JS: 9 blocos do mais claro ao mais escuro -->
+            </div>
+        </div>
+
+        <!-- Painel de Teste de Texto e Contraste -->
+        <div class="secao-contraste">
+            <label class="titulo-subsecao">Visualização de Contraste</label>
+            
+            <div id="painel-demonstracao" class="painel-preview-texto">
+                <div class="texto-teste texto-escuro">Texto Escuro (Sem Sombra)</div>
+                <div class="texto-teste texto-escuro-sombra">Texto Escuro (Com Sombra)</div>
+                <div class="texto-teste texto-claro">Texto Claro (Sem Sombra)</div>
+                <div class="texto-teste texto-claro-sombra">Texto Claro (Com Sombra)</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="btn-limpar-gradiente" class="btn btn-secondary">
+            <i class="bi bi-arrow-counterclockwise"></i> Resetar Cor Padrão
+        </button>
+    </div>
+</div>
+
+<script src="static/js/cores/gradient_picker.js"></script>

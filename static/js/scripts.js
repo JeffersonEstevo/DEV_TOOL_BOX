@@ -754,6 +754,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 limparContaGotas();
             }
         }
+        // === 07. CORES - 03. Gerador de Gradiente e Contraste ===
+        if (event.target.closest('#btn-limpar-gradiente')) {
+            event.preventDefault();
+            if (typeof atualizarInterfaceGradiente === "function") {
+                atualizarInterfaceGradiente('#3498DB'); // Reseta para o azul padrão da aplicação
+            }
+        }
 
 
         // Atalho global para fechar o leitor dinâmico
