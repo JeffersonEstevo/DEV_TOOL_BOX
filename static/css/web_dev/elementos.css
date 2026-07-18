@@ -1,0 +1,79 @@
+/* ==========================================================================
+   === 08. DEV_WEB - 02. Biblioteca de Elementos UI ===
+   ========================================================================== */
+
+/* Bloco que envolve o preview do componente + botões de código */
+.bloco-componente-ui {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background-color: var(--bg-main);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.topo-componente-ui {
+  padding: 0.75rem 1.2rem;
+  background-color: var(--bg-sidebar);
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.badge-categoria-ui {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.6rem;
+  background-color: var(--primary-color);
+  color: #ffffff;
+  border-radius: 50px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* Área onde o componente realmente renderiza vivo na tela */
+.preview-real-ui {
+  padding: 2.5rem;
+  background-color: #f8fafc; /* Fundo neutro claro para destacar os elementos */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 150px;
+  overflow-x: auto;
+}
+
+/* Painel sanfonado/retrátil ou de exibição dos códigos para copiar */
+.rodape-codigos-ui {
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-sidebar);
+  padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 768px) {
+  .rodape-codigos-ui {
+    grid-template-columns: 1fr;
+  }
+}
+
+.caixa-codigo-ui {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.caixa-codigo-ui textarea {
+  width: 100%;
+  height: 120px;
+  font-family: monospace;
+  font-size: 0.8rem;
+  padding: 0.5rem;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  resize: vertical;
+}
+

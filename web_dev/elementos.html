@@ -1,0 +1,33 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Biblioteca de Elementos UI</h2>
+        <p>Explore, visualize e copie componentes HTML/CSS prontos, responsivos e estilizados para acelerar o design do seu site.</p>
+    </header>
+
+    <!-- Filtros por Categoria -->
+    <div class="abas-elementos-container" style="display: flex; gap: 0.5rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap;">
+        <button class="btn btn-primary btn-aba-ui" data-categoria="todos">Todos</button>
+        <button class="btn btn-secondary btn-aba-ui" data-categoria="cards">Cards</button>
+        <button class="btn btn-secondary btn-aba-ui" data-categoria="tabelas">Tabelas</button>
+        <button class="btn btn-secondary btn-aba-ui" data-categoria="menus">Menus & Nav</button>
+        <button class="btn btn-secondary btn-aba-ui" data-categoria="modais-footers">Modais & Footers</button>
+        <button class="btn btn-secondary btn-aba-ui" data-categoria="botoes">Botões</button>
+    </div>
+
+    <!-- Workspace Principal -->
+    <div class="generator-workspace workspace-elementos" style="max-width: 100% !important; padding: 1rem 2rem !important;">
+        <!-- O Grid onde os blocos de componentes e seus respectivos códigos vão aparecer -->
+        <div id="grid-biblioteca-ui" style="display: flex; flex-direction: column; gap: 3rem; width: 100%;"></div>
+    </div>
+
+    <!-- Workspace Principal -->
+    <div class="generator-workspace workspace-elementos" style="max-width: 100% !important; padding: 1rem 2rem !important;">
+        <!-- O Grid onde os blocos aparecem -->
+        <div id="grid-biblioteca-ui" style="display: flex; flex-direction: column; gap: 3rem; width: 100%;"></div>
+        
+        <!-- CONTAINER DA PAGINAÇÃO (Adicione esta linha aqui!) -->
+        <div id="paginacao-container-ui" style="display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin-top: 3rem;"></div>
+    </div>
+</div>
+
+<script src="static/js/web_dev/elementos.js"></script>
