@@ -1,0 +1,57 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Embelezador e Formatador de Código</h2>
+        <p>Cole aquele código bagunçado da internet, selecione a linguagem e obtenha uma versão perfeitamente indentada e padronizada com visual estilo VS Code.</p>
+    </header>
+
+    <div class="generator-workspace webdev-workspace" style="max-width: 100% !important; padding: 1rem 2rem !important;">
+        
+        <!-- Seleção de Linguagem -->
+        <div class="config-formatador-topo" style="margin-bottom: 1.5rem;">
+            <div class="cores-field" style="max-width: 300px;">
+                <label for="seletor-linguagem-formatador">Selecione a Linguagem</label>
+                <select id="seletor-linguagem-formatador" style="width: 100%; padding: 0.65rem; font-size: 1rem; border-radius: var(--radius); border: 1px solid var(--border-color); background-color: var(--bg-main); color: var(--text-main); font-weight: 600;">
+                    <!-- Preenchido dinamicamente via JS (JSON expansível) -->
+                </select>
+            </div>
+        </div>
+
+        <!-- Grid: Entrada (Texto Cru) vs Saída (Estilo VS Code) -->
+        <div class="grid-layout-formatador" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: stretch; min-height: 450px;">
+            
+            <!-- Coluna 1: Entrada do Código Bagunçado -->
+            <div class="painel-entrada-codigo" style="display: flex; flex-direction: column;">
+                <label style="display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--text-main);">Código Original (Cole aqui)</label>
+                <textarea id="formatador-input" placeholder="Cole seu código bagunçado aqui..." style="flex: 1; min-height: 380px; font-family: monospace; font-size: 0.85rem; padding: 0.8rem; border-radius: var(--radius); border: 1px solid var(--border-color); background-color: var(--bg-sidebar); color: var(--text-main); resize: none; box-sizing: border-box; line-height: 1.5;"></textarea>
+            </div>
+
+            <!-- Coluna 2: Saída Estilizada (VS Code View) -->
+            <div class="painel-saida-codigo" style="display: flex; flex-direction: column;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                    <label style="margin-bottom: 0; font-size: 0.85rem; font-weight: 600; color: var(--text-main);">Código Formatado (Visualização)</label>
+                    <button id="btn-copiar-codigo-formatado" style="background: none; border: none; color: var(--primary-color); font-weight: 700; font-size: 0.85rem; cursor: pointer;">Copiar Código</button>
+                </div>
+                
+                <!-- Container simulando o Editor VS Code Dark -->
+                <div class="vscode-editor-container" style="flex: 1; min-height: 380px; border-radius: var(--radius); background-color: #1e1e1e; border: 1px solid #333; overflow: auto; font-family: 'Fira Code', Consolas, Monaco, monospace; font-size: 0.85rem; line-height: 1.5; padding: 0.5rem 0; box-sizing: border-box;">
+                    <div id="vscode-output-linhas">
+                        <!-- Gerado dinamicamente por linhas via JS -->
+                        <div class="vscode-linha-placeholder" style="color: #6a9955; padding: 0 1rem; font-style: italic;">O código formatado aparecerá aqui...</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center; gap: 1rem;">
+        <button id="btn-executar-formatacao" class="btn btn-primary">
+            <i class="bi bi-magic"></i> Embelezar Código
+        </button>
+        <button id="btn-limpar-formatador" class="btn btn-secondary">
+            <i class="bi bi-trash"></i> Limpar Tudo
+        </button>
+    </div>
+</div>
+
+<script src="static/js/web_dev/formatador.js"></script>

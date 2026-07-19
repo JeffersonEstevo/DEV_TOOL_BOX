@@ -840,6 +840,27 @@ document.addEventListener("DOMContentLoaded", function () {
                 abrirPreviewNovaAba();
             }
         }
+        // === 08. DEV_WEB - 04. Embelezador e Formatador de Código ===
+        if (event.target.closest('#btn-executar-formatacao')) {
+            event.preventDefault();
+            if (typeof processarEExibirCodigo === "function") {
+                processarEExibirCodigo();
+            }
+        }
+
+        if (event.target.closest('#btn-limpar-formatador')) {
+            event.preventDefault();
+            const inputFormatador = document.getElementById('formatador-input');
+            const outputLinhas = document.getElementById('vscode-output-linhas');
+            
+            if (inputFormatador) inputFormatador.value = '';
+            if (outputLinhas) {
+                outputLinhas.innerHTML = `<div class="vscode-linha-placeholder" style="color: #6a9955; padding: 0 1rem; font-style: italic;">O código formatado aparecerá aqui...</div>`;
+            }
+            codigoFormatadoGlobal = ""; // Limpa a memória de cópia
+        }
+
+
 
 
         // Atalho global para fechar o leitor dinâmico
