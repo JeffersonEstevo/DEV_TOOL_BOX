@@ -841,6 +841,10 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
         // === 08. DEV_WEB - 04. Embelezador e Formatador de Código ===
+        // LOGO APÓS INJETAR NO DOM: Chama a inicialização para popular o select
+        if (typeof inicializarFormatador === "function") {
+            inicializarFormatador();
+        }
         if (event.target.closest('#btn-executar-formatacao')) {
             event.preventDefault();
             if (typeof processarEExibirCodigo === "function") {
@@ -1060,7 +1064,34 @@ document.addEventListener('input', (event) => {
 
 });
 
+// ==========================================================================
+// 11. ORQUESTRAÇÃO DE INICIALIZAÇÃO DE MÓDULOS NA MUDANÇA DE ROTA (SPA)
+// ==========================================================================
+function dispararInicializadoresDeModulo() {
+    const rota = window.location.hash;
 
+    // 1. Caso o usuário mude para a aba ELEMENTOS
+    if (rota.includes('elementos')) {
+        setTimeout(() => {
+            if (typeof inicializarElementosUI === "function") {
+                inicializarElementosUI();
+            }
+        }, 80);
+    }
+
+    // 2. Caso o usuário mude para a aba FORMATADOR
+    if (rota.includes('formatador')) {
+        setTimeout(() => {
+            if (typeof inicializarFormatador === "function") {
+                inicializarFormatador();
+            }
+        }, 80);
+    }
+}
+
+// Escuta a troca de abas e o carregamento inicial da SPA
+window.addEventListener('hashchange', dispararInicializadoresDeModulo);
+window.addEventListener('DOMContentLoaded', dispararInicializadoresDeModulo);
 
 
 

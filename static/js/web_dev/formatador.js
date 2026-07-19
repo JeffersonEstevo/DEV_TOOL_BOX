@@ -229,14 +229,21 @@ function copiarTextoFormatado(botao) {
     });
 }
 
-// --- CONTROLE DE INTERFACE ---
+// --- CONTROLE DE INTERFACE (CHAMADO PELA SPA) ---
 
-(() => {
+// --- CONTROLE DE INTERFACE (AUTOCARREGÁVEL VIA MUTATION OBSERVER) ---
+
+function inicializarFormatador() {
     const seletor = document.getElementById('seletor-linguagem-formatador');
     const input = document.getElementById('formatador-input');
     const btnCopiar = document.getElementById('btn-copiar-codigo-formatado');
 
-    if (!seletor) return;
+    if (!seletor) return false; // Retorna falso se ainda não estiver na tela
+
+    // >>> ADICIONE ESTA TRAVA AQUI: Se o select já tem as opções criadas, não faça nada e saia
+    if (seletor.children.length > 0) {
+        return true; 
+    }
 
     // Popula o seletor baseado no JSON configurado
     seletor.innerHTML = '';
@@ -253,9 +260,51 @@ function copiarTextoFormatado(botao) {
     });
 
     if (btnCopiar) {
-        btnCopiar.addEventListener('click', () => copiarTextoFormatado(btnCopiar));
+        // Remove ouvintes antigos para não duplicar eventos na memória da SPA
+        btnCopiar.replaceWith(btnCopiar.cloneNode(true));
+        const novoBtnCopiar = document.getElementById('btn-copiar-codigo-formatado');
+        novoBtnCopiar.addEventListener('click', () => copiarTextoFormatado(novoBtnCopiar));
     }
 
     // Define o placeholder inicial da primeira chave ativa
     if (input) input.placeholder = `Exemplo bagunçado:\n${LANGUAGES_CONFIG[seletor.value].placeholder}`;
+    
+    return true; // Inicializado com sucesso
+}
+
+// ==========================================================================
+// AUTO-INICIALIZADOR DO FORMATADOR (OBSERVADOR DO CICLO DE VIDA DA SPA)
+// ==========================================================================
+(() => {
+    // 1. Tenta inicializar imediatamente (Caso o usuário dê F5 direto na página)
+    if (inicializarFormatador()) return;
+
+    // 2. Cria o observador de injeção inicial para monitorar a árvore do DOM
+    const observadorSPA = new MutationObserver((mutations, obs) => {
+        if (document.getElementById('seletor-linguagem-formatador')) {
+            inicializarFormatador();
+            obs.disconnect(); 
+        }
+    });
+
+    observadorSPA.observe(document.body, { childList: true, subtree: true });
+
+    // 3. Monitora o clique no menu lateral (Mudança de Hash)
+    window.addEventListener('hashchange', () => {
+        if (window.location.hash.includes('formatador')) {
+            
+            // Tentativa 1: Aguarda 50ms para a SPA injetar o HTML do select
+            setTimeout(() => {
+                const seletorPronto = document.getElementById('seletor-linguagem-formatador');
+                if (seletorPronto) {
+                    inicializarFormatador();
+                    return;
+                }
+                
+                // Tentativa 2: Caso a SPA demore um pouquinho mais, tenta em 150ms
+                setTimeout(inicializarFormatador, 150);
+            }, 50);
+
+        }
+    });
 })();

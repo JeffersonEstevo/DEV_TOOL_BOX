@@ -976,45 +976,39 @@ const BANCO_COMPONENTES_UI = [
     }
 
 ];
+// ==========================================================================
+// RENDERIZADOR DO MOTOR DE COMPONENTES COM PAGINAÇÃO (MÓDULO ISOLADO)
+// ==========================================================================
 
-// ==========================================================================
-// RENDERIZADOR DO MOTOR DE COMPONENTES COM PAGINAÇÃO
-// ==========================================================================
-(() => {
+let categoriaAtualUI = "todos";
+let paginaAtualUI = 1;
+
+function inicializarElementosUI() {
     const gridBiblioteca = document.getElementById('grid-biblioteca-ui');
     const containerPaginacao = document.getElementById('paginacao-container-ui');
     const botoesAba = document.querySelectorAll('.btn-aba-ui');
 
-    if (!gridBiblioteca) return;
+    if (!gridBiblioteca) return false; // Retorna false se o HTML ainda não estiver na tela
 
-    // VARIÁVEIS DE ESTADO DA PAGINAÇÃO
-    let categoriaAtual = "todos";
-    let paginaAtual = 1;
-    const itensPorPagina = 3; // Quantos blocos aparecem por página
+    const itensPorPagina = 3; 
 
-    // Função central para construir a UI e a Paginação
     function renderizarElementosUI() {
         gridBiblioteca.innerHTML = '';
         containerPaginacao.innerHTML = '';
 
-        // 1. Filtragem por categoria
         const itensFiltrados = BANCO_COMPONENTES_UI.filter(item => 
-            categoriaAtual === "todos" || item.categoria === categoriaAtual
+            categoriaAtualUI === "todos" || item.categoria === categoriaAtualUI
         );
 
-        // 2. Cálculo de Páginas
         const totalItens = itensFiltrados.length;
         const totalPaginas = Math.ceil(totalItens / itensPorPagina);
         
-        // Ajuste de segurança caso os filtros reduzam as páginas drasticamente
-        if (paginaAtual > totalPaginas) paginaAtual = Math.max(1, totalPaginas);
+        if (paginaAtualUI > totalPaginas) paginaAtualUI = Math.max(1, totalPaginas);
 
-        // 3. Recorte dos itens que pertencem à página atual
-        const indiceInicial = (paginaAtual - 1) * itensPorPagina;
+        const indiceInicial = (paginaAtualUI - 1) * itensPorPagina;
         const indiceFinal = indiceInicial + itensPorPagina;
         const itensDaPagina = itensFiltrados.slice(indiceInicial, indiceFinal);
 
-        // 4. Renderização dos Componentes da Página Atual
         itensDaPagina.forEach(comp => {
             const idStyle = `style-runtime-${comp.id}`;
             if (!document.getElementById(idStyle)) {
@@ -1050,7 +1044,6 @@ const BANCO_COMPONENTES_UI = [
                 </div>
             `;
 
-            // Evento de Cópia
             bloco.querySelectorAll('.btn-copiar-ui').forEach(btn => {
                 btn.addEventListener('click', () => {
                     const textarea = btn.parentElement.nextElementSibling;
@@ -1069,13 +1062,11 @@ const BANCO_COMPONENTES_UI = [
             gridBiblioteca.appendChild(bloco);
         });
 
-        // 5. GERAÇÃO DOS BOTÕES DE PAGINAÇÃO (Apenas se houver mais de 1 página)
         if (totalPaginas > 1) {
             for (let i = 1; i <= totalPaginas; i++) {
                 const btnPagina = document.createElement('button');
                 btnPagina.textContent = i;
                 
-                // Estilização dinâmica rápida dos botões numéricos
                 btnPagina.style.padding = '0.5rem 0.85rem';
                 btnPagina.style.fontSize = '0.85rem';
                 btnPagina.style.fontWeight = '700';
@@ -1083,7 +1074,7 @@ const BANCO_COMPONENTES_UI = [
                 btnPagina.style.borderRadius = '6px';
                 btnPagina.style.cursor = 'pointer';
                 
-                if (i === paginaAtual) {
+                if (i === paginaAtualUI) {
                     btnPagina.style.backgroundColor = 'var(--primary-color)';
                     btnPagina.style.color = '#ffffff';
                 } else {
@@ -1092,9 +1083,8 @@ const BANCO_COMPONENTES_UI = [
                 }
 
                 btnPagina.addEventListener('click', () => {
-                    paginaAtual = i;
+                    paginaAtualUI = i;
                     renderizarElementosUI();
-                    // Scroll suave para o topo da ferramenta ao mudar de página
                     gridBiblioteca.scrollIntoView({ behavior: 'smooth' });
                 });
 
@@ -1103,7 +1093,6 @@ const BANCO_COMPONENTES_UI = [
         }
     }
 
-    // --- GERENCIAMENTO DE ALTERNAÇÃO DE ABAS ---
     botoesAba.forEach(aba => {
         aba.addEventListener('click', () => {
             botoesAba.forEach(b => {
@@ -1113,13 +1102,46 @@ const BANCO_COMPONENTES_UI = [
             aba.classList.remove('btn-secondary');
             aba.classList.add('btn-primary');
 
-            // Reseta para a página 1 e aplica o filtro da nova categoria
-            categoriaAtual = aba.getAttribute('data-categoria');
-            paginaAtual = 1; 
+            categoriaAtualUI = aba.getAttribute('data-categoria');
+            paginaAtualUI = 1; 
             renderizarElementosUI();
         });
     });
 
-    // Inicialização automática
     renderizarElementosUI();
+    return true; // Indica que inicializou com sucesso
+}
+
+// ==========================================================================
+// AUTO-INICIALIZADOR DO MÓDULO (OBSERVADOR DO CICLO DE VIDA DA SPA)
+// ==========================================================================
+(() => {
+    // 1. Tenta inicializar imediatamente (Caso o usuário dê F5 direto na página)
+    if (inicializarElementosUI()) return;
+
+    // 2. Cria o observador de injeção inicial
+    const escutaInjecaoComponentes = new MutationObserver((mutations, obs) => {
+        if (document.getElementById('grid-biblioteca-ui')) {
+            inicializarElementosUI();
+            obs.disconnect();
+        }
+    });
+
+    escutaInjecaoComponentes.observe(document.body, { childList: true, subtree: true });
+
+    // 3. O SEGREDO PARA O MENU LATERAL: Escuta a mudança de rota de forma persistente
+    window.addEventListener('hashchange', () => {
+        // Se o usuário está navegando para a aba de elementos
+        if (window.location.hash.includes('elementos')) {
+            
+            // Tentativa 1: Aguarda 50ms (tempo comum para injeções leves de HTML)
+            setTimeout(() => {
+                if (inicializarElementosUI()) return;
+                
+                // Tentativa 2: Caso a rede/PC dê uma pequena travada, tenta de novo em 150ms
+                setTimeout(inicializarElementosUI, 150);
+            }, 50);
+
+        }
+    });
 })();
