@@ -511,6 +511,112 @@ const BANCO_COMPONENTES_UI = [
     .ui-modal-btn.confirm { background: #ef4444; color: #ffffff; }
     .ui-modal-btn.confirm:hover { background: #dc2626; }`
     },
+   
+    // 4. MODAL - 2. modal-sucesso-moderno
+    {
+        id: "modal-sucesso-moderno",
+        nome: "Modal de Sucesso / Feedback Positivo",
+        categoria: "modais-footers",
+        html: `<div class="ui-modal-box success">
+        <div class="ui-modal-header centered">
+            <div class="ui-modal-icon-success">✓</div>
+            <h4 class="ui-modal-title">Pagamento Confirmado!</h4>
+        </div>
+        <p class="ui-modal-text centered">Sua assinatura foi atualizada com sucesso. O comprovante foi enviado para o seu e-mail cadastrado.</p>
+        <div class="ui-modal-actions full-width">
+            <button class="ui-modal-btn success-btn">Ir para o Painel</button>
+        </div>
+    </div>`,
+        css: `/* Estilos do Modal de Sucesso */
+    .ui-modal-box.success {
+        width: 100%; max-width: 380px; background: #ffffff; border-radius: 20px;
+        padding: 2rem; box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+        border: 1px solid #e2e8f0; font-family: system-ui, sans-serif;
+    }
+    .ui-modal-header.centered { flex-direction: column; align-items: center; gap: 1rem; margin-bottom: 0.75rem; }
+    .ui-modal-icon-success { width: 48px; height: 48px; background: #dcfce7; color: #15803d; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: bold; }
+    .ui-modal-title { margin: 0; color: #0f172a; font-size: 1.25rem; font-weight: 700; text-align: center; }
+    .ui-modal-text.centered { color: #64748b; font-size: 0.925rem; line-height: 1.6; margin: 0 0 1.5rem 0; text-align: center; }
+    .ui-modal-actions.full-width { display: flex; flex-direction: column; }
+    .ui-modal-btn.success-btn { width: 100%; padding: 0.75rem 1rem; border-radius: 10px; font-weight: 600; font-size: 0.9rem; cursor: pointer; border: none; background: #22c55e; color: #ffffff; transition: background 0.15s; }
+    .ui-modal-btn.success-btn:hover { background: #16a34a; }`
+    },
+
+    // 4. MODAL - 3. modal-input-moderno
+    {
+        id: "modal-input-moderno",
+        nome: "Modal de Formulário / Entrada de Dados",
+        categoria: "modais-footers",
+        html: `<div class="ui-modal-box">
+        <div class="ui-modal-header">
+            <h4 class="ui-modal-title">Criar Novo Projeto</h4>
+        </div>
+        <p class="ui-modal-text">Dê um nome ao seu espaço de trabalho para começar a organizar suas tarefas.</p>
+        <div class="ui-modal-form-group">
+            <label class="ui-modal-label">Nome do Projeto</label>
+            <input type="text" class="ui-modal-input" placeholder="Ex: Dashboard de Vendas" autofocus />
+        </div>
+        <div class="ui-modal-actions">
+            <button class="ui-modal-btn cancel">Cancelar</button>
+            <button class="ui-modal-btn primary">Criar Projeto</button>
+        </div>
+    </div>`,
+        css: `/* Estilos do Modal de Formulário */
+    .ui-modal-box {
+        width: 100%; max-width: 440px; background: #ffffff; border-radius: 16px;
+        padding: 1.5rem; box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+        border: 1px solid #e2e8f0; font-family: system-ui, sans-serif; text-align: left;
+    }
+    .ui-modal-title { margin: 0; color: #1e293b; font-size: 1.25rem; font-weight: 700; }
+    .ui-modal-text { color: #64748b; font-size: 0.9rem; line-height: 1.5; margin: 0.5rem 0 1.25rem 0; }
+    .ui-modal-form-group { margin-bottom: 1.5rem; }
+    .ui-modal-label { display: block; font-size: 0.825rem; font-weight: 600; color: #475569; margin-bottom: 0.5rem; }
+    .ui-modal-input { width: 100%; padding: 0.65rem 0.75rem; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 0.9rem; color: #1e293b; outline: none; transition: border-color 0.15s, box-shadow 0.15s; box-sizing: border-box; }
+    .ui-modal-input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59,130,246,0.15); }
+    .ui-modal-actions { display: flex; justify-content: flex-end; gap: 0.75rem; }
+    .ui-modal-btn { padding: 0.6rem 1.2rem; border-radius: 8px; font-weight: 600; font-size: 0.875rem; cursor: pointer; border: none; transition: background 0.15s; }
+    .ui-modal-btn.cancel { background: #f1f5f9; color: #475569; }
+    .ui-modal-btn.cancel:hover { background: #e2e8f0; }
+    .ui-modal-btn.primary { background: #2563eb; color: #ffffff; }
+    .ui-modal-btn.primary:hover { background: #1d4ed8; }`
+    },
+
+    // 4. MODAL - 4. modal-banner-moderno
+    {
+        id: "modal-banner-moderno",
+        nome: "Modal Informativo com Imagem / Banner",
+        categoria: "modais-footers",
+        html: `<div class="ui-modal-box visual">
+        <div class="ui-modal-cover">
+            <span class="ui-modal-badge">Novidade</span>
+        </div>
+        <div class="ui-modal-body">
+            <h4 class="ui-modal-title">Conheça o Modo Escuro</h4>
+            <p class="ui-modal-text">Sua experiência visual acaba de ficar muito mais confortável. Ative o modo escuro nas configurações do seu perfil a qualquer momento.</p>
+            <div class="ui-modal-actions full-width">
+                <button class="ui-modal-btn primary">Experimentar Agora</button>
+                <button class="ui-modal-btn text-only">Lembrar mais tarde</button>
+            </div>
+        </div>
+    </div>`,
+        css: `/* Estilos do Modal Informativo com Imagem */
+    .ui-modal-box.visual {
+        width: 100%; max-width: 400px; background: #ffffff; border-radius: 20px;
+        overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        border: 1px solid #e2e8f0; font-family: system-ui, sans-serif; text-align: left;
+    }
+    .ui-modal-cover { height: 160px; background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%); position: relative; display: flex; align-items: flex-start; padding: 1rem; }
+    .ui-modal-badge { background: rgba(255,255,255,0.2); color: #ffffff; font-size: 0.75rem; font-weight: 700; padding: 0.25rem 0.75rem; border-radius: 20px; backdrop-filter: blur(4px); text-transform: uppercase; letter-spacing: 0.05em; }
+    .ui-modal-body { padding: 1.5rem; }
+    .ui-modal-title { margin: 0 0 0.5rem 0; color: #0f172a; font-size: 1.3rem; font-weight: 700; }
+    .ui-modal-text { color: #64748b; font-size: 0.9rem; line-height: 1.5; margin: 0 0 1.5rem 0; }
+    .ui-modal-actions.full-width { display: flex; flex-direction: column; gap: 0.5rem; }
+    .ui-modal-btn { width: 100%; padding: 0.65rem 1rem; border-radius: 10px; font-weight: 600; font-size: 0.875rem; cursor: pointer; border: none; transition: all 0.15s; }
+    .ui-modal-btn.primary { background: #6366f1; color: #ffffff; }
+    .ui-modal-btn.primary:hover { background: #4f46e5; }
+    .ui-modal-btn.text-only { background: transparent; color: #64748b; }
+    .ui-modal-btn.text-only:hover { color: #0f172a; background: #f8fafc; }`
+    },
 
     // 5. FOOTER - 1. footer-institucional-completo
     {
@@ -555,7 +661,120 @@ const BANCO_COMPONENTES_UI = [
     .ui-footer-bottom p { color: #64748b; font-size: 0.75rem; margin: 0; }`
     },
     
-    // 6. BOTOÕES - 1. botoes-design-system
+    // 5. FOOTER - 2. footer-minimalista-inline
+    {
+        id: "footer-minimalista-inline",
+        nome: "Footer Minimalista e Compacto",
+        categoria: "modais-footers",
+        html: `<footer class="ui-footer-minimal">
+        <div class="ui-footer-min-container">
+            <div class="ui-footer-min-left">
+                <span class="ui-footer-min-logo">⚡ QuickUI</span>
+                <p>&copy; 2026 Todos os direitos reservados.</p>
+            </div>
+            <div class="ui-footer-min-links">
+                <a href="javascript:void(0)">Termos</a>
+                <a href="javascript:void(0)">Privacidade</a>
+                <a href="javascript:void(0)">Status</a>
+                <a href="javascript:void(0)">Suporte</a>
+            </div>
+        </div>
+    </footer>`,
+        css: `/* Estilos do Footer Minimalista */
+    .ui-footer-minimal {
+        width: 100%; min-width: 650px; background: #ffffff; border-radius: 12px;
+        padding: 1.25rem 2rem; font-family: system-ui, sans-serif; box-sizing: border-box;
+        border: 1px solid #e2e8f0; text-align: left;
+    }
+    .ui-footer-min-container { display: flex; justify-content: space-between; align-items: center; }
+    .ui-footer-min-left { display: flex; align-items: center; gap: 1rem; }
+    .ui-footer-min-logo { color: #0f172a; font-weight: 700; font-size: 0.95rem; }
+    .ui-footer-min-left p { color: #64748b; font-size: 0.8rem; margin: 0; }
+    .ui-footer-min-links { display: flex; gap: 1.5rem; }
+    .ui-footer-min-links a { color: #64748b; text-decoration: none; font-size: 0.8rem; font-weight: 500; transition: color 0.15s; }
+    .ui-footer-min-links a:hover { color: #0f172a; }`
+    },
+    
+    // 5. FOOTER - 3. footer-newsletter-moderno
+    {
+        id: "footer-newsletter-moderno",
+        nome: "Footer com Captura de Newsletter",
+        categoria: "modais-footers",
+        html: `<footer class="ui-footer-news">
+        <div class="ui-footer-news-top">
+            <div class="ui-footer-news-text">
+                <h5>Fique por dentro das novidades</h5>
+                <p>Receba atualizações semanais com os melhores componentes e dicas de UI.</p>
+            </div>
+            <div class="ui-footer-news-form">
+                <input type="email" placeholder="Seu melhor e-mail" class="ui-footer-input" />
+                <button class="ui-footer-btn">Inscrever-se</button>
+            </div>
+        </div>
+        <div class="ui-footer-news-bottom">
+            <span class="ui-footer-news-logo">📦 CoreUI</span>
+            <div class="ui-footer-news-socials">
+                <a href="javascript:void(0)">GitHub</a>
+                <a href="javascript:void(0)">Twitter</a>
+                <a href="javascript:void(0)">LinkedIn</a>
+            </div>
+            <p>&copy; 2026 CoreUI. Criado com paixão por desenvolvedores.</p>
+        </div>
+    </footer>`,
+        css: `/* Estilos do Footer com Newsletter */
+    .ui-footer-news {
+        width: 100%; min-width: 650px; background: #0b0f19; border-radius: 16px;
+        padding: 2.5rem 2.5rem 1.5rem 2.5rem; font-family: system-ui, sans-serif; box-sizing: border-box; text-align: left;
+    }
+    .ui-footer-news-top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 2rem; border-bottom: 1px solid #1e293b; gap: 2rem; }
+    .ui-footer-news-text h5 { color: #ffffff; margin: 0 0 0.25rem 0; font-size: 1.1rem; font-weight: 600; }
+    .ui-footer-news-text p { color: #94a3b8; margin: 0; font-size: 0.85rem; }
+    .ui-footer-news-form { display: flex; gap: 0.5rem; max-width: 360px; width: 100%; }
+    .ui-footer-input { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 0.6rem 0.75rem; color: #ffffff; font-size: 0.85rem; flex-grow: 1; outline: none; transition: border-color 0.15s; }
+    .ui-footer-input:focus { border-color: #6366f1; }
+    .ui-footer-btn { background: #6366f1; color: #ffffff; border: none; border-radius: 8px; padding: 0.6rem 1rem; font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: background 0.15s; white-space: nowrap; }
+    .ui-footer-btn:hover { background: #4f46e5; }
+    .ui-footer-news-bottom { padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .ui-footer-news-logo { color: #ffffff; font-weight: 700; font-size: 1rem; }
+    .ui-footer-news-socials { display: flex; gap: 1.25rem; }
+    .ui-footer-news-socials a { color: #94a3b8; text-decoration: none; font-size: 0.8rem; transition: color 0.15s; }
+    .ui-footer-news-socials a:hover { color: #ffffff; }
+    .ui-footer-news-bottom p { color: #475569; font-size: 0.75rem; margin: 0; width: 100%; margin-top: 0.5rem; }`
+    },
+
+    // 5. FOOTER - 4. footer-clean-centrado
+    {
+        id: "footer-clean-centrado",
+        nome: "Footer Clean Centrado (Modo Claro)",
+        categoria: "modais-footers",
+        html: `<footer class="ui-footer-clean">
+        <div class="ui-footer-clean-content">
+            <div class="ui-footer-clean-logo">✨ StudioDesign</div>
+            <nav class="ui-footer-clean-nav">
+                <a href="javascript:void(0)">Início</a>
+                <a href="javascript:void(0)">Trabalhos</a>
+                <a href="javascript:void(0)">Sobre Nós</a>
+                <a href="javascript:void(0)">Carreiras</a>
+                <a href="javascript:void(0)">Contato</a>
+            </nav>
+            <p class="ui-footer-clean-copy">&copy; 2026 StudioDesign. Feito com elegância e simplicidade.</p>
+        </div>
+    </footer>`,
+        css: `/* Estilos do Footer Clean Centrado */
+    .ui-footer-clean {
+        width: 100%; min-width: 650px; background: #f8fafc; border-radius: 16px;
+        padding: 3rem 2rem; font-family: system-ui, sans-serif; box-sizing: border-box;
+        border: 1px solid #f1f5f9; text-align: center;
+    }
+    .ui-footer-clean-content { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+    .ui-footer-clean-logo { color: #0f172a; font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px; }
+    .ui-footer-clean-nav { display: flex; justify-content: center; gap: 2rem; }
+    .ui-footer-clean-nav a { color: #475569; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.15s; }
+    .ui-footer-clean-nav a:hover { color: #6366f1; }
+    .ui-footer-clean-copy { color: #94a3b8; font-size: 0.8rem; margin: 0; margin-top: 0.5rem; }`
+    },
+
+    // 6. BOTÕES - 1. botoes-design-system
     {
         id: "botoes-design-system",
         nome: "Botões de Marca (Primary, Secondary & Outline)",
@@ -579,7 +798,7 @@ const BANCO_COMPONENTES_UI = [
     .ui-btn-ds.outline:hover { background: #f8fafc; border-color: #94a3b8; color: #0f172a; }`
     },
 
-    // 6. BOTOÕES - 2. botao-glow-gradient
+    // 6. BOTÕES - 2. botao-glow-gradient
     {
         id: "botao-glow-gradient",
         nome: "Botão de Destaque com Gradiente e Brilho",
@@ -602,7 +821,7 @@ const BANCO_COMPONENTES_UI = [
     .ui-btn-glow:active { transform: translateY(0); }`
     },
 
-   // 6. BOTOÕES - 3. botoes-semanticos-status
+   // 6. BOTÕES - 3. botoes-semanticos-status
     {
         id: "botoes-semanticos-status",
         nome: "Botões de Estado / Feedback Semântico",
@@ -624,7 +843,7 @@ const BANCO_COMPONENTES_UI = [
     .ui-btn-status.danger { background: #ef4444; }`
     },
 
-    // 6. BOTOÕES - 4. botao-slide-arrow
+    // 6. BOTÕES - 4. botao-slide-arrow
     {
         id: "botao-slide-arrow",
         nome: "Botão Textual com Seta Deslizante (Hover Effect)",
@@ -647,6 +866,113 @@ const BANCO_COMPONENTES_UI = [
         background: #0f172a; transform: scaleX(0); transform-origin: right; transition: transform 0.25s ease;
     }
     .ui-btn-slide:hover::after { transform: scaleX(1); transform-origin: left; }`
+    },
+
+    // 6. BOTÕES - 5. botao-loading-state
+    {
+        id: "botao-loading-state",
+        nome: "Botão com Estado de Carregamento (Spinner)",
+        categoria: "botoes",
+        html: `<div class="ui-btn-wrapper-loading">
+        <button class="ui-btn-loading" disabled>
+            <svg class="ui-btn-spinner" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span>Processando...</span>
+        </button>
+    </div>`,
+        css: `/* Estilo do Botão Loading */
+    .ui-btn-wrapper-loading { font-family: system-ui, sans-serif; }
+    .ui-btn-loading {
+        display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.65rem 1.35rem;
+        font-size: 0.88rem; font-weight: 600; border-radius: 8px; border: none;
+        background: #2563eb; color: #ffffff; cursor: not-allowed; opacity: 0.85;
+    }
+    .ui-btn-spinner {
+        width: 16px; height: 16px; animation: ui-spin 1s linear infinite; color: #ffffff;
+    }
+    .ui-btn-spinner .opacity-25 { opacity: 0.25; }
+    .ui-btn-spinner .opacity-75 { opacity: 0.75; }
+    @keyframes ui-spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }`
+    },
+
+    // 6. BOTÕES - 6. botao-icone-flutuante
+    {
+        id: "botao-icone-flutuante",
+        nome: "Botão com Ícone Integrado e Elevação",
+        categoria: "botoes",
+        html: `<div class="ui-btn-wrapper-icon">
+        <button class="ui-btn-icon-float">
+            <svg class="ui-btn-svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+            </svg>
+            <span>Novo Documento</span>
+        </button>
+    </div>`,
+        css: `/* Estilo do Botão com Ícone Flutuante */
+    .ui-btn-wrapper-icon { font-family: system-ui, sans-serif; }
+    .ui-btn-icon-float {
+        display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.25rem;
+        font-size: 0.88rem; font-weight: 600; border-radius: 10px; border: 1px solid #e2e8f0;
+        background: #ffffff; color: #0f172a; cursor: pointer;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.02);
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .ui-btn-svg { width: 16px; height: 16px; color: #64748b; transition: color 0.2s; }
+    .ui-btn-icon-float:hover {
+        background: #f8fafc; border-color: #cbd5e1; color: #2563eb;
+        box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+    }
+    .ui-btn-icon-float:hover .ui-btn-svg { color: #2563eb; }`
+    },
+
+    // 6. BOTÕES - 7. botao-glassmorphism
+    {
+        id: "botao-glassmorphism",
+        nome: "Botão Translúcido com Efeito Vidro",
+        categoria: "botoes",
+        html: `<div class="ui-btn-wrapper-glass" style="background: linear-gradient(135deg, #0f172a, #1e1b4b); padding: 2rem; border-radius: 12px; display: inline-block;">
+        <button class="ui-btn-glass">Explorar Recursos</button>
+    </div>`,
+        css: `/* Estilo do Botão Glassmorphism */
+    .ui-btn-glass {
+        padding: 0.65rem 1.5rem; font-size: 0.88rem; font-weight: 600; color: #ffffff;
+        background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 12px; cursor: pointer; backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px); transition: all 0.25s ease;
+    }
+    .ui-btn-glass:hover {
+        background: rgba(255, 255, 255, 0.16); border-color: rgba(255, 255, 255, 0.3);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); transform: translateY(-1px);
+    }
+    .ui-btn-glass:active { transform: translateY(0); }`
+    },
+
+    // 6. BOTÕES - 8. botao-sharp-border
+    {
+        id: "botao-sharp-border",
+        nome: "Botão Linear com Borda Rígida e Preenchimento",
+        categoria: "botoes",
+        html: `<div class="ui-btn-wrapper-sharp">
+        <button class="ui-btn-sharp">Iniciar Projeto</button>
+    </div>`,
+        css: `/* Estilo do Botão Sharp Border */
+    .ui-btn-wrapper-sharp { font-family: system-ui, sans-serif; }
+    .ui-btn-sharp {
+        padding: 0.7rem 1.5rem; font-size: 0.85rem; font-weight: 700; text-transform: uppercase;
+        letter-spacing: 0.05em; color: #000000; background: transparent;
+        border: 2px solid #000000; border-radius: 0px; cursor: pointer;
+        position: relative; transition: all 0.2s ease;
+    }
+    .ui-btn-sharp:hover {
+        color: #ffffff; background: #000000;
+        box-shadow: 4px 4px 0px #e2e8f0;
+    }
+    .ui-btn-sharp:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0px #e2e8f0; }`
     }
 
 ];
