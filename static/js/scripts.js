@@ -821,6 +821,25 @@ document.addEventListener("DOMContentLoaded", function () {
                 gerarBoilerplateHTML();
             }
         }
+        // === 08. DEV_WEB - 03. Live Preview HTML/CSS ===
+        if (event.target.closest('#btn-limpar-preview')) {
+            event.preventDefault();
+            const htmlInput = document.getElementById('live-html-input');
+            const cssInput = document.getElementById('live-css-input');
+            
+            if (htmlInput) htmlInput.value = '';
+            if (cssInput) cssInput.value = '';
+            
+            if (typeof renderizarLivePreview === "function") {
+                renderizarLivePreview();
+            }
+        }
+        if (event.target.closest('#btn-abrir-nova-aba')) {
+            event.preventDefault();
+            if (typeof abrirPreviewNovaAba === "function") {
+                abrirPreviewNovaAba();
+            }
+        }
 
 
         // Atalho global para fechar o leitor dinâmico
