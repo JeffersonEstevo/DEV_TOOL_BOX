@@ -2,34 +2,53 @@
 === 01. TEXTO - 14. Gerador de Lorem Ipsum ===
 ========================================================================== */
 
-
-/* Agrupador do Input Numérico junto ao Select */
-.input-with-select {
+/* Container que posiciona os elementos lado a lado */
+.ui-input-group-separated {
     display: flex;
+    gap: 0.5rem; /* Espaço perfeito entre o input e o select */
+    width: 100%;
+    max-width: 280px; /* Limita o tamanho do conjunto na tela */
+    font-family: system-ui, sans-serif;
+}
+
+/* Estilo base idêntico para os dois campos */
+.ui-input-field {
+    height: 40px; /* Força uma altura idêntica e consistente */
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
     background-color: var(--bg-main);
-    overflow: hidden;
-}
-
-.input-with-select input[type="number"] {
-    flex: 1;
-    border: none;
-    padding: 0.5rem;
-    font-size: 0.95rem;
-    outline: none;
-    background: transparent;
-}
-
-.input-with-select select {
-    border: none;
-    border-left: 1px solid var(--border-color);
-    padding: 0 0.5rem;
-    background-color: rgba(0, 0, 0, 0.02);
-    font-size: 0.9rem;
     color: var(--text-main);
-    cursor: pointer;
+    font-size: 0.95rem;
+    padding: 0 0.75rem;
     outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+/* Largura específica para o input de número (mais compacto) */
+.ui-input-field.num {
+    width: 35%;
+    flex-shrink: 0;
+}
+
+/* Largura específica para o select (espaço pro texto) */
+.ui-input-field.sel {
+    width: 65%;
+    flex-shrink: 0;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+    padding-right: 2rem; /* Espaço para a setinha customizada não cobrir o texto */
+    appearance: none; /* Esconde a seta feia padrão do navegador */
+    -webkit-appearance: none;
+}
+
+/* Efeito de Focus moderno (borda azul com brilho suave) */
+.ui-input-field:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
 /* Grupo de Opções de Radio */
@@ -70,3 +89,4 @@
     white-space: pre-wrap; /* Garante as quebras de linha corretas da saída em HTML */
     word-wrap: break-word;
 }
+

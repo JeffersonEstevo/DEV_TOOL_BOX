@@ -8,9 +8,9 @@
         <div class="flex-column-gap">
             <div class="field-group">
                 <label for="lorem-amount">Digite a quantidade:</label>
-                <div class="input-with-select">
-                    <input type="number" id="lorem-amount" value="3" min="1" max="100">
-                    <select id="lorem-unit">
+                <div class="ui-input-group-separated">
+                    <input type="number" id="lorem-amount" class="ui-input-field num" value="3" min="1" max="100">
+                    <select id="lorem-unit" class="ui-input-field sel">
                         <option value="paragraphs">Parágrafos</option>
                         <option value="words">Palavras</option>
                     </select>
@@ -41,7 +41,7 @@
                 </div>
             </div>
             
-            <button id="generate-lorem-button" class="btn btn-primary" style="width: 100%; margin-top: 0.5rem;">Gerar Texto</button>
+            <button id="generate-lorem-button" class="btn btn-primary" style="margin-top: 1rem;">Gerar Texto</button>
         </div>
 
         <div class="field-group">
