@@ -804,6 +804,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 atualizarFontePreview(seletorFont.value); // Dispara o recálculo estético
             }
         }
+        // === 08. DEV_WEB - 02. Gerador de Estrutura HTML ===
+        if (event.target.closest('#btn-resetar-estrutura-html')) {
+            event.preventDefault();
+            
+            const checkboxes = ['chk-header', 'chk-nav', 'chk-section', 'chk-aside', 'chk-footer'];
+            checkboxes.forEach(id => {
+                const chk = document.getElementById(id);
+                if (chk) {
+                    // Retorna ao estado padrão (aside desmarcado, resto marcado)
+                    chk.checked = id !== 'chk-aside';
+                }
+            });
+
+            if (typeof gerarBoilerplateHTML === "function") {
+                gerarBoilerplateHTML();
+            }
+        }
 
 
         // Atalho global para fechar o leitor dinâmico

@@ -1,0 +1,10 @@
+/* ==========================================================================
+   === 08. DEV_WEB - 02. Gerador de Estrutura HTML ===
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .grid-layout-html {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+}

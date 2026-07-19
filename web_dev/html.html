@@ -1,0 +1,97 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Gerador de Estrutura Base HTML5 & CSS Reset</h2>
+        <p>Monte o esqueleto ideal para o seu projeto selecionando as tags semânticas necessárias. Obtenha um código limpo, padronizado e com reset responsivo pronto.</p>
+    </header>
+
+    <div class="generator-workspace webdev-workspace" style="max-width: 100% !important; padding: 1rem 2rem !important;">
+        
+        <!-- Configurações e Seleção das Tags Semânticas -->
+        <div class="config-html-topo" style="margin-bottom: 2rem;">
+            <label class="titulo-subsecao" style="margin-bottom: 0.75rem; display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main);">Selecione os Componentes da Estrutura:</label>
+            <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; background-color: var(--bg-main); border: 1px solid var(--border-color); padding: 1rem; border-radius: var(--radius);">
+                
+                <label class="radio-label" style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.95rem; color: var(--text-main); cursor: pointer;">
+                    <input type="checkbox" id="chk-header" checked style="cursor: pointer;"> &lt;header&gt; (Cabeçalho)
+                </label>
+                
+                <label class="radio-label" style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.95rem; color: var(--text-main); cursor: pointer;">
+                    <input type="checkbox" id="chk-nav" checked style="cursor: pointer;"> &lt;nav&gt; (Menu/Navegação)
+                </label>
+
+                <label class="radio-label" style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.95rem; color: var(--text-main); cursor: pointer;">
+                    <input type="checkbox" id="chk-main" checked disabled style="cursor: pointer; opacity: 0.6;"> &lt;main&gt; (Obrigatório)
+                </label>
+                
+                <label class="radio-label" style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.95rem; color: var(--text-main); cursor: pointer;">
+                    <input type="checkbox" id="chk-section" checked style="cursor: pointer;"> &lt;section&gt; (Seções Internas)
+                </label>
+                
+                <label class="radio-label" style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.95rem; color: var(--text-main); cursor: pointer;">
+                    <input type="checkbox" id="chk-aside" style="cursor: pointer;"> &lt;aside&gt; (Barra Lateral)
+                </label>
+                
+                <label class="radio-label" style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.95rem; color: var(--text-main); cursor: pointer;">
+                    <input type="checkbox" id="chk-footer" checked style="cursor: pointer;"> &lt;footer&gt; (Rodapé)
+                </label>
+            </div>
+        </div>
+
+        <!-- Grid de duas colunas: Mapa Visual do DOM vs Caixas de Código -->
+        <div class="grid-layout-html" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;">
+            
+            <!-- Coluna 1: Mapa Semântico / Preview Visual da Árvore DOM -->
+            <div class="painel-preview-tags" style="border: 1px solid var(--border-color); padding: 1.5rem; border-radius: var(--radius); background-color: var(--bg-main);">
+                <label class="titulo-subsecao" style="margin-bottom: 1rem; display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main);">Representação Estrutural (Layout)</label>
+                
+                <div id="container-preview-html-estrutura" style="display: flex; flex-direction: column; gap: 0.5rem; font-family: monospace; font-size: 0.85rem; color: #ffffff; text-align: center;">
+                    <!-- Os blocos visuais serão controlados via JS adicionando/removendo a classe 'ocultar-bloco' -->
+                    <div id="view-header" style="background-color: #3b82f6; padding: 0.6rem; border-radius: 4px;">&lt;header&gt;</div>
+                    <div id="view-nav" style="background-color: #10b981; padding: 0.6rem; border-radius: 4px;">&lt;nav&gt;</div>
+                    
+                    <div id="view-main-group" style="display: flex; gap: 0.5rem; min-height: 120px;">
+                        <div id="view-main" style="background-color: #6366f1; flex: 3; padding: 1rem; border-radius: 4px; display: flex; flex-direction: column; justify-content: center; gap: 0.5rem;">
+                            &lt;main&gt;
+                            <div id="view-section" style="background-color: rgba(255,255,255,0.15); padding: 0.5rem; border-radius: 4px;">&lt;section&gt; (Hello, World!)</div>
+                        </div>
+                        <div id="view-aside" style="background-color: #f59e0b; flex: 1; padding: 1rem; border-radius: 4px; display: none; align-items: center; justify-content: center;">&lt;aside&gt;</div>
+                    </div>
+                    
+                    <div id="view-footer" style="background-color: #ef4444; padding: 0.6rem; border-radius: 4px;">&lt;footer&gt;</div>
+                </div>
+            </div>
+
+            <!-- Coluna 2: Caixas de Código Prontas para Cópia -->
+            <div class="painel-codigos-html" style="display: flex; flex-direction: column; gap: 1.2rem;">
+                
+                <!-- Bloco Código HTML -->
+                <div class="caixa-codigo-copia">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                        <label class="titulo-subsecao" style="margin-bottom: 0; font-size: 0.85rem; font-weight: 600; color: var(--text-main);">1. Estrutura HTML5 (`index.html`)</label>
+                        <button class="btn-copiar-codigo-html" data-alvo="codigo-html-base" style="background: none; border: none; color: var(--primary-color); font-weight: 700; font-size: 0.85rem; cursor: pointer;">Copiar HTML</button>
+                    </div>
+                    <textarea id="codigo-html-base" readonly style="width: 100%; height: 160px; font-family: monospace; font-size: 0.82rem; padding: 0.6rem; border-radius: var(--radius); border: 1px solid var(--border-color); background-color: var(--bg-sidebar); color: var(--text-main); resize: vertical; box-sizing: border-box; line-height: 1.4;"></textarea>
+                </div>
+
+                <!-- Bloco Código CSS Reset -->
+                <div class="caixa-codigo-copia">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                        <label class="titulo-subsecao" style="margin-bottom: 0; font-size: 0.85rem; font-weight: 600; color: var(--text-main);">2. CSS Reset & Grid Responsivo (`style.css`)</label>
+                        <button class="btn-copiar-codigo-html" data-alvo="codigo-css-reset" style="background: none; border: none; color: var(--primary-color); font-weight: 700; font-size: 0.85rem; cursor: pointer;">Copiar CSS</button>
+                    </div>
+                    <textarea id="codigo-css-reset" readonly style="width: 100%; height: 160px; font-family: monospace; font-size: 0.82rem; padding: 0.6rem; border-radius: var(--radius); border: 1px solid var(--border-color); background-color: var(--bg-sidebar); color: var(--text-main); resize: vertical; box-sizing: border-box; line-height: 1.4;"></textarea>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="btn-resetar-estrutura-html" class="btn btn-secondary">
+            <i class="bi bi-arrow-counterclockwise"></i> Resetar para Padrão Completo
+        </button>
+    </div>
+</div>
+
+<script src="static/js/web_dev/html.js"></script>
