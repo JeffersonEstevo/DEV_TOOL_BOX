@@ -1,0 +1,182 @@
+/* ==========================================================================
+   === 08. DEV_WEB - Showcase de CSS Base & Starter Kit ===
+   ========================================================================== */
+
+.sk-preview-wrapper {
+  background-color: var(--clr-bg, #f8fafc);
+  border-radius: var(--br-base, 8px);
+  font-family: var(--ff-regular, sans-serif);
+}
+
+.sk-card {
+  background-color: var(--bg-main, #ffffff);
+  border: 1px solid var(--border-color);
+  border-radius: var(--br-base, 8px);
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+/* Força a aplicação do arredondamento em todos os elementos do showcase */
+.sk-preview-wrapper .sk-input,
+.sk-preview-wrapper .sk-btn,
+.sk-preview-wrapper pre,
+.sk-preview-wrapper blockquote {
+  border-radius: var(--br-base, 8px) !important;
+  transition: border-radius 0.2s ease, background-color 0.2s ease;
+}
+
+.sk-preview-wrapper h1, .sk-preview-wrapper h2, .sk-preview-wrapper h3,
+.sk-preview-wrapper h4, .sk-preview-wrapper h5, .sk-preview-wrapper h6 {
+  color: var(--text-main);
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.sk-preview-wrapper h1 { font-size: 1.8rem; }
+.sk-preview-wrapper h2 { font-size: 1.5rem; }
+.sk-preview-wrapper h3 { font-size: 1.25rem; }
+.sk-preview-wrapper h4 { font-size: 1.1rem; }
+.sk-preview-wrapper h5 { font-size: 0.95rem; }
+.sk-preview-wrapper h6 { font-size: 0.85rem; }
+
+.sk-preview-wrapper p {
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.sk-preview-wrapper a {
+  color: var(--clr-primary-base, #2563eb);
+}
+
+.sk-preview-wrapper blockquote {
+  padding: 0.6rem 1rem;
+  border-left: 4px solid var(--clr-primary-base, #2563eb);
+  background-color: var(--clr-primary-light, rgba(37, 99, 235, 0.1));
+  font-size: 0.85rem;
+  font-style: italic;
+  margin-bottom: 1rem;
+}
+
+.sk-hr {
+  border: none;
+  border-top: 1px dashed var(--border-color);
+  margin: 1.2rem 0;
+}
+
+.sk-badge {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.sk-badge-primary {
+  background-color: var(--clr-primary-light, rgba(37, 99, 235, 0.1));
+  color: var(--clr-primary-base, #2563eb);
+}
+
+.sk-badge-outline {
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+}
+
+.sk-input {
+  width: 100%;
+  padding: 0.5rem 0.8rem;
+  border: 1px solid var(--border-color);
+  font-size: 0.85rem;
+  box-sizing: border-box;
+}
+
+.sk-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.sk-btn-primary {
+  background-color: var(--clr-primary-base, #2563eb);
+  color: #ffffff;
+}
+
+/* Badge / Tag Secundária */
+.sk-badge-secondary {
+  background-color: var(--clr-secondary-light, rgba(71, 85, 105, 0.12)) !important;
+  color: var(--clr-secondary-base, #475569) !important;
+}
+
+/* Botão Secundário */
+.sk-preview-wrapper .sk-btn-secondary {
+  background-color: var(--clr-secondary-base, #475569) !important;
+  color: #ffffff !important;
+  border: none !important;
+}
+
+.sk-preview-wrapper .sk-btn-secondary:hover {
+  opacity: 0.9;
+}
+
+
+/* ==========================================================================
+   === ESTILIZAÇÃO DAS ABAS (PADRÃO UNIFICADO DA APLICAÇÃO) ===
+   ========================================================================== */
+
+/* Barra de abas */
+/* Barra container das abas */
+.rede-tabs {
+  display: flex !important;
+  flex-direction: row !important; /* Força os elementos a ficarem lado a lado */
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  border-bottom: 2px solid var(--border-color);
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+  width: 100%;
+}
+
+/* Botões individuais da aba */
+.rede-tabs .tab-btn {
+  display: inline-flex !important; /* Mantém ícone e texto na mesma linha */
+  flex-direction: row !important;
+  align-items: center;
+  gap: 0.5rem;
+  background: none !important;
+  border: none !important;
+  padding: 0.75rem 1.2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-main);
+  opacity: 0.7;
+  cursor: pointer;
+  border-bottom: 3px solid transparent !important;
+  margin-bottom: -2px; /* Encaixa sobre a linha da borda inferior */
+  transition: all 0.2s ease;
+  border-radius: 0 !important;
+  white-space: nowrap; /* Evita que o texto quebre em duas linhas */
+}
+
+.rede-tabs .tab-btn:hover {
+  opacity: 1;
+  color: var(--primary-color);
+}
+
+.rede-tabs .tab-btn.active {
+  opacity: 1;
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color) !important;
+}
+
+/* Esconde todas as abas inativas */
+.tab-content {
+  display: none !important;
+}
+
+/* Exibe apenas a aba ativa */
+.tab-content.active {
+  display: block !important;
+}

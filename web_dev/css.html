@@ -1,0 +1,206 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Gerador de CSS Starter Kit Completo</h2>
+        <p>Gere um arquivo CSS profissional contendo Reset, Escala de Cores RGB, Tipografia Fluida, Espaçamentos e Utilitários de UI.</p>
+    </header>
+
+    <!-- Estrutura de Abas -->
+    <div class="rede-tabs">
+        <button class="tab-btn active" onclick="alternarAbaCSS('aba-gerador')">
+            <i class="bi bi-palette"></i> Personalizar Starter Kit
+        </button>
+        <button class="tab-btn" onclick="alternarAbaCSS('aba-paletas')">
+            <i class="bi bi-grid-fill"></i> Paletas & Presets Prontos
+        </button>
+    </div>
+
+    <!-- ABA 1: GERADOR ORIGINAL -->
+    <div id="aba-gerador" class="generator-workspace webdev-workspace tab-content active" style="max-width: 100% !important; padding: 1rem 2rem !important;">
+        
+        <!-- Controles de Variáveis do Sistema -->
+        <div class="config-css-topo" style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem;">
+            
+            <div class="cores-field" style="flex: 1; min-width: 200px;">
+                <label for="seletor-cor-primary">Cor Primária (Base)</label>
+                <div style="display: flex; gap: 0.5rem; align-items: center; margin-top: 0.4rem;">
+                    <input type="color" id="seletor-cor-primary" value="#2563eb" style="width: 45px; height: 38px; border: none; cursor: pointer; border-radius: 4px;">
+                    <input type="text" id="hex-primary" value="#2563eb" style="flex: 1; padding: 0.55rem; font-family: monospace; font-weight: 600;">
+                </div>
+            </div>
+
+            <div class="cores-field" style="flex: 1; min-width: 200px;">
+                <label for="seletor-cor-bg">Cor de Fundo da Aplicação</label>
+                <div style="display: flex; gap: 0.5rem; align-items: center; margin-top: 0.4rem;">
+                    <input type="color" id="seletor-cor-bg" value="#f8fafc" style="width: 45px; height: 38px; border: none; cursor: pointer; border-radius: 4px;">
+                    <input type="text" id="hex-bg" value="#f8fafc" style="flex: 1; padding: 0.55rem; font-family: monospace; font-weight: 600;">
+                </div>
+            </div>
+
+            <div class="cores-field" style="flex: 1; min-width: 200px;">
+                <label for="seletor-ff-regular">Família Tipográfica</label>
+                <select id="seletor-ff-regular" style="width: 100%; padding: 0.65rem; font-size: 1rem; border-radius: var(--radius); border: 1px solid var(--border-color); background-color: var(--bg-main); color: var(--text-main); font-weight: 600; margin-top: 0.4rem;">
+                    <option value="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">System UI / Sans-serif</option>
+                    <option value="Georgia, 'Times New Roman', Times, serif">Georgia / Serif Clássico</option>
+                    <option value="'Inter', sans-serif">Inter</option>
+                    <option value="'Roboto', sans-serif">Roboto</option>
+                </select>
+            </div>
+
+            <div class="cores-field" style="flex: 1; min-width: 180px;">
+                <label for="seletor-radius-css">Arredondamento (--br-base)</label>
+                <select id="seletor-radius-css" style="width: 100%; padding: 0.65rem; font-size: 1rem; border-radius: var(--radius); border: 1px solid var(--border-color); background-color: var(--bg-main); color: var(--text-main); font-weight: 600; margin-top: 0.4rem;">
+                    <option value="0px">Quadrado (0px)</option>
+                    <option value="4px">Suave (4px / 0.4rem)</option>
+                    <option value="8px" selected>Moderno (8px / 0.8rem)</option>
+                    <option value="16px">Arredondado (16px / 1.6rem)</option>
+                </select>
+            </div>
+
+            <div class="cores-field" style="flex: 1; min-width: 200px;">
+                <label for="seletor-cor-secondary">Cor Secundária</label>
+                <div style="display: flex; gap: 0.5rem; align-items: center; margin-top: 0.4rem;">
+                    <input type="color" id="seletor-cor-secondary" value="#475569" style="width: 45px; height: 38px; border: none; cursor: pointer; border-radius: 4px;">
+                    <input type="text" id="hex-secondary" value="#475569" style="flex: 1; padding: 0.55rem; font-family: monospace; font-weight: 600;">
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Grid: Showcase Real vs Código Gerado -->
+        <div class="grid-layout-css" style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 2rem; align-items: start;">
+            
+            <!-- Coluna 1: Preview com Aplicabilidade de Fundo e Bordas -->
+            <div class="painel-preview-css" style="border: 1px solid var(--border-color); padding: 1.5rem; border-radius: var(--radius); background-color: var(--bg-main);">
+                <label class="titulo-subsecao" style="margin-bottom: 1rem; display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main);">Showcase de Elementos HTML5 e Design System</label>
+                
+                <!-- Área de Testes com a Cor de Fundo selecionada -->
+                <div id="container-preview-css-base" class="sk-preview-wrapper" style="max-height: 520px; overflow-y: auto; padding: 1.5rem; transition: background-color 0.2s ease;">
+                    
+                    <!-- Card demonstrativo para destacar o fundo (Background) -->
+                    <div class="sk-card">
+                        
+                        <!-- 1. Headings -->
+                        <div class="sk-section">
+                            <span class="sk-badge sk-badge-primary">Tipografia</span>
+                            <h1>Título H1 Fluido</h1>
+                            <h2>Subtítulo H2 Estrutural</h2>
+                            <h3>Título H3 de Seção</h3>
+                            <h4>Subseção H4</h4>
+                            <h5>Título H5</h5>
+                            <h6>Título Micro H6</h6>
+                            
+                            <p>Parágrafo com <a href="#" onclick="return false;">link para teste de hover</a>. Teste da escala de opacidade e cores do texto do corpo.</p>
+                            
+                            <blockquote>
+                                Citação estilizada (`blockquote`) utilizando bordas e variações do tom primário.
+                            </blockquote>
+                        </div>
+
+                        <hr class="sk-hr">
+
+                        <!-- 2. Listas -->
+                        <div class="sk-section">
+                            <span class="sk-badge sk-badge-primary">Listas</span>
+                            <div style="display: flex; gap: 2rem; margin-top: 0.8rem; flex-wrap: wrap;">
+                                <ul>
+                                    <li>Item de Lista Não Ordenada 01</li>
+                                    <li>Item de Lista Não Ordenada 02</li>
+                                </ul>
+                                <ol>
+                                    <li>Primeiro Passo Ordenado</li>
+                                    <li>Segundo Passo Ordenado</li>
+                                </ol>
+                            </div>
+                        </div>
+
+                        <hr class="sk-hr">
+
+                        <!-- 3. Formulários & Entradas -->
+                        <div class="sk-section">
+                            <span class="sk-badge sk-badge-primary">Formulários & Inputs</span>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.8rem;">
+                                <div>
+                                    <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Input Text</label>
+                                    <input type="text" class="sk-input" placeholder="Digite algo aqui..." readonly>
+                                </div>
+                                <div>
+                                    <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Select Dropdown</label>
+                                    <select class="sk-input">
+                                        <option>Opção Selecionada</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="sk-hr">
+
+                        <!-- 4. Código (Pre & Code) -->
+                        <div class="sk-section">
+                            <span class="sk-badge sk-badge-primary">Código</span>
+                            <pre style="margin-top: 0.8rem;"><code>// Exemplo de código pre/code
+const theme = "Modern CSS Base";
+console.log(theme);</code></pre>
+                        </div>
+
+                        <hr class="sk-hr">
+
+                        <!-- 5. Botões & Badges -->
+                        <div class="sk-section">
+                            <span class="sk-badge sk-badge-primary">Botões & Ações</span>
+                            <div style="display: flex; gap: 0.8rem; margin-top: 0.8rem; flex-wrap: wrap;">
+                                <button type="button" class="sk-btn sk-btn-primary">Botão Primário</button>
+                                <button type="button" class="sk-btn sk-btn-secondary">Botão Secundário</button>
+                                <span class="sk-badge sk-badge-outline" style="align-self: center;">Tag Badge</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Coluna 2: Código CSS Completo com todas as Variáveis -->
+            <div class="painel-codigo-css" style="display: flex; flex-direction: column; gap: 1.2rem;">
+                <div class="caixa-codigo-copia">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+                        <label class="titulo-subsecao" style="margin-bottom: 0; font-size: 0.85rem; font-weight: 600; color: var(--text-main);">Código CSS Starter Kit Completo</label>
+                        <button class="btn-copiar-codigo-css" data-alvo="codigo-css-gerado" style="background: none; border: none; color: var(--primary-color); font-weight: 700; font-size: 0.85rem; cursor: pointer;">Copiar CSS Completo</button>
+                    </div>
+                    <textarea id="codigo-css-gerado" readonly style="width: 100%; height: 500px; font-family: monospace; font-size: 0.8rem; padding: 0.8rem; border-radius: var(--radius); border: 1px solid var(--border-color); background-color: var(--bg-sidebar); color: var(--text-main); resize: vertical; box-sizing: border-box;"></textarea>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ABA 2: PALETAS & PRESETS PRONTOS -->
+    <div id="aba-paletas" class="generator-workspace webdev-workspace tab-content" style="display: none; max-width: 100% !important; padding: 1.5rem 2rem !important;">
+        <div style="margin-bottom: 1.5rem;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 0.3rem;">Paletas Harmoniosas & Acessíveis</h3>
+            <p style="font-size: 0.88rem; color: var(--text-muted);">
+                Escolha uma combinação testada para UI. Copie a cor individualmente ou aplique o tema direto no gerador.
+            </p>
+        </div>
+
+        <div id="grid-paletas-presets" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem;">
+            <!-- O JS injeta os cards de paletas aqui -->
+        </div>
+    </div>
+
+    <!-- Barra de Ações Inferior -->
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <div id="grupo-acoes-gerador" class="grupo-acoes">
+            <button id="btn-limpar-selecao-css" class="btn btn-secondary">
+                <i class="bi bi-arrow-counterclockwise"></i> Resetar Configurações CSS
+            </button>
+        </div>
+        <div id="grupo-acoes-paletas" class="grupo-acoes" style="display: none;">
+            <span style="font-size: 0.85rem; color: var(--text-muted);">
+                Clique em <b>Usar Claro</b> ou <b>Usar Escuro</b> para carregar qualquer paleta na aba principal.
+            </span>
+        </div>
+    </div>
+</div>
+
+<script src="static/js/web_dev/css.js"></script>

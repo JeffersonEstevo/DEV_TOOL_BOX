@@ -851,7 +851,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 processarEExibirCodigo();
             }
         }
-
         if (event.target.closest('#btn-limpar-formatador')) {
             event.preventDefault();
             const inputFormatador = document.getElementById('formatador-input');
@@ -863,6 +862,39 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             codigoFormatadoGlobal = ""; // Limpa a memória de cópia
         }
+        // === 08. DEV_WEB - 02. Gerador de CSS Starter Kit ===
+        if (event.target.closest('#btn-limpar-selecao-css')) {
+            event.preventDefault();
+            
+            // Elementos de Cor Primária
+            const pickerPrimary = document.getElementById('seletor-cor-primary');
+            const hexPrimary = document.getElementById('hex-primary');
+            if (pickerPrimary) pickerPrimary.value = '#2563eb';
+            if (hexPrimary) hexPrimary.value = '#2563eb';
+
+            // Elementos de Cor Secundária
+            const pickerSecondary = document.getElementById('seletor-cor-secondary');
+            const hexSecondary = document.getElementById('hex-secondary');
+            if (pickerSecondary) pickerSecondary.value = '#475569';
+            if (hexSecondary) hexSecondary.value = '#475569';
+
+            // Elementos de Background
+            const pickerBg = document.getElementById('seletor-cor-bg');
+            const hexBg = document.getElementById('hex-bg');
+            if (pickerBg) pickerBg.value = '#f8fafc';
+            if (hexBg) hexBg.value = '#f8fafc';
+
+            // Tipografia e Arredondamento
+            const seletorFf = document.getElementById('seletor-ff-regular');
+            const seletorRadius = document.getElementById('seletor-radius-css');
+            if (seletorFf) seletorFf.selectedIndex = 0;
+            if (seletorRadius) seletorRadius.value = '8px';
+
+            // Recalcular e aplicar preview
+            if (typeof atualizarCSSPreview === "function") {
+                atualizarCSSPreview();
+            }
+}
 
 
 
