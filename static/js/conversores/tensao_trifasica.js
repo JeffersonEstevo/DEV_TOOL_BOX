@@ -33,7 +33,8 @@ function formatarSaidaTrifasica(num) {
     return Number(num.toFixed(2)).toString();
 }
 
-function limparCamposTrifasica() {
+// Altere de limparCamposTrifasica para limparTrifasica
+function limparTrifasica() {
     const inputFn = document.getElementById('tri-calc-fn');
     const inputFf = document.getElementById('tri-calc-ff');
     if (inputFn) inputFn.value = '';

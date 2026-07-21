@@ -654,12 +654,10 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             if (typeof dispararGeracaoArray === "function") dispararGeracaoArray();
         }
-
         if (event.target.closest('#btn-copiar-array')) {
             event.preventDefault();
             window.copiarTextoDeElemento('array-resultado', 'array-generator-alert');
         }
-
         if (event.target.closest('#btn-copiar-senha')) {
             event.preventDefault();
             window.copiarTextoDeElemento('senha-resultado', 'senha-generator-alert');
@@ -695,10 +693,21 @@ document.addEventListener("DOMContentLoaded", function () {
             if (typeof limparTodosCamposVelocidade === "function") limparTodosCamposVelocidade();
         }
 
-        // === 04. CONVERSORES - 06. Grandezas Elétricas ===
+       // === 04. CONVERSORES - 06. Grandezas Elétricas ===
+        // 1. Clique no Botão Limpar
         if (event.target.closest('#btn-limpar-eletrica')) {
             event.preventDefault();
             if (typeof limparTudoEletrica === "function") limparTudoEletrica();
+        }
+        // 2. Clique nas Abas (Para garantir a troca de aba se o onclick nativo falhar)
+        const btnAba = event.target.closest('.eletrica-tabs .tab-btn');
+        if (btnAba) {
+            event.preventDefault();
+            const onclickAttr = btnAba.getAttribute('onclick');
+            if (onclickAttr && onclickAttr.includes('alternarAbaEletrica')) {
+                const abaId = onclickAttr.match(/'([^']+)'/)[1];
+                if (typeof alternarAbaEletrica === "function") alternarAbaEletrica(abaId);
+            }
         }
 
         // === 04. CONVERSORES - 07. Tensão Trifásica ===
