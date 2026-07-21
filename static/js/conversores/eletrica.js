@@ -32,6 +32,15 @@ function alternarAbaEletrica(abaId) {
 // PARTE 1: LEI DE OHM & TRIÂNGULO DE POTÊNCIAS
 // ==========================================
 const camposOhm = ['ele-tensao', 'ele-corrente', 'ele-resistencia', 'ele-potencia'];
+const idParaChaveOhm = { 'ele-tensao': 'V', 'ele-corrente': 'I', 'ele-resistencia': 'R', 'ele-potencia': 'P' };
+
+// Guarda os ids dos campos na ordem em que foram editados manualmente (mais recente primeiro)
+let ordemEdicaoOhm = [];
+
+function registrarEdicaoOhm(id) {
+    ordemEdicaoOhm = ordemEdicaoOhm.filter(x => x !== id);
+    ordemEdicaoOhm.unshift(id);
+}
 
 function calcularEletricaAvancada() {
     const vInput = document.getElementById('ele-tensao');
@@ -42,31 +51,57 @@ function calcularEletricaAvancada() {
 
     if (!vInput || !iInput || !rInput || !pInput) return;
 
-    let V = parseFloat(vInput.value);
-    let I = parseFloat(iInput.value);
-    let R = parseFloat(rInput.value);
-    let P = parseFloat(pInput.value);
-    let FP = parseFloat(fpInput.value) || 1.0; // Se não definido, assume carga resistiva (1.0)
+    const inputs = { V: vInput, I: iInput, R: rInput, P: pInput };
 
+    let valores = {
+        V: parseFloat(vInput.value),
+        I: parseFloat(iInput.value),
+        R: parseFloat(rInput.value),
+        P: parseFloat(pInput.value)
+    };
+
+    let FP = parseFloat(fpInput.value);
+    if (isNaN(FP)) FP = 1.0; // Se não definido, assume carga resistiva (1.0)
     if (FP < 0) FP = 0; if (FP > 1) FP = 1;
 
-    const ativos = { V: !isNaN(V), I: !isNaN(I), R: !isNaN(R), P: !isNaN(P) };
-    const qtdAtivos = Object.values(ativos).filter(Boolean).length;
+    // Lista as chaves com valor válido, priorizando a ordem de edição manual mais recente
+    const chavesValidasPorEdicao = ordemEdicaoOhm
+        .map(id => idParaChaveOhm[id])
+        .filter(chave => chave && !isNaN(valores[chave]));
 
-    // Resolve Lei de Ohm básica para obter P (Ativa), V, I e R
-    if (qtdAtivos === 2) {
-        if (ativos.V && ativos.I) { R = V / I; P = V * I; }
-        else if (ativos.V && ativos.R) { I = V / R; P = (V * V) / R; }
-        else if (ativos.V && ativos.P) { I = P / V; R = (V * V) / P; }
-        else if (ativos.I && ativos.R) { V = I * R; P = (I * I) * R; }
-        else if (ativos.I && ativos.P) { V = P / I; R = P / (I * I); }
-        else if (ativos.R && ativos.P) { V = Math.sqrt(P * R); I = Math.sqrt(P / R); }
+    // Inclui quaisquer campos válidos que ainda não constam na lista (ex.: preenchidos automaticamente antes)
+    Object.keys(valores).forEach(chave => {
+        if (!isNaN(valores[chave]) && !chavesValidasPorEdicao.includes(chave)) {
+            chavesValidasPorEdicao.push(chave);
+        }
+    });
 
-        if (isNaN(V)) vInput.value = formatarNum(V);
-        if (isNaN(I)) iInput.value = formatarNum(I);
-        if (isNaN(R)) rInput.value = formatarNum(R);
-        if (isNaN(P)) pInput.value = formatarNum(P);
+    // Resolve a Lei de Ohm usando sempre os 2 campos mais recentemente editados
+    if (chavesValidasPorEdicao.length >= 2) {
+        const [chaveA, chaveB] = chavesValidasPorEdicao.slice(0, 2);
+        const parAtivo = new Set([chaveA, chaveB]);
+        const tem = (a, b) => parAtivo.has(a) && parAtivo.has(b);
+
+        let { V, I, R, P } = valores;
+
+        if (tem('V', 'I')) { R = V / I; P = V * I; }
+        else if (tem('V', 'R')) { I = V / R; P = (V * V) / R; }
+        else if (tem('V', 'P')) { I = P / V; R = (V * V) / P; }
+        else if (tem('I', 'R')) { V = I * R; P = (I * I) * R; }
+        else if (tem('I', 'P')) { V = P / I; R = P / (I * I); }
+        else if (tem('R', 'P')) { V = Math.sqrt(P * R); I = Math.sqrt(P / R); }
+
+        valores = { V, I, R, P };
+
+        // Sobrescreve apenas os campos que NÃO fazem parte do par mais recentemente editado
+        Object.keys(inputs).forEach(chave => {
+            if (!parAtivo.has(chave)) {
+                inputs[chave].value = formatarNum(valores[chave]);
+            }
+        });
     }
+
+    const P = valores.P;
 
     // Se tivermos a Potência Ativa (P) calculada ou digitada, resolvemos o Triângulo de Potências
     if (!isNaN(P) && P > 0) {
@@ -162,12 +197,16 @@ function limparTudoEletrica() {
     document.getElementById('ele-aparente').value = '';
     document.getElementById('ele-reativa').value = '';
     document.getElementById('ele-nominal').value = '';
+    ordemEdicaoOhm = [];
     limparAbaPrefixos();
 }
 
 // Inicialização dos Ouvintes
 function inicializarEletrica() {
-    camposOhm.forEach(id => document.getElementById(id)?.addEventListener('input', calcularEletricaAvancada));
+    camposOhm.forEach(id => document.getElementById(id)?.addEventListener('input', () => {
+        registrarEdicaoOhm(id);
+        calcularEletricaAvancada();
+    }));
     document.getElementById('ele-fp')?.addEventListener('input', calcularEletricaAvancada);
     Object.keys(camposPrefixos).forEach(id => document.getElementById(id)?.addEventListener('input', () => converterPrefixos(id)));
 }
