@@ -1,0 +1,50 @@
+/* Estilos específicos para tachar_texto */
+
+/* ==========================================================================
+   === 01. TEXTO - 18. Tachar Texto ===
+   ========================================================================== */
+
+/* Força os elementos do grid a ocuparem 100% da largura da coluna útil */
+.tool-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  gap: 1.5rem !important;
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100% !important;
+}
+
+/* Força os textareas a ficarem largos e responsivos */
+.tool-container textarea {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  padding: 0.75rem !important;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.border-top-bar {
+  border-top: 1px solid var(--border-color);
+  padding-top: 1rem;
+  margin-top: 1rem;
+}
+
+/* Responsividade para dispositivos móveis */
+@media (max-width: 768px) {
+  .tool-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

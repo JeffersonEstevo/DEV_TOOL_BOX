@@ -1,0 +1,36 @@
+<div class="tool-container workspace-largo">
+    <header class="tool-header">
+        <h2>Tachar Texto (Riscado)</h2>
+        <p>Insira o texto original para transformar os caracteres em texto tachado e copiar o resultado.</p>
+    </header>
+
+    <div class="tool-grid">
+        <div class="field-group">
+            <label for="original-text">Texto Original:</label>
+            <textarea id="original-text" rows="12" placeholder="Digite ou cole o texto original aqui..."></textarea>
+        </div>
+
+        <div class="field-group">
+            <label for="final-text">Texto Tachado:</label>
+            <textarea id="final-text" rows="12" placeholder="O resultado com o texto tachado aparecerá aqui..." readonly></textarea>
+        </div>
+    </div>
+
+    <div class="action-bar">
+        <button id="strike-button" class="btn btn-primary">
+            <i class="bi bi-type-strikethrough"></i> Tachar Texto
+        </button>
+    </div>
+
+    <div class="action-bar border-top-bar">
+        <button id="clean-strike-button" class="btn btn-secondary">Limpar</button>
+        <button id="copy-strike-button" class="btn btn-success">
+            <i class="bi bi-clipboard"></i> Copiar Resultado
+        </button>
+        <span id="copy-strike-alert" class="toast-alert hidden">
+            <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
+        </span>
+    </div>
+</div>
+
+<script src="static/js/texto/tachar_texto.js"></script>

@@ -405,12 +405,31 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.error("[Erro] A engine de comparação de listas não está carregada na memória.");
             }
         }
-
         if (event.target.closest('#clear-lists-button')) {
             event.preventDefault();
             if (typeof limparComparacaoDeListas === "function") {
                 limparComparacaoDeListas();
             }
+        }
+        
+        // === 01. TEXTO - 18. Tachar Texto ===
+        if (event.target.closest('#strike-button')) {
+            event.preventDefault();
+            if (typeof executarTacharTexto === "function") {
+                executarTacharTexto();
+            } else {
+                console.error("[Erro] A engine de tachar texto não está carregada na memória.");
+            }
+        }
+
+        if (event.target.closest('#copy-strike-button')) {
+            event.preventDefault();
+            if (typeof copiarTextoTachado === "function") copiarTextoTachado();
+        }
+
+        if (event.target.closest('#clean-strike-button')) {
+            event.preventDefault();
+            if (typeof limparTacharTexto === "function") limparTacharTexto();
         }
 
         // === 02. CALCULADORAS - 01. Frações ===
