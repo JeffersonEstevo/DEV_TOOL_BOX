@@ -608,7 +608,7 @@ body.dark-mode .pdf-page-preview code {
    ========================================================================== */
 
 /* Aplica o design visual moderno e ajustado */
-input[type="text"], select, textarea {
+input[type="text"], input[type="number"], select, textarea {
   width: 100%;
   padding: 0.5rem 0.85rem; /* Diminuído de 0.75rem para 0.5rem (mais fino) */
   border-radius: 6px;      /* Cantos ligeiramente menos arredondados para combinar com a espessura */
@@ -620,18 +620,18 @@ input[type="text"], select, textarea {
 }
 
 /* Efeito Hover (Modo Claro) */
-input[type="text"]:hover, select:hover, textarea:hover {
+input[type="text"]:hover, input[type="number"]:hover, select:hover, textarea:hover {
   border-color: #cbd5e1;
 }
 
 /* Efeito Focus/Clique (Funciona em ambos os modos) */
-input[type="text"]:focus, select:focus, textarea:focus {
+input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:focus {
   border-color: #3b82f6 !important; 
   box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15); 
 }
 
 /* 2. Garante que inputs, selects e textareas de QUALQUER página sigam o tema (Dark Mode) */
-body.dark-mode input[type="text"],
+body.dark-mode input[type="text"], input[type="number"],
 body.dark-mode select,
 body.dark-mode textarea {
   background-color: var(--bg-sidebar); 
@@ -640,7 +640,7 @@ body.dark-mode textarea {
 }
 
 /* Efeito Hover (Dark Mode) */
-body.dark-mode input[type="text"]:hover, 
+body.dark-mode input[type="text"]:hover, input[type="number"]:hover,
 body.dark-mode select:hover, 
 body.dark-mode textarea:hover {
   border-color: var(--text-muted, #64748b);
