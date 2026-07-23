@@ -50,26 +50,24 @@ function processarGeracaoLorem() {
 
     let resultadoArray = [];
 
-    // Se for solicitado gerar PARÁGRAFOS
+    // 1. Se for solicitado gerar PARÁGRAFOS
     if (unidade === "paragraphs") {
         for (let i = 0; i < quantidade; i++) {
             resultadoArray.push(gerarParagrafo());
         }
         
-        // Aplica a regra de iniciar com "Lorem ipsum dolor sit amet..."
         if (iniciarComLorem === "yes" && resultadoArray.length > 0) {
             const inicioPadrao = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. ";
             resultadoArray[0] = inicioPadrao + resultadoArray[0].charAt(0).toLowerCase() + resultadoArray[0].slice(1);
         }
 
-        // Formata a saída baseado no Tipo de Texto (Texto x HTML)
         if (tipoTexto === "html") {
             outputDiv.innerText = resultadoArray.map(p => `<p>${p}</p>`).join("\n\n");
         } else {
             outputDiv.innerHTML = resultadoArray.map(p => `<p style="margin-bottom: 1rem;">${p}</p>`).join("");
         }
 
-    // Se for solicitado gerar PALAVRAS
+    // 2. Se for solicitado gerar PALAVRAS
     } else if (unidade === "words") {
         let palavrasResultado = [];
         
@@ -82,9 +80,7 @@ function processarGeracaoLorem() {
             palavrasResultado.push(loremWordsBase[randomIndex]);
         }
 
-        // Corta o excesso caso o "Lorem Ipsum" inicial ultrapasse o limite pedido
         palavrasResultado = palavrasResultado.slice(0, quantidade);
-        
         let textoFinal = palavrasResultado.join(" ");
         textoFinal = textoFinal.charAt(0).toUpperCase() + textoFinal.slice(1) + ".";
 
@@ -92,6 +88,24 @@ function processarGeracaoLorem() {
             outputDiv.innerText = `<p>${textoFinal}</p>`;
         } else {
             outputDiv.innerHTML = `<p>${textoFinal}</p>`;
+        }
+
+    // 3. Se for solicitado gerar LISTAS (Nova funcionalidade opcional)
+    } else if (unidade === "lists") {
+        for (let i = 0; i < quantidade; i++) {
+            resultadoArray.push(gerarFrase(3, 8).replace(".", "")); // Frases curtas sem ponto
+        }
+
+        if (iniciarComLorem === "yes" && resultadoArray.length > 0) {
+            resultadoArray[0] = "Lorem ipsum dolor sit amet";
+        }
+
+        if (tipoTexto === "html") {
+            const itensHTML = resultadoArray.map(item => `  <li>${item}</li>`).join("\n");
+            outputDiv.innerText = `<ul>\n${itensHTML}\n</ul>`;
+        } else {
+            const itensHTML = resultadoArray.map(item => `<li style="margin-bottom: 0.25rem;">${item}</li>`).join("");
+            outputDiv.innerHTML = `<ul style="padding-left: 1.2rem; margin: 0;">${itensHTML}</ul>`;
         }
     }
 }
@@ -105,7 +119,7 @@ function limparLorem() {
     if (amountInput) amountInput.value = "3";
 }
 
-// Função de cópia com suporte ao Alerta Toast engatada ao botão do scripts.js
+// Função de cópia engatada ao botão do scripts.js
 function copiarLoremParaAreaTransferencia() {
     const outputDiv = document.getElementById("lorem-output");
     const alertSpan = document.getElementById("copy-lorem-alert");
@@ -113,16 +127,11 @@ function copiarLoremParaAreaTransferencia() {
 
     const textoParaCopiar = outputDiv.innerText || outputDiv.textContent;
 
-    if (!textoParaCopiar.trim()) {
-        return; // Impede copiar container vazio
-    }
+    if (!textoParaCopiar.trim()) return;
 
     navigator.clipboard.writeText(textoParaCopiar).then(() => {
         if (alertSpan) {
-            // Remove a classe hidden para exibir o toast de sucesso
             alertSpan.classList.remove("hidden");
-            
-            // Oculta o toast novamente após 2 segundos
             setTimeout(() => {
                 alertSpan.classList.add("hidden");
             }, 2000);
@@ -134,9 +143,23 @@ function copiarLoremParaAreaTransferencia() {
 
 // Inicializador seguro do componente
 function inicializarGeradorLorem() {
-    // Carrega um conteúdo inicial padrão ao renderizar a tela
+    // Permite que a tecla ENTER no input número dispare a geração
+    const amountInput = document.getElementById("lorem-amount");
+    if (amountInput) {
+        amountInput.removeEventListener("keydown", tratarEnterLorem);
+        amountInput.addEventListener("keydown", tratarEnterLorem);
+    }
+
+    // Carrega um conteúdo inicial padrão ao renderizar a tela na SPA
     processarGeracaoLorem();
 }
 
-// Executa a inicialização do módulo
+function tratarEnterLorem(e) {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        processarGeracaoLorem();
+    }
+}
+
+// Executa a inicialização ao carregar a página na SPA
 inicializarGeradorLorem();
