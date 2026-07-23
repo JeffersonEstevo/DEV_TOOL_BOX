@@ -103,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (srcLimpo.startsWith("/")) srcLimpo = srcLimpo.substring(1);
 
                         // WARNING: Remove réplicas antigas do mesmo script presentes na árvore do DOM.
+                        // TODO: Event listeners criados por scripts antigos ainda residem na memória do navegador.
                         document.querySelectorAll(`script`).forEach(s => {
                             if (s.src && s.src.includes(srcLimpo.split('?')[0])) {
                                 s.remove();
@@ -112,14 +113,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         // NOTE: Força o navegador a re-executar o script ignorando o cache via timestamp (?t=...)
                         novoScript.src = `${srcLimpo}?t=${Date.now()}`;
                         novoScript.async = false; 
-
-                        // Inicializa módulos específicos após o carregamento do script
-                        novoScript.onload = () => {
-                            if (srcLimpo.includes("html_to_pdf.js") && typeof HtmlToPdfConverter === "function") {
-                                window.htmlToPdfConverter = new HtmlToPdfConverter();
-                            }
-                        };
-
                         document.body.appendChild(novoScript);
                     } else {
                         novoScript.textContent = scriptOrigem.textContent;
@@ -1127,6 +1120,8 @@ document.addEventListener('input', (event) => {
         atualizarInterfacePorHsl(event.target.value);
     }
 
+    new HtmlToPdfConverter();
+
 });
 
 // ==========================================================================
@@ -1157,6 +1152,4 @@ function dispararInicializadoresDeModulo() {
 // Escuta a troca de abas e o carregamento inicial da SPA
 window.addEventListener('hashchange', dispararInicializadoresDeModulo);
 window.addEventListener('DOMContentLoaded', dispararInicializadoresDeModulo);
-
-
 

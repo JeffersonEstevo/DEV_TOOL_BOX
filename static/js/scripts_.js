@@ -103,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         if (srcLimpo.startsWith("/")) srcLimpo = srcLimpo.substring(1);
 
                         // WARNING: Remove réplicas antigas do mesmo script presentes na árvore do DOM.
+                        // TODO: Event listeners criados por scripts antigos ainda residem na memória do navegador.
                         document.querySelectorAll(`script`).forEach(s => {
                             if (s.src && s.src.includes(srcLimpo.split('?')[0])) {
                                 s.remove();
@@ -112,14 +113,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         // NOTE: Força o navegador a re-executar o script ignorando o cache via timestamp (?t=...)
                         novoScript.src = `${srcLimpo}?t=${Date.now()}`;
                         novoScript.async = false; 
-
-                        // Inicializa módulos específicos após o carregamento do script
-                        novoScript.onload = () => {
-                            if (srcLimpo.includes("html_to_pdf.js") && typeof HtmlToPdfConverter === "function") {
-                                window.htmlToPdfConverter = new HtmlToPdfConverter();
-                            }
-                        };
-
                         document.body.appendChild(novoScript);
                     } else {
                         novoScript.textContent = scriptOrigem.textContent;
@@ -403,6 +396,22 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             if (typeof baixarPdfGerado === "function") baixarPdfGerado();
         }
+        function baixarPdfGerado() {
+            // 1. Checa se a classe/biblioteca foi carregada
+            if (typeof HtmlToPdfConverter !== 'undefined') {
+                
+                // 2. Cria a instância no momento EXATO em que o botão foi clicado
+                const pdf = new HtmlToPdfConverter();
+                
+                // 3. Executa a geração/download do PDF
+                // (Ajuste o método abaixo de acordo com a sua biblioteca, ex: pdf.generate(), pdf.download(), etc)
+                pdf.download(); 
+
+            } else {
+                console.error('HtmlToPdfConverter não está disponível. O script do PDF foi carregado?');
+            }
+        }
+        
         // === 01. TEXTO - 17. Comparar de Listas ===
         if (event.target.closest('#compare-lists-button')) {
             event.preventDefault();
@@ -1105,28 +1114,31 @@ document.addEventListener("DOMContentLoaded", () => {
 // 10. CAPTURA DE EVENTOS TIPO INPUT (GLOBAL PARA SPA)
 // ==========================================
 document.addEventListener('input', (event) => {
+    const id = event.target.id;
+
     // 1. Se o usuário mexer no Input Nativo (Color Picker)
-    if (event.target.id === 'picker-nativo') {
+    if (id === 'picker-nativo' && typeof atualizarInterfacePorHex === 'function') {
         atualizarInterfacePorHex(event.target.value);
     }
 
     // 2. Se o usuário digitar no Input de Texto HEX
-    if (event.target.id === 'cor-hex') {
+    if (id === 'cor-hex' && typeof atualizarInterfacePorHex === 'function') {
         let valor = event.target.value;
         if (valor && !valor.startsWith('#')) valor = '#' + valor;
         atualizarInterfacePorHex(valor);
     }
 
     // 3. Se o usuário digitar no Input de Texto RGB
-    if (event.target.id === 'cor-rgb') {
+    if (id === 'cor-rgb' && typeof atualizarInterfacePorRgb === 'function') {
         atualizarInterfacePorRgb(event.target.value);
     }
 
     // 4. Se o usuário digitar no Input de Texto HSL
-    if (event.target.id === 'cor-hsl') {
+    if (id === 'cor-hsl' && typeof atualizarInterfacePorHsl === 'function') {
         atualizarInterfacePorHsl(event.target.value);
     }
 
+    // A LINHA "new HtmlToPdfConverter();" FOI REMOVIDA DAQUI.
 });
 
 // ==========================================================================
@@ -1157,6 +1169,7 @@ function dispararInicializadoresDeModulo() {
 // Escuta a troca de abas e o carregamento inicial da SPA
 window.addEventListener('hashchange', dispararInicializadoresDeModulo);
 window.addEventListener('DOMContentLoaded', dispararInicializadoresDeModulo);
+
 
 
 

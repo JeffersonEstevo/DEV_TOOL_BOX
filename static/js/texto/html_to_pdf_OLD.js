@@ -16,7 +16,7 @@
  * - O documento de impressão é isolado e sempre em tema claro,
  *   independente do tema (claro/escuro) da aplicação.
  */
-window.HtmlToPdfConverter = window.HtmlToPdfConverter || class HtmlToPdfConverter {
+class HtmlToPdfConverter {
     constructor() {
         this.inputArea = document.getElementById("pdf-html-input");
         this.previewArea = document.getElementById("pdf-preview-area");
@@ -35,14 +35,16 @@ window.HtmlToPdfConverter = window.HtmlToPdfConverter || class HtmlToPdfConverte
      * Inicializa os escutadores de eventos e o estado inicial da aplicação
      */
     init() {
-      this.renderPreview = this.renderPreview.bind(this);
-      this.handleGeneratePdf = this.handleGeneratePdf.bind(this);
-      this.clearAll = this.clearAll.bind(this);
+        this.renderPreview = this.renderPreview.bind(this);
+        this.handleGeneratePdf = this.handleGeneratePdf.bind(this);
+        this.clearAll = this.clearAll.bind(this);
 
-      this.inputArea.addEventListener("input", this.renderPreview);
+        this.inputArea.addEventListener("input", this.renderPreview);
+        if (this.downloadBtn) this.downloadBtn.addEventListener("click", this.handleGeneratePdf);
+        if (this.cleanBtn) this.cleanBtn.addEventListener("click", this.clearAll);
 
-      this.renderPreview();
-    } 
+        this.renderPreview();
+    }
 
     /**
      * Atualiza a área de simulação de página do PDF (preview em tela)
@@ -317,14 +319,26 @@ HtmlToPdfConverter.PRINT_STYLES = `
 //    new HtmlToPdfConverter();
 //});
 
-window.limparGeradorPdf = function() {
-    if (window.htmlToPdfConverter) {
-        window.htmlToPdfConverter.clearAll();
+// ==========================================
+// INICIALIZADOR DA TELA DE PDF (PARA SPA)
+// ==========================================
+function inicializarGeradorPdf() {
+    if (document.getElementById("pdf-html-input")) {
+        window.pdfConverterInstance = new HtmlToPdfConverter();
     }
-};
+}
 
-window.baixarPdfGerado = function() {
-    if (window.htmlToPdfConverter) {
-        window.htmlToPdfConverter.handleGeneratePdf();
+// Expõe também as funções que os botões do seu contentloader usam:
+function baixarPdfGerado() {
+    if (!window.pdfConverterInstance) {
+        window.pdfConverterInstance = new HtmlToPdfConverter();
     }
-};
+    window.pdfConverterInstance.handleGeneratePdf();
+}
+
+function limparGeradorPdf() {
+    if (!window.pdfConverterInstance) {
+        window.pdfConverterInstance = new HtmlToPdfConverter();
+    }
+    window.pdfConverterInstance.clearAll();
+}s
