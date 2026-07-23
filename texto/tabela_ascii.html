@@ -8,16 +8,21 @@
                 <strong>O que é a Tabela ASCII?</strong> Criada nos anos 60, a ASCII funciona como um dicionário universal para computadores, traduzindo letras e comandos em números. 
                 Ela é dividida em três partes principais:
             </p>
-            <ul style="margin: 0.5rem 0 0 1.2rem; padding: 0;">
+            <ul style="margin: 0.5rem 0 0.75rem 1.2rem; padding: 0;">
                 <li><strong>0 a 31:</strong> Comandos invisíveis de controle (como quebras de linha).</li>
                 <li><strong>32 a 127:</strong> Caracteres visíveis padrão (letras do alfabeto inglês, números e pontuações).</li>
                 <li><strong>128 a 255:</strong> Caracteres estendidos regionalmente (acentos como <em>á, ç</em> e símbolos como <em>€</em> através da codificação Windows-1252).</li>
             </ul>
+
+            <!-- DICA DO ALT CODE ADICIONADA AQUI -->
+            <p style="margin: 0.5rem 0 0 0; background-color: rgba(0,0,0,0.03); padding: 0.5rem 0.75rem; border-left: 3px solid var(--accent, #007bff); border-radius: 4px;">
+                💡 <strong>Dica de teclado (Windows):</strong> Para digitar símbolos da tabela estendida (128 a 255) usando a tecla <kbd>Alt</kbd>, digite um <strong>0</strong> antes do número. Exemplo: <kbd>Alt</kbd> + <kbd>0149</kbd> gera o marcador <code>•</code>. Pressionar sem o zero acessa o padrão antigo do MS-DOS.
+            </p>
         </div>
     </header>
 
     <div class="tool-grid">
-        <!-- Coluna de Opções/Busca -->
+        <!-- Coluna de Opções/Busca (ESQUERDA) -->
         <div class="flex-column-gap">
             <div class="field-group">
                 <label for="ascii-search">Buscar na Tabela:</label>
@@ -33,19 +38,20 @@
                     <li><strong>SP (32):</strong> Space (Espaço em Branco)</li>
                 </ul>
             </div>
+
+            <!-- O BOTÃO ENTROU AQUI! -->
+            <div class="action-bar border-top-bar" style="margin-top: 0.5rem; padding-top: 1rem;">
+                <button id="clean-ascii-button" class="btn btn-secondary">Limpar Busca</button>
+            </div>
         </div>
 
-        <!-- Coluna de Visualização da Tabela -->
+        <!-- Coluna de Visualização da Tabela (DIREITA) -->
         <div class="field-group">
             <label>Visualização dos Códigos:</label>
             <div id="ascii-tables-container" class="ascii-tables-wrapper">
                 <!-- As tabelas serão injetadas dinamicamente aqui pelo JS -->
             </div>
         </div>
-    </div>
-
-    <div class="action-bar border-top-bar">
-        <button id="clean-ascii-button" class="btn btn-secondary">Limpar Busca</button>
     </div>
 </div>
 

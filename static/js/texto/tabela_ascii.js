@@ -41,6 +41,11 @@ function gerarTabelasASCII() {
         for (let i = secao.min; i <= secao.max; i++) {
             let caractereExibido = "";
             let charParaBusca = String.fromCharCode(i);
+            if (controleAscii[i] !== undefined) {
+                charParaBusca = controleAscii[i]; // Permite buscar por "NUL", "LF", "ESC", etc.
+            } else if (i === 32) {
+                charParaBusca = "SP espaço space";
+            }
 
             if (controleAscii[i] !== undefined) {
                 caractereExibido = `<span class="control-char">${controleAscii[i]}</span>`;
@@ -54,7 +59,7 @@ function gerarTabelasASCII() {
                 // Trata pontos vazios/controles da própria tabela estendida
                 if (charEstendido.trim() === "" || i === 129 || i === 141 || i === 143 || i === 144 || i === 157) {
                     caractereExibido = `<span class="control-char">Controle (${i})</span>`;
-                    charParaBusca = "";
+                    charParaBusca = `controle ${i}`;
                 } else {
                     caractereExibido = charEstendido;
                     charParaBusca = charEstendido;
