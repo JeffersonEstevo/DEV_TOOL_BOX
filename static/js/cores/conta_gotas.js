@@ -1,8 +1,10 @@
 // ==========================================
-// MÓDULO CONTA-GOTAS DE IMAGENS - INDEPENDENTE (SPA-READY)
+// MÓDULO CONTA-GOTAS DE IMAGENS - SPA SAFE
 // ==========================================
 
-let cg_imagemAtiva = null;
+// Atribuição no objeto window para evitar erro de re-declaração no ES6
+window.cg_imagemAtiva = window.cg_imagemAtiva || null;
+var cg_imagemAtiva = window.cg_imagemAtiva;
 
 function cg_rgbParaHex(r, g, b) {
     return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase();
@@ -58,6 +60,7 @@ function renderizarImagemNoCanvas(src) {
     const img = new Image();
     
     img.onload = function() {
+        window.cg_imagemAtiva = img;
         cg_imagemAtiva = img;
         
         const maxDimensao = 800;
@@ -96,7 +99,7 @@ function gerenciarLupa(e, canvas, ctx) {
     const rectCanvas = canvas.getBoundingClientRect();
     const rectContainer = container.getBoundingClientRect();
 
-    // 1. Mapeamento de coordenadas internas do canvas para capturar o pixel correto
+    // 1. Mapeamento de coordenadas internas do canvas
     const x = Math.floor(((e.clientX - rectCanvas.left) / rectCanvas.width) * canvas.width);
     const y = Math.floor(((e.clientY - rectCanvas.top) / rectCanvas.height) * canvas.height);
 
@@ -108,12 +111,10 @@ function gerenciarLupa(e, canvas, ctx) {
 
     lupa.style.display = 'block';
     
-    // 2. CORREÇÃO AQUI: Calcula a posição do mouse RELATIVA AO CONTAINER PAI
+    // 2. Posicionamento relativo ao container pai
     const xRelativoContainer = e.clientX - rectContainer.left;
     const yRelativoContainer = e.clientY - rectContainer.top;
     
-    // Posiciona a lupa mantendo-a deslocada para cima e para a esquerda do cursor,
-    // mas agora de forma totalmente estável, não importando o tamanho do canvas.
     lupa.style.left = `${xRelativoContainer - 60}px`; 
     lupa.style.top = `${yRelativoContainer - 140}px`; 
 
@@ -171,15 +172,17 @@ function limparContaGotas() {
     if (lupa) lupa.style.display = 'none';
     if (uploadInput) uploadInput.value = '';
 
+    window.cg_imagemAtiva = null;
     cg_imagemAtiva = null;
     atualizarPainelContaGotas(52, 152, 219);
 }
 
 // ==========================================
-// ESCUTADORES GLOBAIS COM COMPATIBILIDADE SPA
+// ESCUTADORES GLOBAIS COM REMOÇÃO DE EVENTOS DUPLICADOS
 // ==========================================
 
-document.addEventListener('change', function(e) {
+// Handlers nomeados anexados ao window para reutilização e remoção limpa
+window._cgChangeHandler = function(e) {
     if (e.target && e.target.id === 'upload-foto') {
         const file = e.target.files[0];
         if (!file) return;
@@ -190,12 +193,14 @@ document.addEventListener('change', function(e) {
         };
         reader.readAsDataURL(file);
     }
-});
+};
 
-document.addEventListener('paste', function(e) {
+window._cgPasteHandler = function(e) {
     if (!document.getElementById('canvas-foto')) return;
 
-    const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+    const items = (e.clipboardData || e.originalEvent?.clipboardData)?.items;
+    if (!items) return;
+
     for (let i = 0; i < items.length; i++) {
         if (items[i].type.indexOf('image') !== -1) {
             const file = items[i].getAsFile();
@@ -208,31 +213,52 @@ document.addEventListener('paste', function(e) {
             break;
         }
     }
-});
+};
 
-// Evento de clique direto para capturar a cor
-document.addEventListener('click', function(e) {
+window._cgClickHandler = function(e) {
     if (e.target && e.target.id === 'canvas-foto') {
         extrairCorDoPixel(e);
     }
-});
+};
 
-// Evento de movimento do mouse (Varredura de cor e atualização da Lupa)
-document.addEventListener('mousemove', function(e) {
+window._cgMouseMoveHandler = function(e) {
     const canvas = document.getElementById('canvas-foto');
     if (e.target && e.target.id === 'canvas-foto' && canvas) {
         const ctx = canvas.getContext('2d', { willReadFrequently: true });
         
-        // Atualiza os pixels da lupa flutuante
         gerenciarLupa(e, canvas, ctx);
 
-        // Se estiver arrastando com o botão pressionado, já atualiza a cor final dos inputs
         if (e.buttons === 1) {
             extrairCorDoPixel(e);
         }
     } else {
-        // Esconde a lupa se o mouse sair da área do canvas da foto
         const lupa = document.getElementById('lupa-zoom');
         if (lupa) lupa.style.display = 'none';
     }
-});
+};
+
+function inicializarContaGotas() {
+    // Remove listeners antigos antes de registrar novos para evitar acúmulo na SPA
+    document.removeEventListener('change', window._cgChangeHandler);
+    document.removeEventListener('paste', window._cgPasteHandler);
+    document.removeEventListener('click', window._cgClickHandler);
+    document.removeEventListener('mousemove', window._cgMouseMoveHandler);
+
+    document.addEventListener('change', window._cgChangeHandler);
+    document.addEventListener('paste', window._cgPasteHandler);
+    document.addEventListener('click', window._cgClickHandler);
+    document.addEventListener('mousemove', window._cgMouseMoveHandler);
+}
+
+// Exportações Globais
+window.cg_rgbParaHex = cg_rgbParaHex;
+window.cg_rgbParaHsl = cg_rgbParaHsl;
+window.atualizarPainelContaGotas = atualizarPainelContaGotas;
+window.renderizarImagemNoCanvas = renderizarImagemNoCanvas;
+window.gerenciarLupa = gerenciarLupa;
+window.extrairCorDoPixel = extrairCorDoPixel;
+window.limparContaGotas = limparContaGotas;
+window.inicializarContaGotas = inicializarContaGotas;
+
+// Executa a inicialização dos ouvintes
+inicializarContaGotas();

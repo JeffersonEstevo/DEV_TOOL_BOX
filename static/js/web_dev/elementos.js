@@ -4,7 +4,8 @@
 // ==========================================================================
 // BANCO DE DADOS DE COMPONENTES UI (Atualizado com Cards, Tabelas e Menus)
 // ==========================================================================
-const BANCO_COMPONENTES_UI = [
+// Usamos 'var' no escopo global do arquivo para aceitar re-execuções/re-injeções do script via SPA
+var BANCO_COMPONENTES_UI = BANCO_COMPONENTES_UI || [
     // 1. CARDS - 1. card-produto-moderno 
     {
         id: "card-produto-moderno",
@@ -980,21 +981,27 @@ const BANCO_COMPONENTES_UI = [
 // RENDERIZADOR DO MOTOR DE COMPONENTES COM PAGINAÇÃO (MÓDULO ISOLADO)
 // ==========================================================================
 
-let categoriaAtualUI = "todos";
-let paginaAtualUI = 1;
+// Estado global mantido com 'var' para não estourar SyntaxError
+var categoriaAtualUI = categoriaAtualUI || "todos";
+var paginaAtualUI = paginaAtualUI || 1;
 
-function inicializarElementosUI() {
+// Torna a função de inicialização pública e disponível no objeto window/global
+window.inicializarElementosUI = function() {
     const gridBiblioteca = document.getElementById('grid-biblioteca-ui');
     const containerPaginacao = document.getElementById('paginacao-container-ui');
     const botoesAba = document.querySelectorAll('.btn-aba-ui');
 
-    if (!gridBiblioteca) return false; // Retorna false se o HTML ainda não estiver na tela
+    if (!gridBiblioteca) return false;
+
+    // Previne rodar múltiplos listeners no mesmo elemento DOM montado
+    if (gridBiblioteca.dataset.montado === "true") return true;
+    gridBiblioteca.dataset.montado = "true";
 
     const itensPorPagina = 3; 
 
     function renderizarElementosUI() {
         gridBiblioteca.innerHTML = '';
-        containerPaginacao.innerHTML = '';
+        if (containerPaginacao) containerPaginacao.innerHTML = '';
 
         const itensFiltrados = BANCO_COMPONENTES_UI.filter(item => 
             categoriaAtualUI === "todos" || item.categoria === categoriaAtualUI
@@ -1009,6 +1016,7 @@ function inicializarElementosUI() {
         const indiceFinal = indiceInicial + itensPorPagina;
         const itensDaPagina = itensFiltrados.slice(indiceInicial, indiceFinal);
 
+        // Renderiza os CSSs no <head>
         itensDaPagina.forEach(comp => {
             const idStyle = `style-runtime-${comp.id}`;
             if (!document.getElementById(idStyle)) {
@@ -1062,11 +1070,10 @@ function inicializarElementosUI() {
             gridBiblioteca.appendChild(bloco);
         });
 
-        if (totalPaginas > 1) {
+        if (containerPaginacao && totalPaginas > 1) {
             for (let i = 1; i <= totalPaginas; i++) {
                 const btnPagina = document.createElement('button');
                 btnPagina.textContent = i;
-                
                 btnPagina.style.padding = '0.5rem 0.85rem';
                 btnPagina.style.fontSize = '0.85rem';
                 btnPagina.style.fontWeight = '700';
@@ -1084,6 +1091,7 @@ function inicializarElementosUI() {
 
                 btnPagina.addEventListener('click', () => {
                     paginaAtualUI = i;
+                    gridBiblioteca.dataset.montado = "false";
                     renderizarElementosUI();
                     gridBiblioteca.scrollIntoView({ behavior: 'smooth' });
                 });
@@ -1104,44 +1112,46 @@ function inicializarElementosUI() {
 
             categoriaAtualUI = aba.getAttribute('data-categoria');
             paginaAtualUI = 1; 
+            gridBiblioteca.dataset.montado = "false";
             renderizarElementosUI();
         });
     });
 
     renderizarElementosUI();
-    return true; // Indica que inicializou com sucesso
-}
+    return true;
+};
 
 // ==========================================================================
-// AUTO-INICIALIZADOR DO MÓDULO (OBSERVADOR DO CICLO DE VIDA DA SPA)
+// AUTO-INICIALIZADOR INTELIGENTE CONTRA O PROBLEMA DO F5
 // ==========================================================================
-(() => {
-    // 1. Tenta inicializar imediatamente (Caso o usuário dê F5 direto na página)
-    if (inicializarElementosUI()) return;
 
-    // 2. Cria o observador de injeção inicial
-    const escutaInjecaoComponentes = new MutationObserver((mutations, obs) => {
+// Função executora para tentar rodar agora e monitorar o DOM
+var executarGatilhoElementosUI = function() {
+    if (window.inicializarElementosUI()) return;
+
+    // Se no F5 a tela ainda não injetou a HTML da view, escuta até que o grid apareça no DOM
+    var observerUI = new MutationObserver(function(mutations, obs) {
         if (document.getElementById('grid-biblioteca-ui')) {
-            inicializarElementosUI();
+            window.inicializarElementosUI();
             obs.disconnect();
         }
     });
 
-    escutaInjecaoComponentes.observe(document.body, { childList: true, subtree: true });
+    observerUI.observe(document.body, { childList: true, subtree: true });
+};
 
-    // 3. O SEGREDO PARA O MENU LATERAL: Escuta a mudança de rota de forma persistente
-    window.addEventListener('hashchange', () => {
-        // Se o usuário está navegando para a aba de elementos
-        if (window.location.hash.includes('elementos')) {
-            
-            // Tentativa 1: Aguarda 50ms (tempo comum para injeções leves de HTML)
-            setTimeout(() => {
-                if (inicializarElementosUI()) return;
-                
-                // Tentativa 2: Caso a rede/PC dê uma pequena travada, tenta de novo em 150ms
-                setTimeout(inicializarElementosUI, 150);
-            }, 50);
+// 1. Tenta inicializar se o DOM já estiver pronto
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    executarGatilhoElementosUI();
+} else {
+    document.addEventListener('DOMContentLoaded', executarGatilhoElementosUI);
+}
 
-        }
-    });
-})();
+// 2. Garante funcionamento na troca de rota (SPA via hash)
+window.addEventListener('hashchange', function() {
+    if (window.location.hash.includes('elementos')) {
+        const grid = document.getElementById('grid-biblioteca-ui');
+        if (grid) grid.dataset.montado = "false";
+        setTimeout(executarGatilhoElementosUI, 50);
+    }
+});

@@ -1,12 +1,14 @@
-// Captura dos elementos do DOM
-const inputsHoras = document.querySelectorAll('.input-hora');
-const inputsMinutos = document.querySelectorAll('.input-minuto');
-const displayTotal = document.getElementById('horas-resultado-total');
-const displayExtenso = document.getElementById('horas-resultado-extenso');
-const btnLimparHoras = document.getElementById('btn-limpar-horas');
-
-function calcularSomatorioHoras() {
+// Torna a função segura para o escopo global do window na SPA
+window.calcularSomatorioHoras = function() {
     let totalMinutos = 0;
+
+    // Busca os elementos dinamicamente para garantir referências vivas na tela
+    const inputsHoras = document.querySelectorAll('.input-hora');
+    const inputsMinutos = document.querySelectorAll('.input-minuto');
+    const displayTotal = document.getElementById('horas-resultado-total');
+    const displayExtenso = document.getElementById('horas-resultado-extenso');
+
+    if (!displayTotal || !displayExtenso) return;
 
     // Soma todas as horas convertendo-as para minutos
     inputsHoras.forEach(input => {
@@ -18,7 +20,6 @@ function calcularSomatorioHoras() {
 
     // Soma todos os minutos diretamente
     inputsMinutos.forEach(input => {
-        // Validação em tempo real: impede minutos negativos ou quebras visuais
         let valor = parseInt(input.value);
         if (!isNaN(valor) && valor > 0) {
             totalMinutos += valor;
@@ -36,33 +37,59 @@ function calcularSomatorioHoras() {
     // Atualiza a interface de forma dinâmica
     displayTotal.textContent = `${horasFormatadas}:${minutosFormatados}`;
     displayExtenso.textContent = `${horasCalculadas} hora(s) e ${minutosCalculados} minuto(s)`;
-}
+};
 
-function limparTodosCamposHoras() {
+window.limparTodosCamposHoras = function() {
+    const inputsHoras = document.querySelectorAll('.input-hora');
+    const inputsMinutos = document.querySelectorAll('.input-minuto');
+    const displayTotal = document.getElementById('horas-resultado-total');
+    const displayExtenso = document.getElementById('horas-resultado-extenso');
+
     inputsHoras.forEach(input => input.value = '');
     inputsMinutos.forEach(input => input.value = '');
     
     // Reseta displays para o estado inicial
-    displayTotal.textContent = '00:00';
-    displayExtenso.textContent = '0 horas e 0 minutos';
-}
+    if (displayTotal) displayTotal.textContent = '00:00';
+    if (displayExtenso) displayExtenso.textContent = '0 hora(s) e 0 minuto(s)';
+};
 
-function inicializarCalculadoraHoras() {
-    // Adiciona o ouvinte de eventos em todos os inputs de horas
+window.inicializarCalculadoraHoras = function() {
+    const inputsHoras = document.querySelectorAll('.input-hora');
+    const inputsMinutos = document.querySelectorAll('.input-minuto');
+    const btnLimparHoras = document.getElementById('btn-limpar-horas');
+
+    // Adiciona o ouvinte nos inputs de horas com limpeza de evento prévio
     inputsHoras.forEach(input => {
-        input.addEventListener('input', calcularSomatorioHoras);
+        if (input._handleInputHoras) {
+            input.removeEventListener('input', input._handleInputHoras);
+        }
+        input._handleInputHoras = window.calcularSomatorioHoras;
+        input.addEventListener('input', input._handleInputHoras);
     });
 
-    // Adiciona o ouvinte de eventos em todos os inputs de minutos
+    // Adiciona o ouvinte nos inputs de minutos com limpeza de evento prévio
     inputsMinutos.forEach(input => {
-        input.addEventListener('input', calcularSomatorioHoras);
+        if (input._handleInputHoras) {
+            input.removeEventListener('input', input._handleInputHoras);
+        }
+        input._handleInputHoras = window.calcularSomatorioHoras;
+        input.addEventListener('input', input._handleInputHoras);
     });
 
     // Configura a ação do botão limpar
     if (btnLimparHoras) {
-        btnLimparHoras.addEventListener('click', limparTodosCamposHoras);
+        if (btnLimparHoras._handleClickLimparHoras) {
+            btnLimparHoras.removeEventListener('click', btnLimparHoras._handleClickLimparHoras);
+        }
+        btnLimparHoras._handleClickLimparHoras = window.limparTodosCamposHoras;
+        btnLimparHoras.addEventListener('click', btnLimparHoras._handleClickLimparHoras);
     }
-}
+};
+
+// Alias curtos para referências internas
+var calcularSomatorioHoras = window.calcularSomatorioHoras;
+var limparTodosCamposHoras = window.limparTodosCamposHoras;
+var inicializarCalculadoraHoras = window.inicializarCalculadoraHoras;
 
 // Executa a inicialização dos escutadores
 inicializarCalculadoraHoras();

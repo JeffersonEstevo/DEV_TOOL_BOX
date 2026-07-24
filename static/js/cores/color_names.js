@@ -1,7 +1,7 @@
 // ==========================================
-// BASE DE DADOS DE CORES CSS OFICIAIS
+// BASE DE DADOS DE CORES CSS OFICIAIS (SPA SAFE)
 // ==========================================
-const LISTA_CORES_CSS = [
+window.LISTA_CORES_CSS = window.LISTA_CORES_CSS || [
     { name: "AliceBlue", hex: "#F0F8FF" }, { name: "AntiqueWhite", hex: "#FAEBD7" },
     { name: "Aqua", hex: "#00FFFF" }, { name: "Aquamarine", hex: "#7FFFD4" },
     { name: "Azure", hex: "#F0FFFF" }, { name: "Beige", hex: "#F5F5DC" },
@@ -78,6 +78,8 @@ const LISTA_CORES_CSS = [
     { name: "Yellow", hex: "#FFFF00" }, { name: "YellowGreen", hex: "#9ACD32" }
 ];
 
+var LISTA_CORES_CSS = window.LISTA_CORES_CSS;
+
 // ==========================================
 // RENDERIZAÇÃO E FILTRAGEM DA INTERFACE
 // ==========================================
@@ -95,7 +97,7 @@ function renderizarGridCores(filtro = "") {
             return;
         }
 
-        // Cria a estrutura estruturada do Card
+        // Cria a estrutura do Card
         const card = document.createElement('div');
         card.className = 'card-nome-cor';
         card.title = "Clique para copiar o código hexadecimal";
@@ -140,17 +142,27 @@ function renderizarGridCores(filtro = "") {
 }
 
 // ==========================================
-// MONITORAMENTO DE INPUTS E INICIALIZAÇÃO SPA
+// INICIALIZADOR SEGURO DA TELA
 // ==========================================
-(() => {
+
+function inicializarColorNames() {
     const inputBusca = document.getElementById('busca-nome-cor');
 
     if (inputBusca) {
-        inputBusca.addEventListener('input', (e) => {
-            renderizarGridCores(e.target.value);
-        });
+        if (inputBusca._handleInputColorNames) {
+            inputBusca.removeEventListener('input', inputBusca._handleInputColorNames);
+        }
+        inputBusca._handleInputColorNames = (e) => renderizarGridCores(e.target.value);
+        inputBusca.addEventListener('input', inputBusca._handleInputColorNames);
     }
 
-    // Inicialização direta do Grid no carregamento dinâmico da SPA
-    renderizarGridCores();
-})();
+    // Inicialização do Grid no DOM
+    renderizarGridCores(inputBusca ? inputBusca.value : "");
+}
+
+// Exportação no escopo global
+window.renderizarGridCores = renderizarGridCores;
+window.inicializarColorNames = inicializarColorNames;
+
+// Executa na carga/muda de aba
+inicializarColorNames();
