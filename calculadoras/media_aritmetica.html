@@ -15,59 +15,64 @@
         </div>
 
         <div class="metrics-panel">
+            <!-- Termos -->
             <div class="metric-row-card">
-                <div class="metric-info">
-                    <span class="metric-label">Número de Termos</span>
-                    <input type="text" id="number-of-terms" value="Nenhum valor" readonly>
+                <span class="metric-label">Número de Termos</span>
+                <div class="metric-output-group">
+                    <input type="text" id="number-of-terms" value="Nenhum valor" readonly class="metric-input empty-state">
+                    <button id="copy-terms-btn" class="btn btn-success" title="Copiar quantidade de termos">
+                        <i class="bi bi-clipboard"></i>
+                    </button>
                 </div>
-                <button id="copy-terms-btn" class="btn btn-success icon-btn" title="Copiar quantidade de termos">
-                    <i class="bi bi-clipboard"></i>
-                </button>
             </div>
 
+            <!-- Mínimo -->
             <div class="metric-row-card">
-                <div class="metric-info">
-                    <span class="metric-label">Valor Mínimo</span>
-                    <input type="text" id="min-value" value="Nenhum valor" readonly>
+                <span class="metric-label">Valor Mínimo</span>
+                <div class="metric-output-group">
+                    <input type="text" id="min-value" value="Nenhum valor" readonly class="metric-input empty-state">
+                    <button id="copy-min-btn" class="btn btn-success" title="Copiar valor mínimo">
+                        <i class="bi bi-clipboard"></i>
+                    </button>
                 </div>
-                <button id="copy-min-btn" class="btn btn-success icon-btn" title="Copiar valor mínimo">
-                    <i class="bi bi-clipboard"></i>
-                </button>
             </div>
 
+            <!-- Máximo -->
             <div class="metric-row-card">
-                <div class="metric-info">
-                    <span class="metric-label">Valor Máximo</span>
-                    <input type="text" id="max-value" value="Nenhum valor" readonly>
+                <span class="metric-label">Valor Máximo</span>
+                <div class="metric-output-group">
+                    <input type="text" id="max-value" value="Nenhum valor" readonly class="metric-input empty-state">
+                    <button id="copy-max-btn" class="btn btn-success" title="Copiar valor máximo">
+                        <i class="bi bi-clipboard"></i>
+                    </button>
                 </div>
-                <button id="copy-max-btn" class="btn btn-success icon-btn" title="Copiar valor máximo">
-                    <i class="bi bi-clipboard"></i>
-                </button>
             </div>
 
+            <!-- Amplitude -->
             <div class="metric-row-card">
-                <div class="metric-info">
-                    <span class="metric-label">Intervalo (Amplitude)</span>
-                    <input type="text" id="range-values" value="Nenhum valor" readonly>
+                <span class="metric-label">Intervalo (Amplitude)</span>
+                <div class="metric-output-group">
+                    <input type="text" id="range-values" value="Nenhum valor" readonly class="metric-input empty-state">
+                    <button id="copy-range-btn" class="btn btn-success" title="Copiar intervalo">
+                        <i class="bi bi-clipboard"></i>
+                    </button>
                 </div>
-                <button id="copy-range-btn" class="btn btn-success icon-btn" title="Copiar intervalo">
-                    <i class="bi bi-clipboard"></i>
-                </button>
             </div>
 
+            <!-- Média (Destaque Principal) -->
             <div class="metric-row-card highlight-metric">
-                <div class="metric-info">
-                    <span class="metric-label">Média Aritmética ($x̄$)</span>
-                    <input type="text" id="mean-value" value="Nenhum valor" readonly>
+                <span class="metric-label">Média Aritmética (x̄)</span>
+                <div class="metric-output-group">
+                    <input type="text" id="mean-value" value="Nenhum valor" readonly class="metric-input empty-state">
+                    <button id="copy-mean-btn" class="btn btn-primary" title="Copiar média aritmética">
+                        <i class="bi bi-clipboard"></i>
+                    </button>
                 </div>
-                <button id="copy-mean-btn" class="btn btn-primary icon-btn" title="Copiar média aritmética">
-                    <i class="bi bi-clipboard"></i>
-                </button>
             </div>
             
-            <div id="mean-metrics-alert" class="toast-alert hidden mt-2">
+            <span id="mean-metrics-alert" class="toast-alert hidden mt-2">
                 <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
-            </div>
+            </span>
         </div>
     </div>
 </div>

@@ -7,6 +7,19 @@ function inicializarMediaAritmetica() {
     inputElement.addEventListener("input", calcularResultadosMedia);
 }
 
+// Função auxiliar para atualizar o valor e alternar a classe de estilo (empty-state / destacado)
+function setFieldValue(field, val) {
+    if (!field) return;
+    
+    if (val === null || val === undefined || val === "" || val === "Nenhum valor") {
+        field.value = "Nenhum valor";
+        field.classList.add("empty-state");
+    } else {
+        field.value = val;
+        field.classList.remove("empty-state");
+    }
+}
+
 function calcularResultadosMedia() {
     const input = document.getElementById("input-numbers").value;
 
@@ -28,11 +41,11 @@ function calcularResultadosMedia() {
     const meanField = document.getElementById("mean-value");
 
     if (!numberOfTerms) {
-        if (termsField) termsField.value = "Nenhum valor";
-        if (minField) minField.value = "Nenhum valor";
-        if (maxField) maxField.value = "Nenhum valor";
-        if (rangeField) rangeField.value = "Nenhum valor";
-        if (meanField) meanField.value = "Nenhum valor";
+        setFieldValue(termsField, "Nenhum valor");
+        setFieldValue(minField, "Nenhum valor");
+        setFieldValue(maxField, "Nenhum valor");
+        setFieldValue(rangeField, "Nenhum valor");
+        setFieldValue(meanField, "Nenhum valor");
         return;
     }
 
@@ -42,11 +55,16 @@ function calcularResultadosMedia() {
     const sum = values.reduce((acc, val) => acc + val, 0);
     const meanValue = sum / numberOfTerms;
 
-    if (termsField) termsField.value = numberOfTerms;
-    if (minField) minField.value = Number.isInteger(minValue) ? minValue : minValue.toFixed(4);
-    if (maxField) maxField.value = Number.isInteger(maxValue) ? maxValue : maxValue.toFixed(4);
-    if (rangeField) rangeField.value = Number.isInteger(range) ? range : range.toFixed(4);
-    if (meanField) meanField.value = Number.isInteger(meanValue) ? meanValue : meanValue.toFixed(4);
+    const formattedMin = Number.isInteger(minValue) ? minValue : minValue.toFixed(4);
+    const formattedMax = Number.isInteger(maxValue) ? maxValue : maxValue.toFixed(4);
+    const formattedRange = Number.isInteger(range) ? range : range.toFixed(4);
+    const formattedMean = Number.isInteger(meanValue) ? meanValue : meanValue.toFixed(4);
+
+    setFieldValue(termsField, numberOfTerms);
+    setFieldValue(minField, formattedMin);
+    setFieldValue(maxField, formattedMax);
+    setFieldValue(rangeField, formattedRange);
+    setFieldValue(meanField, formattedMean);
 }
 
 function limparMediaAritmetica() {
