@@ -1,24 +1,42 @@
+// Função auxiliar: Valida e limpa nomes de tags XML de acordo com as regras do W3C
+function sanitizarNomeTagXml(chave) {
+    // Substitui caracteres inválidos para tags XML por _
+    let tag = chave.replace(/[^a-zA-Z0-9_\-\.]/g, "_");
+
+    // Se o primeiro caractere for um número, hífen ou ponto (inválidos no início), adiciona o prefixo "_"
+    if (/^[0-9\-\.]/.test(tag)) {
+        tag = `_${tag}`;
+    }
+
+    // Se a chave ficar vazia após a limpeza, define um nome genérico válido
+    return tag || "item";
+}
+
 // Função auxiliar: Converte Objeto JavaScript para String XML formatada
 function objetoParaXml(obj, rootName = "root") {
-    let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<${rootName}>\n`;
+    const rootFormatado = sanitizarNomeTagXml(rootName);
+    let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<${rootFormatado}>\n`;
     
     function construir(o, indent = "  ") {
         for (let chave in o) {
             if (o.hasOwnProperty(chave)) {
                 let valor = o[chave];
+                // Sanitiza a chave para garantir que não inicie com número nem contenha caracteres proibidos
+                let tagValida = sanitizarNomeTagXml(chave);
+
                 if (typeof valor === "object" && valor !== null) {
-                    xml += `${indent}<${chave}>\n`;
+                    xml += `${indent}<${tagValida}>\n`;
                     construir(valor, indent + "  ");
-                    xml += `${indent}</${chave}>\n`;
+                    xml += `${indent}</${tagValida}>\n`;
                 } else {
-                    xml += `${indent}<${chave}>${valor}</${chave}>\n`;
+                    xml += `${indent}<${tagValida}>${valor}</${tagValida}>\n`;
                 }
             }
         }
     }
     
     construir(obj);
-    xml += `</${rootName}>`;
+    xml += `</${rootFormatado}>`;
     return xml;
 }
 
@@ -150,22 +168,31 @@ function inicializarConversorFormatos() {
     const directionSelect = document.getElementById("format-direction");
 
     if (inputArea) {
-        inputArea.removeEventListener("input", processarConversaoFormatos);
-        inputArea.addEventListener("input", processarConversaoFormatos);
+        if (inputArea._handleInputFormat) {
+            inputArea.removeEventListener("input", inputArea._handleInputFormat);
+        }
+        inputArea._handleInputFormat = processarConversaoFormatos;
+        inputArea.addEventListener("input", inputArea._handleInputFormat);
     }
 
     if (directionSelect) {
-        directionSelect.addEventListener("change", () => {
+        if (directionSelect._handleChangeFormat) {
+            directionSelect.removeEventListener("change", directionSelect._handleChangeFormat);
+        }
+        directionSelect._handleChangeFormat = () => {
             const direcao = directionSelect.value;
-            if (direcao === "json2yaml" || direcao === "json2xml") {
-                inputArea.placeholder = '{\n  "status": "sucesso",\n  "porta": 8080\n}';
-            } else if (direcao === "yaml2json") {
-                inputArea.placeholder = 'status: "sucesso"\nporta: 8080';
-            } else if (direcao === "xml2json") {
-                inputArea.placeholder = '<config>\n  <status>sucesso</status>\n  <porta>8080</porta>\n</config>';
+            if (inputArea) {
+                if (direcao === "json2yaml" || direcao === "json2xml") {
+                    inputArea.placeholder = '{\n  "status": "sucesso",\n  "porta": 8080\n}';
+                } else if (direcao === "yaml2json") {
+                    inputArea.placeholder = 'status: "sucesso"\nporta: 8080';
+                } else if (direcao === "xml2json") {
+                    inputArea.placeholder = '<config>\n  <status>sucesso</status>\n  <porta>8080</porta>\n</config>';
+                }
             }
             processarConversaoFormatos();
-        });
+        };
+        directionSelect.addEventListener("change", directionSelect._handleChangeFormat);
     }
 }
 

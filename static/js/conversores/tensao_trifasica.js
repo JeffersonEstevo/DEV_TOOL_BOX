@@ -1,4 +1,5 @@
-const RAIZ_3 = Math.sqrt(3);
+window.RAIZ_3 = window.RAIZ_3 || Math.sqrt(3);
+var RAIZ_3 = window.RAIZ_3;
 
 function calcularTrifasicaLivre(idOrigem) {
     const inputFn = document.getElementById('tri-calc-fn');
@@ -45,8 +46,17 @@ function inicializarConversorTrifasico() {
     const inputFn = document.getElementById('tri-calc-fn');
     const inputFf = document.getElementById('tri-calc-ff');
 
-    if (inputFn) inputFn.addEventListener('input', () => calcularTrifasicaLivre('tri-calc-fn'));
-    if (inputFf) inputFf.addEventListener('input', () => calcularTrifasicaLivre('tri-calc-ff'));
+    if (inputFn) {
+        if (inputFn._handleInputTri) inputFn.removeEventListener('input', inputFn._handleInputTri);
+        inputFn._handleInputTri = () => calcularTrifasicaLivre('tri-calc-fn');
+        inputFn.addEventListener('input', inputFn._handleInputTri);
+    }
+
+    if (inputFf) {
+        if (inputFf._handleInputTri) inputFf.removeEventListener('input', inputFf._handleInputTri);
+        inputFf._handleInputTri = () => calcularTrifasicaLivre('tri-calc-ff');
+        inputFf.addEventListener('input', inputFf._handleInputTri);
+    }
 }
 
 inicializarConversorTrifasico();

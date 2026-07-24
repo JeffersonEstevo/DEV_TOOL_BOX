@@ -31,11 +31,14 @@ function alternarAbaEletrica(abaId) {
 // ==========================================
 // PARTE 1: LEI DE OHM & TRIÂNGULO DE POTÊNCIAS
 // ==========================================
-const camposOhm = ['ele-tensao', 'ele-corrente', 'ele-resistencia', 'ele-potencia'];
-const idParaChaveOhm = { 'ele-tensao': 'V', 'ele-corrente': 'I', 'ele-resistencia': 'R', 'ele-potencia': 'P' };
+window.camposOhm = window.camposOhm || ['ele-tensao', 'ele-corrente', 'ele-resistencia', 'ele-potencia'];
+var camposOhm = window.camposOhm;
 
-// Guarda os ids dos campos na ordem em que foram editados manualmente (mais recente primeiro)
-let ordemEdicaoOhm = [];
+window.idParaChaveOhm = window.idParaChaveOhm || { 'ele-tensao': 'V', 'ele-corrente': 'I', 'ele-resistencia': 'R', 'ele-potencia': 'P' };
+var idParaChaveOhm = window.idParaChaveOhm;
+
+window.ordemEdicaoOhm = window.ordemEdicaoOhm || [];
+var ordemEdicaoOhm = window.ordemEdicaoOhm;
 
 function registrarEdicaoOhm(id) {
     ordemEdicaoOhm = ordemEdicaoOhm.filter(x => x !== id);
@@ -124,13 +127,16 @@ function calcularEletricaAvancada() {
 // ==========================================
 // PARTE 2: CONVERSOR DE PREFIXOS MÉTRICOS
 // ==========================================
-const fatoresPrefixos = {
+window.fatoresPrefixos = window.fatoresPrefixos || {
     mega: 1e6, quilo: 1e3, base: 1, mili: 1e-3, micro: 1e-6, nano: 1e-9
 };
-const camposPrefixos = {
+var fatoresPrefixos = window.fatoresPrefixos;
+
+window.camposPrefixos = window.camposPrefixos || {
     'pref-mega': 'mega', 'pref-quilo': 'quilo', 'pref-base': 'base',
     'pref-mili': 'mili', 'pref-micro': 'micro', 'pref-nano': 'nano'
 };
+var camposPrefixos = window.camposPrefixos;
 
 function converterPrefixos(idOrigem) {
     const inputOrigem = document.getElementById(idOrigem);

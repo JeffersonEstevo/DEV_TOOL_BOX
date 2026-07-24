@@ -1,5 +1,5 @@
 // Objeto com os fatores de conversão tendo o "Metro" como unidade base (1 metro)
-const FATORES_METRO = {
+window.FATORES_METRO = window.FATORES_METRO || {
     km: 1000,
     m: 1,
     cm: 0.01,
@@ -9,9 +9,10 @@ const FATORES_METRO = {
     pe: 0.3048,
     polegada: 0.0254
 };
+var FATORES_METRO = window.FATORES_METRO;
 
 // IDs mapeados para facilitar o laço de atualização
-const camposComprimento = {
+window.camposComprimento = window.camposComprimento || {
     'comp-km': 'km',
     'comp-m': 'm',
     'comp-cm': 'cm',
@@ -21,6 +22,7 @@ const camposComprimento = {
     'comp-pe': 'pe',
     'comp-polegada': 'polegada'
 };
+var camposComprimento = window.camposComprimento;
 
 function converterComprimento(idOrigem) {
     const inputOrigem = document.getElementById(idOrigem);

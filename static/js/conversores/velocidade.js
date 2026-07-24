@@ -1,14 +1,15 @@
 // Fatores de conversão exatos baseados em Metros por Segundo (1 m/s)
-const FATORES_VELOCIDADE = {
-    kmh: 1 / 3.6,                  // 1 km/h = 0.277778 m/s
-    ms: 1,                         // Unidade base
-    mph: 0.44704,                  // 1 mph = 0.44704 m/s
-    fps: 0.3048,                   // 1 pé/s = 0.3048 m/s
-    nos: 0.5144444444444445,       // 1 nó = 1852 metros por hora
-    mach: 340.29                   // Velocidade do som ao nível do mar a 15°C
+window.FATORES_VELOCIDADE = window.FATORES_VELOCIDADE || {
+    kmh: 1 / 3.6,
+    ms: 1,
+    mph: 0.44704,
+    fps: 0.3048,
+    nos: 0.5144444444444445,
+    mach: 340.29
 };
+var FATORES_VELOCIDADE = window.FATORES_VELOCIDADE;
 
-const camposVelocidade = {
+window.camposVelocidade = window.camposVelocidade || {
     'vel-kmh': 'kmh',
     'vel-ms': 'ms',
     'vel-mph': 'mph',
@@ -16,6 +17,7 @@ const camposVelocidade = {
     'vel-nos': 'nos',
     'vel-mach': 'mach'
 };
+var camposVelocidade = window.camposVelocidade;
 
 function converterVelocidade(idOrigem) {
     const inputOrigem = document.getElementById(idOrigem);
@@ -65,7 +67,11 @@ function inicializarConversorVelocidade() {
     Object.keys(camposVelocidade).forEach(id => {
         const input = document.getElementById(id);
         if (input) {
-            input.addEventListener('input', () => converterVelocidade(id));
+            if (input._handleInputVelocidade) {
+                input.removeEventListener('input', input._handleInputVelocidade);
+            }
+            input._handleInputVelocidade = () => converterVelocidade(id);
+            input.addEventListener('input', input._handleInputVelocidade);
         }
     });
 }

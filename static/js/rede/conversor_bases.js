@@ -1,10 +1,12 @@
 // Mapeamento dos campos, suas respectivas bases matemáticas e filtros de validação
-const configuracaoBases = {
+window.configuracaoBases = window.configuracaoBases || {
     'base-decimal': { base: 10, regex: /[^0-9]/g },
     'base-binario': { base: 2, regex: /[^01]/g },
     'base-octal': { base: 8, regex: /[^0-7]/g },
     'base-hexadecimal': { base: 16, regex: /[^0-9a-fA-F]/g }
 };
+
+var configuracaoBases = window.configuracaoBases;
 
 function converterBasesNumericas(idOrigem) {
     const inputOrigem = document.getElementById(idOrigem);
@@ -68,8 +70,11 @@ function inicializarConversorBases() {
     Object.keys(configuracaoBases).forEach(id => {
         const input = document.getElementById(id);
         if (input) {
-            // Monitora a digitação (input) para fazer a conversão síncrona instantânea
-            input.addEventListener('input', () => converterBasesNumericas(id));
+            if (input._handleInputBases) {
+                input.removeEventListener('input', input._handleInputBases);
+            }
+            input._handleInputBases = () => converterBasesNumericas(id);
+            input.addEventListener('input', input._handleInputBases);
         }
     });
 }

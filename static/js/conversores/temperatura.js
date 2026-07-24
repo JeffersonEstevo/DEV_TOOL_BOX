@@ -1,5 +1,6 @@
 // Lista de IDs mapeados para facilitar o controle de limpeza
-const listaCamposTemperatura = ['temp-c', 'temp-f', 'temp-k', 'temp-ra', 'temp-re'];
+window.listaCamposTemperatura = window.listaCamposTemperatura || ['temp-c', 'temp-f', 'temp-k', 'temp-ra', 'temp-re'];
+var listaCamposTemperatura = window.listaCamposTemperatura;
 
 function converterTemperatura(idOrigem) {
     const inputOrigem = document.getElementById(idOrigem);
@@ -56,7 +57,11 @@ function inicializarConversorTemperatura() {
     listaCamposTemperatura.forEach(id => {
         const input = document.getElementById(id);
         if (input) {
-            input.addEventListener('input', () => converterTemperatura(id));
+            if (input._handleInputTemperatura) {
+                input.removeEventListener('input', input._handleInputTemperatura);
+            }
+            input._handleInputTemperatura = () => converterTemperatura(id);
+            input.addEventListener('input', input._handleInputTemperatura);
         }
     });
 }

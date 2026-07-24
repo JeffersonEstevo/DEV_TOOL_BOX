@@ -1,5 +1,5 @@
 // Banco de palavras base do Lorem Ipsum para gerar os textos dinamicamente
-const loremWordsBase = [
+window.loremWordsBase = window.loremWordsBase || [
     "lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit", "sed", "do",
     "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore", "magna", "aliqua", "ut",
     "enim", "ad", "minim", "veniam", "quis", "nostrud", "exercitation", "ullamco", "laboris",
@@ -8,6 +8,7 @@ const loremWordsBase = [
     "nulla", "pariatur", "excepteur", "sint", "occaecat", "cupidatat", "non", "proident", "sunt",
     "in", "culpa", "qui", "officia", "deserunt", "mollit", "anim", "id", "est", "laborum"
 ];
+var loremWordsBase = window.loremWordsBase;
 
 // Função auxiliar para gerar uma frase aleatória
 function gerarFrase(minPalavras = 5, maxPalavras = 15) {

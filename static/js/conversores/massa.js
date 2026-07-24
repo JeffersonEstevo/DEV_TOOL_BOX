@@ -1,17 +1,18 @@
 // Objeto com os fatores de conversão tendo o "Quilograma (kg)" como unidade base (1 kg)
-const FATORES_KG = {
+window.FATORES_KG = window.FATORES_KG || {
     t: 1000,
     kg: 1,
     g: 0.001,
     mg: 0.000001,
     lb: 0.45359237,
     oz: 0.028349523125,
-    arroba: 14.6896, // Arroba métrica/brasileira aproximada
+    arroba: 14.6896,
     quilate: 0.0002
 };
+var FATORES_KG = window.FATORES_KG;
 
 // Mapeamento dos IDs dos inputs para as chaves dos fatores
-const camposMassa = {
+window.camposMassa = window.camposMassa || {
     'massa-t': 't',
     'massa-kg': 'kg',
     'massa-g': 'g',
@@ -21,6 +22,7 @@ const camposMassa = {
     'massa-arroba': 'arroba',
     'massa-quilate': 'quilate'
 };
+var camposMassa = window.camposMassa;
 
 function converterMassa(idOrigem) {
     const inputOrigem = document.getElementById(idOrigem);
@@ -70,7 +72,11 @@ function inicializarConversorMassa() {
     Object.keys(camposMassa).forEach(id => {
         const input = document.getElementById(id);
         if (input) {
-            input.addEventListener('input', () => converterMassa(id));
+            if (input._handleInputMassa) {
+                input.removeEventListener('input', input._handleInputMassa);
+            }
+            input._handleInputMassa = () => converterMassa(id);
+            input.addEventListener('input', input._handleInputMassa);
         }
     });
 }

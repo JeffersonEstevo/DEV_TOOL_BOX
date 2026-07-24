@@ -1,5 +1,5 @@
 // Banco de dados explicativo para os caracteres de controle invisíveis (0-31) e o 127
-const controleAscii = {
+window.controleAscii = window.controleAscii || {
     0: "NUL (null)", 1: "SOH (start of heading)", 2: "STX (start of text)", 3: "ETX (end of text)",
     4: "EOT (end of transmission)", 5: "ENQ (enquiry)", 6: "ACK (acknowledge)", 7: "BEL (bell)",
     8: "BS (backspace)", 9: "TAB (horizontal tab)", 10: "LF (NL line feed, new line)", 11: "VT (vertical tab)",
@@ -10,6 +10,7 @@ const controleAscii = {
     28: "FS (file separator)", 29: "GS (group separator)", 30: "RS (record separator)", 31: "US (unit separator)",
     127: "DEL (delete)"
 };
+var controleAscii = window.controleAscii;
 
 function gerarTabelasASCII() {
     const container = document.getElementById("ascii-tables-container");
