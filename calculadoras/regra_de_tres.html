@@ -1,127 +1,50 @@
 <div class="tool-container">
     <header class="tool-header">
-        <h2>Calculadora de Porcentagem</h2>
-        <p>Solucione de forma rápida e instantânea os 5 cenários mais comuns de cálculos e variações percentuais.</p>
+        <h2>Calculadora de Regra de Três</h2>
+        <p>Descubra o valor desconhecido (X) proporcionalmente baseado em três valores conhecidos de forma instantânea.</p>
     </header>
 
-    <div class="percent-container-grid">
-        <!-- Card 1: X% de Y -->
-        <div class="percent-card">
-            <h3>Quanto é X% de Y?</h3>
-            <div class="percent-inline-inputs">
-                <span>Quanto é</span>
-                <input type="number" id="percentage-of-value" placeholder="Porcentagem (X)">
-                <span>% de</span>
-                <input type="number" id="value-of-percentage" placeholder="Valor (Y)">
+    <div class="rule-three-workspace">
+        <div class="rule-three-title">Se os valores seguem a proporção:</div>
+        
+        <div class="rule-three-grid-table">
+            <div class="rule-cell">
+                <label for="value-a">Valor (A)</label>
+                <input type="number" id="value-a" placeholder="Ex: 100">
             </div>
-            <div class="percent-output-container">
-                <div class="percent-output-group">
-                    <input type="text" id="result-quantity" readonly placeholder="Resultado">
-                    <button id="copy-pct-quantity" class="btn btn-success" title="Copiar resultado">
-                        <i class="bi bi-clipboard"></i>
-                    </button>
-                </div>
-                <span id="alert-copy-quantity" class="toast-alert hidden">
-                    <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
-                </span>
+            
+            <div class="rule-arrow"><i class="bi bi-arrow-right"></i></div>
+            
+            <div class="rule-cell">
+                <label for="value-b">está para (B)</label>
+                <input type="number" id="value-b" placeholder="Ex: 20">
             </div>
-        </div>
 
-        <!-- Card 2: Parte de um Total -->
-        <div class="percent-card">
-            <h3>O valor X é qual porcentagem de Y?</h3>
-            <div class="percent-inline-inputs">
-                <span>O valor</span>
-                <input type="number" id="partial-value" placeholder="Parte (X)">
-                <span>é de um total de</span>
-                <input type="number" id="total-value" placeholder="Total (Y)">
-            </div>
-            <div class="percent-output-container">
-                <div class="percent-output-group">
-                    <input type="text" id="result-percentage" readonly placeholder="Resultado">
-                    <button id="copy-pct-percentage" class="btn btn-success" title="Copiar resultado">
-                        <i class="bi bi-clipboard"></i>
-                    </button>
-                </div>
-                <span id="alert-copy-percentage" class="toast-alert hidden">
-                    <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
-                </span>
-            </div>
-        </div>
+            <div class="rule-divider-row">assim como...</div>
 
-        <!-- Card 3: Valor base a partir da % -->
-        <div class="percent-card">
-            <h3>O valor X representa Y% de quanto?</h3>
-            <div class="percent-inline-inputs">
-                <span>O valor</span>
-                <input type="number" id="partial-value-of-total" placeholder="Parte (X)">
-                <span>representa</span>
-                <input type="number" id="percentage-of-total" placeholder="Porcentagem (Y)">
-                <span>% de:</span>
+            <div class="rule-cell">
+                <label for="value-c">Logo, o valor (C)</label>
+                <input type="number" id="value-c" placeholder="Ex: 50">
             </div>
-            <div class="percent-output-container">
-                <div class="percent-output-group">
-                    <input type="text" id="result-total-value" readonly placeholder="Resultado">
-                    <button id="copy-pct-total" class="btn btn-success" title="Copiar resultado">
-                        <i class="bi bi-clipboard"></i>
-                    </button>
-                </div>
-                <span id="alert-copy-total" class="toast-alert hidden">
-                    <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
-                </span>
-            </div>
-        </div>
-
-        <!-- Card 4: Aumento Percentual -->
-        <div class="percent-card">
-            <h3>Valor X aumentado em Y%</h3>
-            <div class="percent-inline-inputs">
-                <span>O valor</span>
-                <input type="number" id="base-value-increase" placeholder="Base (X)">
-                <span>aumentado em</span>
-                <input type="number" id="percentage-increase" placeholder="Aumento (Y)">
-                <span>% resulta em:</span>
-            </div>
-            <div class="percent-output-container">
-                <div class="percent-output-group">
-                    <input type="text" id="result-increase" readonly placeholder="Resultado">
-                    <button id="copy-pct-increase" class="btn btn-success" title="Copiar resultado">
-                        <i class="bi bi-clipboard"></i>
-                    </button>
-                </div>
-                <span id="alert-copy-increase" class="toast-alert hidden">
-                    <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
-                </span>
-            </div>
-        </div>
-
-        <!-- Card 5: Desconto Percentual -->
-        <div class="percent-card">
-            <h3>Valor X diminuído em Y%</h3>
-            <div class="percent-inline-inputs">
-                <span>O valor</span>
-                <input type="number" id="base-value-decrease" placeholder="Base (X)">
-                <span>diminuído em</span>
-                <input type="number" id="percentage-decrease" placeholder="Desconto (Y)">
-                <span>% resulta em:</span>
-            </div>
-            <div class="percent-output-container">
-                <div class="percent-output-group">
-                    <input type="text" id="result-decrease" readonly placeholder="Resultado">
-                    <button id="copy-pct-decrease" class="btn btn-success" title="Copiar resultado">
-                        <i class="bi bi-clipboard"></i>
-                    </button>
-                </div>
-                <span id="alert-copy-decrease" class="toast-alert hidden">
-                    <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
-                </span>
+            
+            <div class="rule-arrow"><i class="bi bi-arrow-right"></i></div>
+            
+            <div class="rule-cell highlight-x-cell">
+                <label for="value-x">estará para (X)</label>
+                <input type="text" id="value-x" readonly placeholder="Resultado">
             </div>
         </div>
     </div>
 
     <div class="action-bar border-top-bar">
-        <button id="clean-percentage-button" class="btn btn-secondary">Limpar Todos os Campos</button>
+        <button id="clean-rule-button" class="btn btn-secondary">Limpar Tudo</button>
+        <button id="copy-rule-button" class="btn btn-success">
+            <i class="bi bi-clipboard"></i> Copiar Valor de X
+        </button>
+        <span id="rule-three-alert" class="toast-alert hidden">
+            <i class="bi bi-check-circle-fill"></i> Copiado com sucesso!
+        </span>
     </div>
 </div>
 
-<script src="static/js/calculadoras/porcentagem.js"></script>
+<script src="static/js/calculadoras/regra_de_tres.js"></script>
