@@ -477,28 +477,28 @@ document.addEventListener("click", function (event) {
 
     // === 02. CALCULADORAS - 03. Porcentagem ===
     if (event.target.closest('#clean-percentage-button')) {
-        event.preventDefault();
-        if (typeof limparCalculadoraPorcentagem === "function") limparCalculadoraPorcentagem();
+    event.preventDefault();
+    if (typeof limparCalculadoraPorcentagem === "function") limparCalculadoraPorcentagem();
     }
     if (event.target.closest('#copy-pct-quantity')) {
         event.preventDefault();
-        window.copiarTextoDeElemento('result-quantity', 'percentage-global-alert');
+        window.copiarTextoDeElemento('result-quantity', 'alert-copy-quantity');
     }
     if (event.target.closest('#copy-pct-percentage')) {
         event.preventDefault();
-        window.copiarTextoDeElemento('result-percentage', 'percentage-global-alert');
+        window.copiarTextoDeElemento('result-percentage', 'alert-copy-percentage');
     }
     if (event.target.closest('#copy-pct-total')) {
         event.preventDefault();
-        window.copiarTextoDeElemento('result-total-value', 'percentage-global-alert');
+        window.copiarTextoDeElemento('result-total-value', 'alert-copy-total');
     }
     if (event.target.closest('#copy-pct-increase')) {
         event.preventDefault();
-        window.copiarTextoDeElemento('result-increase', 'percentage-global-alert');
+        window.copiarTextoDeElemento('result-increase', 'alert-copy-increase');
     }
     if (event.target.closest('#copy-pct-decrease')) {
         event.preventDefault();
-        window.copiarTextoDeElemento('result-decrease', 'percentage-global-alert');
+        window.copiarTextoDeElemento('result-decrease', 'alert-copy-decrease');
     }
 
     // === 02. CALCULADORAS - 04. Regra de Três ===
