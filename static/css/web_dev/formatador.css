@@ -1,5 +1,27 @@
+/* 1. Trava o Grid em 2 colunas iguais e impede que o conteúdo interno empurre o layout */
+.grid-layout-formatador {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 1rem;
+  width: 100%;
+}
+
+/* 2. Controla o scroll do container de código de saída */
+#vscode-output-linhas {
+  overflow-x: auto; /* Adiciona scroll horizontal se a linha de código for longa */
+  max-width: 100%;
+}
+
+/* 3. Garante que o Textarea também mantenha seu tamanho e tenha rolagem quando necessário */
+#formatador-input {
+  width: 100%;
+  box-sizing: border-box;
+  resize: vertical; /* Permite redimensionar só para baixo */
+}
+
+/* 4. Responsivo em telas menores (celulares) */
 @media (max-width: 768px) {
   .grid-layout-formatador {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: minmax(0, 1fr) !important;
   }
 }

@@ -18,50 +18,65 @@
     <div id="aba-gerador" class="generator-workspace webdev-workspace tab-content active" style="max-width: 100% !important; padding: 1rem 2rem !important;">
         
         <!-- Controles de Variáveis do Sistema -->
-        <div class="config-css-topo" style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-bottom: 2rem;">
+        <div class="config-css-topo" style="display: flex; flex-direction: column; gap: 1.2rem; margin-bottom: 2rem;">
             
-            <div class="cores-field" style="flex: 1; min-width: 200px;">
-                <label for="seletor-cor-primary">Cor Primária (Base)</label>
-                <div style="display: flex; gap: 0.5rem; align-items: center; margin-top: 0.4rem;">
-                    <input type="color" id="seletor-cor-primary" value="#2563eb" style="width: 45px; height: 38px; border: none; cursor: pointer; border-radius: 4px;">
-                    <input type="text" id="hex-primary" value="#2563eb" style="flex: 1; padding: 0.55rem; font-family: monospace; font-weight: 600;">
+            <!-- LINHA 1: As 3 Cores lado a lado -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.2rem;">
+                
+                <!-- 1. Cor Primária -->
+                <div class="cores-field" style="display: flex; flex-direction: column; justify-content: flex-end;">
+                    <label for="seletor-cor-primary" style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.4rem;">Cor Primária (Base)</label>
+                    <div style="display: flex; gap: 0.5rem; align-items: center;">
+                        <input type="color" id="seletor-cor-primary" value="#2563eb" style="width: 42px; height: 38px; border: none; cursor: pointer; border-radius: 4px; padding: 0; flex-shrink: 0;">
+                        <input type="text" id="hex-primary" value="#2563eb" style="width: 100%; min-width: 0; height: 38px; padding: 0.55rem; font-family: monospace; font-weight: 600; box-sizing: border-box;">
+                    </div>
                 </div>
-            </div>
 
-            <div class="cores-field" style="flex: 1; min-width: 200px;">
-                <label for="seletor-cor-bg">Cor de Fundo da Aplicação</label>
-                <div style="display: flex; gap: 0.5rem; align-items: center; margin-top: 0.4rem;">
-                    <input type="color" id="seletor-cor-bg" value="#f8fafc" style="width: 45px; height: 38px; border: none; cursor: pointer; border-radius: 4px;">
-                    <input type="text" id="hex-bg" value="#f8fafc" style="flex: 1; padding: 0.55rem; font-family: monospace; font-weight: 600;">
+                <!-- 2. Cor Secundária -->
+                <div class="cores-field" style="display: flex; flex-direction: column; justify-content: flex-end;">
+                    <label for="seletor-cor-secondary" style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.4rem;">Cor Secundária</label>
+                    <div style="display: flex; gap: 0.5rem; align-items: center;">
+                        <input type="color" id="seletor-cor-secondary" value="#475569" style="width: 42px; height: 38px; border: none; cursor: pointer; border-radius: 4px; padding: 0; flex-shrink: 0;">
+                        <input type="text" id="hex-secondary" value="#475569" style="width: 100%; min-width: 0; height: 38px; padding: 0.55rem; font-family: monospace; font-weight: 600; box-sizing: border-box;">
+                    </div>
                 </div>
-            </div>
 
-            <div class="cores-field" style="flex: 1; min-width: 200px;">
-                <label for="seletor-ff-regular">Família Tipográfica</label>
-                <select id="seletor-ff-regular" style="width: 100%; padding: 0.65rem; font-size: 1rem; border-radius: var(--radius); border: 1px solid var(--border-color); background-color: var(--bg-main); color: var(--text-main); font-weight: 600; margin-top: 0.4rem;">
-                    <option value="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">System UI / Sans-serif</option>
-                    <option value="Georgia, 'Times New Roman', Times, serif">Georgia / Serif Clássico</option>
-                    <option value="'Inter', sans-serif">Inter</option>
-                    <option value="'Roboto', sans-serif">Roboto</option>
-                </select>
-            </div>
-
-            <div class="cores-field" style="flex: 1; min-width: 180px;">
-                <label for="seletor-radius-css">Arredondamento (--br-base)</label>
-                <select id="seletor-radius-css" style="width: 100%; padding: 0.65rem; font-size: 1rem; border-radius: var(--radius); border: 1px solid var(--border-color); background-color: var(--bg-main); color: var(--text-main); font-weight: 600; margin-top: 0.4rem;">
-                    <option value="0px">Quadrado (0px)</option>
-                    <option value="4px">Suave (4px / 0.4rem)</option>
-                    <option value="8px" selected>Moderno (8px / 0.8rem)</option>
-                    <option value="16px">Arredondado (16px / 1.6rem)</option>
-                </select>
-            </div>
-
-            <div class="cores-field" style="flex: 1; min-width: 200px;">
-                <label for="seletor-cor-secondary">Cor Secundária</label>
-                <div style="display: flex; gap: 0.5rem; align-items: center; margin-top: 0.4rem;">
-                    <input type="color" id="seletor-cor-secondary" value="#475569" style="width: 45px; height: 38px; border: none; cursor: pointer; border-radius: 4px;">
-                    <input type="text" id="hex-secondary" value="#475569" style="flex: 1; padding: 0.55rem; font-family: monospace; font-weight: 600;">
+                <!-- 3. Cor de Fundo -->
+                <div class="cores-field" style="display: flex; flex-direction: column; justify-content: flex-end;">
+                    <label for="seletor-cor-bg" style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.4rem;">Cor de Fundo</label>
+                    <div style="display: flex; gap: 0.5rem; align-items: center;">
+                        <input type="color" id="seletor-cor-bg" value="#f8fafc" style="width: 42px; height: 38px; border: none; cursor: pointer; border-radius: 4px; padding: 0; flex-shrink: 0;">
+                        <input type="text" id="hex-bg" value="#f8fafc" style="width: 100%; min-width: 0; height: 38px; padding: 0.55rem; font-family: monospace; font-weight: 600; box-sizing: border-box;">
+                    </div>
                 </div>
+
+            </div>
+
+            <!-- LINHA 2: Tipografia e Arredondamento -->
+            <div style="display: grid; grid-template-columns: 280px 180px; gap: 1.2rem; max-width: 100%;">
+                
+                <!-- 4. Família Tipográfica -->
+                <div class="cores-field" style="display: flex; flex-direction: column; justify-content: flex-end;">
+                    <label for="seletor-ff-regular" style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.4rem;">Família Tipográfica</label>
+                    <select id="seletor-ff-regular" style="width: 100%; padding: 0.55rem; font-size: 0.85rem; border-radius: var(--radius); border: 1px solid var(--border-color); background-color: var(--bg-main); color: var(--text-main); font-weight: 600; height: 38px; box-sizing: border-box; margin: 0;">
+                        <option value="system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif">System UI / Sans-serif</option>
+                        <option value="Georgia, 'Times New Roman', Times, serif">Georgia / Serif Clássico</option>
+                        <option value="'Inter', sans-serif">Inter</option>
+                        <option value="'Roboto', sans-serif">Roboto</option>
+                    </select>
+                </div>
+
+                <!-- 5. Arredondamento -->
+                <div class="cores-field" style="display: flex; flex-direction: column; justify-content: flex-end;">
+                    <label for="seletor-radius-css" style="font-size: 0.85rem; font-weight: 600; display: block; margin-bottom: 0.4rem;">Arredondamento</label>
+                    <select id="seletor-radius-css" style="width: 100%; padding: 0.55rem; font-size: 0.85rem; border-radius: var(--radius); border: 1px solid var(--border-color); background-color: var(--bg-main); color: var(--text-main); font-weight: 600; height: 38px; box-sizing: border-box; margin: 0;">
+                        <option value="0px">Quadrado (0px)</option>
+                        <option value="4px">Suave (4px)</option>
+                        <option value="8px" selected>Moderno (8px)</option>
+                        <option value="16px">Arredondado (16px)</option>
+                    </select>
+                </div>
+
             </div>
 
         </div>

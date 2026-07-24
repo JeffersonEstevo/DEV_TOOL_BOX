@@ -645,3 +645,52 @@ body.dark-mode select:hover,
 body.dark-mode textarea:hover {
   border-color: var(--text-muted, #64748b);
 }
+
+
+/* ==========================================================================
+   10. ALINHAMENTO E ESTILIZAÇÃO DOS SELETORES DE COR
+   ========================================================================== */
+
+/* Agrupador que mantém o Color Picker e o Input HEX na mesma linha */
+.input-group-color,
+.seletor-cor-container {
+  display: flex !important;
+  align-items: center !important; /* Alinha o picker e o texto verticalmente pelo centro */
+  gap: 0.5rem;
+}
+
+/* Estilização Moderna do Input de Cor */
+input[type="color"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  background: none;
+  flex-shrink: 0;
+  margin-bottom: 1rem; /* Mantém a mesma margem inferior que seus outros inputs têm */
+}
+
+/* Garante o preenchimento arredondado da cor dentro da caixinha nos navegadores */
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 2px;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 4px;
+}
+
+input[type="color"]::-moz-color-swatch {
+  border: none;
+  border-radius: 4px;
+}
+
+/* Ajuste fino para Dark Mode */
+body.dark-mode input[type="color"] {
+  border-color: var(--border-color);
+}

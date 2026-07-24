@@ -2,8 +2,8 @@
 // MÓDULO FORMATADOR E EMBELEZADOR DE CÓDIGO
 // ==========================================
 
-// JSON Expansível contendo as linguagens e suas configurações
-const LANGUAGES_CONFIG = {
+// Variável global em var para evitar erros de redeclaração no hot-reload da SPA
+var LANGUAGES_CONFIG = LANGUAGES_CONFIG || {
     "html": {
         nome: "HTML / Django Template",
         placeholder: "<div>\n<h1>Hello</h1><p>Mundo Feio</p>\n</div>",
@@ -27,55 +27,77 @@ const LANGUAGES_CONFIG = {
 };
 
 // Armazena o código limpo gerado para facilitar a cópia exata
-let codigoFormatadoGlobal = "";
+var codigoFormatadoGlobal = codigoFormatadoGlobal || "";
 
-// --- ENGINES NATIVAS DE FORMATAÇÃO (VERSÃO 1) ---
+// --- ENGINES NATIVAS DE FORMATAÇÃO ---
 
-function formatarEstruturaTags(html) {
+window.formatarEstruturaTags = function(html) {
     let formatado = '';
     let indent = 0;
     
-    // Divide o HTML separando estritamente onde começam e terminam as tags
-    const tokens = html.replace(/>\s*</g, '><').replace(/</g, '\n<').replace(/>/g, '>\n').split('\n');
+    // Normaliza os espaços ao redor das tags
+    let limpo = html.replace(/>\s+</g, '><').trim();
     
-    tokens.forEach(token => {
-        let t = token.trim();
-        if (!t) return;
+    // Divide mantendo os marcadores de tag
+    const tokens = limpo.replace(/</g, '~%~<').replace(/>/g, '>~%~').split('~%~');
+    
+    let i = 0;
+    while (i < tokens.length) {
+        let t = tokens[i].trim();
+        if (!t) { i++; continue; }
         
-        // Se for tag de fechamento (ex: </main>)
+        // PADRÃO INLINE: Se detectarmos uma tag de abertura, seguida por texto, seguida por tag de fechamento correspondente
+        // Exemplo: <div> + oi + </div> -> <div>oi</div>
+        if (
+            t.startsWith('<') && !t.startsWith('</') && !t.endsWith('/>') &&
+            i + 2 < tokens.length &&
+            !tokens[i + 1].trim().startsWith('<') &&
+            tokens[i + 2].trim().startsWith('</')
+        ) {
+            let tagAbertura = t;
+            let conteudoTexto = tokens[i + 1].trim();
+            let tagFechamento = tokens[i + 2].trim();
+            
+            // Extrai os nomes das tags para validar se são o mesmo tipo
+            let nomeAbertura = tagAbertura.match(/^<([a-zA-Z0-9-]+)/)?.[1]?.toLowerCase();
+            let nomeFechamento = tagFechamento.match(/^<\/([a-zA-Z0-9-]+)/)?.[1]?.toLowerCase();
+
+            if (nomeAbertura && nomeAbertura === nomeFechamento) {
+                formatado += '  '.repeat(indent) + tagAbertura + conteudoTexto + tagFechamento + '\n';
+                i += 3; // Pula os 3 tokens processados em linha
+                continue;
+            }
+        }
+
+        // Caso regular de formatação
         if (t.startsWith('</')) {
             indent = Math.max(0, indent - 1);
             formatado += '  '.repeat(indent) + t + '\n';
-        } 
-        // Se for tag de abertura (ex: <main> ou <input />)
-        else if (t.startsWith('<')) {
+        } else if (t.startsWith('<')) {
             formatado += '  '.repeat(indent) + t + '\n';
-            // Só aumenta o recuo se NÃO for tag auto-contida (ex: <img />, <br>)
             if (!t.endsWith('/>') && !t.match(/^<(br|hr|img|input|link|meta)/i)) {
                 indent++;
             }
-        } 
-        // Se for texto puro dentro da tag
-        else {
+        } else {
             formatado += '  '.repeat(indent) + t + '\n';
         }
-    });
+        i++;
+    }
     
     return formatado.trim();
-}
+};
 
-function formatarEstiloCSS(css) {
+window.formatarEstiloCSS = function(css) {
     return css
-        .replace(/\s*([{\};,])\s*/g, '$1') // Limpa espaços ao redor de chaves e pontuações
+        .replace(/\s*([{\};,])\s*/g, '$1')
         .replace(/\{/g, ' {\n  ')
         .replace(/;/g, ';\n  ')
         .replace(/\s*\}\s*/g, '\n}\n\n')
         .replace(/  \}/g, '}')
         .trim();
-}
+};
 
-function formatarScriptsJS(js) {
-    // Alinhamento básico por abertura e fechamento de chaves estruturais
+window.formatarScriptsJS = function(js) {
     let formatado = '';
     let indent = 0;
     const linhas = js.replace(/\{/g, '{\n').replace(/\}/g, '\n}').replace(/;/g, ';\n').split('\n');
@@ -88,10 +110,9 @@ function formatarScriptsJS(js) {
         if (l.endsWith('{')) indent++;
     });
     return formatado.trim();
-}
+};
 
-function formatarRecuoPython(py) {
-    // Analisa quebras de linhas estruturais baseadas em dois pontos ':'
+window.formatarRecuoPython = function(py) {
     let formatado = '';
     let indent = 0;
     const linhas = py.split('\n');
@@ -99,7 +120,6 @@ function formatarRecuoPython(py) {
     linhas.forEach(linha => {
         let l = linha.trim();
         if (!l) return;
-        // Se a linha anterior pediu recuo e comandos de saída de bloco forem detectados
         if (l.startsWith('return') || l.startsWith('pass') || l.startsWith('break')) {
             formatado += '    '.repeat(indent) + l + '\n';
             indent = Math.max(0, indent - 1);
@@ -109,11 +129,11 @@ function formatarRecuoPython(py) {
         if (l.endsWith(':')) indent++;
     });
     return formatado.trim();
-}
+};
 
 // --- RENDERIZADOR VS CODE STYLE ---
 
-function processarEExibirCodigo() {
+window.processarEExibirCodigo = function() {
     const input = document.getElementById('formatador-input');
     const seletor = document.getElementById('seletor-linguagem-formatador');
     const containerSaida = document.getElementById('vscode-output-linhas');
@@ -128,14 +148,12 @@ function processarEExibirCodigo() {
         return;
     }
 
-    // 1. Executa a formatação estrutural (Indentação)
     const funcaoFormatadora = LANGUAGES_CONFIG[linguagemSelecionada].formatar;
     codigoFormatadoGlobal = funcaoFormatadora(codigoCru);
 
     containerSaida.innerHTML = '';
     const linhasTexto = codigoFormatadoGlobal.split('\n');
     
-    // 2. Renderiza as linhas
     linhasTexto.forEach((textoLinha, index) => {
         const divLinha = document.createElement('div');
         divLinha.style.display = 'flex';
@@ -156,13 +174,11 @@ function processarEExibirCodigo() {
         codeTexto.style.color = '#d4d4d4';
         codeTexto.style.whiteSpace = 'pre';
 
-        // --- DESTAQUE DE SINTAXE BLINDADO COM TOKENS ---
         let htmlEscapado = (textoLinha || ' ')
             .replace(/&/g, "&amp;")
             .replace(/</g, "&lt;")
             .replace(/>/g, "&gt;");
 
-        // Aplica tokens em vez de HTML para não causar conflitos de aspas
         if (linguagemSelecionada === 'html') {
             htmlEscapado = htmlEscapado.replace(/(&lt;\/?[a-zA-Z1-6!].*?&gt;)/g, '§AZUL§$1§FIM§');
             htmlEscapado = htmlEscapado.replace(/("[^"]*")/g, '§LARANJA§$1§FIM§');
@@ -174,7 +190,6 @@ function processarEExibirCodigo() {
             htmlEscapado = htmlEscapado.replace(/("[^"]*"|'[^']*')/g, '§LARANJA§$1§FIM§');
         }
 
-        // Finalmente, substitui os tokens seguros pelas tags de cores HTML
         htmlEscapado = htmlEscapado
             .replace(/§AZUL§/g, '<span style="color: #569cd6;">')
             .replace(/§LARANJA§/g, '<span style="color: #ce9178;">')
@@ -189,33 +204,9 @@ function processarEExibirCodigo() {
         divLinha.appendChild(codeTexto);
         containerSaida.appendChild(divLinha);
     });
-}
+};
 
-function aplicarDestaqueBasico(elementoCode, lang) {
-    let textoPuro = elementoCode.textContent;
-    
-    // Transforma caracteres especiais em texto seguro antes de injetar qualquer tag HTML de cor
-    let htmlEscapado = textoPuro
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
-
-    if (lang === 'html') {
-        // CORREÇÃO DEFASADA: Procura estritamente a tag montada e envelopa num span limpo
-        htmlEscapado = htmlEscapado.replace(/(&lt;\/?[a-zA-Z1-6!][^&>]*&gt;)/g, '<span style="color: #569cd6;">$1</span>');
-        htmlEscapado = htmlEscapado.replace(/("[^"]*")/g, '<span style="color: #ce9178;">$1</span>');
-    } else if (lang === 'css') {
-        htmlEscapado = htmlEscapado.replace(/([a-zA-Z-]+)(?=\s*:)/g, '<span style="color: #9cdcfe;">$1</span>');
-        htmlEscapado = htmlEscapado.replace(/(#[a-zA-Z0-9]+|\d+px|\d+rem|\b(?:purple|blue|red|green|white|black)\b)/g, '<span style="color: #b5cea8;">$1</span>');
-    } else if (lang === 'javascript' || lang === 'python') {
-        htmlEscapado = htmlEscapado.replace(/\b(function|return|if|else|def|import|class|while|for|const|let|var)\b/g, '<span style="color: #c586c0;">$1</span>');
-        htmlEscapado = htmlEscapado.replace(/("[^"]*"|'[^']*')/g, '<span style="color: #ce9178;">$1</span>');
-    }
-    
-    elementoCode.innerHTML = htmlEscapado;
-}
-
-function copiarTextoFormatado(botao) {
+window.copiarTextoFormatado = function(botao) {
     if (!codigoFormatadoGlobal) return;
     
     navigator.clipboard.writeText(codigoFormatadoGlobal).then(() => {
@@ -227,25 +218,20 @@ function copiarTextoFormatado(botao) {
             botao.style.color = "var(--primary-color)";
         }, 1200);
     });
-}
+};
 
-// --- CONTROLE DE INTERFACE (CHAMADO PELA SPA) ---
+// --- CONTROLE DE INTERFACE ---
 
-// --- CONTROLE DE INTERFACE (AUTOCARREGÁVEL VIA MUTATION OBSERVER) ---
-
-function inicializarFormatador() {
+window.inicializarFormatador = function() {
     const seletor = document.getElementById('seletor-linguagem-formatador');
     const input = document.getElementById('formatador-input');
     const btnCopiar = document.getElementById('btn-copiar-codigo-formatado');
 
-    if (!seletor) return false; // Retorna falso se ainda não estiver na tela
+    if (!seletor) return false;
 
-    // >>> ADICIONE ESTA TRAVA AQUI: Se o select já tem as opções criadas, não faça nada e saia
-    if (seletor.children.length > 0) {
-        return true; 
-    }
+    if (seletor.dataset.formatadorInicializado === "true") return true;
+    seletor.dataset.formatadorInicializado = "true";
 
-    // Popula o seletor baseado no JSON configurado
     seletor.innerHTML = '';
     for (const key in LANGUAGES_CONFIG) {
         const opt = document.createElement('option');
@@ -254,57 +240,48 @@ function inicializarFormatador() {
         seletor.appendChild(opt);
     }
 
-    // Altera placeholders dinamicamente ao mudar a linguagem
     seletor.addEventListener('change', () => {
         if (input) input.placeholder = `Exemplo bagunçado:\n${LANGUAGES_CONFIG[seletor.value].placeholder}`;
     });
 
     if (btnCopiar) {
-        // Remove ouvintes antigos para não duplicar eventos na memória da SPA
         btnCopiar.replaceWith(btnCopiar.cloneNode(true));
         const novoBtnCopiar = document.getElementById('btn-copiar-codigo-formatado');
-        novoBtnCopiar.addEventListener('click', () => copiarTextoFormatado(novoBtnCopiar));
+        novoBtnCopiar.addEventListener('click', () => window.copiarTextoFormatado(novoBtnCopiar));
     }
 
-    // Define o placeholder inicial da primeira chave ativa
     if (input) input.placeholder = `Exemplo bagunçado:\n${LANGUAGES_CONFIG[seletor.value].placeholder}`;
     
-    return true; // Inicializado com sucesso
-}
+    return true;
+};
 
 // ==========================================================================
-// AUTO-INICIALIZADOR DO FORMATADOR (OBSERVADOR DO CICLO DE VIDA DA SPA)
+// AUTO-INICIALIZADOR INTELIGENTE
 // ==========================================================================
-(() => {
-    // 1. Tenta inicializar imediatamente (Caso o usuário dê F5 direto na página)
-    if (inicializarFormatador()) return;
 
-    // 2. Cria o observador de injeção inicial para monitorar a árvore do DOM
-    const observadorSPA = new MutationObserver((mutations, obs) => {
+var executarGatilhoFormatador = function() {
+    if (window.inicializarFormatador()) return;
+
+    var observadorSPA = new MutationObserver(function(_, obs) {
         if (document.getElementById('seletor-linguagem-formatador')) {
-            inicializarFormatador();
+            window.inicializarFormatador();
             obs.disconnect(); 
         }
     });
 
     observadorSPA.observe(document.body, { childList: true, subtree: true });
+};
 
-    // 3. Monitora o clique no menu lateral (Mudança de Hash)
-    window.addEventListener('hashchange', () => {
-        if (window.location.hash.includes('formatador')) {
-            
-            // Tentativa 1: Aguarda 50ms para a SPA injetar o HTML do select
-            setTimeout(() => {
-                const seletorPronto = document.getElementById('seletor-linguagem-formatador');
-                if (seletorPronto) {
-                    inicializarFormatador();
-                    return;
-                }
-                
-                // Tentativa 2: Caso a SPA demore um pouquinho mais, tenta em 150ms
-                setTimeout(inicializarFormatador, 150);
-            }, 50);
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    executarGatilhoFormatador();
+} else {
+    document.addEventListener('DOMContentLoaded', executarGatilhoFormatador);
+}
 
-        }
-    });
-})();
+window.addEventListener('hashchange', function() {
+    if (window.location.hash.includes('formatador')) {
+        const seletor = document.getElementById('seletor-linguagem-formatador');
+        if (seletor) seletor.dataset.formatadorInicializado = "false";
+        setTimeout(executarGatilhoFormatador, 50);
+    }
+});

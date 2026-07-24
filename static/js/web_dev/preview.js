@@ -2,7 +2,8 @@
 // MÓDULO DE LIVE PREVIEW (HTML / CSS)
 // ==========================================
 
-function renderizarLivePreview() {
+// Torna a função de renderização global para uso em botões e no scripts.js
+window.renderizarLivePreview = function() {
     const htmlCodigo = document.getElementById('live-html-input')?.value || '';
     const cssCodigo = document.getElementById('live-css-input')?.value || '';
     const iframe = document.getElementById('live-preview-frame');
@@ -16,7 +17,7 @@ function renderizarLivePreview() {
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <style>
-                body { font-family: sans-serif; padding: 1rem; margin: 0; color: #1e293b; background-color: #ffffff; }
+                body { font-family: system-ui, -apple-system, sans-serif; padding: 1rem; margin: 0; color: #1e293b; background-color: #ffffff; }
                 ${cssCodigo}
             </style>
         </head>
@@ -26,10 +27,12 @@ function renderizarLivePreview() {
         </html>
     `;
 
-    iframe.src = "data:text/html;charset=utf-8," + encodeURIComponent(documentoCompleto);
-}
+    // srcdoc é mais eficiente e resiliente contra estouro de limite de caracteres
+    iframe.srcdoc = documentoCompleto;
+};
 
-function abrirPreviewNovaAba() {
+// Exporta a abertura em nova aba para o escopo global
+window.abrirPreviewNovaAba = function() {
     const htmlCodigo = document.getElementById('live-html-input')?.value || '';
     const cssCodigo = document.getElementById('live-css-input')?.value || '';
 
@@ -41,7 +44,7 @@ function abrirPreviewNovaAba() {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Preview Real-Time</title>
             <style>
-                body { font-family: sans-serif; padding: 1rem; margin: 0; color: #1e293b; background-color: #ffffff; }
+                body { font-family: system-ui, -apple-system, sans-serif; padding: 1rem; margin: 0; color: #1e293b; background-color: #ffffff; }
                 ${cssCodigo}
             </style>
         </head>
@@ -66,20 +69,25 @@ function abrirPreviewNovaAba() {
         document.body.removeChild(linkTemporario);
         URL.revokeObjectURL(urlBlob);
     }, 100);
-}
+};
 
 // ==========================================
-// ESCUTAS DE EVENTOS E INICIALIZAÇÃO IMEDIATA (SPA)
+// INICIALIZADOR E ESCUTAS DE EVENTOS (SPA)
 // ==========================================
-(() => {
+
+window.inicializarLivePreview = function() {
     const htmlInput = document.getElementById('live-html-input');
     const cssInput = document.getElementById('live-css-input');
+    const iframe = document.getElementById('live-preview-frame');
 
-    if (htmlInput) htmlInput.addEventListener('input', renderizarLivePreview);
-    if (cssInput) cssInput.addEventListener('input', renderizarLivePreview);
+    if (!htmlInput || !iframe) return false;
 
-    // Valores iniciais padrão com quebras de linha reais (usando crases)
-    if (htmlInput && !htmlInput.value) {
+    // Previne vincular listeners repetidos no mesmo elemento
+    if (htmlInput.dataset.previewInicializado === "true") return true;
+    htmlInput.dataset.previewInicializado = "true";
+
+    // Define valores padrão se os campos estiverem vazios
+    if (!htmlInput.value) {
         htmlInput.value = `<h1>Título de Teste</h1>
 <p>Modifique o HTML na esquerda e veja o resultado aqui na direita em tempo real!</p>
 <button class="meu-botao">Clique Aqui</button>`;
@@ -100,5 +108,41 @@ function abrirPreviewNovaAba() {
 }`;
     }
 
-    setTimeout(renderizarLivePreview, 50);
-})();
+    // Escutas de digitação
+    htmlInput.addEventListener('input', window.renderizarLivePreview);
+    if (cssInput) {
+        cssInput.addEventListener('input', window.renderizarLivePreview);
+    }
+
+    // Primeira renderização
+    window.renderizarLivePreview();
+    return true;
+};
+
+// Auto-Disparo resiliente (F5 / NAVEGAÇÃO SPA)
+var executarGatilhoLivePreview = function() {
+    if (window.inicializarLivePreview()) return;
+
+    var observerPreview = new MutationObserver(function(_, obs) {
+        if (document.getElementById('live-html-input')) {
+            window.inicializarLivePreview();
+            obs.disconnect();
+        }
+    });
+
+    observerPreview.observe(document.body, { childList: true, subtree: true });
+};
+
+// Dispara na montagem
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    executarGatilhoLivePreview();
+} else {
+    document.addEventListener('DOMContentLoaded', executarGatilhoLivePreview);
+}
+
+// Escuta mudança de rota
+window.addEventListener('hashchange', function() {
+    const input = document.getElementById('live-html-input');
+    if (input) input.dataset.previewInicializado = "false";
+    setTimeout(executarGatilhoLivePreview, 50);
+});
