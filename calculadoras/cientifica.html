@@ -1,49 +1,85 @@
 <div class="tool-container">
     <header class="tool-header">
-        <h2>Calculadora Científica</h2>
-        <p>Efetue cálculos aritméticos simples, funções trigonométricas, logaritmos e exponenciais em tempo real.</p>
+        <h2>Calculadora Científica Avançada</h2>
+        <p>Realize operações aritméticas, cálculos trigonométricos, logaritmos, potências e funções de memória com alta precisão.</p>
     </header>
 
-    <div class="scientific-calc-box">
-        <div class="calc-screen">
-            <div id="calc-expression-preview" class="expression-preview"></div>
-            <input type="text" id="calc-display" readonly value="0" aria-label="Visor da Calculadora">
+    <div class="scientific-calc-box" role="region" aria-label="Calculadora Científica">
+        <!-- Indicadores de Estado -->
+        <div class="calc-status-bar">
+            <span id="calc-mode-indicator" class="status-badge" title="Unidade Angular Atual">DEG</span>
+            <span id="calc-memory-indicator" class="status-badge hidden" title="Valor Armazenado em Memória">M</span>
         </div>
 
+        <!-- Tela / Visor -->
+        <div class="calc-screen">
+            <div id="calc-expression-preview" class="expression-preview" aria-live="polite"></div>
+            <input type="text" id="calc-display" readonly value="0" aria-label="Resultado da Calculadora">
+        </div>
+
+        <!-- Teclado de Operações -->
         <div class="calc-keyboard" id="calc-buttons-container">
-            <button class="btn-calc btn-meta" data-action="clear">AC</button>
-            <button class="btn-calc btn-meta" data-action="backspace">⌫</button>
-            <button class="btn-calc btn-meta" data-action="toggle-sign">±</button>
-            <button class="btn-calc btn-op" data-token="/">÷</button>
+            <!-- Linha 1: Funções de Memória -->
+            <button class="btn-calc btn-mem" data-action="mc" aria-label="Limpar Memória">MC</button>
+            <button class="btn-calc btn-mem" data-action="mr" aria-label="Recuperar Memória">MR</button>
+            <button class="btn-calc btn-mem" data-action="m-plus" aria-label="Adicionar à Memória">M+</button>
+            <button class="btn-calc btn-mem" data-action="m-minus" aria-label="Subtrair da Memória">M-</button>
+            <button class="btn-calc btn-meta" data-action="clear" aria-label="Limpar Tudo">AC</button>
 
-            <button class="btn-calc btn-sci" data-action="sin">sin</button>
-            <button class="btn-calc btn-sci" data-action="cos">cos</button>
-            <button class="btn-calc btn-sci" data-action="tan">tan</button>
-            <button class="btn-calc btn-op" data-token="*">×</button>
+            <!-- Linha 2: Modos e Edição -->
+            <button class="btn-calc btn-sci" data-action="toggle-angle" aria-label="Alternar Graus e Radianos">Rad/Deg</button>
+            <button class="btn-calc btn-sci" data-token="(" aria-label="Abre Parênteses">(</button>
+            <button class="btn-calc btn-sci" data-token=")" aria-label="Fecha Parênteses">)</button>
+            <button class="btn-calc btn-meta" data-action="backspace" aria-label="Apagar último caractere">⌫</button>
+            <button class="btn-calc btn-op" data-token="/" aria-label="Divisão">÷</button>
 
-            <button class="btn-calc btn-sci" data-action="sqr">x²</button>
-            <button class="btn-calc btn-sci" data-action="sqrt">√x</button>
-            <button class="btn-calc btn-sci" data-action="log">log</button>
-            <button class="btn-calc btn-op" data-token="-">−</button>
+            <!-- Linha 3: Trigonometria Básica -->
+            <button class="btn-calc btn-sci" data-action="sin" aria-label="Seno">sin</button>
+            <button class="btn-calc btn-sci" data-action="cos" aria-label="Cosseno">cos</button>
+            <button class="btn-calc btn-sci" data-action="tan" aria-label="Tangente">tan</button>
+            <button class="btn-calc btn-sci" data-action="factorial" aria-label="Fatorial">x!</button>
+            <button class="btn-calc btn-op" data-token="*" aria-label="Multiplicação">×</button>
 
+            <!-- Linha 4: Trigonometria Inversa -->
+            <button class="btn-calc btn-sci" data-action="asin" aria-label="Arco Seno">sin⁻¹</button>
+            <button class="btn-calc btn-sci" data-action="acos" aria-label="Arco Cosseno">cos⁻¹</button>
+            <button class="btn-calc btn-sci" data-action="atan" aria-label="Arco Tangente">tan⁻¹</button>
+            <button class="btn-calc btn-sci" data-token="^" aria-label="Exponenciação">xʸ</button>
+            <button class="btn-calc btn-op" data-token="-" aria-label="Subtração">−</button>
+
+            <!-- Linha 5: Logaritmos e Raízes -->
+            <button class="btn-calc btn-sci" data-action="ln" aria-label="Logaritmo Natural">ln</button>
+
+            <button class="btn-calc btn-sci" data-action="log" aria-label="Logaritmo Base 10">log</button>
+            <button class="btn-calc btn-sci" data-action="sqrt" aria-label="Raiz Quadrada">√x</button>
+            <button class="btn-calc btn-sci" data-action="cbrt" aria-label="Raiz Cúbica">∛x</button>
+            <button class="btn-calc btn-op" data-token="+" aria-label="Adição">+</button>
+
+            <!-- Linha 6: Teclado Numérico + Constantes (Parte 1) -->
+            <button class="btn-calc btn-sci" data-action="exp10" aria-label="Dez elevado a x">10ˣ</button>
             <button class="btn-calc btn-num" data-token="7">7</button>
             <button class="btn-calc btn-num" data-token="8">8</button>
             <button class="btn-calc btn-num" data-token="9">9</button>
-            <button class="btn-calc btn-op" data-token="+">+</button>
+            <button class="btn-calc btn-sci" data-action="percent" aria-label="Porcentagem">%</button>
 
+            <!-- Linha 7: Teclado Numérico + Constantes (Parte 2) -->
+            <button class="btn-calc btn-sci" data-action="expe" aria-label="Número de Euler elevado a x">eˣ</button>
             <button class="btn-calc btn-num" data-token="4">4</button>
             <button class="btn-calc btn-num" data-token="5">5</button>
             <button class="btn-calc btn-num" data-token="6">6</button>
-            <button class="btn-calc btn-sci" data-token="*Math.PI">π</button>
+            <button class="btn-calc btn-sci" data-token="π" aria-label="Constante Pi">π</button>
 
+            <!-- Linha 8: Teclado Numérico + Igualdade -->
+            <button class="btn-calc btn-sci" data-token="e" aria-label="Constante Euler">e</button>
             <button class="btn-calc btn-num" data-token="1">1</button>
             <button class="btn-calc btn-num" data-token="2">2</button>
             <button class="btn-calc btn-num" data-token="3">3</button>
-            <button class="btn-calc btn-action-equal" data-action="equals">=</button>
+            <button class="btn-calc btn-action-equal" data-action="equals" aria-label="Calcular Resultado">=</button>
 
+            <!-- Linha 9: Teclas Inferiores -->
+            <button class="btn-calc btn-sci" data-action="toggle-sign" aria-label="Inverter Sinal">±</button>
             <button class="btn-calc btn-num zero-btn" data-token="0">0</button>
             <button class="btn-calc btn-num" data-token=".">,</button>
-            <button class="btn-calc btn-sci" data-token="/100">%</button>
         </div>
     </div>
 </div>

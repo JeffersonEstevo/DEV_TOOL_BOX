@@ -510,6 +510,21 @@ document.addEventListener("click", function (event) {
         event.preventDefault();
         window.copiarTextoDeElemento('value-x', 'rule-three-alert');
     }
+    // === 02. CALCULADORAS - 05. Calculadora Científica ===
+    // === 02. CALCULADORAS - 05. Calculadora Científica ===
+    const sciBtn = event.target.closest('.btn-calc');
+    if (sciBtn) {
+        event.preventDefault();
+        //console.log("Botão clicado:", sciBtn);
+        //console.log("Token:", sciBtn.getAttribute("data-token"));
+        //console.log("Action:", sciBtn.getAttribute("data-action"));
+        
+        if (typeof gerenciarCalculadoraCientifica === "function") {
+            gerenciarCalculadoraCientifica(sciBtn);
+        } else {
+            console.error("A função gerenciarCalculadoraCientifica não está carregada!");
+        }
+    }
 
     // === 03. GERADORES - 01. Gerar/Validar CPF ===
     if (event.target.closest('#btn-gerar-cpf')) {
