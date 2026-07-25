@@ -128,10 +128,14 @@
 .input-prefix {
   position: absolute;
   left: 0.75rem;
+  top: 1rem; /* <-- Ajuste da altura da / */
+  bottom: auto;
+  line-height: 1;
   font-weight: 700;
   font-size: 1.1rem;
   color: var(--text-main);
   opacity: 0.5;
+  pointer-events: none;
 }
 
 /* Painel de Resultados */
