@@ -70,3 +70,44 @@
 }
 
 
+
+
+/* Transforma a div no próprio seletor */
+.preview-caixa {
+  width: 100%;
+  height: 50px; /* Mesma altura da faixa de gradiente */
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 2px solid var(--border-color);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  background: #66FF99; /* Cor inicial */
+}
+
+.preview-caixa:hover {
+  border-color: var(--primary-color);
+  transform: scale(1.02);
+}
+
+/* Esconde o input color, mas mantém funcional */
+.preview-caixa input[type="color"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* A div mostra a cor através do background */
+.preview-caixa .cor-visual {
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Permite clicar no input por cima */
+}
+
