@@ -32,162 +32,102 @@ var codigoFormatadoGlobal = codigoFormatadoGlobal || "";
 // --- ENGINES NATIVAS DE FORMATAÇÃO ---
 
 window.formatarEstruturaTags = function(html) {
-    if (typeof html !== 'string') return '';
     let formatado = '';
     let indent = 0;
     
-    try {
-        // Normaliza os espaços ao redor das tags
-        let limpo = html.replace(/>\s+</g, '><').trim();
+    // Normaliza os espaços ao redor das tags
+    let limpo = html.replace(/>\s+</g, '><').trim();
+    
+    // Divide mantendo os marcadores de tag
+    const tokens = limpo.replace(/</g, '~%~<').replace(/>/g, '>~%~').split('~%~');
+    
+    let i = 0;
+    while (i < tokens.length) {
+        let t = tokens[i].trim();
+        if (!t) { i++; continue; }
         
-        // Divide mantendo os marcadores de tag
-        const tokens = limpo.replace(/</g, '~%~<').replace(/>/g, '>~%~').split('~%~');
-        
-        let i = 0;
-        while (i < tokens.length) {
-            let t = tokens[i].trim();
-            if (!t) { i++; continue; }
+        // PADRÃO INLINE: Se detectarmos uma tag de abertura, seguida por texto, seguida por tag de fechamento correspondente
+        // Exemplo: <div> + oi + </div> -> <div>oi</div>
+        if (
+            t.startsWith('<') && !t.startsWith('</') && !t.endsWith('/>') &&
+            i + 2 < tokens.length &&
+            !tokens[i + 1].trim().startsWith('<') &&
+            tokens[i + 2].trim().startsWith('</')
+        ) {
+            let tagAbertura = t;
+            let conteudoTexto = tokens[i + 1].trim();
+            let tagFechamento = tokens[i + 2].trim();
             
-            // PADRÃO INLINE: Se detectarmos uma tag de abertura, seguida por texto, seguida por tag de fechamento correspondente
-            if (
-                t.startsWith('<') && !t.startsWith('</') && !t.endsWith('/>') &&
-                i + 2 < tokens.length &&
-                !tokens[i + 1].trim().startsWith('<') &&
-                tokens[i + 2].trim().startsWith('</')
-            ) {
-                let tagAbertura = t;
-                let conteudoTexto = tokens[i + 1].trim();
-                let tagFechamento = tokens[i + 2].trim();
-                
-                // Extrai os nomes das tags para validar se são o mesmo tipo
-                let nomeAbertura = tagAbertura.match(/^<([a-zA-Z0-9-]+)/)?.[1]?.toLowerCase();
-                let nomeFechamento = tagFechamento.match(/^<\/([a-zA-Z0-9-]+)/)?.[1]?.toLowerCase();
+            // Extrai os nomes das tags para validar se são o mesmo tipo
+            let nomeAbertura = tagAbertura.match(/^<([a-zA-Z0-9-]+)/)?.[1]?.toLowerCase();
+            let nomeFechamento = tagFechamento.match(/^<\/([a-zA-Z0-9-]+)/)?.[1]?.toLowerCase();
 
-                if (nomeAbertura && nomeAbertura === nomeFechamento) {
-                    formatado += '  '.repeat(indent) + tagAbertura + conteudoTexto + tagFechamento + '\n';
-                    i += 3; // Pula os 3 tokens processados em linha
-                    continue;
-                }
+            if (nomeAbertura && nomeAbertura === nomeFechamento) {
+                formatado += '  '.repeat(indent) + tagAbertura + conteudoTexto + tagFechamento + '\n';
+                i += 3; // Pula os 3 tokens processados em linha
+                continue;
             }
-
-            // Caso regular de formatação
-            if (t.startsWith('</')) {
-                indent = Math.max(0, indent - 1);
-                formatado += '  '.repeat(indent) + t + '\n';
-            } else if (t.startsWith('<')) {
-                formatado += '  '.repeat(indent) + t + '\n';
-                if (!t.endsWith('/>') && !t.match(/^<(br|hr|img|input|link|meta)/i)) {
-                    indent++;
-                }
-            } else {
-                formatado += '  '.repeat(indent) + t + '\n';
-            }
-            i++;
         }
-    } catch (e) {
-        console.error("Erro ao formatar HTML:", e);
-        return html;
+
+        // Caso regular de formatação
+        if (t.startsWith('</')) {
+            indent = Math.max(0, indent - 1);
+            formatado += '  '.repeat(indent) + t + '\n';
+        } else if (t.startsWith('<')) {
+            formatado += '  '.repeat(indent) + t + '\n';
+            if (!t.endsWith('/>') && !t.match(/^<(br|hr|img|input|link|meta)/i)) {
+                indent++;
+            }
+        } else {
+            formatado += '  '.repeat(indent) + t + '\n';
+        }
+        i++;
     }
     
     return formatado.trim();
 };
 
 window.formatarEstiloCSS = function(css) {
-    if (typeof css !== 'string') return '';
-    try {
-        return css
-            .replace(/\s*([{\};,])\s*/g, '$1')
-            .replace(/\{/g, ' {\n  ')
-            .replace(/;/g, ';\n  ')
-            .replace(/\s*\}\s*/g, '\n}\n\n')
-            .replace(/  \}/g, '}')
-            .trim();
-    } catch (e) {
-        console.error("Erro ao formatar CSS:", e);
-        return css;
-    }
+    return css
+        .replace(/\s*([{\};,])\s*/g, '$1')
+        .replace(/\{/g, ' {\n  ')
+        .replace(/;/g, ';\n  ')
+        .replace(/\s*\}\s*/g, '\n}\n\n')
+        .replace(/  \}/g, '}')
+        .trim();
 };
 
 window.formatarScriptsJS = function(js) {
-    if (typeof js !== 'string') return '';
     let formatado = '';
     let indent = 0;
+    const linhas = js.replace(/\{/g, '{\n').replace(/\}/g, '\n}').replace(/;/g, ';\n').split('\n');
     
-    try {
-        // Normaliza o código para garantir que chaves e pontos e vírgulas tenham espaçamento correto antes de processar as linhas
-        let limpo = js
-            .replace(/\{/g, ' {\n')
-            .replace(/\}/g, '\n}\n')
-            .replace(/;/g, ';\n')
-            .replace(/\n\s*\n/g, '\n'); // Remove linhas em branco excessivas
-
-        const linhas = limpo.split('\n');
-        
-        linhas.forEach(linha => {
-            let l = linha.trim();
-            if (!l) return;
-            
-            // Se a linha começa com fecha-chave, diminui a indentação antes de imprimir
-            if (l.startsWith('}')) {
-                indent = Math.max(0, indent - 1);
-            }
-            
-            formatado += '  '.repeat(indent) + l + '\n';
-            
-            // Se a linha termina com abre-chave, aumenta a indentação para a próxima linha
-            if (l.endsWith('{')) {
-                indent++;
-            }
-        });
-    } catch (e) {
-        console.error("Erro ao formatar JS:", e);
-        return js;
-    }
-    
+    linhas.forEach(linha => {
+        let l = linha.trim();
+        if (!l) return;
+        if (l.startsWith('}')) indent = Math.max(0, indent - 1);
+        formatado += '  '.repeat(indent) + l + '\n';
+        if (l.endsWith('{')) indent++;
+    });
     return formatado.trim();
 };
 
 window.formatarRecuoPython = function(py) {
-    if (typeof py !== 'string') return '';
     let formatado = '';
     let indent = 0;
+    const linhas = py.split('\n');
     
-    try {
-        // Normaliza quebras de linha e separa múltiplos comandos na mesma linha se necessário
-        const linhas = py.split('\n');
-        
-        linhas.forEach(linha => {
-            let l = linha.trim();
-            if (!l) return;
-            
-            // Se encontrarmos uma nova definição de função ou variável global no início da linha,
-            // redefinimos o recuo para 0 para garantir que o código não fique preso dentro de outro bloco.
-            if (l.startsWith('def ') || l.startsWith('class ') || /^[a-zA-Z_][a-zA-Z0-9_]*\s*=/.test(l)) {
-                // Se for uma nova def, resetamos o indent global a menos que estejamos lidando com aninhamento (neste caso simples, resetamos para 0)
-                if (l.startsWith('def ') || l.startsWith('class ')) {
-                    indent = 0;
-                }
-            }
-            
-            // Tratamento de comandos de saída antecipada
-            if (l.startsWith('return') || l.startsWith('pass') || l.startsWith('break') || l.startsWith('continue')) {
-                formatado += '    '.repeat(indent) + l + '\n';
-                indent = Math.max(0, indent - 1);
-                return;
-            }
-            
+    linhas.forEach(linha => {
+        let l = linha.trim();
+        if (!l) return;
+        if (l.startsWith('return') || l.startsWith('pass') || l.startsWith('break')) {
             formatado += '    '.repeat(indent) + l + '\n';
-            
-            // Se a linha termina com dois-pontos, incrementa o recuo para a próxima linha
-            if (l.endsWith(':')) {
-                indent++;
-            }
-        });
-    } catch (e) {
-        console.error("Erro ao formatar Python:", e);
-        return py;
-    }
-    
+            indent = Math.max(0, indent - 1);
+            return;
+        }
+        formatado += '    '.repeat(indent) + l + '\n';
+        if (l.endsWith(':')) indent++;
+    });
     return formatado.trim();
 };
 
@@ -208,17 +148,12 @@ window.processarEExibirCodigo = function() {
         return;
     }
 
-    const funcaoFormatadora = LANGUAGES_CONFIG[linguagemSelecionada]?.formatar;
-    if (!funcaoFormatadora) return;
-
+    const funcaoFormatadora = LANGUAGES_CONFIG[linguagemSelecionada].formatar;
     codigoFormatadoGlobal = funcaoFormatadora(codigoCru);
 
     containerSaida.innerHTML = '';
     const linhasTexto = codigoFormatadoGlobal.split('\n');
     
-    // Utilização de DocumentFragment para ganho de performance sem alterar o comportamento DOM
-    const fragment = document.createDocumentFragment();
-
     linhasTexto.forEach((textoLinha, index) => {
         const divLinha = document.createElement('div');
         divLinha.style.display = 'flex';
@@ -244,16 +179,15 @@ window.processarEExibirCodigo = function() {
             .replace(/</g, "&lt;")
             .replace(/>/g, "&gt;");
 
-        // Correção no escape mantendo a exata lógica original de marcação com tokens coringa seguros
         if (linguagemSelecionada === 'html') {
             htmlEscapado = htmlEscapado.replace(/(&lt;\/?[a-zA-Z1-6!].*?&gt;)/g, '§AZUL§$1§FIM§');
-            htmlEscapado = htmlEscapado.replace(/(&quot;[^&]*&quot;|"[^"]*")/g, '§LARANJA§$1§FIM§');
+            htmlEscapado = htmlEscapado.replace(/("[^"]*")/g, '§LARANJA§$1§FIM§');
         } else if (linguagemSelecionada === 'css') {
             htmlEscapado = htmlEscapado.replace(/([a-zA-Z-]+)(?=\s*:)/g, '§AZULCLARO§$1§FIM§');
             htmlEscapado = htmlEscapado.replace(/(#[a-zA-Z0-9]+|\d+px|\d+rem|\b(?:purple|blue|red|green|white|black)\b)/g, '§VERDE§$1§FIM§');
         } else if (linguagemSelecionada === 'javascript' || linguagemSelecionada === 'python') {
             htmlEscapado = htmlEscapado.replace(/\b(function|return|if|else|def|import|class|while|for|const|let|var)\b/g, '§ROXO§$1§FIM§');
-            htmlEscapado = htmlEscapado.replace(/(&quot;[^&]*&quot;|['"][^'"]*['"])/g, '§LARANJA§$1§FIM§');
+            htmlEscapado = htmlEscapado.replace(/("[^"]*"|'[^']*')/g, '§LARANJA§$1§FIM§');
         }
 
         htmlEscapado = htmlEscapado
@@ -268,10 +202,8 @@ window.processarEExibirCodigo = function() {
 
         divLinha.appendChild(spanNumero);
         divLinha.appendChild(codeTexto);
-        fragment.appendChild(divLinha);
+        containerSaida.appendChild(divLinha);
     });
-
-    containerSaida.appendChild(fragment);
 };
 
 window.copiarTextoFormatado = function(botao) {
@@ -285,8 +217,6 @@ window.copiarTextoFormatado = function(botao) {
             botao.textContent = textoOriginal;
             botao.style.color = "var(--primary-color)";
         }, 1200);
-    }).catch(err => {
-        console.error("Erro ao copiar:", err);
     });
 };
 
@@ -311,9 +241,7 @@ window.inicializarFormatador = function() {
     }
 
     seletor.addEventListener('change', () => {
-        if (input && LANGUAGES_CONFIG[seletor.value]) {
-            input.placeholder = `Exemplo bagunçado:\n${LANGUAGES_CONFIG[seletor.value].placeholder}`;
-        }
+        if (input) input.placeholder = `Exemplo bagunçado:\n${LANGUAGES_CONFIG[seletor.value].placeholder}`;
     });
 
     if (btnCopiar) {
@@ -322,9 +250,7 @@ window.inicializarFormatador = function() {
         novoBtnCopiar.addEventListener('click', () => window.copiarTextoFormatado(novoBtnCopiar));
     }
 
-    if (input && LANGUAGES_CONFIG[seletor.value]) {
-        input.placeholder = `Exemplo bagunçado:\n${LANGUAGES_CONFIG[seletor.value].placeholder}`;
-    }
+    if (input) input.placeholder = `Exemplo bagunçado:\n${LANGUAGES_CONFIG[seletor.value].placeholder}`;
     
     return true;
 };
