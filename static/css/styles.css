@@ -1,696 +1,710 @@
 /* ==========================================================================
-   1. RESET & VARIÁVEIS (Mantendo e expandindo sua base)
+   SUMÁRIO DA DOCUMENTAÇÃO CSS:
+   1. Reset, Variáveis e Configurações de Tema (Dark/Light)
+   2. Estrutura do Layout (App Container, Sidebar e Navegação)
+   3. Conteúdo Principal, Welcome Cards e Rodapé (Footer)
+   4. Componentes de Ferramentas (Grids, Formulários, Botões e Diff)
+   5. Comportamentos Dinâmicos e Scripts de Interface
+   6. Regras Globais e Ajustes Específicos para o Modo Escuro (Dark Mode)
+   7. Alerta Flutuante Moderno de Cópia (Toast)
+   8. Workspace Largo (Layouts Expandidos)
+   9. Representação e Padronização dos Inputs e Elementos de Formulário
+   10. Alinhamento e Estilização dos Seletores de Cor (Color Pickers)
    ========================================================================== */
-:root {
-  --bg-main: #f8fafc;        /* Fundo principal (Slate 50) */
-  --bg-sidebar: #ffffff;     /* Fundo da sidebar */
-  --bg-card: #ffffff;        /* Fundo de cards/conteúdo */
-  --border-color: #e2e8f0;    /* Linhas finas e discretas (Slate 200) */
-  
-  --text-main: #0f172a;      /* Texto principal quase preto (Slate 900) */
-  --text-muted: #64748b;     /* Texto secundário/prazos (Slate 500) */
-  --accent: #4f46e5;         /* Cor de destaque: Índigo Moderno */
-  --accent-hover: #4338ca;   
-  --accent-light: #eef2ff;
 
-  --sidebar-width: 260px;
-  --radius: 8px;
-  --transition: all 0.2s ease-in-out;
-}
-
-/* SOBREPOSIÇÃO PARA O MODO ESCURO */
-body.dark-mode {
-  --bg-main: #0f172a;        /* Slate 900 */
-  --bg-sidebar: #1e293b;     /* Slate 800 */
-  --bg-card: #1e293b;        /* Slate 800 */
-  --border-color: #334155;    /* Slate 700 */
-  
-  --text-main: #f8fafc;      /* Slate 50 */
-  --text-muted: #94a3b8;     /* Slate 400 */
-  --accent: #818cf8;         /* Índigo mais claro para contraste */
-  --accent-hover: #6366f1;
-  --accent-light: rgba(79, 70, 229, 0.15);
-}
-
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-*:not(dialog) {
-  margin: 0;
-  padding: 0;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  html { interpolate-size: allow-keywords; }
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-color: var(--bg-main);
-  color: var(--text-main);
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* Base de Mídias e Inputs */
-img, svg { display: block; max-width: 100%; }
-input, button, textarea, select { font: inherit; border: none; outline: none; }
-p, h1, h2, h3 { overflow-wrap: break-word; }
-p { text-wrap: pretty; }
-h1, h2, h3 { text-wrap: balance; font-weight: 600; }
-
-
-/* 2. Garante que inputs, selects e textareas de QUALQUER página sigam o tema (Dark Mode) */
-body.dark-mode input[type="text"],
-body.dark-mode select,
-body.dark-mode textarea {
-  background-color: var(--bg-sidebar); 
-  color: var(--text-main);
-  border: 1px solid var(--border-color);
-}
-
-/* Efeito Hover (Dark Mode) */
-body.dark-mode input[type="text"]:hover, 
-body.dark-mode select:hover, 
-body.dark-mode textarea:hover {
-  border-color: var(--text-muted, #64748b);
-}
 
 /* ==========================================================================
-   2. ESTRUTURA DO LAYOUT (App Container)
+   1. RESET, VARIÁVEIS E CONFIGURAÇÕES DE TEMA (DARK/LIGHT)
    ========================================================================== */
-#app-container {
-  display: flex;
-  min-height: 100vh;
+:root {
+  /* Cores base para o tema claro (Light Mode - Paleta Slate/Indigo) */
+  --bg-main: #f8fafc;         /* Fundo principal da aplicação (Slate 50) */
+  --bg-sidebar: #ffffff;      /* Fundo da barra lateral e painéis superiores */
+  --bg-card: #ffffff;         /* Fundo padrão para cards e blocos de conteúdo */
+  --border-color: #e2e8f0;    /* Cor para linhas finas, divisores e bordas (Slate 200) */
+  
+  --text-main: #0f172a;       /* Cor principal de textos, quase preto (Slate 900) */
+  --text-muted: #64748b;      /* Cor para textos secundários, prazos e legendas (Slate 500) */
+  --accent: #4f46e5;          /* Cor de destaque principal: Índigo Moderno */
+  --accent-hover: #4338ca;    /* Cor de destaque ao passar o mouse (Hover) */
+  --accent-light: #eef2ff;    /* Versão translúcida ou clara do destaque para fundos */
+
+  /* Dimensões globais do layout */
+  --sidebar-width: 260px;     /* Largura fixa padrão da barra lateral */
+  --radius: 8px;              /* Raio de arredondamento padrão para elementos */
+  --transition: all 0.2s ease-in-out; /* Transição padrão suave para animações e hover */
 }
 
-/* Sidebar */
+/* Sobrescrita de variáveis para o Modo Escuro (Dark Mode) */
+body.dark-mode {
+  --bg-main: #0f172a;         /* Fundo escuro principal (Slate 900) */
+  --bg-sidebar: #1e293b;      /* Fundo escuro para sidebar e painéis (Slate 800) */
+  --bg-card: #1e293b;         /* Fundo escuro para cards (Slate 800) */
+  --border-color: #334155;    /* Bordas mais escuras e discretas (Slate 700) */
+  
+  --text-main: #f8fafc;       /* Texto principal claro (Slate 50) */
+  --text-muted: #94a3b8;      /* Texto secundário/muted mais claro (Slate 400) */
+  --accent: #818cf8;          /* Índigo mais claro para melhor contraste no escuro */
+  --accent-hover: #6366f1;    /* Cor de hover ajustada para o modo escuro */
+  --accent-light: rgba(79, 70, 229, 0.15); /* Fundo translúcido adaptado */
+}
+
+/* Reset universal de caixas */
+*, *::before, *::after {
+  box-sizing: border-box;     /* Garante que padding e bordas não afetem a largura total */
+}
+
+/* Reset global de margens e paddings, exceto em elementos nativos de diálogo */
+*:not(dialog) {
+  margin: 0;                  /* Remove margens padrão dos navegadores */
+  padding: 0;                 /* Remove preenchimentos padrão dos navegadores */
+}
+
+/* Ativa interpolação de tamanho se suportado pelo navegador */
+@media (prefers-reduced-motion: no-preference) {
+  html { 
+    interpolate-size: allow-keywords; /* Permite animação de tamanhos baseados em palavras-chave */
+  }
+}
+
+/* Configurações básicas do corpo da página */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; /* Pilha de fontes nativas otimizadas */
+  background-color: var(--bg-main); /* Aplica a cor de fundo dinâmica */
+  color: var(--text-main);    /* Aplica a cor de texto padrão */
+  line-height: 1.5;           /* Melhora o espaçamento entrelinhas para leitura */
+  -webkit-font-smoothing: antialiased; /* Suavização de fontes em WebKit */
+}
+
+/* Comportamento padrão de mídias e elementos de formulário */
+img, svg { 
+  display: block;             /* Remove espaçamento indesejado abaixo de imagens inline */
+  max-width: 100%;            /* Garante responsividade de imagens e vetores */
+}
+
+input, button, textarea, select { 
+  font: inherit;              /* Herda a tipografia padrão do body */
+  border: none;               /* Remove bordas nativas padrão */
+  outline: none;              /* Remove o contorno de foco padrão do navegador */
+}
+
+p, h1, h2, h3 { 
+  overflow-wrap: break-word;  /* Força quebra de palavras longas para evitar overflow horizontal */
+}
+
+p { 
+  text-wrap: pretty;          /* Melhora o travamento visual de quebras nas linhas finais de parágrafos */
+}
+
+h1, h2, h3 { 
+  text-wrap: balance;         /* Equilibra a distribuição de texto em múltiplos títulos */
+  font-weight: 600;           /* Define peso semibold padrão para títulos */
+}
+
+
+/* ==========================================================================
+   2. ESTRUTURA DO LAYOUT (App Container, Sidebar e Navegação)
+   ========================================================================== */
+#app-container {
+  display: flex;              /* Ativa layout flexível para dispor sidebar e conteúdo lado a lado */
+  min-height: 100vh;          /* Ocupa no mínimo toda a altura da tela */
+}
+
+/* Configuração da Barra Lateral (Sidebar) */
 #sidebar {
-  width: var(--sidebar-width);
-  background-color: var(--bg-sidebar);
-  border-right: 1px solid var(--border-color);
-  display: flex;
+  width: var(--sidebar-width); /* Define a largura fixa utilizando variável */
+  background-color: var(--bg-sidebar); /* Cor de fundo da barra lateral */
+  border-right: 1px solid var(--border-color); /* Linha divisória vertical à direita */
+  display: flex;              /* Dispoõe os itens internos em coluna */
   flex-direction: column;
-  flex-shrink: 0;
+  flex-shrink: 0;             /* Impede que a sidebar encolha em layouts flexíveis */
 }
 
 .sidebar-header {
-  padding: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  border-bottom: 1px solid var(--border-color);
+  padding: 1.5rem;            /* Espaçamento interno generoso no cabeçalho */
+  display: flex;              /* Alinha o logo e o texto do brand lado a lado */
+  align-items: center;        /* Centraliza verticalmente os elementos */
+  gap: 0.75rem;               /* Espaçamento entre o ícone e o nome da marca */
+  border-bottom: 1px solid var(--border-color); /* Linha divisória inferior */
 }
 
 .logo-icon {
-  font-size: 1.5rem;
-  color: var(--accent);
+  font-size: 1.5rem;          /* Tamanho destacado para o ícone do logo */
+  color: var(--accent);       /* Usa a cor de destaque da marca */
 }
 
 .brand-name {
-  font-weight: 700;
-  font-size: 1.1rem;
-  letter-spacing: -0.025em;
+  font-weight: 700;           /* Texto em negrito forte para identificação */
+  font-size: 1.1rem;          /* Tamanho ligeiramente maior para o nome */
+  letter-spacing: -0.025em;   /* Reduz levemente o espaçamento entre letras (tracking moderno) */
 }
 
-/* Navegação por Details (Dropdowns Nativos) */
+/* Navegação por Details (Dropdowns Nativos na Sidebar) */
 .sidebar-nav {
-  padding: 1rem 0.75rem;
-  display: flex;
+  padding: 1rem 0.75rem;      /* Preenchimento interno da área de navegação */
+  display: flex;              /* Organiza os blocos details em coluna */
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.5rem;                /* Espaçamento entre os menus dropdown */
 }
 
 details {
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.25rem;     /* Pequena margem inferior para respiro */
 }
 
 summary {
-  list-style: none;
-  padding: 0.75rem 1rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  border-radius: var(--radius);
-  transition: var(--transition);
+  list-style: none;           /* Remove marcadores padrão de listas */
+  padding: 0.75rem 1rem;      /* Espaçamento interno clicável do sumário */
+  font-weight: 500;           /* Peso de fonte médio */
+  color: var(--text-muted);   /* Cor secundária para itens fechados */
+  cursor: pointer;            /* Altera o cursor para indicar interatividade */
+  display: flex;              /* Alinha elementos internos em linha */
+  align-items: center;        /* Centraliza verticalmente */
+  gap: 0.75rem;               /* Espaçamento entre ícone e texto */
+  border-radius: var(--radius); /* Arredonda as bordas do item de menu */
+  transition: var(--transition); /* Suaviza animações de hover e cores */
 }
 
-summary::-webkit-details-marker { display: none; }
+summary::-webkit-details-marker { 
+  display: none;              /* Oculta marcador padrão do WebKit (seta nativa) */
+}
 
 summary:hover {
-  background-color: var(--bg-main);
-  color: var(--text-main);
+  background-color: var(--bg-main); /* Altera o fundo levemente ao passar o mouse */
+  color: var(--text-main);    /* Destaca o texto tornando-o mais escuro/claro */
 }
 
+/* Ícone de seta customizado para o summary */
 summary::after {
-  content: '\002303'; /* Seta minimalista */
-  margin-left: auto;
-  transform: rotate(180deg);
-  transition: transform 0.2s;
-  font-size: 0.8rem;
+  content: '\002303';         /* Caractere especial simulando seta */
+  margin-left: auto;          /* Empurra a seta totalmente para a direita */
+  transform: rotate(180deg);  /* Posiciona a seta apontando para baixo */
+  transition: transform 0.2s; /* Animação suave de rotação da seta */
+  font-size: 0.8rem;          /* Tamanho reduzido para sutileza */
 }
 
 details[open] summary::after {
-  transform: rotate(0deg);
+  transform: rotate(0deg);    /* Inverte a seta para cima quando o dropdown está aberto */
 }
 
-/* Links internos da Sidebar */
+/* Links internos agrupados na Sidebar */
 .nav-links {
-  display: flex;
+  display: flex;              /* Organiza sublinks em coluna */
   flex-direction: column;
-  gap: 0.25rem;
-  padding-left: 2.25rem;
-  margin-top: 0.25rem;
+  gap: 0.25rem;               /* Espaçamento compacto entre os links */
+  padding-left: 2.25rem;      /* Recuo à esquerda para simular hierarquia/subnível */
+  margin-top: 0.25rem;        /* Margem superior de separação */
 }
 
-.nav-links .nav-link {
-  display: block;
-  padding: 0.5rem 0.75rem;
-  color: var(--text-muted);
-  text-decoration: none;
-  font-size: 0.9rem;
-  border-radius: var(--radius);
-  transition: var(--transition);
+.nav-links .nav-link,
+.nav-links a {
+  display: block;             /* Ocupa a largura disponível para facilitar o clique */
+  padding: 0.5rem 0.75rem;    /* Espaçamento interno reduzido */
+  color: var(--text-muted);   /* Cor secundária para links */
+  text-decoration: none;      /* Remove sublinhado padrão de links */
+  font-size: 0.9rem;          /* Tamanho de fonte ligeiramente menor */
+  border-radius: var(--radius); /* Arredonda cantos do link ao interagir */
+  transition: var(--transition); /* Suaviza efeitos de hover */
 }
 
-.nav-links .nav-link:hover {
-  color: var(--accent);
-  background-color: var(--accent-light);
-}
-
+.nav-links .nav-link:hover,
 .nav-links a:hover {
-  color: var(--accent);
-  background-color: var(--accent-light);
+  color: var(--accent);       /* Altera a cor do texto para o destaque ao passar o mouse */
+  background-color: var(--accent-light); /* Aplica fundo translúcido suave */
 }
+
 
 /* ==========================================================================
-   3. CONTEÚDO PRINCIPAL (Main Content)
+   3. CONTEÚDO PRINCIPAL, WELCOME CARDS E RODAPÉ (Footer)
    ========================================================================== */
 #main-content {
-  flex-grow: 1;
-  display: flex;
+  flex-grow: 1;               /* Faz o container ocupar todo o espaço horizontal restante */
+  display: flex;              /* Organiza cabeçalho, conteúdo e rodapé em coluna */
   flex-direction: column;
-  min-width: 0;
-  min-height: 100vh; /* Garante que o container ocupe a tela toda */
+  min-width: 0;               /* Previne overflow em contextos flex */
+  min-height: 100vh;          /* Garante altura mínima de tela inteira */
 }
 
-/* Top Bar */
+/* Barra Superior (Top Bar) */
 #top-bar {
-  height: 65px;
-  background-color: var(--bg-sidebar);
-  border-bottom: 1px solid var(--border-color);
-  display: flex;
-  align-items: center;
-  padding: 0 2rem;
-  justify-content: space-between;
+  height: 65px;               /* Altura fixa padrão da barra superior */
+  background-color: var(--bg-sidebar); /* Cor de fundo correspondente à sidebar */
+  border-bottom: 1px solid var(--border-color); /* Linha inferior de separação */
+  display: flex;              /* Organiza elementos horizontalmente */
+  align-items: center;        /* Centraliza itens verticalmente */
+  padding: 0 2rem;            /* Espaçamento lateral interno */
+  justify-content: space-between; /* Separa itens para as extremidades (esquerda/direita) */
 }
 
 .icon-btn {
-  background: transparent;
-  font-size: 1.5rem;
-  color: var(--text-main);
-  cursor: pointer;
-  display: flex;
+  background: transparent;    /* Remove fundo padrão do botão */
+  font-size: 1.5rem;          /* Tamanho destacado para ícones de botão */
+  color: var(--text-main);    /* Cor principal para o ícone */
+  cursor: pointer;            /* Altera cursor para indicar clique */
+  display: flex;              /* Centraliza o conteúdo do botão */
   align-items: center;
   justify-content: center;
-  border-radius: var(--radius);
-  padding: 0.25rem;
+  border-radius: var(--radius); /* Arredonda cantos do botão */
+  padding: 0.25rem;           /* Pequeno padding interno para área de clique */
 }
 
 .icon-btn:hover {
-  background-color: var(--bg-main);
+  background-color: var(--bg-main); /* Efeito de fundo sutil ao passar o mouse */
 }
 
 .top-nav a {
-  text-decoration: none;
-  color: var(--text-muted);
-  font-weight: 500;
-  margin-left: 1.5rem;
-  font-size: 0.95rem;
-  transition: var(--transition);
+  text-decoration: none;      /* Remove sublinhado */
+  color: var(--text-muted);   /* Cor secundária padrão */
+  font-weight: 500;           /* Peso médio para links de navegação */
+  margin-left: 1.5rem;        /* Espaçamento à esquerda entre links consecutivos */
+  font-size: 0.95rem;         /* Tamanho de fonte intermediário */
+  transition: var(--transition); /* Transição suave de cores */
 }
 
-.top-nav a:hover, .top-nav a.active {
-  color: var(--accent);
+.top-nav a:hover, 
+.top-nav a.active {
+  color: var(--accent);       /* Altera para cor de destaque no hover ou estado ativo */
 }
 
-/* Área de Conteúdo Útil 
+/* Área Dinâmica de Conteúdo */
 #content-area {
-  padding: 2rem;
-  flex-grow: 1;
-}*/
-/* Área de Conteúdo Útil */
-#content-area {
-  padding: 2rem;
-  flex-grow: 1; /* Estica para empurrar o footer para a base da tela */
-  
-  /* Faz o conteúdo padrão alinhar no TOPO e esticar horizontalmente */
-  display: flex;
+  padding: 2rem;              /* Espaçamento interno geral da área de conteúdo */
+  flex-grow: 1;               /* Expande para empurrar o rodapé para a base da tela */
+  display: flex;              /* Organiza o conteúdo interno em coluna */
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: stretch;
+  justify-content: flex-start; /* Alinha os blocos a partir do topo */
+  align-items: stretch;       /* Estica os elementos para preencher a largura útil */
 }
 
+/* Cartão de Boas-Vindas */
 .welcome-card {
-  background-color: var(--bg-card);
-  padding: 2.5rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border-color);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-  max-width: 600px;
+  background-color: var(--bg-card); /* Fundo padrão de cards */
+  padding: 2.5rem;            /* Preenchimento interno espaçoso */
+  border-radius: var(--radius); /* Cantos arredondados */
+  border: 1px solid var(--border-color); /* Borda fina sutil */
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05); /* Sombra leve para profundidade */
+  max-width: 600px;           /* Limita a largura máxima do welcome card */
 }
 
 .welcome-card h1 {
-  font-size: 1.75rem;
-  margin-bottom: 0.5rem;
-  color: var(--text-main);
+  font-size: 1.75rem;         /* Título principal grande */
+  margin-bottom: 0.5rem;      /* Margem inferior para separar do parágrafo */
+  color: var(--text-main);    /* Cor principal de texto */
 }
 
 .welcome-card p {
-  color: var(--text-muted);
+  color: var(--text-muted);   /* Cor secundária para o subtítulo/descrição */
 }
 
-/* Helper para centralizar blocos horizontalmente */
-/* Centralizando Horizontalmente o coteúdo inicial */
-.wc-center{
-  margin-left: auto !important;
-  margin-right: auto !important;
+/* Utilitário para centralização horizontal */
+.wc-center {
+  margin-left: auto !important;  /* Força margem automática à esquerda */
+  margin-right: auto !important; /* Força margem automática à direita para centralizar */
 }
 
-/* Footer */
+/* Rodapé da Aplicação */
 #app-footer {
-  padding: 1.5rem 2rem;
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  border-top: 1px solid var(--border-color);
-  background-color: var(--bg-sidebar);
-  text-align: center;
+  padding: 1.5rem 2rem;       /* Espaçamento interno do rodapé */
+  font-size: 0.85rem;         /* Texto menor e discreto */
+  color: var(--text-muted);   /* Cor secundária para informações de rodapé */
+  border-top: 1px solid var(--border-color); /* Linha divisória superior */
+  background-color: var(--bg-sidebar); /* Fundo alinhado à barra lateral */
+  text-align: center;         /* Centraliza o texto de copyright/avisos */
 }
 
-/* Responsive (Colapso simples se necessário) */
-@media (max-width: 768px) {
-  #app-container { flex-direction: column; }
-  #sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border-color); }
-}
 
 /* ==========================================================================
-   4. COMPONENTES DE FERRAMENTAS (Formulários, Botões e Diff)
+   4. COMPONENTES DE FERRAMENTAS (Grids, Formulários, Botões e Diff)
    ========================================================================== */
-
 .tool-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
+  max-width: 1200px;          /* Limita largura máxima padrão de ferramentas */
+  margin: 0 auto;             /* Centraliza o container na tela */
+  display: flex;              /* Organiza cabeçalho, grids e ações em coluna */
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.5rem;                /* Espaçamento vertical entre blocos da ferramenta */
 }
 
 .tool-header h2 {
-  font-size: 1.5rem;
-  color: var(--text-main);
-  margin-bottom: 0.25rem;
+  font-size: 1.5rem;          /* Título da ferramenta destacado */
+  color: var(--text-main);    /* Cor principal de texto */
+  margin-bottom: 0.25rem;     /* Pequeno respiro inferior */
 }
 
 .tool-header p {
-  color: var(--text-muted);
-  font-size: 0.95rem;
+  color: var(--text-muted);   /* Descrição explicativa em cor secundária */
+  font-size: 0.95rem;         /* Tamanho de fonte legível */
 }
 
-/* Grid Inteligente Lado a Lado */
+/* Grid Inteligente Adaptável */
 .tool-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
+  display: grid;              /* Ativa layout em grid CSS */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Colunas responsivas automáticas (mínimo 300px) */
+  gap: 1.5rem;                /* Espaçamento entre os itens da grid */
 }
 
 .field-group {
-  display: flex;
+  display: flex;              /* Organiza label e input em coluna */
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 0.5rem;                /* Espaçamento entre o rótulo e o campo de formulário */
 }
 
 .field-group label {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--text-main);
+  font-size: 0.9rem;          /* Tamanho compacto para rótulos */
+  font-weight: 600;           /* Negrito para dar destaque ao nome do campo */
+  color: var(--text-main);    /* Cor principal para legibilidade */
 }
 
-/* Estilização dos Textareas Profissionais */
+/* Textareas específicos das ferramentas */
 .tool-container textarea {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  background-color: var(--bg-card);
-  color: var(--text-main);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 0.9rem;
-  resize: vertical;
-  transition: var(--transition);
+  width: 100%;                /* Ocupa toda a largura disponível no container */
+  padding: 0.75rem 1rem;      /* Espaçamento interno confortável para escrita */
+  border: 1px solid var(--border-color); /* Borda padrão delimitadora */
+  border-radius: var(--radius); /* Cantos arredondados */
+  background-color: var(--bg-card); /* Fundo correspondente ao card */
+  color: var(--text-main);    /* Cor de texto principal digitado */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; /* Fonte monoespaçada para códigos/textos brutos */
+  font-size: 0.9rem;          /* Tamanho de fonte otimizado para leitura de dados */
+  resize: vertical;           /* Permite redimensionamento apenas na vertical */
+  transition: var(--transition); /* Transição suave para foco */
 }
 
 .tool-container textarea:focus {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--accent-light);
+  border-color: var(--accent); /* Altera a cor da borda para destaque ao focar */
+  box-shadow: 0 0 0 3px var(--accent-light); /* Aplica efeito de brilho/halo de foco ao redor */
 }
 
-/* Botões Customizados */
+/* Barra de Ações e Botões */
 .action-bar {
-  display: flex;
-  gap: 0.75rem;
-  align-items: center;
+  display: flex;              /* Organiza botões em linha */
+  gap: 0.75rem;               /* Espaçamento horizontal entre múltiplos botões */
+  align-items: center;        /* Alinha botões verticalmente ao centro */
 }
 
 .btn {
-  display: inline-flex;
+  display: inline-flex;       /* Alinha ícones e textos internos de forma flexível */
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.625rem 1.25rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  border-radius: var(--radius);
-  cursor: pointer;
-  transition: var(--transition);
+  gap: 0.5rem;                /* Espaçamento entre ícone e texto do botão */
+  padding: 0.625rem 1.25rem;  /* Espaçamento interno equilibrado */
+  font-size: 0.9rem;          /* Tamanho padrão de texto de botão */
+  font-weight: 500;           /* Peso médio para boa legibilidade */
+  border-radius: var(--radius); /* Cantos arredondados padrão */
+  cursor: pointer;            /* Indica interatividade ao passar o mouse */
+  transition: var(--transition); /* Transição suave para hover e cores */
 }
 
 .btn-primary {
-  background-color: var(--accent);
-  color: #ffffff;
+  background-color: var(--accent); /* Cor de fundo primária de destaque */
+  color: #ffffff;             /* Texto em branco fixo para contraste ideal */
 }
 
 .btn-primary:hover {
-  background-color: var(--accent-hover);
+  background-color: var(--accent-hover); /* Escurece/altera levemente no hover */
 }
 
 .btn-secondary {
-  background-color: transparent;
-  color: var(--text-muted);
-  border: 1px solid var(--border-color);
+  background-color: transparent; /* Fundo transparente para botão secundário */
+  color: var(--text-muted);   /* Texto em cor secundária */
+  border: 1px solid var(--border-color); /* Borda discreta delimitadora */
 }
 
 .btn-secondary:hover {
-  background-color: var(--bg-main);
-  color: var(--text-main);
+  background-color: var(--bg-main); /* Preenche com fundo sutil ao passar o mouse */
+  color: var(--text-main);    /* Torna o texto principal mais nítido */
 }
 
 /* Cards de Resultado Minimalistas */
 .result-card {
-  background: var(--bg-card);
-  border-radius: var(--radius);
-  border: 1px solid var(--border-color);
-  overflow: hidden;
+  background: var(--bg-card); /* Fundo padrão de cards */
+  border-radius: var(--radius); /* Cantos arredondados */
+  border: 1px solid var(--border-color); /* Borda fina divisória */
+  overflow: hidden;           /* Oculta elementos que vazem os limites arredondados */
 }
 
 .result-card .card-header {
-  padding: 0.75rem 1rem;
-  font-size: 0.9rem;
-  font-weight: 600;
+  padding: 0.75rem 1rem;      /* Espaçamento interno do cabeçalho do card */
+  font-size: 0.9rem;          /* Tamanho de fonte compacto */
+  font-weight: 600;           /* Negrito para reforçar o título do resultado */
 }
 
-/* Cores Sutis de Alerta para os Cards (Padrão SaaS Moderno) */
+/* Cores de Alerta Customizadas para Cards (Sucesso/Erro) */
 .card-danger .card-header {
-  background-color: #fef2f2;
-  color: #991b1b;
-  border-bottom: 1px solid #fca5a5;
+  background-color: #fef2f2;  /* Fundo vermelho bem claro para alertas de erro */
+  color: #991b1b;             /* Texto em vermelho escuro contrastante */
+  border-bottom: 1px solid #fca5a5; /* Linha inferior avermelhada sutil */
 }
 
 .card-success .card-header {
-  background-color: #f0fdf4;
-  color: #166534;
-  border-bottom: 1px solid #86efac;
+  background-color: #f0fdf4;  /* Fundo verde bem claro para alertas de sucesso */
+  color: #166534;             /* Texto em verde escuro contrastante */
+  border-bottom: 1px solid #86efac; /* Linha inferior esverdeada sutil */
 }
 
 .result-card .card-body {
-  padding: 1rem;
+  padding: 1rem;              /* Espaçamento interno da área de corpo do resultado */
 }
 
-/* Customização Cirúrgica do Diff */
+/* Caixa de Visualização de Diferenças (Diff) */
 .diff-box {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 0.9rem;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-  line-height: 1.6;
-  min-height: 150px;
-  max-height: 400px;
-  overflow-y: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; /* Fonte monoespaçada para comparação de código/texto */
+  font-size: 0.9rem;          /* Tamanho de leitura ideal para blocos de diff */
+  white-space: pre-wrap;      /* Preserva quebras de linha e espaços em branco originais */
+  word-wrap: break-word;      /* Quebra palavras longas para evitar estourar o container */
+  line-height: 1.6;           /* Espaçamento entrelinhas confortável para auditoria visual */
+  min-height: 150px;          /* Altura mínima garantida para a caixa de diff */
+  max-height: 400px;          /* Altura máxima com barra de rolagem interna */
+  overflow-y: auto;           /* Ativa rolagem vertical automática se o conteúdo exceder */
 }
 
-/* Marcações muito mais limpas visualmente */
+/* Estilos de remoção/inserção no Diff */
 .diff-box del {
-  background-color: #fee2e2;
-  color: #991b1b;
-  text-decoration: none;
-  padding: 0.125rem 0.25rem;
-  border-radius: 4px;
+  background-color: #fee2e2;  /* Fundo avermelhado para trechos removidos */
+  color: #991b1b;             /* Texto em tom de vermelho escuro */
+  text-decoration: none;      /* Remove o tachado padrão de tags <del> */
+  padding: 0.125rem 0.25rem;  /* Pequeno espaçamento interno em volta do texto alterado */
+  border-radius: 4px;         /* Cantos levemente arredondados na marcação */
 }
 
 .diff-box ins {
-  background-color: #dcfce7;
-  color: #166534;
-  text-decoration: none;
-  padding: 0.125rem 0.25rem;
-  border-radius: 4px;
+  background-color: #dcfce7;  /* Fundo esverdeado para trechos adicionados/inseridos */
+  color: #166534;             /* Texto em tom de verde escuro */
+  text-decoration: none;      /* Remove sublinhado padrão de tags <ins> */
+  padding: 0.125rem 0.25rem;  /* Pequeno espaçamento interno em volta do texto inserido */
+  border-radius: 4px;         /* Cantos levemente arredondados na marcação */
 }
 
 .diff-box span.unchanged {
-  color: var(--text-muted);
+  color: var(--text-muted);   /* Cor secundária atenuada para trechos sem alterações */
 }
 
-/* Helper Utilitário */
+/* Helper Utilitário Global */
 .hidden {
-  display: none !important;
+  display: none !important;   /* Força ocultação total de qualquer elemento com esta classe */
 }
 
-/* ==========================================================================
-   5. COMPORTAMENTO DO BOTÃO TOGGLE (SCRIPT)
-   ========================================================================== */
 
-/* Garante a transição suave para a sidebar encolher */
+/* ==========================================================================
+   5. COMPORTAMENTOS DINÂMICOS E SCRIPTS DE INTERFACE
+   ========================================================================== */
+/* Transição fluida para o encolhimento da barra lateral */
 #sidebar {
-  transition: margin-left 0.25s ease-in-out, background-color 0.2s, border-color 0.2s;
+  transition: margin-left 0.25s ease-in-out, background-color 0.2s, border-color 0.2s; /* Animação suave para encolhimento e troca de tema */
 }
 
-/* Quando a classe 'sidebar-hidden' for injetada no container, joga a sidebar para fora */
+/* Oculta a sidebar deslocando-a para a esquerda via margem negativa */
 #app-container.sidebar-hidden #sidebar {
-  margin-left: calc(-1 * var(--sidebar-width)) !important;
+  margin-left: calc(-1 * var(--sidebar-width)) !important; /* Empurra a sidebar inteira para fora da tela */
 }
 
-/* Evita que o ícone intercepte o clique do botão */
-#sidebarToggle i {
-  pointer-events: none !important;
-}
-
-
-/* Garante que cliques dentro de botões peguem o botão e não os ícones internos */
+/* Evita interceptação de cliques indesejados em ícones internos */
+#sidebarToggle i,
 .btn i, 
-.btn span {
-  pointer-events: none;
-}
-
-
-/* PARA MENU LATERAL */
+.btn span,
 .icon-btn i {
-  pointer-events: none;
+  pointer-events: none !important; /* Desativa eventos do mouse em ícones para garantir clique no elemento pai */
 }
 
 
 /* ==========================================================================
-   6. DARK MODE
+   6. REGRAS GLOBAIS E AJUSTES ESPECÍFICOS PARA O MODO ESCURO (DARK MODE)
    ========================================================================== */
-
-/* Garante que inputs, selects e textareas de QUALQUER página sigam o tema */
+/* Uniformização de inputs no Dark Mode */
 body.dark-mode input,
 body.dark-mode select,
 body.dark-mode textarea {
-  background-color: var(--bg-sidebar); /* Ou var(--bg-main), o que preferir */
-  color: var(--text-main);
-  border: 1px solid var(--border-color);
+  background-color: var(--bg-sidebar); /* Fundo escuro adaptado para inputs no tema escuro */
+  color: var(--text-main);    /* Texto claro principal */
+  border: 1px solid var(--border-color); /* Borda escura sutil */
 }
 
-/* Ajuste para que as opções de dentro do select também fiquem escuras no Chrome/Edge/Firefox */
+/* Dropdowns e opções no tema escuro */
 body.dark-mode select option {
-  background-color: var(--bg-sidebar);
-  color: var(--text-main);
+  background-color: var(--bg-sidebar); /* Fundo escuro para opções nativas do select */
+  color: var(--text-main);    /* Texto legível claro nas opções */
 }
 
-/* Melhora o contraste dos placeholders (textos de dica internos) no modo escuro */
+/* Ajuste de contraste para placeholders no escuro */
 body.dark-mode ::placeholder {
-  color: var(--text-muted);
-  opacity: 0.8;
+  color: var(--text-muted);   /* Cor atenuada secundária para textos de dica */
+  opacity: 0.8;               /* Opacidade controlada para suavizar o placeholder */
 }
 
+/* Estilo padrão de botões no escuro */
 button {
-  background-color: var(--bg-sidebar); 
-  color: var(--text-main);
-  border: 1px solid var(--border-color);
+  background-color: var(--bg-sidebar); /* Fundo padrão escuro para botões nativos */
+  color: var(--text-main);    /* Texto claro */
+  border: 1px solid var(--border-color); /* Borda delimitadora escura */
 }
 
-/* === Ajuste para a Pré-visualização do PDF no Modo Escuro === */
+/* Ajustes cirúrgicos para pré-visualização de PDFs no Modo Escuro */
 body.dark-mode .pdf-preview-container {
-    background-color: var(--bg-main); /* Destaca a folha do fundo usando as variáveis do tema */
+    background-color: var(--bg-main); /* Fundo geral adaptado para o modo escuro */
 }
 
 body.dark-mode .pdf-page-preview {
-    background-color: var(--bg-sidebar) !important; /* Transforma a folha em escura */
-    color: var(--text-main) !important;             /* Texto principal claro */
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);      /* Sombra mais densa para dar profundidade no escuro */
+    background-color: var(--bg-sidebar) !important; /* Transforma o fundo da página de PDF em escuro */
+    color: var(--text-main) !important;            /* Texto claro principal dentro do PDF pré-visualizado */
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);      /* Sombra mais densa e profunda para destaque no escuro */
 }
 
-/* Garante que tabelas e códigos dentro da preview fiquem legíveis no modo escuro */
 body.dark-mode .pdf-page-preview th {
-    background-color: var(--bg-main) !important;
-    color: var(--text-main) !important;
-    border-color: var(--border-color) !important;
+    background-color: var(--bg-main) !important; /* Cabeçalho de tabela escuro no PDF */
+    color: var(--text-main) !important;          /* Texto do cabeçalho claro */
+    border-color: var(--border-color) !important; /* Linhas de tabela escuras */
 }
 
 body.dark-mode .pdf-page-preview td {
-    border-color: var(--border-color) !important;
+    border-color: var(--border-color) !important; /* Linhas de células de tabela escuras */
 }
 
 body.dark-mode .pdf-page-preview code {
-    background-color: var(--bg-main) !important;
-    color: var(--accent) !important;
+    background-color: var(--bg-main) !important; /* Fundo de trecho de código escuro */
+    color: var(--accent) !important;            /* Cor de destaque para códigos no PDF */
 }
 
+
 /* ==========================================================================
-   7. ALERTA FLUTUANTE MODERNO DE CÓPIA
+   7. ALERTA FLUTUANTE MODERNO DE CÓPIA (TOAST)
    ========================================================================== */
 .toast-alert {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: #166534;
-  background-color: #eefaf2;
-  padding: 0.4rem 0.8rem;
-  border-radius: var(--radius);
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  animation: fadeIn 0.2s ease-in-out;
+  font-size: 0.85rem;         /* Tamanho de fonte compacto e discreto */
+  font-weight: 500;           /* Peso médio para legibilidade */
+  color: #166534;             /* Texto em verde escuro indicando sucesso */
+  background-color: #eefaf2;  /* Fundo verde bem claro para o alerta flutuante */
+  padding: 0.4rem 0.8rem;     /* Espaçamento interno compacto */
+  border-radius: var(--radius); /* Cantos arredondados */
+  display: inline-flex;       /* Organiza ícone e texto em linha flexível */
+  align-items: center;        /* Alinha verticalmente os itens do toast */
+  gap: 0.4rem;                /* Espaçamento pequeno entre ícone e mensagem */
+  animation: fadeIn 0.2s ease-in-out; /* Animação suave de surgimento na tela */
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { 
+    opacity: 0;               /* Começa totalmente transparente */
+    transform: translateY(5px); /* Inicia ligeiramente deslocado para baixo */
+  }
+  to { 
+    opacity: 1;               /* Termina totalmente visível */
+    transform: translateY(0);   /* Posiciona na coordenada original */
+  }
 }
 
-/* ==========================================================================
-   8. USAR WORKSPACE LARGO NA PARTE CENTRAL DA PÁGINA
-   ========================================================================== */
 
-/* Força o contêiner principal desta ferramenta a ocupar quase toda a largura da tela */
+/* ==========================================================================
+   8. WORKSPACE LARGO (LAYOUTS EXPANDIDOS)
+   ========================================================================== */
+/* Força ferramentas específicas a ocuparem largura estendida */
 .tool-container:has(.workspace-largo) {
-  max-width: 1200px !important; /* Aumenta o limite máximo de 600px/700px para 1200px */
-  width: 95% !important;
-  margin: 0 auto !important;
+  max-width: 1200px !important; /* Expande o limite máximo padrão para 1200px */
+  width: 95% !important;        /* Ocupa 95% da largura disponível da tela */
+  margin: 0 auto !important;    /* Mantém centralizado horizontalmente */
 }
 
-/* Garante que o workspace use todo o novo espaço liberado */
 .workspace-largo {
-  max-width: 800% !important;
-  width: 80% !important;
-  padding: 1.5rem !important;
+  max-width: 800% !important;   /* Limite expandido em porcentagem extrema para liberdade de layout */
+  width: 80% !important;        /* Define largura de 80% para o workspace interno */
+  padding: 1.5rem !important;   /* Preenchimento interno espaçoso */
 }
 
-/* Força os textareas a preencherem as novas colunas gigantes */
 .workspace-largo .tool-grid {
-  grid-template-columns: repeat(2, 1fr) !important;
-  width: 100% !important;
+  grid-template-columns: repeat(2, 1fr) !important; /* Força exatamente duas colunas de tamanhos iguais */
+  width: 100% !important;       /* Ocupa 100% da largura do workspace */
 }
 
 
 /* ==========================================================================
-   9. REPRESENTAÇÂO DOS INPUTS
+   9. REPRESENTAÇÃO E PADRONIZAÇÃO DOS INPUTS
    ========================================================================== */
-
-/* Aplica o design visual moderno e ajustado */
-input[type="text"], input[type="number"], select, textarea {
-  width: 100%;
-  padding: 0.5rem 0.85rem; /* Diminuído de 0.75rem para 0.5rem (mais fino) */
-  border-radius: 6px;      /* Cantos ligeiramente menos arredondados para combinar com a espessura */
-  background-color: #ffffff;
-  color: #333333;
-  border: 1px solid #e2e8f0;
-  margin-bottom: 1rem;     /* Espaçamento essencial para NÃO colar no elemento de baixo */
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+input[type="text"], 
+input[type="number"], 
+select, 
+textarea {
+  width: 100%;                /* Ocupa toda a largura do container pai */
+  padding: 0.5rem 0.85rem;    /* Espaçamento interno reduzido para um visual mais fino e refinado */
+  border-radius: 6px;         /* Cantos arredondados proporcionais ao tamanho mais fino */
+  background-color: #ffffff;  /* Fundo branco padrão no tema claro */
+  color: #333333;             /* Cor de texto escura padrão */
+  border: 1px solid #e2e8f0;    /* Borda cinza clara sutil */
+  margin-bottom: 1rem;        /* Margem inferior essencial para evitar colagem com elementos abaixo */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Transições suaves para foco e hover */
 }
 
-/* Efeito Hover (Modo Claro) */
-input[type="text"]:hover, input[type="number"]:hover, select:hover, textarea:hover {
-  border-color: #cbd5e1;
+/* Estados de Hover em Inputs (Modo Claro) */
+input[type="text"]:hover, 
+input[type="number"]:hover, 
+select:hover, 
+textarea:hover {
+  border-color: #cbd5e1;      /* Escurece levemente a borda ao passar o mouse */
 }
 
-/* Efeito Focus/Clique (Funciona em ambos os modos) */
-input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:focus {
-  border-color: #3b82f6 !important; 
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15); 
+/* Estados de Focus / Foco em Inputs */
+input[type="text"]:focus, 
+input[type="number"]:focus, 
+select:focus, 
+textarea:focus {
+  border-color: #3b82f6 !important; /* Altera a borda para azul de foco destacado */
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15); /* Adiciona anel de foco translúcido ao redor */
 }
 
-/* 2. Garante que inputs, selects e textareas de QUALQUER página sigam o tema (Dark Mode) */
-body.dark-mode input[type="text"], input[type="number"],
+/* Sobrescrita de inputs no Dark Mode */
+body.dark-mode input[type="text"], 
+body.dark-mode input[type="number"],
 body.dark-mode select,
 body.dark-mode textarea {
-  background-color: var(--bg-sidebar); 
-  color: var(--text-main);
-  border: 1px solid var(--border-color);
+  background-color: var(--bg-sidebar); /* Fundo escuro adaptado para campos no modo escuro */
+  color: var(--text-main);    /* Texto claro principal */
+  border: 1px solid var(--border-color); /* Borda escura sutil */
 }
 
-/* Efeito Hover (Dark Mode) */
-body.dark-mode input[type="text"]:hover, input[type="number"]:hover,
+body.dark-mode input[type="text"]:hover, 
+body.dark-mode input[type="number"]:hover,
 body.dark-mode select:hover, 
 body.dark-mode textarea:hover {
-  border-color: var(--text-muted, #64748b);
+  border-color: var(--text-muted, #64748b); /* Altera cor da borda no hover escuro */
 }
 
 
 /* ==========================================================================
-   10. ALINHAMENTO E ESTILIZAÇÃO DOS SELETORES DE COR
+   10. ALINHAMENTO E ESTILIZAÇÃO DOS SELETORES DE COR (COLOR PICKERS)
    ========================================================================== */
-
-/* Agrupador que mantém o Color Picker e o Input HEX na mesma linha */
 .input-group-color,
 .seletor-cor-container {
-  display: flex !important;
-  align-items: center !important; /* Alinha o picker e o texto verticalmente pelo centro */
-  gap: 0.5rem;
+  display: flex !important;     /* Força layout flexível para agrupar elementos */
+  align-items: center !important; /* Alinhamento vertical centralizado do seletor e inputs */
+  gap: 0.5rem;                  /* Espaçamento horizontal entre o seletor visual e o campo de texto */
 }
 
-/* Estilização Moderna do Input de Cor */
+/* Estilização personalizada para inputs do tipo cor */
 input[type="color"] {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  width: 36px;
-  height: 36px;
-  padding: 0;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  cursor: pointer;
-  background: none;
-  flex-shrink: 0;
-  margin-bottom: 1rem; /* Mantém a mesma margem inferior que seus outros inputs têm */
+  -webkit-appearance: none;     /* Remove o estilo nativo de caixas de cor do Safari/Chrome */
+  -moz-appearance: none;        /* Remove o estilo nativo de caixas de cor do Firefox */
+  appearance: none;             /* Remove estilizações padrão de plataforma */
+  width: 36px;                  /* Largura fixa proporcional para a caixa de cor */
+  height: 36px;                 /* Altura fixa proporcional para a caixa de cor */
+  padding: 0;                   /* Remove preenchimentos internos nativos */
+  border: 1px solid var(--border-color); /* Borda padrão delimitadora da caixinha */
+  border-radius: 6px;           /* Cantos arredondados na caixa de cor */
+  cursor: pointer;              /* Altera o cursor para indicar clique/seleção */
+  background: none;             /* Remove fundo padrão */
+  flex-shrink: 0;               /* Impede que o seletor encolha em contextos flex */
+  margin-bottom: 1rem;          /* Mantém o espaçamento inferior padrão alinhado com outros inputs */
 }
 
-/* Garante o preenchimento arredondado da cor dentro da caixinha nos navegadores */
+/* Suporte de customização interna do swatch de cor para navegadores WebKit/Mozilla */
 input[type="color"]::-webkit-color-swatch-wrapper {
-  padding: 2px;
+  padding: 2px;                 /* Controla o espaçamento interno do quadrado colorido */
 }
 
 input[type="color"]::-webkit-color-swatch {
-  border: none;
-  border-radius: 4px;
+  border: none;                 /* Remove borda interna do swatch no WebKit */
+  border-radius: 4px;           /* Arredonda os cantos internos da cor exibida */
 }
 
 input[type="color"]::-moz-color-swatch {
-  border: none;
-  border-radius: 4px;
+  border: none;                 /* Remove borda interna do swatch no Firefox */
+  border-radius: 4px;           /* Arredonda os cantos internos da cor exibida */
 }
 
-/* Ajuste fino para Dark Mode */
+/* Ajuste de borda no Dark Mode */
 body.dark-mode input[type="color"] {
-  border-color: var(--border-color);
+  border-color: var(--border-color); /* Adapta a cor da borda ao tema escuro */
 }
