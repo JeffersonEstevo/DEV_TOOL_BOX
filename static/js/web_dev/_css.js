@@ -327,18 +327,11 @@ window.atualizarCSSPreview = function() {
         caixaCodigo.value = window.gerarTemplateCSS(hexPrimary, hexSecondary, hexBg, ffRegular, radius);
     }
 
-    // 2. Atualiza as variáveis inline do container de visualização (Isolado)
+    // 2. Atualiza as variáveis inline do container de visualização
     const previewContainer = document.getElementById('container-preview-css-base');
     if (previewContainer) {
         const pRgb = window.hexToRgbValues(hexPrimary);
         const sRgb = window.hexToRgbValues(hexSecondary);
-        const bgRgb = window.hexToRgbValues(hexBg);
-
-        // Calcula a luminância para ajustar automaticamente o contraste do texto e superfície
-        const yiq = (bgRgb.r * 299 + bgRgb.g * 587 + bgRgb.b * 114) / 1000;
-        const textColor = yiq >= 128 ? '#0f172a' : '#f8fafc';
-        const surfaceColor = yiq >= 128 ? '#ffffff' : 'rgba(255, 255, 255, 0.05)';
-        const borderColor = yiq >= 128 ? '#e2e8f0' : 'rgba(255, 255, 255, 0.15)';
 
         previewContainer.style.setProperty('--clr-primary-base', hexPrimary);
         previewContainer.style.setProperty('--clr-primary-light', `rgba(${pRgb.r}, ${pRgb.g}, ${pRgb.b}, 0.12)`);
@@ -347,12 +340,7 @@ window.atualizarCSSPreview = function() {
         previewContainer.style.setProperty('--clr-secondary-light', `rgba(${sRgb.r}, ${sRgb.g}, ${sRgb.b}, 0.12)`);
         
         previewContainer.style.setProperty('--clr-bg', hexBg);
-        previewContainer.style.setProperty('--clr-text', textColor);
-        previewContainer.style.setProperty('--clr-surface', surfaceColor);
-        previewContainer.style.setProperty('--clr-gray-lt', borderColor);
-        
         previewContainer.style.setProperty('--ff-regular', ffRegular);
-        previewContainer.style.setProperty('--ff-headings', ffRegular);
         previewContainer.style.setProperty('--br-base', radius);
     }
 };
