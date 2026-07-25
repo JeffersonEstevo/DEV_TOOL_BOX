@@ -1,0 +1,85 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Gerador de Números Aleatórios</h2>
+        <p>Gere números inteiros personalizados definindo quantidade, intervalo, ordenação e exclusividade.</p>
+    </header>
+
+    <!-- WORKSPACE MAIS LARGO E FLEXÍVEL -->
+    <div class="generator-workspace numero-workspace">
+            <div class="generator-options" style="display: flex; flex-direction: column; gap: 0.75rem; text-align: left;">
+            
+            <!-- Quantidade e Intervalo -->
+            <div style="display: flex; gap: 0.75rem; justify-content: space-between;">
+                <div style="flex: 1;">
+                    <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-main); display: block; margin-bottom: 0.2rem;">Qtd</label>
+                    <input type="number" id="num-quantidade" value="10" min="1" max="5000">
+                </div>
+                <div style="flex: 1;">
+                    <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-main); display: block; margin-bottom: 0.2rem;">Mín (De)</label>
+                    <input type="number" id="num-minimo" value="1">
+                </div>
+                <div style="flex: 1;">
+                    <label style="font-size: 0.8rem; font-weight: 600; color: var(--text-main); display: block; margin-bottom: 0.2rem;">Máx (Até)</label>
+                    <input type="number" id="num-maximo" value="100">
+                </div>
+            </div>
+
+            <!-- Opções Adicionais -->
+            <div style="display: flex; flex-direction: column; gap: 0.6rem;">
+                <label class="checkbox-container" style="font-size: 0.85rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer;">
+                    <input type="checkbox" id="num-unicos">
+                    <span class="checkmark"></span>
+                    Não repetir números (únicos)
+                </label>
+
+                <!-- Bloco alinhado exatamente como .percent-inline-inputs -->
+                <div class="num-inline-inputs" style="display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; flex: 1; min-width: 200px;">
+                        <span style="font-size: 0.95rem; color: var(--text-main); font-weight: 500; display: inline-flex; align-items: center; white-space: nowrap;">Ordem:</span>
+                        <select id="num-ordenacao" style="flex: 1; padding: 0.5rem 0.6rem; background: var(--bg-main); border: 1px solid var(--border-color); border-radius: var(--radius); color: var(--text-main); font-size: 0.95rem; margin: 0;">
+                            <option value="nenhuma">Sorteio</option>
+                            <option value="crescente">Crescente</option>
+                            <option value="decrescente">Decrescente</option>
+                        </select>
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: 0.5rem; flex: 1; min-width: 200px;">
+                        <span style="font-size: 0.95rem; color: var(--text-main); font-weight: 500; display: inline-flex; align-items: center; white-space: nowrap;">Exibição:</span>
+                        <select id="num-formato" style="flex: 1; padding: 0.5rem 0.6rem; background: var(--bg-main); border: 1px solid var(--border-color); border-radius: var(--radius); color: var(--text-main); font-size: 0.95rem; margin: 0;">
+                            <option value="tabela">Tabela</option>
+                            <option value="lista">Lista (CSV)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quadro com altura inicial maior e scroll sob demanda -->
+        <div class="generator-output-box" style="margin-top: 0.75rem;">
+            <div id="num-painel-resultado" class="num-painel-expandido">
+                <span style="opacity: 0.6; font-size: 0.9rem;">Aguardando geração...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Barra de Ações Centralizada com Toast Lateral Absoluto -->
+    <div class="action-bar border-top-bar" style="position: relative !important; justify-content: center !important;">
+        <div class="grupo-acoes" style="display: flex; gap: 0.5rem; align-items: center; justify-content: center;">
+            <button id="btn-gerar-numero" class="btn btn-primary">
+                <i class="bi bi-123"></i> Gerar Números
+            </button>
+            <button id="btn-copiar-numero" class="btn btn-success">
+                <i class="bi bi-clipboard"></i> Copiar
+            </button>
+            <button id="btn-limpar-numero" class="btn btn-secondary" style="background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border-color);">
+                <i class="bi bi-trash3-fill"></i> Limpar
+            </button>
+        </div>
+        
+        <span id="num-generator-alert" class="toast-alert hidden">
+            <i class="bi bi-check-circle-fill"></i> Copiado!
+        </span>
+    </div>
+</div>
+
+<script src="static/js/geradores/gerar_numero.js"></script>

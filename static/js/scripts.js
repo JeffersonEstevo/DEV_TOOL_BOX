@@ -646,6 +646,36 @@ document.addEventListener("click", function (event) {
         window.copiarTextoDeElemento('array-resultado', 'array-generator-alert');
     }
 
+    // === 03. GERADORES - 09. Gerar/Visualizar Números ===
+    if (event.target.closest('#btn-gerar-numero')) {
+        event.preventDefault();
+        if (typeof dispararGeracaoNumeros === "function") dispararGeracaoNumeros();
+    }
+    if (event.target.closest('#btn-copiar-numero')) {
+        event.preventDefault();
+        const formato = document.getElementById("num-formato")?.value;
+        
+        let textoParaCopiar = "";
+        if (formato === 'lista') {
+            textoParaCopiar = ultimosNumerosGerados.join(', ');
+        } else {
+            // Copia os números em formato de tabela divididos por tabulação/espaçamento limpo
+            textoParaCopiar = ultimosNumerosGerados.join(' ');
+        }
+        
+        navigator.clipboard.writeText(textoParaCopiar).then(() => {
+            const alertEl = document.getElementById('num-generator-alert');
+            if (alertEl) {
+                alertEl.classList.remove('hidden');
+                setTimeout(() => alertEl.classList.add('hidden'), 2000);
+            }
+        });
+    }
+    if (event.target.closest('#btn-limpar-numero')) {
+        event.preventDefault();
+        if (typeof resetarGeradorNumeros === "function") resetarGeradorNumeros();
+    }
+
     // === 04. CONVERSORES - 01. Comprimento ===
     if (event.target.closest('#btn-limpar-comprimento')) {
         event.preventDefault();

@@ -1,0 +1,91 @@
+/* ==========================================================================
+   === 03. GERADORES - 09. Gerar Números Aleatórios ===
+   ========================================================================== */
+
+.tool-container .numero-workspace {
+    background-color: var(--bg-sidebar);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin: 0 auto 1.5rem auto;
+    text-align: center;
+    width: 100% !important;
+    max-width: 680px !important;
+}
+
+.tool-container .numero-workspace input[type="number"] {
+    width: 100% !important;
+    padding: 0.5rem 0.6rem !important;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    text-align: center;
+    font-size: 0.95rem !important;    
+    font-weight: 600 !important;
+    color: var(--text-main);
+    box-sizing: border-box;
+    margin: 0;
+}
+
+/* Alinhamento dos inputs inline com os textos seguindo o padrão porcentagem.css */
+.num-inline-inputs {
+    display: flex;
+    align-items: center; /* Centraliza verticalmente labels e inputs lado a lado */
+    gap: 0.6rem;
+    flex: 1;
+}
+
+.num-inline-inputs label {
+    font-size: 0.85rem;
+    color: var(--text-main);
+    font-weight: 600;
+    white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+}
+
+.num-inline-inputs select {
+    width: 100%;
+    padding: 0.5rem 0.6rem;
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    color: var(--text-main);
+    font-size: 0.95rem;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+/* Painel expandido com scroll sob demanda */
+.num-painel-expandido {
+    min-height: 120px;
+    max-height: 360px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    background: var(--bg-main);
+    padding: 0.85rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+/* Tratamento do Toast Absoluto lateral sem cobrir os botões */
+.tool-container .action-bar {
+    position: relative !important;
+    justify-content: center !important;
+}
+
+.tool-container .toast-alert {
+    position: absolute !important;
+    right: 1.5rem !important;
+    pointer-events: none;
+}
+
+.action-bar .grupo-acoes {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+}
