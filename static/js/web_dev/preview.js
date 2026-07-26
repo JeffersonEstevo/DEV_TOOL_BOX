@@ -1,11 +1,11 @@
 // ==========================================
-// MÓDULO DE LIVE PREVIEW (HTML / CSS)
+// MÓDULO DE LIVE PREVIEW (HTML / CSS / JS)
 // ==========================================
 
-// Torna a função de renderização global para uso em botões e no scripts.js
 window.renderizarLivePreview = function() {
     const htmlCodigo = document.getElementById('live-html-input')?.value || '';
     const cssCodigo = document.getElementById('live-css-input')?.value || '';
+    const jsCodigo = document.getElementById('live-js-input')?.value || '';
     const iframe = document.getElementById('live-preview-frame');
 
     if (!iframe) return;
@@ -23,11 +23,28 @@ window.renderizarLivePreview = function() {
         </head>
         <body>
             ${htmlCodigo}
+            <script>
+                // Aguarda o DOM interno do iframe carregar para evitar erros de elemento nulo
+                document.addEventListener("DOMContentLoaded", () => {
+                    try {
+                        ${jsCodigo}
+                    } catch (erro) {
+                        console.error("Erro no script do usuário: ", erro);
+                    }
+                });
+                // Caso o DOM já tenha disparado
+                if (document.readyState === "complete" || document.readyState === "interactive") {
+                    try {
+                        ${jsCodigo}
+                    } catch (erro) {
+                        console.error("Erro no script do usuário: ", erro);
+                    }
+                }
+            </script>
         </body>
         </html>
     `;
 
-    // srcdoc é mais eficiente e resiliente contra estouro de limite de caracteres
     iframe.srcdoc = documentoCompleto;
 };
 
@@ -35,6 +52,7 @@ window.renderizarLivePreview = function() {
 window.abrirPreviewNovaAba = function() {
     const htmlCodigo = document.getElementById('live-html-input')?.value || '';
     const cssCodigo = document.getElementById('live-css-input')?.value || '';
+    const jsCodigo = document.getElementById('live-js-input')?.value || '';
 
     const documentoCompleto = `
         <!DOCTYPE html>
@@ -50,6 +68,13 @@ window.abrirPreviewNovaAba = function() {
         </head>
         <body>
             ${htmlCodigo}
+            <script>
+                try {
+                    ${jsCodigo}
+                } catch (erro) {
+                    console.error("Erro no script do usuário: ", erro);
+                }
+            </script>
         </body>
         </html>
     `;
@@ -78,48 +103,47 @@ window.abrirPreviewNovaAba = function() {
 window.inicializarLivePreview = function() {
     const htmlInput = document.getElementById('live-html-input');
     const cssInput = document.getElementById('live-css-input');
+    const jsInput = document.getElementById('live-js-input');
     const iframe = document.getElementById('live-preview-frame');
 
     if (!htmlInput || !iframe) return false;
 
-    // Previne vincular listeners repetidos no mesmo elemento
     if (htmlInput.dataset.previewInicializado === "true") return true;
     htmlInput.dataset.previewInicializado = "true";
 
-    // Define valores padrão se os campos estiverem vazios
+    // Valores padrão iniciais (opcional)
     if (!htmlInput.value) {
-        htmlInput.value = `<h1>Título de Teste</h1>
-<p>Modifique o HTML na esquerda e veja o resultado aqui na direita em tempo real!</p>
-<button class="meu-botao">Clique Aqui</button>`;
+        htmlInput.value = `<h1>Título de Teste</h1>\n<p id="texto">Modifique o código e veja a mágica acontecer!</p>\n<button id="meu-botao" class="meu-botao">Clique Aqui</button>`;
     }
     
     if (cssInput && !cssInput.value) {
-        cssInput.value = `h1 {
-  color: #3b82f6;
-}
-
-.meu-botao {
-  background: #10b981;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-}`;
+        cssInput.value = `h1 { color: #3b82f6; }\n.meu-botao {\n  background: #10b981;\n  color: white;\n  border: none;\n  padding: 0.5rem 1rem;\n  border-radius: 4px;\n  cursor: pointer;\n}`;
     }
 
-    // Escutas de digitação
+    if (jsInput && !jsInput.value) {
+        jsInput.value = `document.getElementById('meu-botao').addEventListener('click', () => {
+        alert('Botão clicado via JavaScript!');
+        });
+
+        // Cria um elemento de parágrafo dinamicamente
+        const novoParagrafo = document.createElement('p');
+        novoParagrafo.textContent = 'Este texto foi gerado dinamicamente via JavaScript!';
+        novoParagrafo.style.color = '#7c3aed';
+        novoParagrafo.style.fontWeight = 'bold';
+
+        // Adiciona o elemento criado no final do body do preview
+        document.body.appendChild(novoParagrafo);`;
+    }
+
+    // Escutas de digitação para os três campos
     htmlInput.addEventListener('input', window.renderizarLivePreview);
-    if (cssInput) {
-        cssInput.addEventListener('input', window.renderizarLivePreview);
-    }
+    if (cssInput) cssInput.addEventListener('input', window.renderizarLivePreview);
+    if (jsInput) jsInput.addEventListener('input', window.renderizarLivePreview);
 
-    // Primeira renderização
     window.renderizarLivePreview();
     return true;
 };
 
-// Auto-Disparo resiliente (F5 / NAVEGAÇÃO SPA)
 var executarGatilhoLivePreview = function() {
     if (window.inicializarLivePreview()) return;
 
@@ -133,14 +157,12 @@ var executarGatilhoLivePreview = function() {
     observerPreview.observe(document.body, { childList: true, subtree: true });
 };
 
-// Dispara na montagem
 if (document.readyState === 'complete' || document.readyState === 'interactive') {
     executarGatilhoLivePreview();
 } else {
     document.addEventListener('DOMContentLoaded', executarGatilhoLivePreview);
 }
 
-// Escuta mudança de rota
 window.addEventListener('hashchange', function() {
     const input = document.getElementById('live-html-input');
     if (input) input.dataset.previewInicializado = "false";

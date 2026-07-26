@@ -860,14 +860,16 @@ document.addEventListener("click", function (event) {
         }
     }
 
-    // === 08. DEV_WEB - 03. Live Preview HTML/CSS ===
+    // === 08. DEV_WEB - 03. Live Preview HTML/CSS/JS ===
     if (event.target.closest('#btn-limpar-preview')) {
         event.preventDefault();
         const htmlInput = document.getElementById('live-html-input');
         const cssInput = document.getElementById('live-css-input');
+        const jsInput = document.getElementById('live-js-input'); // NOVO
         
         if (htmlInput) htmlInput.value = '';
         if (cssInput) cssInput.value = '';
+        if (jsInput) jsInput.value = ''; // NOVO
         
         if (typeof renderizarLivePreview === "function") {
             renderizarLivePreview();
