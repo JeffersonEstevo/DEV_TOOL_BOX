@@ -1,0 +1,139 @@
+/* ==========================================================================
+   === 02. CALCULADORAS - 05. Calculadora Científica (Atualizado) ===
+   ========================================================================== */
+
+.scientific-calc-box {
+  background-color: var(--clr-surface, #1e1e24);
+  border-radius: var(--br-base, 18px);
+  padding: 1.25rem;
+  max-width: 400px; /* Ajustado para acomodar 5 colunas confortavelmente */
+  margin: 0 auto 1.5rem auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--clr-gray-lt, #2d2d35);
+}
+
+/* Barra de Status (Modos DEG/RAD e M) */
+.calc-status-bar {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.status-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+  background-color: var(--clr-primary-light, rgba(79, 70, 229, 0.2));
+  color: var(--clr-primary-base, #4f46e5);
+  text-transform: uppercase;
+}
+
+.status-badge.hidden {
+  display: none;
+}
+
+.calc-screen {
+  background-color: var(--clr-bg, #0f0f12);
+  border-radius: var(--br-base, 8px);
+  padding: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+  text-align: right;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  border: 1px solid var(--clr-gray-lt, rgba(255, 255, 255, 0.05));
+}
+
+.expression-preview {
+  font-size: 0.85rem;
+  color: var(--clr-text, #858593);
+  opacity: 0.7;
+  min-height: 1.2rem;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.calc-screen input {
+  background: transparent !important;
+  border: none !important;
+  color: var(--clr-text, #ffffff) !important;
+  font-size: 2rem !important;
+  font-weight: 700;
+  text-align: right;
+  padding: 0;
+  width: 100%;
+  box-shadow: none !important;
+  pointer-events: none;
+}
+
+/* Teclado ajustado para 5 colunas conforme sua estrutura HTML */
+.calc-keyboard {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.4rem;
+}
+
+.btn-calc {
+  border: none;
+  padding: 0.75rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: var(--br-base, 10px);
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.05s ease;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-calc:active {
+  transform: scale(0.95);
+}
+
+/* Diferenciação de Cores das Teclas */
+.btn-num { 
+  background-color: #2d2d38; 
+  color: #ffffff;
+}
+.btn-num:hover { background-color: #3b3b47; }
+
+.btn-sci { 
+  background-color: #383842; 
+  color: #d1d5db; 
+  font-size: 0.85rem; 
+}
+.btn-sci:hover { background-color: #454552; color: #ffffff; }
+
+.btn-mem {
+  background-color: #312e81;
+  color: #a5b4fc;
+  font-size: 0.8rem;
+}
+.btn-mem:hover { background-color: #3730a3; color: #ffffff; }
+
+.btn-op { 
+  background-color: var(--clr-primary-base, #4f46e5); 
+  color: #ffffff; 
+}
+.btn-op:hover { opacity: 0.9; }
+
+.btn-meta { 
+  background-color: #e11d48; 
+  color: #ffffff; 
+}
+.btn-meta:hover { background-color: #f43f5e; }
+
+.btn-action-equal {
+  grid-row: span 2; /* Ocupa 2 linhas na vertical */
+  background-color: #10b981;
+  font-size: 1.5rem;
+}
+.btn-action-equal:hover { background-color: #059669; }
+
+.zero-btn {
+  grid-column: span 2; /* Ocupa 2 colunas na horizontal */
+}
