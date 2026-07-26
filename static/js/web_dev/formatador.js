@@ -1,199 +1,88 @@
 // ==========================================
-// MÓDULO FORMATADOR E EMBELEZADOR DE CÓDIGO
+// MÓDULO FORMATADOR E EMBELEZADOR DE CÓDIGO (COM LAZY LOADING DE CDNs)
 // ==========================================
 
-// Variável global em var para evitar erros de redeclaração no hot-reload da SPA
-var LANGUAGES_CONFIG = LANGUAGES_CONFIG || {
+// Controle de CDNs já injetadas na página para evitar duplicidade
+var cdnsCarregadas = {};
+
+function carregarScriptCDN(url) {
+    return new Promise((resolve, reject) => {
+        if (cdnsCarregadas[url]) {
+            resolve();
+            return;
+        }
+        const script = document.createElement('script');
+        script.src = url;
+        script.async = true;
+        script.onload = () => {
+            cdnsCarregadas[url] = true;
+            resolve();
+        };
+        script.onerror = () => reject(new Error(`Falha ao carregar CDN: ${url}`));
+        document.head.appendChild(script);
+    });
+}
+
+// Configuração modular e expansível para o futuro
+var LANGUAGES_CONFIG = {
+    "javascript": {
+        nome: "JavaScript",
+        placeholder: "function teste(){let x=10;console.log(x);}",
+        cdn: "https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify.min.js",
+        formatar: async (codigo) => {
+            await carregarScriptCDN(LANGUAGES_CONFIG["javascript"].cdn);
+            // js_beautify já trata erros e formata perfeitamente
+            return js_beautify(codigo, { indent_size: 2, space_in_empty_paren: false });
+        }
+    },
     "html": {
         nome: "HTML / Django Template",
-        placeholder: "<div>\n<h1>Hello</h1><p>Mundo Feio</p>\n</div>",
-        formatar: (codigo) => formatarEstruturaTags(codigo)
+        placeholder: "<div>\n<h1>Hello</h1><p>Mundo</p>\n</div>",
+        cdn: "https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify-html.min.js",
+        formatar: async (codigo) => {
+            await carregarScriptCDN(LANGUAGES_CONFIG["html"].cdn);
+            
+            // 1. Validação estrita usando o DOMParser nativo do navegador
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(codigo, 'text/html');
+            const parserError = doc.querySelector('parsererror');
+            
+            if (parserError) {
+                // Se o navegador detectou erro estrutural (tags faltando, mal formadas, etc.)
+                throw new Error("Erro de Sintaxe HTML: Detectada tag sem fechamento ou estrutura inválida.");
+            }
+
+            // 2. Se estiver tudo certo, formata normalmente
+            return html_beautify(codigo, { indent_size: 2, unformatted: ['code', 'pre'] });
+        }
     },
     "css": {
         nome: "CSS",
-        placeholder: "body{margin:0;padding:0;} h1{color:blue;font-size:12px;}",
-        formatar: (codigo) => formatarEstiloCSS(codigo)
+        placeholder: "body{margin:0;padding:0;} h1{color:blue;}",
+        cdn: "https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify-css.min.js",
+        formatar: async (codigo) => {
+            await carregarScriptCDN(LANGUAGES_CONFIG["css"].cdn);
+            return css_beautify(codigo, { indent_size: 2 });
+        }
     },
-    "javascript": {
-        nome: "JavaScript",
-        placeholder: "function teste(){console.log('oi');if(true){return 1;}}",
-        formatar: (codigo) => formatarScriptsJS(codigo)
-    },
-    "python": {
-        nome: "Python",
-        placeholder: "def minha_funcao():\nx = 1\nif x == 1:\nprint('alinhamento')",
-        formatar: (codigo) => formatarRecuoPython(codigo)
+    "json": {
+        nome: "JSON",
+        placeholder: '{"nome":"Teste","ativo":true,"valores":[1,2,3]}',
+        cdn: null, // JSON nativo do JS não precisa de CDN!
+        formatar: async (codigo) => {
+            // Validação nativa rigorosa de JSON (pega chaves, aspas e vírgulas erradas)
+            const objetoJogado = JSON.parse(codigo);
+            return JSON.stringify(objetoJogado, null, 2);
+        }
     }
 };
 
 // Armazena o código limpo gerado para facilitar a cópia exata
-var codigoFormatadoGlobal = codigoFormatadoGlobal || "";
-
-// --- ENGINES NATIVAS DE FORMATAÇÃO ---
-
-window.formatarEstruturaTags = function(html) {
-    if (typeof html !== 'string') return '';
-    let formatado = '';
-    let indent = 0;
-    
-    try {
-        // Normaliza os espaços ao redor das tags
-        let limpo = html.replace(/>\s+</g, '><').trim();
-        
-        // Divide mantendo os marcadores de tag
-        const tokens = limpo.replace(/</g, '~%~<').replace(/>/g, '>~%~').split('~%~');
-        
-        let i = 0;
-        while (i < tokens.length) {
-            let t = tokens[i].trim();
-            if (!t) { i++; continue; }
-            
-            // PADRÃO INLINE: Se detectarmos uma tag de abertura, seguida por texto, seguida por tag de fechamento correspondente
-            if (
-                t.startsWith('<') && !t.startsWith('</') && !t.endsWith('/>') &&
-                i + 2 < tokens.length &&
-                !tokens[i + 1].trim().startsWith('<') &&
-                tokens[i + 2].trim().startsWith('</')
-            ) {
-                let tagAbertura = t;
-                let conteudoTexto = tokens[i + 1].trim();
-                let tagFechamento = tokens[i + 2].trim();
-                
-                // Extrai os nomes das tags para validar se são o mesmo tipo
-                let nomeAbertura = tagAbertura.match(/^<([a-zA-Z0-9-]+)/)?.[1]?.toLowerCase();
-                let nomeFechamento = tagFechamento.match(/^<\/([a-zA-Z0-9-]+)/)?.[1]?.toLowerCase();
-
-                if (nomeAbertura && nomeAbertura === nomeFechamento) {
-                    formatado += '  '.repeat(indent) + tagAbertura + conteudoTexto + tagFechamento + '\n';
-                    i += 3; // Pula os 3 tokens processados em linha
-                    continue;
-                }
-            }
-
-            // Caso regular de formatação
-            if (t.startsWith('</')) {
-                indent = Math.max(0, indent - 1);
-                formatado += '  '.repeat(indent) + t + '\n';
-            } else if (t.startsWith('<')) {
-                formatado += '  '.repeat(indent) + t + '\n';
-                if (!t.endsWith('/>') && !t.match(/^<(br|hr|img|input|link|meta)/i)) {
-                    indent++;
-                }
-            } else {
-                formatado += '  '.repeat(indent) + t + '\n';
-            }
-            i++;
-        }
-    } catch (e) {
-        console.error("Erro ao formatar HTML:", e);
-        return html;
-    }
-    
-    return formatado.trim();
-};
-
-window.formatarEstiloCSS = function(css) {
-    if (typeof css !== 'string') return '';
-    try {
-        return css
-            .replace(/\s*([{\};,])\s*/g, '$1')
-            .replace(/\{/g, ' {\n  ')
-            .replace(/;/g, ';\n  ')
-            .replace(/\s*\}\s*/g, '\n}\n\n')
-            .replace(/  \}/g, '}')
-            .trim();
-    } catch (e) {
-        console.error("Erro ao formatar CSS:", e);
-        return css;
-    }
-};
-
-window.formatarScriptsJS = function(js) {
-    if (typeof js !== 'string') return '';
-    let formatado = '';
-    let indent = 0;
-    
-    try {
-        // Normaliza o código para garantir que chaves e pontos e vírgulas tenham espaçamento correto antes de processar as linhas
-        let limpo = js
-            .replace(/\{/g, ' {\n')
-            .replace(/\}/g, '\n}\n')
-            .replace(/;/g, ';\n')
-            .replace(/\n\s*\n/g, '\n'); // Remove linhas em branco excessivas
-
-        const linhas = limpo.split('\n');
-        
-        linhas.forEach(linha => {
-            let l = linha.trim();
-            if (!l) return;
-            
-            // Se a linha começa com fecha-chave, diminui a indentação antes de imprimir
-            if (l.startsWith('}')) {
-                indent = Math.max(0, indent - 1);
-            }
-            
-            formatado += '  '.repeat(indent) + l + '\n';
-            
-            // Se a linha termina com abre-chave, aumenta a indentação para a próxima linha
-            if (l.endsWith('{')) {
-                indent++;
-            }
-        });
-    } catch (e) {
-        console.error("Erro ao formatar JS:", e);
-        return js;
-    }
-    
-    return formatado.trim();
-};
-
-window.formatarRecuoPython = function(py) {
-    if (typeof py !== 'string') return '';
-    let formatado = '';
-    let indent = 0;
-    
-    try {
-        // Normaliza quebras de linha e separa múltiplos comandos na mesma linha se necessário
-        const linhas = py.split('\n');
-        
-        linhas.forEach(linha => {
-            let l = linha.trim();
-            if (!l) return;
-            
-            // Se encontrarmos uma nova definição de função ou variável global no início da linha,
-            // redefinimos o recuo para 0 para garantir que o código não fique preso dentro de outro bloco.
-            if (l.startsWith('def ') || l.startsWith('class ') || /^[a-zA-Z_][a-zA-Z0-9_]*\s*=/.test(l)) {
-                // Se for uma nova def, resetamos o indent global a menos que estejamos lidando com aninhamento (neste caso simples, resetamos para 0)
-                if (l.startsWith('def ') || l.startsWith('class ')) {
-                    indent = 0;
-                }
-            }
-            
-            // Tratamento de comandos de saída antecipada
-            if (l.startsWith('return') || l.startsWith('pass') || l.startsWith('break') || l.startsWith('continue')) {
-                formatado += '    '.repeat(indent) + l + '\n';
-                indent = Math.max(0, indent - 1);
-                return;
-            }
-            
-            formatado += '    '.repeat(indent) + l + '\n';
-            
-            // Se a linha termina com dois-pontos, incrementa o recuo para a próxima linha
-            if (l.endsWith(':')) {
-                indent++;
-            }
-        });
-    } catch (e) {
-        console.error("Erro ao formatar Python:", e);
-        return py;
-    }
-    
-    return formatado.trim();
-};
+var codigoFormatadoGlobal = "";
 
 // --- RENDERIZADOR VS CODE STYLE ---
 
-window.processarEExibirCodigo = function() {
+window.processarEExibirCodigo = async function() {
     const input = document.getElementById('formatador-input');
     const seletor = document.getElementById('seletor-linguagem-formatador');
     const containerSaida = document.getElementById('vscode-output-linhas');
@@ -208,70 +97,82 @@ window.processarEExibirCodigo = function() {
         return;
     }
 
-    const funcaoFormatadora = LANGUAGES_CONFIG[linguagemSelecionada]?.formatar;
-    if (!funcaoFormatadora) return;
+    const configLinguagem = LANGUAGES_CONFIG[linguagemSelecionada];
+    if (!configLinguagem) return;
 
-    codigoFormatadoGlobal = funcaoFormatadora(codigoCru);
+    // Feedback visual elegante de carregamento/processamento
+    containerSaida.innerHTML = `<div style="color: #dcdcaa; padding: 0 1rem; font-style: italic;">Carregando parser e formatando...</div>`;
 
-    containerSaida.innerHTML = '';
-    const linhasTexto = codigoFormatadoGlobal.split('\n');
-    
-    // Utilização de DocumentFragment para ganho de performance sem alterar o comportamento DOM
-    const fragment = document.createDocumentFragment();
-
-    linhasTexto.forEach((textoLinha, index) => {
-        const divLinha = document.createElement('div');
-        divLinha.style.display = 'flex';
-        divLinha.style.alignItems = 'flex-start';
-        divLinha.style.padding = '0 0.5rem';
+    try {
+        // Executa a formatação (baixa a CDN assincronamente se for a primeira vez)
+        codigoFormatadoGlobal = await configLinguagem.formatar(codigoCru);
         
-        const spanNumero = document.createElement('span');
-        spanNumero.textContent = index + 1;
-        spanNumero.style.width = '35px';
-        spanNumero.style.color = '#858585';
-        spanNumero.style.textAlign = 'right';
-        spanNumero.style.paddingRight = '12px';
-        spanNumero.style.userSelect = 'none';
-        spanNumero.style.display = 'inline-block';
-        
-        const codeTexto = document.createElement('code');
-        codeTexto.style.flex = '1';
-        codeTexto.style.color = '#d4d4d4';
-        codeTexto.style.whiteSpace = 'pre';
+        containerSaida.innerHTML = '';
+        const linhasTexto = codigoFormatadoGlobal.split('\n');
+        const fragment = document.createDocumentFragment();
 
-        let htmlEscapado = (textoLinha || ' ')
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;");
+        linhasTexto.forEach((textoLinha, index) => {
+            const divLinha = document.createElement('div');
+            divLinha.style.display = 'flex';
+            divLinha.style.alignItems = 'flex-start';
+            divLinha.style.padding = '0 0.5rem';
+            
+            const spanNumero = document.createElement('span');
+            spanNumero.textContent = index + 1;
+            spanNumero.style.width = '35px';
+            spanNumero.style.color = '#858585';
+            spanNumero.style.textAlign = 'right';
+            spanNumero.style.paddingRight = '12px';
+            spanNumero.style.userSelect = 'none';
+            spanNumero.style.display = 'inline-block';
+            
+            const codeTexto = document.createElement('code');
+            codeTexto.style.flex = '1';
+            codeTexto.style.color = '#d4d4d4';
+            codeTexto.style.whiteSpace = 'pre';
 
-        // Correção no escape mantendo a exata lógica original de marcação com tokens coringa seguros
-        if (linguagemSelecionada === 'html') {
-            htmlEscapado = htmlEscapado.replace(/(&lt;\/?[a-zA-Z1-6!].*?&gt;)/g, '§AZUL§$1§FIM§');
-            htmlEscapado = htmlEscapado.replace(/(&quot;[^&]*&quot;|"[^"]*")/g, '§LARANJA§$1§FIM§');
-        } else if (linguagemSelecionada === 'css') {
-            htmlEscapado = htmlEscapado.replace(/([a-zA-Z-]+)(?=\s*:)/g, '§AZULCLARO§$1§FIM§');
-            htmlEscapado = htmlEscapado.replace(/(#[a-zA-Z0-9]+|\d+px|\d+rem|\b(?:purple|blue|red|green|white|black)\b)/g, '§VERDE§$1§FIM§');
-        } else if (linguagemSelecionada === 'javascript' || linguagemSelecionada === 'python') {
-            htmlEscapado = htmlEscapado.replace(/\b(function|return|if|else|def|import|class|while|for|const|let|var)\b/g, '§ROXO§$1§FIM§');
-            htmlEscapado = htmlEscapado.replace(/(&quot;[^&]*&quot;|['"][^'"]*['"])/g, '§LARANJA§$1§FIM§');
-        }
+            let htmlEscapado = (textoLinha || ' ')
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;");
 
-        htmlEscapado = htmlEscapado
-            .replace(/§AZUL§/g, '<span style="color: #569cd6;">')
-            .replace(/§LARANJA§/g, '<span style="color: #ce9178;">')
-            .replace(/§AZULCLARO§/g, '<span style="color: #9cdcfe;">')
-            .replace(/§VERDE§/g, '<span style="color: #b5cea8;">')
-            .replace(/§ROXO§/g, '<span style="color: #c586c0;">')
-            .replace(/§FIM§/g, '</span>');
+            // Realce de sintaxe básico adaptado para VS Code Dark
+            if (linguagemSelecionada === 'html') {
+                htmlEscapado = htmlEscapado.replace(/(&lt;\/?[a-zA-Z1-6!].*?&gt;)/g, '§AZUL§$1§FIM§');
+                htmlEscapado = htmlEscapado.replace(/(&quot;[^&]*&quot;|"[^"]*")/g, '§LARANJA§$1§FIM§');
+            } else if (linguagemSelecionada === 'css') {
+                htmlEscapado = htmlEscapado.replace(/([a-zA-Z-]+)(?=\s*:)/g, '§AZULCLARO§$1§FIM§');
+                htmlEscapado = htmlEscapado.replace(/(#[a-zA-Z0-9]+|\d+px|\d+rem)/g, '§VERDE§$1§FIM§');
+            } else if (linguagemSelecionada === 'javascript') {
+                htmlEscapado = htmlEscapado.replace(/\b(function|return|if|else|let|const|var|for|while)\b/g, '§ROXO§$1§FIM§');
+                htmlEscapado = htmlEscapado.replace(/(&quot;[^&]*&quot;|['"][^'"]*['"])/g, '§LARANJA§$1§FIM§');
+            }
 
-        codeTexto.innerHTML = htmlEscapado;
+            htmlEscapado = htmlEscapado
+                .replace(/§AZUL§/g, '<span style="color: #569cd6;">')
+                .replace(/§LARANJA§/g, '<span style="color: #ce9178;">')
+                .replace(/§AZULCLARO§/g, '<span style="color: #9cdcfe;">')
+                .replace(/§VERDE§/g, '<span style="color: #b5cea8;">')
+                .replace(/§ROXO§/g, '<span style="color: #c586c0;">')
+                .replace(/§FIM§/g, '</span>');
 
-        divLinha.appendChild(spanNumero);
-        divLinha.appendChild(codeTexto);
-        fragment.appendChild(divLinha);
-    });
+            codeTexto.innerHTML = htmlEscapado;
 
-    containerSaida.appendChild(fragment);
+            divLinha.appendChild(spanNumero);
+            divLinha.appendChild(codeTexto);
+            fragment.appendChild(divLinha);
+        });
+
+        containerSaida.appendChild(fragment);
+
+    } catch (erro) {
+        // Exibe o erro exato na tela (ex: se faltou uma chave no JSON ou JS)
+        containerSaida.innerHTML = `
+            <div style="padding: 1rem; color: #f44545; font-family: monospace;">
+                <strong>Erro de Sintaxe / Formatação:</strong><br>
+                <span>${erro.message}</span>
+            </div>`;
+    }
 };
 
 window.copiarTextoFormatado = function(botao) {
@@ -330,7 +231,7 @@ window.inicializarFormatador = function() {
 };
 
 // ==========================================================================
-// AUTO-INICIALIZADOR INTELIGENTE
+// AUTO-INICIALIZADOR INTELIGENTE (SPA)
 // ==========================================================================
 
 var executarGatilhoFormatador = function() {

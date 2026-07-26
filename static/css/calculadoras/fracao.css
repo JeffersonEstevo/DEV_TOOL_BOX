@@ -1,12 +1,10 @@
-/* Estilos específicos para fracao */
-
 /* ==========================================================================
    === 02. CALCULADORAS - 01. Frações ===
    ========================================================================== */
 
 .fraction-block input[type="number"]::-webkit-input-placeholder { text-align: center; } /* Chrome / Safari / Edge */
 .fraction-block input[type="number"]::-moz-placeholder { text-align: center; }          /* Firefox 19+ */
-.fraction-block input[type="number"]:-ms-input-placeholder { text-align: center; }     /* IE 10+ */
+.fraction-block input[type="number"]:-ms-input-placeholder { text-align: center; }    /* IE 10+ */
 
 .fraction-workspace {
   display: flex;
@@ -17,7 +15,7 @@
   border: 1px solid var(--border-color);
   padding: 2rem 1rem;
   border-radius: var(--radius);
-  max-width: 450px; /* Reduzido para não extrapolar */
+  max-width: 450px;
   margin: 0 auto 1.5rem auto;
 }
 
@@ -26,20 +24,31 @@
   flex-direction: column;
   align-items: center;
   gap: 0.75rem;
-  width: 100px; /* Largura controlada do bloco */
+  width: 100px;
 }
 
 .fraction-block .field-group {
   width: 100%;
 }
 
+/* Regra única e definitiva para o input de números */
 .fraction-block input[type="number"] {
   text-align: center;
-  font-size: 1.25rem;
+  font-size: 1.35rem; /* Ajuste o tamanho do número digitado aqui */
   font-weight: 600;
-  padding: 0.5rem;
-  width: 100%; /* Ocupa exatamente os 100px do bloco */
+  padding: 0.5rem 0.2rem;
+  height: 48px;       /* Altura ideal para acompanhar o número maior */
+  width: 100%;
   box-sizing: border-box;
+  margin: 0;          /* Remove margens nativas do browser */
+}
+
+/* Alvo específico para manter a fonte menor apenas nos placeholders */
+.fraction-block input[type="number"]::placeholder {
+  font-size: 0.7rem;
+  line-height: normal;
+  font-weight: 400;
+  opacity: 0.7;
 }
 
 .fraction-line {
@@ -79,14 +88,13 @@
   min-width: 60px;
 }
 
-/* Força a exibição da linha de divisão no resultado */
 .fraction-output-line {
   width: 100%;
   min-width: 40px;
-  height: 3px; /* Espessura ideal para a barra */
-  background-color: var(--text-main) !important; /* Usa a cor do texto principal do seu tema */
+  height: 3px;
+  background-color: var(--text-main) !important;
   margin: 0.3rem 0;
-  display: block; /* Garante a renderização no DOM */
+  display: block;
 }
 
 .decimal-output-display {
@@ -104,24 +112,3 @@
     width: 80px;
   }
 }
-
-/* Correção do seletor (faltava o ponto inicial) e ajuste fino */
-.fraction-block input[type="number"] {
-  text-align: center;
-  font-size: 0.95rem;
-  font-weight: 600;
-  padding: 0.4rem 0.2rem;
-  width: 100%;
-  box-sizing: border-box;
-  margin: 0; /* Remove margens nativas do browser que causam assimetria */
-}
-
-/* Alvo específico para diminuir a fonte apenas dos placeholders */
-.fraction-block input[type="number"]::placeholder {
-  font-size: 0.7rem;
-  line-height: normal; /* Garante alinhamento vertical padrão limpo */
-  font-weight: 400;
-  opacity: 0.7;
-}
-
-
