@@ -860,36 +860,6 @@ document.addEventListener("click", function(event) {
 
 
 
-// ==========================================
-// 5. CONTAGEM DE ACESSOS À PAGINA
-// ==========================================
-const visitsElement = document.getElementById('visits');
-if (visitsElement) {
-    const namespace = 'dev-tool-box-prod-2026';
-    const key = 'main-visits';
-    // Criamos a função global de callback
-    window.atualizarTextoContador = function(response) {
-        if (response && response.value) {
-            visitsElement.innerText = Number(response.value).toLocaleString('pt-BR');
-        } else {
-            usarFallbackLocal();
-        }
-    };
-    // Função separada para o plano B caso a rede falhe
-    function usarFallbackLocal() {
-        let localVisits = parseInt(localStorage.getItem('local_user_visits')) || 142;
-        localVisits++;
-        localStorage.setItem('local_user_visits', localVisits);
-        visitsElement.innerText = localVisits.toLocaleString('pt-BR');
-    }
-    // Criamos o script dinâmico apontando para um servidor ATIVO (countapi.lystit.com)
-    const script = document.createElement('script');
-    script.src = `https://countapi.lystit.com/hit/${namespace}/${key}?callback=atualizarTextoContador`;
-    // Se o novo servidor falhar, o fallback entra instantaneamente
-    script.onerror = usarFallbackLocal;
-    document.head.appendChild(script);
-}
-
 // ==========================================================================
 // 6. DELEGAÇÃO DE CLIQUES PARA FERRAMENTAS INTERNAS (PÁGINAS INJETADAS)
 // ========================================================================== 
@@ -1015,7 +985,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (yearElement) {
         yearElement.textContent = new Date().getFullYear();
     }
-    icarContadorDeAcessos();
+;
 });
 // Chamar a função quando a página carregar
 document.addEventListener('DOMContentLoaded', () => {
@@ -1024,8 +994,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (yearElement) {
         yearElement.textContent = new Date().getFullYear();
     }
-    // Chama o contador
-    icarContadorDeAcessos();
+   
 });
 // Escuta a troca de abas e o carregamento inicial da SPA
 window.addEventListener('hashchange', dispararInicializadoresDeModulo);

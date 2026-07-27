@@ -1,0 +1,39 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Pesquisa e Proximidade de Cores</h2>
+        <p>Insira um código HEX ou use o seletor visual para encontrar cores próximas e seus nomes exatos.</p>
+    </header>
+
+    <div class="generator-workspace search-workspace">
+        
+        <!-- Barra de Busca + Seletor Visual Integrado -->
+        <div class="search-bar-container" style="display: flex; gap: 10px; align-items: center;">
+            <div class="search-input-wrapper">
+                <i class="bi bi-search"></i>
+                <input type="text" id="input-busca-cor" placeholder="Digite uma cor ou HEX...">
+            </div>
+            <!-- Novo Seletor Visual Integrado -->
+            <input type="color" id="picker-busca-nativo" value="#4E73DF" title="Escolher cor visualmente" style="width: 45px; height: 45px; border: 1px solid var(--border-color); border-radius: var(--radius); cursor: pointer; background: none; padding: 0;">
+        </div>
+
+        <!-- Feedback / Cor Selecionada Atual -->
+        <div id="detalhe-cor-pesquisada" class="detalhe-cor-card">
+            <div id="preview-busca-atual" class="preview-busca-caixa"></div>
+            <div class="detalhe-cor-info">
+                <h3 id="info-nome-cor">Nome da Cor</h3>
+                <span id="info-hex-cor" class="codigo-badge">#000000</span>
+                <span id="info-rgb-cor" class="codigo-badge">rgb(0, 0, 0)</span>
+            </div>
+        </div>
+
+        <!-- Grade de Cores Próximas -->
+        <div class="resultados-busca-section">
+            <div class="resultados-header">
+                <span id="contador-resultados">Cores mais próximas:</span>
+            </div>
+            <div id="grid-resultados-busca" class="resultados-grid"></div>
+        </div>
+    </div>
+</div>
+
+<script src="static/js/cores/color_search.js"></script>
