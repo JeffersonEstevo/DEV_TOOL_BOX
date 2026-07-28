@@ -1,3 +1,5 @@
+// JSON REFERENCE: https://johndecember.com/html/spec/colorcodescompact.html
+
 // Variável global para armazenar as cores após o carregamento
 let bancoDeCoresCompleto = [];
 
@@ -202,10 +204,25 @@ async function iniciarColorSearch() {
     }
 }
 
-// Execução segura
-if (document.readyState === 'complete' || document.readyState === 'interactive') {
-    setTimeout(iniciarColorSearch, 50);
+// Função unificada de inicialização segura
+function inicializarModuloComSeguranca() {
+    // Só executa se o elemento principal da ferramenta realmente existir na tela
+    const grid = document.getElementById('grid-resultados-busca');
+    if (grid) {
+        iniciarColorSearch();
+    }
 }
-document.addEventListener('DOMContentLoaded', iniciarColorSearch);
-document.addEventListener('router:contentLoaded', iniciarColorSearch);
-window.addEventListener('load', iniciarColorSearch);
+
+// 1. Executa se a página terminou de carregar do zero (F5 ou acesso direto)
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(inicializarModuloComSeguranca, 50);
+}
+
+// 2. Evento padrão do navegador
+document.addEventListener('DOMContentLoaded', inicializarModuloComSeguranca);
+
+// 3. Ouvinte para o seu roteador interno (quando o usuário clica nos menus da aplicação)
+document.addEventListener('router:contentLoaded', inicializarModuloComSeguranca);
+
+// 4. Segurança extra caso o script seja carregado de forma assíncrona
+window.addEventListener('load', inicializarModuloComSeguranca);
