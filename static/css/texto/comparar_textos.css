@@ -1,18 +1,18 @@
-/* Estilos específicos para ferramentas de texto (Similaridade e Comparação) */
-
 /* ==========================================================================
    === 01. TEXTO - 11. Comparação de Textos ===
    ========================================================================== */
 
-/* Força os elementos do grid a ocuparem 100% da largura da coluna útil */
+/* Força os elementos do grid a organizarem-se em duas colunas fixas e proporcionais 
+   para exibir os campos de comparação lado a lado */
 .tool-grid {
   display: grid !important;
-  grid-template-columns: repeat(2, 1fr) !important; /* Sempre cria 2 colunas */
+  grid-template-columns: repeat(2, 1fr) !important;
   gap: 1.5rem !important;
   width: 100% !important;
   box-sizing: border-box;
 }
 
+/* Garante que cada grupo de campo ocupe toda a largura disponível da sua respectiva coluna */
 .field-group {
   display: flex;
   flex-direction: column;
@@ -20,7 +20,8 @@
   width: 100% !important;
 }
 
-/* Força os textareas de comparação a ficarem largos e responsivos */
+/* Padroniza os textareas específicos de comparação para ocuparem 100% da largura, 
+   com fundo dinâmico e redimensionamento restrito à vertical */
 .tool-container textarea {
   width: 100% !important;
   min-width: 100% !important;
@@ -33,10 +34,10 @@
   background-color: var(--bg-main);
   color: var(--text-main);
   box-sizing: border-box;
-  resize: vertical; /* Permite esticar apenas para baixo sem quebrar os lados */
+  resize: vertical;
 }
 
-/* Configuração para as caixas de exibição de diferenças geradas */
+/* Configuração estrutural do card que abriga o resultado da comparação */
 .result-card {
   width: 100% !important;
   display: flex;
@@ -44,6 +45,8 @@
   box-sizing: border-box;
 }
 
+/* Estilização da caixa de exibição de diferenças (diff) com suporte a monoespaçamento 
+   e quebra automática para evitar estouros no layout */
 .diff-box {
   width: 100% !important;
   min-height: 220px;
@@ -51,45 +54,46 @@
   background-color: var(--bg-sidebar);
   border-radius: var(--radius);
   font-family: monospace;
-  white-space: pre-wrap; /* Preserva parágrafos e quebras de linha */
-  word-break: break-all; /* Força quebra de palavras longas se estourarem o card */
+  white-space: pre-wrap;
+  word-break: break-all;
 }
 
+/* Painel que envolve os resultados gerados após a ação de comparar */
 #result-panel {
   width: 100%;
   margin-top: 2rem;
 }
 
+/* Título interno do painel de resultados */
 #result-panel h3 {
   margin-bottom: 1rem;
   font-size: 1.2rem;
   color: var(--text-main);
 }
 
-/* Responsividade: Empilha em 1 coluna apenas se for dispositivo móvel (telas pequenas) */
+/* Responsividade: Empilha os campos em apenas 1 coluna em dispositivos móveis (telas estreitas) */
 @media (max-width: 768px) {
   .tool-grid {
     grid-template-columns: 1fr !important;
   }
 }
 
-/* Força o contêiner principal desta ferramenta a ocupar quase toda a largura da tela */
+/* Expande o container principal da ferramenta de comparação para aproveitar melhor telas largas */
 .tool-container:has(.workspace-largo) {
-  max-width: 1200px !important; /* Aumenta o limite máximo de 600px/700px para 1200px */
+  max-width: 1200px !important;
   width: 95% !important;
   margin: 0 auto !important;
 }
 
-/* Garante que o workspace use todo o novo espaço liberado */
+/* Garante que o workspace largo utilize totalmente o espaço liberado */
 .workspace-largo {
   max-width: 100% !important;
   width: 100% !important;
   padding: 1.5rem !important;
 }
 
-/* Força os textareas a preencherem as novas colunas gigantes */
+/* Mantém o grid de duas colunas perfeitamente alinhado dentro do workspace largo */
 .workspace-largo .tool-grid {
   grid-template-columns: repeat(2, 1fr) !important;
   width: 100% !important;
 }
-

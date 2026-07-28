@@ -1,8 +1,8 @@
 /* ==========================================================================
-=== TEXTO - Gerador de PDF a partir de HTML ===
-========================================================================== */
+   === 01. TEXTO - 16. Gerador de PDF a partir de HTML ===
+   ========================================================================== */
 
-/* 1. Forçar que o grid divida o espaço igualmente e impeça expansões */
+/* Layout em grid responsivo que divide o espaço em colunas iguais e previne expansões */
 .tool-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -10,17 +10,18 @@
     width: 100%;
 }
 
+/* Garante que os grupos de campos ocupem toda a largura da coluna sem estouros */
 .field-group {
     display: flex;
     flex-direction: column;
-    min-width: 0; /* IMPEDE QUE CONTEÚDOS LARGOS ESTIQUEM O GRID */
+    min-width: 0;
     width: 100%;
 }
 
-/* Área de input do código HTML bruto */
+/* Área de entrada do código HTML bruto com fonte monoespaçada e sem redimensionamento */
 .pdf-textarea {
     width: 100%;
-    max-width: 100%; /* Força a respeitar o limite lateral */
+    max-width: 100%;
     height: 520px;
     padding: 1rem;
     border: 1px solid var(--border-color);
@@ -33,39 +34,32 @@
     resize: none;
     outline: none;
     transition: border-color 0.2s ease;
-    box-sizing: border-box; /* Inclui padding no cálculo de largura */
+    box-sizing: border-box;
 }
 
+/* Efeito sutil de foco na borda do textarea */
 .pdf-textarea:focus {
     border-color: rgba(0, 0, 0, 0.25);
 }
 
-
-/* Container de scroll da Preview */
+/* Container de visualização (preview) com barras de rolagem vertical e horizontal independentes */
 .pdf-preview-container {
     width: 100%;
     max-width: 100%; 
     height: 520px;
-    
-    /* MUDANÇA CHAVE: Ativa barras de rolagem tanto vertical quanto horizontal 
-       apenas para a área do preview, sem quebrar as colunas do seu painel */
     overflow-y: auto;
     overflow-x: auto; 
-    
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
     padding: 1.5rem;
     background-color: var(--bg-sidebar);
-    
-    /* Alinha a folha de papel no início esquerdo se houver scroll, 
-       mas a mantém centralizada se a tela for muito larga */
     display: flex;
     justify-content: flex-start; 
     align-items: flex-start;
     box-sizing: border-box;
 }
 
-/* Estado vazio da visualização */
+/* Estado vazio exibido na pré-visualização quando não há código HTML informado */
 .preview-empty-state {
     display: flex;
     flex-direction: column;
@@ -77,30 +71,28 @@
 }
 
 /* --------------------------------------------------------------------------
-   PRÉ-VISUALIZAÇÃO EM TELA (aproximada)
+   PRÉ-VISUALIZAÇÃO EM TELA (aproximada do formato de documento A4)
    -------------------------------------------------------------------------- */
+
+/* Simula a folha de papel com largura mínima garantida para preservar a fidelidade do layout */
 .pdf-page-preview {
-    /* MUDANÇA CHAVE: Definimos uma largura mínima confortável para a "folha",
-       garantindo que ela não fique espremida e pareça de fato um documento. */
     width: 100%;
-    min-width: 650px; /* Largura mínima para manter a fidelidade do layout A4 */
-    
+    min-width: 650px;
     min-height: 100%;
     background-color: #ffffff;
     color: #1e293b;
-    padding: 40px; /* Um pouco mais de margem para parecer papel */
+    padding: 40px;
     border-radius: 4px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     font-size: 0.95rem;
     line-height: 1.6;
     box-sizing: border-box;
-    
-    /* Mantém quebras naturais de palavras, sem forçar quebras artificiais */
     word-wrap: break-word;
     overflow-wrap: break-word;
 }
 
+/* Estilização de títulos principais na página de preview */
 .pdf-page-preview h1 {
     font-size: 2rem;
     color: #0f172a;
@@ -113,6 +105,7 @@
     overflow-wrap: break-word;
 }
 
+/* Estilização de subtítulos (h2) */
 .pdf-page-preview h2 {
     font-size: 1.5rem;
     color: #1e293b;
@@ -121,6 +114,7 @@
     margin-bottom: 0.75rem;
 }
 
+/* Estilização de subtítulos menores (h3) */
 .pdf-page-preview h3 {
     font-size: 1.2rem;
     color: #334155;
@@ -129,7 +123,7 @@
     margin-bottom: 0.5rem;
 }
 
-/* Tabelas: Ajustadas para manter a largura sem empurrar o layout */
+/* Tabelas adaptadas para manter largura fixa sem estourar o layout da folha */
 .pdf-page-preview table {
     width: 100% !important;
     max-width: 100% !important;
@@ -140,6 +134,7 @@
     box-sizing: border-box;
 }
 
+/* Células e cabeçalhos de tabelas no preview */
 .pdf-page-preview th,
 .pdf-page-preview td {
     border: 1px solid #cbd5e1;
@@ -151,20 +146,24 @@
     white-space: normal;
 }
 
+/* Cabeçalho da tabela com fundo destacado */
 .pdf-page-preview th {
     background-color: #f1f5f9;
     color: #0f172a;
     font-weight: 600;
 }
 
+/* Efeito zebrado nas linhas pares da tabela */
 .pdf-page-preview tr:nth-child(even) {
     background-color: #f8fafc;
 }
 
+/* Classes utilitárias de alinhamento de texto */
 .pdf-page-preview .text-center { text-align: center !important; }
 .pdf-page-preview .text-right { text-align: right !important; }
 .pdf-page-preview .text-left { text-align: left !important; }
 
+/* Listas ordenadas e não ordenadas */
 .pdf-page-preview ul,
 .pdf-page-preview ol {
     padding-left: 1.5rem;
@@ -175,6 +174,7 @@
     margin-bottom: 0.4rem;
 }
 
+/* Citações em bloco (blockquotes) com destaque lateral */
 .pdf-page-preview blockquote {
     border-left: 4px solid #6366f1;
     background-color: #f8fafc;
@@ -185,6 +185,7 @@
     border-radius: 0 4px 4px 0;
 }
 
+/* Trechos de código inline */
 .pdf-page-preview code {
     background-color: #f1f5f9;
     color: #e11d48;
@@ -192,17 +193,17 @@
     border-radius: 4px;
     font-family: Consolas, Monaco, monospace;
     font-size: 0.85em;
-    word-break: break-all; /* Impede que termos longos inline quebrem a página */
+    word-break: break-all;
 }
 
-/* Controlando blocos de código grandes para não quebrarem o design responsivo */
+/* Blocos de código extensos com rolagem horizontal interna */
 .pdf-page-preview pre {
     background-color: #0f172a;
     color: #f8fafc;
     padding: 1rem;
     border-radius: 6px;
-    overflow-x: auto; /* Mantém a rolagem local do bloco de código sem afetar a página inteira */
-    max-width: 100%;  /* Garante que o pre não cresça além do limite da folha */
+    overflow-x: auto;
+    max-width: 100%;
     margin: 1.2rem 0;
     box-sizing: border-box;
 }
@@ -212,9 +213,10 @@
     color: inherit;
     padding: 0;
     font-size: 0.9em;
-    white-space: pre; /* Permite a rolagem interna do código */
+    white-space: pre;
 }
 
+/* Blocos de destaque (callouts) */
 .pdf-page-preview .callout {
     background-color: #eff6ff;
     border: 1px solid #bfdbfe;
@@ -227,16 +229,20 @@
 /* --------------------------------------------------------------------------
    INTERFACES E EFEITOS DE CARREGAMENTO (UI)
    -------------------------------------------------------------------------- */
+
+/* Oculta elementos completamente */
 .hidden {
     display: none !important;
 }
 
+/* Alinha elementos de botões em estado de carregamento */
 .btn-loading {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
 }
 
+/* Indicador visual de carregamento animado (spinner circular) */
 .spinner {
     width: 14px;
     height: 14px;
@@ -246,6 +252,7 @@
     animation: spin-anim 0.8s linear infinite;
 }
 
+/* Animação de rotação contínua para o spinner */
 @keyframes spin-anim {
     to { transform: rotate(360deg); }
 }

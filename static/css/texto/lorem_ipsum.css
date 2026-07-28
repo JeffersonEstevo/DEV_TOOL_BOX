@@ -1,19 +1,20 @@
 /* ==========================================================================
-=== 01. TEXTO - 14. Gerador de Lorem Ipsum ===
-========================================================================== */
+   === 01. TEXTO - 14. Gerador de Lorem Ipsum ===
+   ========================================================================== */
 
-/* Container que posiciona os elementos lado a lado */
+/* Agrupa elementos em linha com espaçamento controlado, limitando a largura total 
+   do conjunto e definindo uma pilha de fontes padrão */
 .ui-input-group-separated {
     display: flex;
-    gap: 0.5rem; /* Espaço perfeito entre o input e o select */
+    gap: 0.5rem;
     width: 100%;
-    max-width: 280px; /* Limita o tamanho do conjunto na tela */
+    max-width: 280px;
     font-family: system-ui, sans-serif;
 }
 
-/* Estilo base idêntico para os dois campos */
+/* Estilo base padronizado para campos de entrada e seleção (altura, bordas, cores e transições) */
 .ui-input-field {
-    height: 40px; /* Força uma altura idêntica e consistente */
+    height: 40px;
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
     background-color: var(--bg-main);
@@ -25,13 +26,14 @@
     transition: border-color 0.15s, box-shadow 0.15s;
 }
 
-/* Largura específica para o input de número (mais compacto) */
+/* Define proporção compacta para o input numérico dentro do grupo */
 .ui-input-field.num {
     width: 35%;
     flex-shrink: 0;
 }
 
-/* Largura específica para o select (espaço pro texto) */
+/* Define proporção maior para o select e injeta uma seta SVG customizada 
+   no lugar do ícone nativo do navegador */
 .ui-input-field.sel {
     width: 65%;
     flex-shrink: 0;
@@ -40,24 +42,25 @@
     background-repeat: no-repeat;
     background-position: right 0.75rem center;
     background-size: 1rem;
-    padding-right: 2rem; /* Espaço para a setinha customizada não cobrir o texto */
-    appearance: none; /* Esconde a seta feia padrão do navegador */
+    padding-right: 2rem;
+    appearance: none;
     -webkit-appearance: none;
 }
 
-/* Efeito de Focus moderno (borda azul com brilho suave) */
+/* Efeito visual de foco com borda azul e halo translúcido ao redor do campo */
 .ui-input-field:focus {
     border-color: #3b82f6;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
-/* Grupo de Opções de Radio */
+/* Organiza múltiplos botões de rádio (radio buttons) horizontalmente com espaçamento */
 .radio-group {
     display: flex;
     gap: 1.5rem;
     padding: 0.25rem 0;
 }
 
+/* Alinha o texto ao lado do radio button, alterando o cursor para indicar interatividade */
 .radio-label {
     display: flex;
     align-items: center;
@@ -71,9 +74,9 @@
     cursor: pointer;
 }
 
-/* Container do Bloco de Saída de Dados */
+/* Container do bloco de saída de dados com limite de altura e rolagem vertical automática */
 .lorem-output-container {
-    max-height: 520px; /* Alinhado estritamente à altura máxima da tabela ASCII */
+    max-height: 520px;
     overflow-y: auto;
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
@@ -81,12 +84,11 @@
     background-color: var(--bg-main);
 }
 
-/* Área interna editável/copiável */
+/* Área interna que formata e preserva as quebras de linha do texto gerado */
 .lorem-text-area {
     font-size: 0.95rem;
     line-height: 1.6;
     color: var(--text-main);
-    white-space: pre-wrap; /* Garante as quebras de linha corretas da saída em HTML */
+    white-space: pre-wrap;
     word-wrap: break-word;
 }
-

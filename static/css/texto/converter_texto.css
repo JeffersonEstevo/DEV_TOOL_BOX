@@ -1,17 +1,19 @@
-/* Estilos específicos para converter_texto */
-
 /* ==========================================================================
    === 01. TEXTO - 01. Converter Texto ===
    ========================================================================== */
+
+/* Permite que os elementos internos quebrem para a próxima linha quando faltar espaço, 
+   adicionando um espaçamento padrão (gap) entre eles */
 .flex-wrap {
   flex-wrap: wrap;
   gap: 0.5rem;
 }
 
+/* Cria uma barra separadora superior com espaçamento e alinhamento vertical, 
+   ideal para separar seções de ações ou botões dentro da ferramenta */
 .border-top-bar {
   margin-top: 1.5rem;
   padding-top: 1rem;
   border-top: 1px solid var(--border-color);
   align-items: center;
 }
-

@@ -18,9 +18,9 @@
    ========================================================================== */
 :root {
   /* Cores base para o tema claro (Light Mode - Paleta Slate/Indigo) */
-  --bg-main: #f8fafc;         /* Fundo principal da aplicação (Slate 50) */
+  --bg-main: #f8fafc;        /* Fundo principal da aplicação (Slate 50) */
   --bg-sidebar: #ffffff;      /* Fundo da barra lateral e painéis superiores */
-  --bg-card: #ffffff;         /* Fundo padrão para cards e blocos de conteúdo */
+  --bg-card: #ffffff;        /* Fundo padrão para cards e blocos de conteúdo */
   --border-color: #e2e8f0;    /* Cor para linhas finas, divisores e bordas (Slate 200) */
   
   --text-main: #0f172a;       /* Cor principal de textos, quase preto (Slate 900) */
@@ -547,7 +547,7 @@ body.dark-mode .pdf-page-preview {
 
 body.dark-mode .pdf-page-preview th {
     background-color: var(--bg-main) !important; /* Cabeçalho de tabela escuro no PDF */
-    color: var(--text-main) !important;          /* Texto do cabeçalho claro */
+    color: var(--text-main) !important;           /* Texto do cabeçalho claro */
     border-color: var(--border-color) !important; /* Linhas de tabela escuras */
 }
 
@@ -696,15 +696,59 @@ input[type="color"]::-webkit-color-swatch-wrapper {
 
 input[type="color"]::-webkit-color-swatch {
   border: none;                 /* Remove borda interna do swatch no WebKit */
-  border-radius: 4px;           /* Arredonda os cantos internos da cor exibida */
+  border-radius: 4px;           /* Arredondados os cantos internos da cor exibida */
 }
 
 input[type="color"]::-moz-color-swatch {
   border: none;                 /* Remove borda interna do swatch no Firefox */
-  border-radius: 4px;           /* Arredonda os cantos internos da cor exibida */
+  border-radius: 4px;           /* Arredondados os cantos internos da cor exibida */
 }
 
 /* Ajuste de borda no Dark Mode */
 body.dark-mode input[type="color"] {
   border-color: var(--border-color); /* Adapta a cor da borda ao tema escuro */
+}
+
+
+/* ==========================================================================
+   11. PREVENÇÃO DE ESTOURO HORIZONTAL (GLOBAL RESPONSIVENESS) ===
+   ========================================================================== */
+
+/* Garante que o cálculo de largura inclua bordas e preenchimentos, 
+   evitando que elementos extrapolem os limites do container pai */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Força imagens, vídeos, tabelas e blocos a nunca ultrapassarem a largura máxima disponível */
+img, video, canvas, svg, table, pre, code {
+    max-width: 100%;
+}
+
+/* Proteção extra para o card de boas-vindas e containers de conteúdo em telas pequenas */
+@media (max-width: 480px) {
+    .welcome-card, 
+    #content-area > div {
+        padding-left: 1.25rem !important;
+        padding-right: 1.25rem !important;
+    }
+}
+
+
+/* ==========================================================================
+   12. CORREÇÃO DE VAZAMENTO EM TELAS ESTREITAS ===
+   ========================================================================== */
+
+/* Permite que o grid do card de boas-vindas quebre para uma coluna 
+   quando o espaço for menor que 380px, evitando qualquer estouro */
+.welcome-card div[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+}
+
+/* Garante que títulos e textos longos quebrem corretamente em telas estreitas */
+.welcome-card h3,
+.welcome-card p,
+.welcome-card span {
+    word-break: break-word;
+    overflow-wrap: break-word;
 }

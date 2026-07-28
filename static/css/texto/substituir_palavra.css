@@ -1,15 +1,17 @@
-/* Estilos específicos para substituir_palavra */
-
-
 /* ==========================================================================
    === 01. TEXTO - 12. Substituir Palavras ===
    ========================================================================== */
+
+/* Organiza os campos de formulário em um layout de duas colunas iguais, 
+   ideal para dispor os campos de "Localizar" e "Substituir por" lado a lado */
 .form-row-2col {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
 }
 
+/* Cria um bloco interno com fundo destacado e borda sutil, 
+   utilizado para agrupar as opções de configuração da substituição */
 .card-inner-options {
   background-color: var(--bg-main);
   border: 1px solid var(--border-color);
@@ -17,26 +19,31 @@
   border-radius: var(--radius);
 }
 
+/* Alinha o elemento de checkbox horizontalmente ao seu respectivo rótulo, 
+   garantindo centralização vertical e espaçamento adequado */
 .checkbox-group {
   display: flex;
   align-items: center;
   gap: 0.5rem;
 }
 
+/* Remove a largura total padrão de inputs para que o checkbox ocupe apenas 
+   o espaço necessário e altera o cursor para indicar interatividade */
 .checkbox-group input[type="checkbox"] {
   width: auto;
   cursor: pointer;
 }
 
+/* Remove margens indesejadas e define peso de fonte médio para o rótulo do checkbox */
 .checkbox-group label {
   margin-bottom: 0;
   cursor: pointer;
   font-weight: 500;
 }
 
+/* Responsividade: Empilha os campos em coluna única em dispositivos móveis (telas pequenas) */
 @media (max-width: 768px) {
   .form-row-2col {
     grid-template-columns: 1fr;
   }
 }
-

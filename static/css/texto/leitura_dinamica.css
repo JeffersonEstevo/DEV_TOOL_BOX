@@ -1,9 +1,9 @@
-/* Estilos específicos para leitura_dinamica */
-
-
 /* ==========================================================================
    === 01. TEXTO - 03. Leitura Dinâmica === (FULLSCREEN OVERLAY)
    ========================================================================== */
+
+/* Posiciona o leitor cobrindo toda a tela em destaque (fullscreen), 
+   garantindo que fique acima de qualquer outro elemento da interface */
 .fullscreen-overlay {
   position: fixed;
   top: 0;
@@ -16,6 +16,8 @@
   justify-content: center;
 }
 
+/* Container interno da área de leitura que centraliza o conteúdo 
+   e aplica transições suaves de cores ao alterar os temas */
 .reader-view {
   width: 100%;
   height: 100%;
@@ -25,16 +27,20 @@
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Temas do Leitor */
+/* Tema claro isolado para o modo de leitura imersiva */
 .reader-light {
   background-color: #f8fafc;
   color: #0f172a;
 }
+
+/* Tema escuro isolado para o modo de leitura imersiva */
 .reader-dark {
   background-color: #0f172a;
   color: #f8fafc;
 }
 
+/* Estilização da palavra em destaque exibida durante a leitura rápida, 
+   com negrito forte e recuo lateral para evitar cortes nas bordas */
 .word-display {
   font-weight: 700;
   text-align: center;
@@ -42,11 +48,11 @@
   padding: 0 2rem;
 }
 
+/* Botão flutuante para interromper ou fechar o leitor, 
+   posicionado no canto inferior direito com sombra de profundidade */
 .stop-floating-btn {
   position: absolute;
   bottom: 2rem;
   right: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
-
-
