@@ -734,21 +734,45 @@ img, video, canvas, svg, table, pre, code {
     }
 }
 
-
 /* ==========================================================================
-   12. CORREÇÃO DE VAZAMENTO EM TELAS ESTREITAS ===
+   === 12. CORREÇÃO DE VAZAMENTO DA TELA DE BOAS VINDAS ===
    ========================================================================== */
 
-/* Permite que o grid do card de boas-vindas quebre para uma coluna 
-   quando o espaço for menor que 380px, evitando qualquer estouro */
-.welcome-card div[style*="grid-template-columns"] {
-    grid-template-columns: 1fr !important;
+/* Em telas muito estreitas (celulares), empilha os 3 itens em uma coluna para não vazar */
+@media (max-width: 480px) {
+    .welcome-card div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+    }
 }
 
-/* Garante que títulos e textos longos quebrem corretamente em telas estreitas */
+/* Garante que os textos dentro dos blocos quebrem corretamente em qualquer largura */
 .welcome-card h3,
 .welcome-card p,
 .welcome-card span {
     word-break: break-word;
     overflow-wrap: break-word;
+}
+
+/* Grid de boas-vindas: Lado a lado em telas grandes, empilhado com segurança em celulares */
+.welcome-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+    text-align: left;
+    margin-bottom: 2.5rem;
+    width: 100%;
+    min-width: 0;
+}
+
+.welcome-grid > div {
+    min-width: 0;
+    overflow-wrap: break-word;
+}
+
+/* Em telas menores (tablets e celulares), empilha os cards perfeitamente sem espremer o texto */
+@media (max-width: 768px) {
+    .welcome-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
 }

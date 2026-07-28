@@ -153,68 +153,61 @@
                 </nav>
             </header>
             
-            <!--<section id="content-area" style="display: flex; justify-content: center; align-items: center; min-height: calc(100vh - 180px);">-->
             <section id="content-area">
     
-                <div class="welcome-card wc-center" style="max-width: 700px; width: 100%; text-align: center; padding: 3.5rem 2.5rem;">
+            <div class="welcome-card wc-center" style="max-width: 700px; width: 100%; text-align: center; padding: 3.5rem 2.5rem;">
+                
+                <div style="background-color: var(--accent-light); color: var(--accent); width: 64px; height: 64px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem;">
+                    <i class="bi bi-box-seam"></i>
+                </div>
+
+                <h1 style="font-size: 2.2rem; margin-bottom: 1rem; font-weight: 700; letter-spacing: -0.025em;">
+                    Bem-vindo ao <span style="color: var(--accent);">Dev Tool Box</span>
+                </h1>   
                     
-                    <div style="background-color: var(--accent-light); color: var(--accent); width: 64px; height: 64px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; font-size: 2rem;">
-                        <i class="bi bi-box-seam"></i>
+                <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; margin-bottom: 2.5rem; text-wrap: pretty;">
+                    Sua caixa de ferramentas centralizada para desenvolvimento e produtividade. Um ecossistema de utilitários rápidos projetados para otimizar a sua rotina diária.
+                </p>
+
+                <!-- Grid limpo controlado via classe CSS -->
+                <div class="welcome-grid">
+                    
+                    <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                        <i class="bi bi-text-paragraph" style="color: var(--accent); font-size: 1.25rem; margin-top: -2px;"></i>
+                        <div>
+                            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem;">Tratador de Textos</h3>
+                            <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.4;">Contagem, remoção de acentos, quebras de linha e formatação.</p>
+                        </div>
                     </div>
 
-                    <h1 style="font-size: 2.2rem; margin-bottom: 1rem; font-weight: 700; letter-spacing: -0.025em;">
-                        Bem-vindo ao <span style="color: var(--accent);">Dev Tool Box</span>
-                    </h1>   
-                      
-                    <p style="color: var(--text-muted); font-size: 1.1rem; line-height: 1.6; margin-bottom: 2.5rem; text-wrap: pretty;">
-                        Sua caixa de ferramentas centralizada para desenvolvimento e produtividade. Um ecossistema de utilitários rápidos projetados para otimizar a sua rotina diária.
-                    </p>
-
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1.5rem; text-align: left; margin-bottom: 2.5rem; word-break: break-word;">
-                        
-                        <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
-                            <i class="bi bi-text-paragraph" style="color: var(--accent); font-size: 1.25rem; margin-top: -2px;"></i>
-                            <div>
-                                <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem;">Tratador de Textos</h3>
-                                <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.4;">Contagem, remoção de acentos, quebras de linha e formatação.</p>
-                            </div>
+                    <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                        <i class="bi bi-calculator" style="color: var(--accent); font-size: 1.25rem; margin-top: -2px;"></i>
+                        <div>
+                            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem;">Calculadoras</h3>
+                            <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.4;">Regra de três, porcentagem, frações e ferramentas científicas.</p>
                         </div>
-
-                        <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
-                            <i class="bi bi-calculator" style="color: var(--accent); font-size: 1.25rem; margin-top: -2px;"></i>
-                            <div>
-                                <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem;">Calculadoras</h3>
-                                <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.4;">Regra de três, porcentagem, frações e ferramentas científicas.</p>
-                            </div>
-                        </div>
-
-                        <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
-                            <i class="bi bi-cpu" style="color: var(--accent); font-size: 1.25rem; margin-top: -2px;"></i>
-                            <div>
-                                <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem;">Geradores Úteis</h3>
-                                <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.4;">Massa de dados de teste: CPF, CNPJ, CEP, Cartões e UUIDs.</p>
-                            </div>
-                        </div>
-
                     </div>
 
-                    <div style="height: 1px; background-color: var(--border-color); margin-bottom: 2rem;"></div>
-
-                    <div style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text-muted); font-size: 0.9rem; background-color: var(--bg-main); padding: 0.5rem 1rem; border-radius: var(--radius); border: 1px solid var(--border-color);">
-                        <i class="bi bi-arrow-left-short" style="font-size: 1.2rem; color: var(--accent);"></i>
-                        <span>Explore as categorias no menu lateral para começar</span>
+                    <div style="display: flex; gap: 0.75rem; align-items: flex-start;">
+                        <i class="bi bi-cpu" style="color: var(--accent); font-size: 1.25rem; margin-top: -2px;"></i>
+                        <div>
+                            <h3 style="font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem;">Geradores Úteis</h3>
+                            <p style="color: var(--text-muted); font-size: 0.85rem; line-height: 1.4;">Massa de dados de teste: CPF, CNPJ, CEP, Cartões e UUIDs.</p>
+                        </div>
                     </div>
 
                 </div>
 
-                <div style="font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 0.4rem; opacity: 0.8;">
-                    <i class="bi bi-eye" style="color: var(--accent);"></i>
-                    <span>Esta aplicação já foi visitada</span>
-                    <strong id="visits" style="color: var(--accent); font-weight: 700;">...</strong>
-                    <span>vezes.</span>
+                <div style="height: 1px; background-color: var(--border-color); margin-bottom: 2rem;"></div>
+
+                <div style="display: inline-flex; align-items: center; gap: 0.5rem; color: var(--text-muted); font-size: 0.9rem; background-color: var(--bg-main); padding: 0.5rem 1rem; border-radius: var(--radius); border: 1px solid var(--border-color);">
+                    <i class="bi bi-arrow-left-short" style="font-size: 1.2rem; color: var(--accent);"></i>
+                    <span>Explore as categorias no menu lateral para começar</span>
                 </div>
-              
-            </section>
+
+            </div>
+        
+        </section>
 
             <footer id="app-footer">
                 <div style="text-align: center;">
