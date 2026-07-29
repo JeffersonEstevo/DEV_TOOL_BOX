@@ -1,0 +1,107 @@
+/* ==========================================================================
+   === 04. CONVERSORES - 08. Grandezas Digitais (Compacto) ===
+   ========================================================================== */
+
+/* Limita a largura máxima da área de trabalho e ajusta o preenchimento interno */
+.tool-container .digital-workspace {
+  max-width: 900px !important;
+  width: 100% !important;
+  text-align: left !important;
+  padding: 1rem !important;
+}
+
+/* Grid dinâmico de 4 colunas para exibir os campos lado a lado sem rolagem excessiva */
+.digital-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+}
+
+/* Responsividade: Reduz para 2 colunas em tablets e telas intermediárias */
+@media (max-width: 1024px) {
+  .digital-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Responsividade: Reduz para 1 única coluna em dispositivos móveis (smartphones) */
+@media (max-width: 600px) {
+  .digital-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card individual para cada unidade digital (mais fino e compacto verticalmente) */
+.digital-field.digital-card {
+  background: var(--bg-sidebar, #1e1e2f);
+  border: 1px solid var(--border-color, #2a2a3c);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+/* Destaca levemente a borda do card ao passar o mouse */
+.digital-field.digital-card:hover {
+  border-color: var(--primary-color, #4f46e5);
+}
+
+/* Rótulo descritivo contendo o ícone e o nome da unidade de medida */
+.digital-field label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-main);
+  opacity: 0.9;
+  margin-bottom: 0.35rem;
+}
+
+/* Wrapper interno que agrupa o campo numérico e a sigla da unidade */
+.digital-display-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 0.15rem 0.5rem;
+}
+
+/* Estilo do campo de input numérico com visual estilo display digital */
+.digital-input {
+  width: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  font-family: 'Courier New', Courier, monospace, sans-serif;
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  color: var(--primary-color, #00ffcc) !important;
+  padding: 0.2rem 0 !important;
+  box-shadow: none !important;
+}
+
+/* Sigla ou sufixo fixo exibido no canto direito de cada visor digital */
+.digital-unit {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-main);
+  opacity: 0.5;
+  text-transform: uppercase;
+  margin-left: 0.4rem;
+  letter-spacing: 0.5px;
+}
+
+/* Remove as setas de incremento padrão dos inputs numéricos em navegadores WebKit */
+.digital-input::-webkit-inner-spin-button,
+.digital-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove as setas de incremento em navegadores Firefox */
+.digital-input {
+  -moz-appearance: textfield;
+}

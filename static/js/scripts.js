@@ -669,6 +669,16 @@ document.addEventListener("click", function(event) {
         event.preventDefault();
         if (typeof limparTrifasica === "function") limparTrifasica();
     }
+    // === 04. CONVERSORES - 08. Grandezas Digitais ===
+    if (event.target.closest('#btn-limpar-digital')) {
+        event.preventDefault();
+        if (typeof limparTodosCamposDigital === "function") limparTodosCamposDigital();
+    }
+    // === 04. CONVERSORES - 09. Distância ===
+    if (event.target.closest('#btn-limpar-distancia')) {
+        event.preventDefault();
+        if (typeof limparTodosCamposDistancia === "function") limparTodosCamposDistancia();
+    }
     // === 05. REDE - 01. Máscara e CIDR ===
     if (event.target.closest('#btn-limpar-rede')) {
         event.preventDefault();

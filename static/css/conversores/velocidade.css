@@ -1,58 +1,114 @@
-/* Estilos específicos para conversor de velocidade */
-
 /* ==========================================================================
    === 04. CONVERSORES - 05. Velocidade ===
    ========================================================================== */
 
+/* 
+ * 1. CONTAINER PRINCIPAL (WORKSPACE)
+ * Alarga o painel para organizar os campos perfeitamente na tela.
+ * A largura máxima de 850px garante bom espaçamento, mantendo o padrão equilibrado.
+ */
 .tool-container .velocidade-workspace {
-  max-width: 650px !important;
+  max-width: 850px !important;
   width: 100% !important;
   text-align: left !important;
-  padding: 2rem !important;
+  padding: 1.5rem !important;
 }
 
+/* 
+ * 2. SISTEMA DE GRID (GRADE EM 3 COLUNAS)
+ * Otimizado para 3 colunas para acomodar bem as unidades de velocidade (como km/h, m/s, nós) 
+ * de forma harmoniosa e sem rolagens excessivas.
+ */
 .velocidade-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
 }
 
+/* Responsividade (Tablets e telas médias): Reduz de 3 para 2 colunas */
+@media (max-width: 900px) {
+  .velocidade-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Responsividade (Smartphones): Reduz para 1 coluna empilhada */
+@media (max-width: 550px) {
+  .velocidade-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 
+ * 3. CARD INDIVIDUAL (BLOCO DE CAMPO DE VELOCIDADE)
+ * Contêiner em formato de card para agrupar o label e o input numérico.
+ */
 .velocidade-field {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.35rem;
+  background: var(--bg-sidebar, #1e1e2f);
+  border: 1px solid var(--border-color, #2a2a3c);
+  border-radius: var(--radius, 8px);
+  padding: 0.85rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease;
 }
 
+/* Feedback visual (Hover) no card */
+.velocidade-field:hover {
+  border-color: var(--primary-color);
+}
+
+/* 
+ * RÓTULOS (LABELS)
+ * Títulos descritivos dos campos de velocidade.
+ */
 .velocidade-field label {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--text-main);
   opacity: 0.9;
+  margin-bottom: 0.1rem;
 }
 
+/* 
+ * 4. CAMPOS DE ENTRADA (INPUTS NUMÉRICOS)
+ * Padronizados com tamanho confortável, fontes legíveis e cores consistentes com o tema.
+ */
 .velocidade-field input[type="number"] {
-  width: 100%;
-  padding: 0.65rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  background-color: var(--bg-main);
-  border: 1px solid var(--border-color);
-  color: var(--primary-color);
-  border-radius: var(--radius);
+  width: 100% !important;
+  background-color: var(--bg-main) !important;
+  border: 1px solid var(--border-color) !important;
+  outline: none !important;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  color: var(--primary-color) !important;
+  padding: 0.5rem 0.6rem !important;
+  border-radius: 6px;
   box-sizing: border-box;
+  box-shadow: none !important;
 }
 
+/* Feedback visual (Focus) ao interagir com o input */
 .velocidade-field input[type="number"]:focus {
   outline: none;
   border-color: var(--primary-color);
   background-color: var(--bg-sidebar);
 }
 
+/* 
+ * 5. OCULTAR SETAS DOS INPUTS NUMÉRICOS
+ * Remove os seletores de incremento nativos (+/-) para manter um visual limpo.
+ */
 .velocidade-field input[type="number"]::-webkit-inner-spin-button,
 .velocidade-field input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 .velocidade-field input[type="number"] {
   -moz-appearance: textfield;
 }
+
+

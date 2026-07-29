@@ -1,5 +1,5 @@
 /* ==========================================================================
-   === 04. CONVERSORES - 02. Massa ===
+   === 04. CONVERSORES - 09. Distância ===
    ========================================================================== */
 
 /* 
@@ -7,7 +7,7 @@
  * Alarga o painel para organizar os campos perfeitamente na tela.
  * A largura máxima de 850px garante bom espaçamento, mantendo o padrão equilibrado.
  */
-.tool-container .massa-workspace {
+.tool-container .distancia-workspace {
   max-width: 850px !important;
   width: 100% !important;
   text-align: left !important;
@@ -16,33 +16,34 @@
 
 /* 
  * 2. SISTEMA DE GRID (GRADE EM 3 COLUNAS)
- * Otimizado para 3 colunas para acomodar bem as unidades de massa sem rolagens excessivas.
+ * Otimizado para 3 colunas para acomodar bem as unidades de distância de forma harmoniosa.
  */
-.massa-grid {
+.distancia-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
+  margin-bottom: 1.5rem; /* Espaço para o botão de limpar abaixo */
 }
 
 /* Responsividade (Tablets e telas médias): Reduz de 3 para 2 colunas */
 @media (max-width: 900px) {
-  .massa-grid {
+  .distancia-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 /* Responsividade (Smartphones): Reduz para 1 coluna empilhada */
 @media (max-width: 550px) {
-  .massa-grid {
+  .distancia-grid {
     grid-template-columns: 1fr;
   }
 }
 
 /* 
- * 3. CARD INDIVIDUAL (BLOCO DE CAMPO DE MASSA)
+ * 3. CARD INDIVIDUAL (BLOCO DE CAMPO DE DISTÂNCIA)
  * Contêiner em formato de card para agrupar o label e o input numérico.
  */
-.massa-field {
+.distancia-field {
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
@@ -55,15 +56,15 @@
 }
 
 /* Feedback visual (Hover) no card */
-.massa-field:hover {
+.distancia-field:hover {
   border-color: var(--primary-color);
 }
 
 /* 
  * RÓTULOS (LABELS)
- * Títulos descritivos dos campos de massa.
+ * Títulos descritivos dos campos de distância.
  */
-.massa-field label {
+.distancia-field label {
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--text-main);
@@ -75,7 +76,7 @@
  * 4. CAMPOS DE ENTRADA (INPUTS NUMÉRICOS)
  * Padronizados com tamanho confortável, fontes legíveis e cores consistentes com o tema.
  */
-.massa-field input[type="number"] {
+.distancia-field input[type="number"] {
   width: 100% !important;
   background-color: var(--bg-main) !important;
   border: 1px solid var(--border-color) !important;
@@ -90,7 +91,7 @@
 }
 
 /* Feedback visual (Focus) ao interagir com o input */
-.massa-field input[type="number"]:focus {
+.distancia-field input[type="number"]:focus {
   outline: none;
   border-color: var(--primary-color);
   background-color: var(--bg-sidebar);
@@ -100,12 +101,12 @@
  * 5. OCULTAR SETAS DOS INPUTS NUMÉRICOS
  * Remove os seletores de incremento nativos (+/-) para manter um visual limpo.
  */
-.massa-field input[type="number"]::-webkit-inner-spin-button,
-.massa-field input[type="number"]::-webkit-outer-spin-button {
+.distancia-field input[type="number"]::-webkit-inner-spin-button,
+.distancia-field input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-.massa-field input[type="number"] {
+.distancia-field input[type="number"] {
   -moz-appearance: textfield;
 }

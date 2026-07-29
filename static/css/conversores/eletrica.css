@@ -1,51 +1,39 @@
-/* Estilos avançados para conversor elétrico com Abas */
-
 /* ==========================================================================
    === 04. CONVERSORES - 06. Grandezas Elétricas ===
    ========================================================================== */
 
+/* 
+ * 1. CONTAINER PRINCIPAL (WORKSPACE)
+ * Alarga o painel para organizar os campos perfeitamente na tela.
+ * A largura máxima de 850px garante bom espaçamento sem esticar excessivamente.
+ */
 .tool-container .eletrica-workspace {
-  max-width: 700px !important;
+  max-width: 850px !important;
   width: 100% !important;
   text-align: left !important;
-  padding: 1.5rem 2rem 2rem 2rem !important;
+  padding: 1.5rem !important;
 }
 
-/* Estilo do menu de abas 
-.eletrica-tabs {
-  display: flex;
-  gap: 0.5rem;
-  max-width: 700px;
-  margin: 0 auto 0.5rem auto;
-}*/
-
-/*
-.tab-btn {
-  background: var(--bg-sidebar);
-  border: 1px solid var(--border-color);
-  border-bottom: none;
-  color: var(--text-main);
-  padding: 0.6rem 1.2rem;
-  font-size: 0.9rem;
-  font-weight: 600;
-  border-radius: var(--radius) var(--radius) 0 0;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}*/
-
-/* Estilo do menu de abas superior (Substitui o antigo .eletrica-tabs) */
+/* 
+ * 2. MENU DE ABAS SUPERIOR
+ * Sistema de navegação alternável para as diferentes grandezas ou leis elétricas.
+ * Usa flexbox centralizado e uma borda inferior discreta para delimitar as abas.
+ */
 .eletrica-tabs {
   display: flex;
   gap: 0.5rem;
   border-bottom: 2px solid var(--border-color);
   margin-bottom: 1.5rem;
   padding: 0 1rem;
-  max-width: 700px;
+  max-width: 850px;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* Botões de aba (Substitui o antigo .tab-btn) */
+/* 
+ * BOTÕES DE ABAS
+ * Estilo base limpo e moderno com efeito de transição suave.
+ */
 .eletrica-tabs .tab-btn {
   background: none;
   border: none;
@@ -60,17 +48,17 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  border-radius: 0; /* Remove o arredondamento antigo */
+  border-radius: 0;
 }
 
-/* Efeito Hover nas abas */
+/* Feedback visual (Hover) nas abas */
 .eletrica-tabs .tab-btn:hover {
   opacity: 1;
   color: var(--primary-color);
-  background: none; /* Remove fundo que possa vir de outros estilos */
+  background: none;
 }
 
-/* Aba ativa */
+/* Estado ativo da aba selecionada */
 .eletrica-tabs .tab-btn.active {
   opacity: 1;
   background: none;
@@ -78,13 +66,10 @@
   border-bottom-color: var(--primary-color);
 }
 
-.tab-btn.active {
-  background: var(--primary-color);
-  color: #fff;
-  border-color: var(--primary-color);
-}
-
-/* Controle de exibição das abas */
+/* 
+ * CONTROLE DE EXIBIÇÃO DAS ABAS
+ * Gerencia qual conteúdo fica visível de acordo com a aba ativa.
+ */
 .tab-content {
   display: none !important;
 }
@@ -92,6 +77,10 @@
   display: block !important;
 }
 
+/* 
+ * TÍTULO DE SEÇÃO INTERNA
+ * Pequenos cabeçalhos para separar grupos de inputs dentro de uma mesma aba.
+ */
 .secao-titulo {
   font-size: 0.9rem;
   color: var(--primary-color);
@@ -102,50 +91,100 @@
   margin-bottom: 1rem;
 }
 
+/* 
+ * 3. SISTEMA DE GRID (GRADE EM 2 COLUNAS)
+ * Configurado com 2 colunas para garantir simetria perfeita em seções que possuem 
+ * 4 elementos (2 por linha), evitando que itens fiquem sozinhos na última linha.
+ */
 .eletrica-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem;
+  gap: 1rem;
 }
 
+/* Responsividade (Smartphones): Reduz para 1 coluna empilhada em telas menores */
+@media (max-width: 550px) {
+  .eletrica-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 
+ * 4. CARD INDIVIDUAL (BLOCO DE CAMPO ELÉTRICO)
+ * Contêiner em formato de card para agrupar o label, input e selects de prefixo.
+ */
 .eletrica-field {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.35rem;
+  background: var(--bg-sidebar, #1e1e2f);
+  border: 1px solid var(--border-color, #2a2a3c);
+  border-radius: var(--radius, 8px);
+  padding: 0.85rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.2s ease;
 }
 
+/* Feedback visual (Hover) no card */
+.eletrica-field:hover {
+  border-color: var(--primary-color);
+}
+
+/* 
+ * RÓTULOS (LABELS)
+ * Títulos descritivos dos campos elétricos.
+ */
 .eletrica-field label {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 600;
   color: var(--text-main);
   opacity: 0.9;
+  margin-bottom: 0.1rem;
 }
 
-.eletrica-field input, .prefixo-grupo select {
-  width: 100%;
-  padding: 0.65rem;
-  font-size: 1.1rem;
-  font-weight: 600;
-  background-color: var(--bg-main);
-  border: 1px solid var(--border-color);
-  color: var(--primary-color);
-  border-radius: var(--radius);
-  box-sizing: border-box;
-}
-
+/* 
+ * 5. CAMPOS DE ENTRADA E SELECTS DE PREFIXO
+ * Padronizados com tamanho confortável, fontes legíveis e cores consistentes com o tema.
+ */
+.eletrica-field input, 
 .prefixo-grupo select {
-  font-size: 0.95rem;
+  width: 100% !important;
+  background-color: var(--bg-main) !important;
+  border: 1px solid var(--border-color) !important;
+  outline: none !important;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  color: var(--primary-color) !important;
+  padding: 0.5rem 0.6rem !important;
+  border-radius: 6px;
+  box-sizing: border-box;
+  box-shadow: none !important;
+}
+
+/* Selects específicos para prefixos (ex: mili, quilo, mega) */
+.prefixo-grupo select {
+  font-size: 0.9rem;
   color: var(--text-main);
 }
 
-.eletrica-field input:focus, .prefixo-grupo select:focus {
+/* Feedback visual (Focus) ao interagir com inputs ou selects */
+.eletrica-field input:focus, 
+.prefixo-grupo select:focus {
   outline: none;
   border-color: var(--primary-color);
   background-color: var(--bg-sidebar);
 }
 
+/* 
+ * 6. OCULTAR SETAS DOS INPUTS NUMÉRICOS
+ * Remove os seletores de incremento nativos (+/-) para manter um visual limpo de painel.
+ */
 .eletrica-field input[type="number"]::-webkit-inner-spin-button,
 .eletrica-field input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+.eletrica-field input[type="number"] {
+  -moz-appearance: textfield;
 }

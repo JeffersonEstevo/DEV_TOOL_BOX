@@ -1,0 +1,59 @@
+<!-- ==========================================================================
+     === HTML: Seção do Conversor de Distância ===
+     ========================================================================== -->
+<div class="tool-section tab-content" id="distancia-section">
+    <div class="tool-container">
+        <header class="tool-header">
+            <h2>Conversor de Distância</h2>
+            <p>Insira o valor em qualquer um dos campos abaixo para convertê-lo instantaneamente entre diferentes unidades de comprimento e distância.</p>
+        </header>
+
+        <div class="generator-workspace distancia-workspace">
+            <div class="distancia-grid">
+                <!-- Quilômetros -->
+                <div class="distancia-field">
+                    <label for="dist-km">Quilômetros (km)</label>
+                    <input type="number" id="dist-km" placeholder="0" step="any">
+                </div>
+
+                <!-- Milhas -->
+                <div class="distancia-field">
+                    <label for="dist-mi">Milhas (mi)</label>
+                    <input type="number" id="dist-mi" placeholder="0" step="any">
+                </div>
+
+                <!-- Milhas Náuticas -->
+                <div class="distancia-field">
+                    <label for="dist-nmi">Milhas Náuticas (nmi)</label>
+                    <input type="number" id="dist-nmi" placeholder="0" step="any">
+                </div>
+
+                <!-- Metros -->
+                <div class="distancia-field">
+                    <label for="dist-m">Metros (m)</label>
+                    <input type="number" id="dist-m" placeholder="0" step="any">
+                </div>
+
+                <!-- Pés -->
+                <div class="distancia-field">
+                    <label for="dist-ft">Pés (ft)</label>
+                    <input type="number" id="dist-ft" placeholder="0" step="any">
+                </div>
+
+                <!-- Jardas -->
+                <div class="distancia-field">
+                    <label for="dist-yd">Jardas (yd)</label>
+                    <input type="number" id="dist-yd" placeholder="0" step="any">
+                </div>
+            </div>
+        </div>
+
+        <div class="action-bar border-top-bar" style="justify-content: center;">
+            <button id="btn-limpar-distancia" class="btn btn-success">
+                <i class="bi bi-trash3-fill"></i> Limpar Campos
+            </button>
+        </div>
+    </div>
+</div>
+
+<script src="static/js/conversores/distancia.js"></script>

@@ -1,0 +1,84 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Conversor de Grandezas Digitais</h2>
+        <p>Insira um valor em qualquer unidade digital (de Bits a Exabytes) para realizar a conversão simultânea e em tempo real.</p>
+    </header>
+
+    <div class="generator-workspace digital-workspace">
+        <div class="digital-grid">
+            
+            <div class="digital-field digital-card">
+                <label for="dig-bit"><i class="bi bi-code"></i> Bits (b)</label>
+                <div class="digital-display-wrapper">
+                    <input type="number" id="dig-bit" placeholder="0" step="any" class="digital-input">
+                    <span class="digital-unit">bit</span>
+                </div>
+            </div>
+
+            <div class="digital-field digital-card">
+                <label for="dig-byte"><i class="bi bi-file-earmark-binary"></i> Bytes (B)</label>
+                <div class="digital-display-wrapper">
+                    <input type="number" id="dig-byte" placeholder="0" step="any" class="digital-input">
+                    <span class="digital-unit">B</span>
+                </div>
+            </div>
+
+            <div class="digital-field digital-card">
+                <label for="dig-kb"><i class="bi bi-hdd"></i> Kilobytes (KB)</label>
+                <div class="digital-display-wrapper">
+                    <input type="number" id="dig-kb" placeholder="0" step="any" class="digital-input">
+                    <span class="digital-unit">KB</span>
+                </div>
+            </div>
+
+            <div class="digital-field digital-card">
+                <label for="dig-mb"><i class="bi bi-device-hdd"></i> Megabytes (MB)</label>
+                <div class="digital-display-wrapper">
+                    <input type="number" id="dig-mb" placeholder="0" step="any" class="digital-input">
+                    <span class="digital-unit">MB</span>
+                </div>
+            </div>
+
+            <div class="digital-field digital-card">
+                <label for="dig-gb"><i class="bi bi-server"></i> Gigabytes (GB)</label>
+                <div class="digital-display-wrapper">
+                    <input type="number" id="dig-gb" placeholder="0" step="any" class="digital-input">
+                    <span class="digital-unit">GB</span>
+                </div>
+            </div>
+
+            <div class="digital-field digital-card">
+                <label for="dig-tb"><i class="bi bi-cloud-arrow-up"></i> Terabytes (TB)</label>
+                <div class="digital-display-wrapper">
+                    <input type="number" id="dig-tb" placeholder="0" step="any" class="digital-input">
+                    <span class="digital-unit">TB</span>
+                </div>
+            </div>
+
+            <div class="digital-field digital-card">
+                <label for="dig-pb"><i class="bi bi-hdd-rack"></i> Petabytes (PB)</label>
+                <div class="digital-display-wrapper">
+                    <input type="number" id="dig-pb" placeholder="0" step="any" class="digital-input">
+                    <span class="digital-unit">PB</span>
+                </div>
+            </div>
+
+            <div class="digital-field digital-card">
+                <label for="dig-eb"><i class="bi bi-cpu"></i> Exabytes (EB)</label>
+                <div class="digital-display-wrapper">
+                    <input type="number" id="dig-eb" placeholder="0" step="any" class="digital-input">
+                    <span class="digital-unit">EB</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="btn-limpar-digital" class="btn btn-success">
+            <i class="bi bi-trash3-fill"></i> Limpar Painel
+        </button>
+    </div>
+</div>
+
+<script src="static/js/conversores/grandezas_digitais.js"></script>
