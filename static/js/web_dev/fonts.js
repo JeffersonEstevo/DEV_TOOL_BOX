@@ -11,11 +11,13 @@ function atualizarFontePreview(nomeFonte) {
     
     if (["playfair display", "merriweather", "lora", "cinzel"].some(f => nomeMinusculo.includes(f))) {
         fallback = "serif";
-    } else if (["fira code", "source code pro", "inconsolata"].some(f => nomeMinusculo.includes(f))) {
+    } else if (["fira code", "source code pro", "inconsolata", "jetbrains mono", "space mono", "cascadia code", "ubuntu mono", "ibm plex mono", "anonymous pro", "share tech mono"].some(f => nomeMinusculo.includes(f))) {
         fallback = "monospace";
     } else if (["pacifico", "dancing script"].some(f => nomeMinusculo.includes(f))) {
         fallback = "cursive";
-    }
+    } else if (["bebas neue", "anton", "oswald"].some(f => nomeMinusculo.includes(f))) {
+        fallback = "sans-serif"; // Fontes display grossas combinam bem com sans-serif de fallback
+    } 
 
     // 2. Formata a URL de Requisição para o Google Fonts API
     const nomeUrl = nomeFonte.replace(/ /g, "+");
