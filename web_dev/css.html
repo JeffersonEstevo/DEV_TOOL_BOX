@@ -88,42 +88,49 @@
             <div class="painel-preview-css" style="border: 1px solid var(--border-color); padding: 1.5rem; border-radius: var(--radius); background-color: var(--bg-main);">
                 <label class="titulo-subsecao" style="margin-bottom: 1rem; display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-main);">Showcase de Elementos HTML5 e Design System</label>
                 
-                <!-- Área de Testes com a Cor de Fundo selecionada -->
                 <div id="container-preview-css-base" class="sk-preview-wrapper" style="max-height: 520px; overflow-y: auto; padding: 1.5rem; transition: background-color 0.2s ease;">
-                    
-                    <!-- Card demonstrativo para destacar o fundo (Background) -->
+    
+                    <!-- Card demonstrativo principal -->
                     <div class="sk-card">
                         
-                        <!-- 1. Headings -->
+                        <!-- 1. Tipografia e Links -->
                         <div class="sk-section">
-                            <span class="sk-badge sk-badge-primary">Tipografia</span>
+                            <div style="display: flex; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                <span class="sk-badge sk-badge-primary">Tipografia Primária</span>
+                                <span class="sk-badge sk-badge-secondary">Tipografia Secundária</span>
+                            </div>
+                            
                             <h1>Título H1 Fluido</h1>
                             <h2>Subtítulo H2 Estrutural</h2>
                             <h3>Título H3 de Seção</h3>
                             <h4>Subseção H4</h4>
-                            <h5>Título H5</h5>
-                            <h6>Título Micro H6</h6>
                             
-                            <p>Parágrafo com <a href="#" onclick="return false;">link para teste de hover</a>. Teste da escala de opacidade e cores do texto do corpo.</p>
+                            <p>Parágrafo padrão com <a href="#" onclick="return false;" style="color: var(--clr-primary-base, #2563eb);">link primário</a> e texto de suporte comparativo com <a href="#" onclick="return false;" style="color: var(--clr-secondary-base, #475569);">link secundário</a>.</p>
                             
-                            <blockquote>
-                                Citação estilizada (`blockquote`) utilizando bordas e variações do tom primário.
-                            </blockquote>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem;">
+                                <blockquote style="border-left-color: var(--clr-primary-base, #2563eb); background-color: var(--clr-primary-light, rgba(37, 99, 235, 0.1));">
+                                    Citação utilizando a identidade visual da **Cor Primária**.
+                                </blockquote>
+                                <blockquote style="border-left-color: var(--clr-secondary-base, #475569); background-color: var(--clr-secondary-light, rgba(71, 85, 105, 0.12));">
+                                    Citação utilizando a identidade visual da **Cor Secundária**.
+                                </blockquote>
+                            </div>
                         </div>
 
                         <hr class="sk-hr">
 
                         <!-- 2. Listas -->
                         <div class="sk-section">
-                            <span class="sk-badge sk-badge-primary">Listas</span>
+                            <span class="sk-badge sk-badge-primary">Listas & Organização</span>
+                            <span class="sk-badge sk-badge-secondary">Listas & Organização</span>
                             <div style="display: flex; gap: 2rem; margin-top: 0.8rem; flex-wrap: wrap;">
                                 <ul>
-                                    <li>Item de Lista Não Ordenada 01</li>
-                                    <li>Item de Lista Não Ordenada 02</li>
+                                    <li>Item não ordenado (Primário)</li>
+                                    <li>Item secundário de listagem</li>
                                 </ul>
                                 <ol>
-                                    <li>Primeiro Passo Ordenado</li>
-                                    <li>Segundo Passo Ordenado</li>
+                                    <li>Passo estruturado principal</li>
+                                    <li>Passo estruturado de apoio</li>
                                 </ol>
                             </div>
                         </div>
@@ -132,17 +139,16 @@
 
                         <!-- 3. Formulários & Entradas -->
                         <div class="sk-section">
-                            <span class="sk-badge sk-badge-primary">Formulários & Inputs</span>
+                            <span class="sk-badge sk-badge-primary">Formulários & Focos</span>
+                            <span class="sk-badge sk-badge-secondary">Formulários & Focos</span>
                             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 0.8rem;">
                                 <div>
-                                    <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Input Text</label>
-                                    <input type="text" class="sk-input" placeholder="Digite algo aqui..." readonly>
+                                    <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Foco Primário</label>
+                                    <input type="text" class="sk-input" placeholder="Borda primária no foco..." readonly style="border-color: var(--clr-primary-base) !important;">
                                 </div>
                                 <div>
-                                    <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Select Dropdown</label>
-                                    <select class="sk-input">
-                                        <option>Opção Selecionada</option>
-                                    </select>
+                                    <label style="font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.2rem;">Foco Secundário</label>
+                                    <input type="text" class="sk-input" placeholder="Borda secundária no foco..." readonly style="border-color: var(--clr-secondary-base) !important;">
                                 </div>
                             </div>
                         </div>
@@ -151,21 +157,26 @@
 
                         <!-- 4. Código (Pre & Code) -->
                         <div class="sk-section">
-                            <span class="sk-badge sk-badge-primary">Código</span>
-                            <pre style="margin-top: 0.8rem;"><code>// Exemplo de código pre/code
-const theme = "Modern CSS Base";
-console.log(theme);</code></pre>
+                            <span class="sk-badge sk-badge-primary">Blocos de Código</span>
+                            <span class="sk-badge sk-badge-secondary">Blocos de Código</span>
+                            <pre style="margin-top: 0.8rem; border-left: 4px solid var(--clr-primary-base);"><code>// Exemplo com destaque primário
+                const themePrimary = true;</code></pre>
+                            <pre style="margin-top: 0.5rem; border-left: 4px solid var(--clr-secondary-base);"><code>// Exemplo com destaque secundário
+                const themeSecondary = true;</code></pre>
                         </div>
 
                         <hr class="sk-hr">
 
-                        <!-- 5. Botões & Badges -->
+                        <!-- 5. Botões & Badges Comparativos -->
                         <div class="sk-section">
-                            <span class="sk-badge sk-badge-primary">Botões & Ações</span>
-                            <div style="display: flex; gap: 0.8rem; margin-top: 0.8rem; flex-wrap: wrap;">
+                            <span class="sk-badge sk-badge-primary">Ações & Badges</span>
+                            <span class="sk-badge sk-badge-secondary">Ações & Badges</span>
+                            <div style="display: flex; gap: 0.8rem; margin-top: 0.8rem; flex-wrap: wrap; align-items: center;">
                                 <button type="button" class="sk-btn sk-btn-primary">Botão Primário</button>
                                 <button type="button" class="sk-btn sk-btn-secondary">Botão Secundário</button>
-                                <span class="sk-badge sk-badge-outline" style="align-self: center;">Tag Badge</span>
+                                <span class="sk-badge sk-badge-primary">Badge Primária</span>
+                                <span class="sk-badge sk-badge-secondary">Badge Secundária</span>
+                                <span class="sk-badge sk-badge-outline">Badge Outline</span>
                             </div>
                         </div>
 
