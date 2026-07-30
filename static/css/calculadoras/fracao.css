@@ -103,6 +103,14 @@
   color: var(--success-color);
 }
 
+.action-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem; /* Espaço elegante entre os dois botões */
+  margin-top: 1.5rem;
+}
+
 @media (max-width: 480px) {
   .fraction-workspace {
     gap: 1rem;

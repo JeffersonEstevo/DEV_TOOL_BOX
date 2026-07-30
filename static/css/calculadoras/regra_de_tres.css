@@ -79,6 +79,14 @@
   font-weight: 700;
 }
 
+.action-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem; /* Espaço elegante entre os dois botões */
+  margin-top: 1.5rem;
+}
+
 @media (max-width: 400px) {
   .rule-three-grid-table {
     gap: 0.5rem;

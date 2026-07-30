@@ -125,6 +125,7 @@ window.processarEExibirCodigo = async function() {
             spanNumero.style.paddingRight = '12px';
             spanNumero.style.userSelect = 'none';
             spanNumero.style.display = 'inline-block';
+            spanNumero.style.flexShrink = '0';
             
             const codeTexto = document.createElement('code');
             codeTexto.style.flex = '1';
@@ -146,7 +147,15 @@ window.processarEExibirCodigo = async function() {
             } else if (linguagemSelecionada === 'javascript') {
                 htmlEscapado = htmlEscapado.replace(/\b(function|return|if|else|let|const|var|for|while)\b/g, '§ROXO§$1§FIM§');
                 htmlEscapado = htmlEscapado.replace(/(&quot;[^&]*&quot;|['"][^'"]*['"])/g, '§LARANJA§$1§FIM§');
+            } else if (linguagemSelecionada === 'json') {
+                // 1. Pinta as chaves do JSON (ex: "nome":)
+                htmlEscapado = htmlEscapado.replace(/(&quot;[^&]*&quot;|"[^"]*")(\s*:)/g, '§AZULCLARO§$1§FIM§$2');
+                // 2. Pinta os valores de texto comuns
+                htmlEscapado = htmlEscapado.replace(/:\s*(&quot;[^&]*&quot;|"[^"]*")/g, ': §LARANJA§$1§FIM§');
+                // 3. Pinta números, booleanos (true/false) e null
+                htmlEscapado = htmlEscapado.replace(/:\s*\b(true|false|null|\d+(\.\d+)?)\b/g, ': §VERDE§$1§FIM§');
             }
+            
 
             htmlEscapado = htmlEscapado
                 .replace(/§AZUL§/g, '<span style="color: #569cd6;">')
