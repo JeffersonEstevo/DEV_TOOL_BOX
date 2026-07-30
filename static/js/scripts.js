@@ -486,6 +486,16 @@ document.addEventListener("click", function(event) {
             console.error("A função gerenciarCalculadoraCientifica não está carregada!");
         }
     }
+    // === 02. CALCULADORAS - 06. Trabalhista ===
+    if (event.target.closest('#clean-labor-button')) {
+        event.preventDefault();
+        if (typeof limparTrabalhista === "function") limparTrabalhista();
+    }
+    if (event.target.closest('#copy-labor-button')) {
+        event.preventDefault();
+        window.copiarTextoDeElemento('salario-liquido', 'labor-alert');
+    }
+
     // === 03. GERADORES - 01. Gerar/Validar CPF ===
     if (event.target.closest('#btn-gerar-cpf')) {
         event.preventDefault();
