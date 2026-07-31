@@ -1,38 +1,53 @@
 <div class="tool-container">
     <header class="tool-header">
         <h2>Calculadora de Frações</h2>
-        <p>Realize operações de soma, subtração, multiplicação e divisão entre frações com redução automática ao menor denominador comum.</p>
+        <p>Realize operações com duas ou mais frações, com redução automática ao menor denominador comum.</p>
     </header>
 
-    <div class="fraction-workspace">
-        <div class="fraction-block">
+    <!-- Container dinâmico para as frações e operadores -->
+    <div id="fraction-container" class="fraction-workspace">
+        <!-- Bloco da Fração 1 -->
+        <div class="fraction-block" data-index="1">
             <div class="field-group">
-                <input type="number" id="numerator1" placeholder="Numerador 1" aria-label="Numerador 1">
+                <input type="number" class="numerator" placeholder="Numerador 1" aria-label="Numerador 1">
             </div>
             <div class="fraction-line"></div>
             <div class="field-group">
-                <input type="number" id="denominator1" placeholder="Denominador 1" aria-label="Denominador 1">
+                <input type="number" class="denominator" placeholder="Denominador 1" aria-label="Denominador 1">
             </div>
         </div>
 
-        <div class="fraction-operator">
-            <select id="operation" aria-label="Operação Matemática">
-                <option value="add">+</option>
-                <option value="subtract">−</option>
-                <option value="multiply">×</option>
-                <option value="divide">÷</option>
-            </select>
+        <!-- Bloco padrão inicial (Operador + Fração 2) -->
+        <div class="fraction-operator-block">
+            <div class="fraction-operator">
+                <select class="operation-select" aria-label="Operação Matemática">
+                    <option value="add">+</option>
+                    <option value="subtract">−</option>
+                    <option value="multiply">×</option>
+                    <option value="divide">÷</option>
+                </select>
+            </div>
         </div>
 
-        <div class="fraction-block">
+        <div class="fraction-block" data-index="2">
             <div class="field-group">
-                <input type="number" id="numerator2" placeholder="Numerador 2" aria-label="Numerador 2">
+                <input type="number" class="numerator" placeholder="Numerador 2" aria-label="Numerador 2">
             </div>
             <div class="fraction-line"></div>
             <div class="field-group">
-                <input type="number" id="denominator2" placeholder="Denominador 2" aria-label="Denominador 2">
+                <input type="number" class="denominator" placeholder="Denominador 2" aria-label="Denominador 2">
             </div>
         </div>
+    </div>
+
+    <!-- Botões para gerenciar a quantidade de frações -->
+    <div class="fraction-controls-bar text-center mb-3">
+        <button id="add-fraction-field" class="btn btn-outline-primary btn-sm">
+            <i class="bi bi-plus-circle"></i> Adicionar Fração
+        </button>
+        <button id="remove-fraction-field" class="btn btn-outline-danger btn-sm">
+            <i class="bi bi-dash-circle"></i> Remover Fração
+        </button>
     </div>
 
     <div class="action-bar text-center">
