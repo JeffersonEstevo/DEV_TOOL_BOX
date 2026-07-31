@@ -1,12 +1,23 @@
 <div class="tool-container">
     <header class="tool-header">
         <h2>Calcular Média Aritmética</h2>
-        <p>Insira seus dados numéricos em bloco para obter média, extremos, amplitude e contagem total de termos instantaneamente.</p>
+        <p>Insira seus dados numéricos para obter média, extremos, amplitude e contagem total de termos instantaneamente.</p>
+        
+        <!-- Seletor de Modo (Simples / Ponderada) -->
+        <div class="mode-selector mt-3">
+            <div class="btn-group" role="group" aria-label="Modo de Média">
+                <input type="radio" class="btn-check" name="mean-mode" id="mode-simple" value="simple" checked autocomplete="off">
+                <label class="btn btn-outline-primary btn-sm" for="mode-simple">Média Simples</label>
+
+                <input type="radio" class="btn-check" name="mean-mode" id="mode-weighted" value="weighted" autocomplete="off">
+                <label class="btn btn-outline-primary btn-sm" for="mode-weighted">Média Ponderada</label>
+            </div>
+        </div>
     </header>
 
     <div class="tool-grid">
         <div class="field-group">
-            <label for="input-numbers">Valores para análise:</label>
+            <label for="input-numbers" id="input-label">Valores para análise:</label>
             <textarea id="input-numbers" rows="12" placeholder="Digite os valores separados por vírgula ou um por linha... Ex&#10;10&#10;20, 35, 42&#10;50"></textarea>
             
             <div class="action-bar mt-2">
@@ -17,7 +28,7 @@
         <div class="metrics-panel">
             <!-- Termos -->
             <div class="metric-row-card">
-                <span class="metric-label">Número de Termos</span>
+                <span class="metric-label" id="label-term-count">Número de Termos</span>
                 <div class="metric-output-group">
                     <input type="text" id="number-of-terms" value="Nenhum valor" readonly class="metric-input empty-state">
                     <button id="copy-terms-btn" class="btn btn-success" title="Copiar quantidade de termos">
@@ -27,7 +38,7 @@
             </div>
 
             <!-- Mínimo -->
-            <div class="metric-row-card">
+            <div class="metric-row-card" id="card-min">
                 <span class="metric-label">Valor Mínimo</span>
                 <div class="metric-output-group">
                     <input type="text" id="min-value" value="Nenhum valor" readonly class="metric-input empty-state">
@@ -38,7 +49,7 @@
             </div>
 
             <!-- Máximo -->
-            <div class="metric-row-card">
+            <div class="metric-row-card" id="card-max">
                 <span class="metric-label">Valor Máximo</span>
                 <div class="metric-output-group">
                     <input type="text" id="max-value" value="Nenhum valor" readonly class="metric-input empty-state">
@@ -49,7 +60,7 @@
             </div>
 
             <!-- Amplitude -->
-            <div class="metric-row-card">
+            <div class="metric-row-card" id="card-range">
                 <span class="metric-label">Intervalo (Amplitude)</span>
                 <div class="metric-output-group">
                     <input type="text" id="range-values" value="Nenhum valor" readonly class="metric-input empty-state">
@@ -61,10 +72,10 @@
 
             <!-- Média (Destaque Principal) -->
             <div class="metric-row-card highlight-metric">
-                <span class="metric-label">Média Aritmética (x̄)</span>
+                <span class="metric-label" id="mean-label-text">Média Aritmética (x̄)</span>
                 <div class="metric-output-group">
                     <input type="text" id="mean-value" value="Nenhum valor" readonly class="metric-input empty-state">
-                    <button id="copy-mean-btn" class="btn btn-primary" title="Copiar média aritmética">
+                    <button id="copy-mean-btn" class="btn btn-primary" title="Copiar média">
                         <i class="bi bi-clipboard"></i>
                     </button>
                 </div>

@@ -125,3 +125,27 @@
     font-size: 0.95rem;
   }
 }
+
+/* Estilos para o seletor de modo (Simples / Ponderada) */
+.mode-selector {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.mode-selector .btn-group {
+  box-shadow: none;
+}
+
+.mode-selector .btn-outline-primary {
+  border-color: var(--border-color);
+  color: var(--text-muted);
+  background-color: var(--bg-main);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.mode-selector .btn-check:checked + .btn-outline-primary {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #fff;
+}
