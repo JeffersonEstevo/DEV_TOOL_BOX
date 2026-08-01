@@ -1316,32 +1316,91 @@ window.inicializarElementosUI = function() {
         });
 
         if (containerPaginacao && totalPaginas > 1) {
-            for (let i = 1; i <= totalPaginas; i++) {
-                const btnPagina = document.createElement('button');
-                btnPagina.textContent = i;
-                btnPagina.style.padding = '0.5rem 0.85rem';
-                btnPagina.style.fontSize = '0.85rem';
-                btnPagina.style.fontWeight = '700';
-                btnPagina.style.border = '1px solid var(--border-color)';
-                btnPagina.style.borderRadius = '6px';
-                btnPagina.style.cursor = 'pointer';
-                
-                if (i === paginaAtualUI) {
-                    btnPagina.style.backgroundColor = 'var(--primary-color)';
-                    btnPagina.style.color = '#ffffff';
-                } else {
-                    btnPagina.style.backgroundColor = 'var(--bg-sidebar)';
-                    btnPagina.style.color = 'var(--text-main)';
+    // Função auxiliar para criar os botões de paginação
+    const criarBotaoPagina = (numero, texto = numero, ativo = false) => {
+        const btnPagina = document.createElement('button');
+        btnPagina.textContent = texto;
+        btnPagina.style.padding = '0.5rem 0.85rem';
+        btnPagina.style.fontSize = '0.85rem';
+        btnPagina.style.fontWeight = '700';
+        btnPagina.style.border = '1px solid var(--border-color)';
+        btnPagina.style.borderRadius = '6px';
+        btnPagina.style.cursor = 'pointer';
+
+        if (ativo) {
+            btnPagina.style.backgroundColor = 'var(--primary-color)';
+            btnPagina.style.color = '#ffffff';
+        } else {
+            btnPagina.style.backgroundColor = 'var(--bg-sidebar)';
+            btnPagina.style.color = 'var(--text-main)';
+        }
+
+        if (typeof numero === 'number') {
+            btnPagina.addEventListener('click', () => {
+                paginaAtualUI = numero;
+                gridBiblioteca.dataset.montado = "false";
+                renderizarElementosUI();
+                gridBiblioteca.scrollIntoView({ behavior: 'smooth' });
+            });
+        } else {
+            // Estilo para as reticências (...) - desabilitado
+            btnPagina.style.cursor = 'default';
+            btnPagina.style.opacity = '0.6';
+        }
+
+        return btnPagina;
+    };
+
+            // Botão "Anterior"
+            if (paginaAtualUI > 1) {
+                containerPaginacao.appendChild(criarBotaoPagina(paginaAtualUI - 1, '‹'));
+            }
+
+            // Limite máximo de botões visíveis sem reticências
+            const maxBotoesVisiveis = 5;
+
+            if (totalPaginas <= maxBotoesVisiveis) {
+                // Se houver poucas páginas (ex: até 5), mostra todas
+                for (let i = 1; i <= totalPaginas; i++) {
+                    containerPaginacao.appendChild(criarBotaoPagina(i, i, i === paginaAtualUI));
+                }
+            } else {
+                // Lógica de truncamento com reticências (...)
+                const delta = 1; // Quantidade de páginas vizinhas para mostrar de cada lado
+                const paginas = [];
+
+                paginas.push(1); // Sempre mostra a primeira página
+
+                let inicio = Math.max(2, paginaAtualUI - delta);
+                let fim = Math.min(totalPaginas - 1, paginaAtualUI + delta);
+
+                if (inicio > 2) {
+                    paginas.push('...');
                 }
 
-                btnPagina.addEventListener('click', () => {
-                    paginaAtualUI = i;
-                    gridBiblioteca.dataset.montado = "false";
-                    renderizarElementosUI();
-                    gridBiblioteca.scrollIntoView({ behavior: 'smooth' });
-                });
+                for (let i = inicio; i <= fim; i++) {
+                    paginas.push(i);
+                }
 
-                containerPaginacao.appendChild(btnPagina);
+                if (fim < totalPaginas - 1) {
+                    paginas.push('...');
+                }
+
+                paginas.push(totalPaginas); // Sempre mostra a última página
+
+                // Renderiza os botões calculados
+                paginas.forEach(p => {
+                    if (p === '...') {
+                        containerPaginacao.appendChild(criarBotaoPagina(null, '...', false));
+                    } else {
+                        containerPaginacao.appendChild(criarBotaoPagina(p, p, p === paginaAtualUI));
+                    }
+                });
+            }
+
+            // Botão "Próximo"
+            if (paginaAtualUI < totalPaginas) {
+                containerPaginacao.appendChild(criarBotaoPagina(paginaAtualUI + 1, '›'));
             }
         }
     }
