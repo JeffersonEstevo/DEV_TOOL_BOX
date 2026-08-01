@@ -478,6 +478,251 @@ var BANCO_COMPONENTES_UI = BANCO_COMPONENTES_UI || [
     .ui-log-status.s401 { color: #f87171; }
     .ui-log-mono { color: #94a3b8; }`
     },
+    // 3. TABELAS - 4. tabela-floating-cards
+    {
+        id: "tabela-floating-cards",
+        nome: "Tabela Estilo Floating Cards",
+        categoria: "tabelas",
+        html: `<table class="ui-tabela-floating">
+    <thead>
+        <tr>
+            <th>Projeto</th>
+            <th>Equipe</th>
+            <th>Progresso</th>
+            <th>Ação</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <div class="ui-proj-info">
+                    <strong>Design System v2</strong>
+                    <small>Atualizado há 2h</small>
+                </div>
+            </td>
+            <td>
+                <div class="ui-avatar-group">
+                    <span class="ui-avatar" style="background-color: #6366f1;">JS</span>
+                    <span class="ui-avatar" style="background-color: #ec4899;">MA</span>
+                </div>
+            </td>
+            <td>
+                <div class="ui-progress-wrapper">
+                    <div class="ui-progress-bar"><div class="ui-progress-fill" style="width: 75%;"></div></div>
+                    <span class="ui-progress-text">75%</span>
+                </div>
+            </td>
+            <td><button class="ui-btn-tbl">Gerenciar</button></td>
+        </tr>
+        <tr>
+            <td>
+                <div class="ui-proj-info">
+                    <strong>App iOS Redesign</strong>
+                    <small>Atualizado ontem</small>
+                </div>
+            </td>
+            <td>
+                <div class="ui-avatar-group">
+                    <span class="ui-avatar" style="background-color: #10b981;">CR</span>
+                </div>
+            </td>
+            <td>
+                <div class="ui-progress-wrapper">
+                    <div class="ui-progress-bar"><div class="ui-progress-fill" style="width: 40%;"></div></div>
+                    <span class="ui-progress-text">40%</span>
+                </div>
+            </td>
+            <td><button class="ui-btn-tbl">Gerenciar</button></td>
+        </tr>
+    </tbody>
+</table>`,
+        css: `/* Estilos da Tabela Floating Cards */
+.ui-tabela-floating {
+    width: 100%; max-width: 650px; border-collapse: separate; border-spacing: 0 8px;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+.ui-tabela-floating th {
+    color: #64748b; text-align: left; padding: 0.5rem 1rem;
+    font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+}
+.ui-tabela-floating tbody tr {
+    background: #ffffff; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border-radius: 10px; transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.ui-tabela-floating tbody tr:hover {
+    transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+.ui-tabela-floating td { padding: 1rem; color: #334155; font-size: 0.9rem; vertical-align: middle; }
+.ui-tabela-floating td:first-child { border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
+.ui-tabela-floating td:last-child { border-top-right-radius: 10px; border-bottom-right-radius: 10px; text-align: right; }
+.ui-proj-info strong { display: block; color: #0f172a; font-size: 0.95rem; }
+.ui-proj-info small { color: #94a3b8; font-size: 0.75rem; }
+.ui-avatar-group { display: flex; gap: -4px; }
+.ui-avatar {
+    width: 28px; height: 28px; border-radius: 50%; color: #fff;
+    font-size: 0.7rem; font-weight: 700; display: flex; align-items: center; justify-content: center;
+    border: 2px solid #ffffff; margin-right: -6px;
+}
+.ui-progress-wrapper { display: flex; align-items: center; gap: 0.5rem; }
+.ui-progress-bar { flex: 1; height: 6px; background: #e2e8f0; border-radius: 10px; overflow: hidden; }
+.ui-progress-fill { height: 100%; background: #6366f1; border-radius: 10px; }
+.ui-progress-text { font-size: 0.8rem; font-weight: 600; color: #475569; min-width: 30px; }
+.ui-btn-tbl {
+    background: #f1f5f9; color: #475569; border: none; padding: 0.4rem 0.8rem;
+    border-radius: 6px; font-weight: 600; font-size: 0.8rem; cursor: pointer; transition: 0.2s;
+}
+.ui-btn-tbl:hover { background: #6366f1; color: #ffffff; }`
+    },
+
+    // 3. TABELAS - 5. tabela-financeira-analytics
+    {
+        id: "tabela-financeira-analytics",
+        nome: "Tabela Financeira & Analytics",
+        categoria: "tabelas",
+        html: `<table class="ui-tabela-fin">
+    <thead>
+        <tr>
+            <th>Canal</th>
+            <th>Receita</th>
+            <th>Crescimento</th>
+            <th>Conversão</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <div class="ui-channel-cell">
+                    <span class="ui-channel-dot organic"></span>
+                    <span>Busca Orgânica</span>
+                </div>
+            </td>
+            <td class="ui-txt-mono">R$ 42.850,00</td>
+            <td><span class="ui-trend up">↑ +14.2%</span></td>
+            <td>
+                <div class="ui-metric-pill">3.8%</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="ui-channel-cell">
+                    <span class="ui-channel-dot paid"></span>
+                    <span>Google Ads</span>
+                </div>
+            </td>
+            <td class="ui-txt-mono">R$ 18.210,00</td>
+            <td><span class="ui-trend down">↓ -3.1%</span></td>
+            <td>
+                <div class="ui-metric-pill">2.1%</div>
+            </td>
+        </tr>
+    </tbody>
+</table>`,
+        css: `/* Estilos da Tabela Financeira */
+.ui-tabela-fin {
+    width: 100%; max-width: 650px; border-collapse: collapse;
+    background: #ffffff; border-radius: 12px; overflow: hidden;
+    border: 1px solid #e2e8f0; font-family: system-ui, sans-serif;
+}
+.ui-tabela-fin th {
+    background: #fafafa; color: #475569; text-align: left;
+    padding: 0.85rem 1rem; font-size: 0.8rem; font-weight: 700;
+    text-transform: uppercase; border-bottom: 1px solid #e2e8f0;
+}
+.ui-tabela-fin td { padding: 0.9rem 1rem; color: #1e293b; font-size: 0.875rem; border-bottom: 1px solid #f1f5f9; }
+.ui-tabela-fin tr:last-child td { border-bottom: none; }
+.ui-channel-cell { display: flex; align-items: center; gap: 0.5rem; font-weight: 600; }
+.ui-channel-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.ui-channel-dot.organic { background: #10b981; }
+.ui-channel-dot.paid { background: #3b82f6; }
+.ui-txt-mono { font-family: ui-monospace, SFMono-Regular, monospace; font-weight: 600; color: #0f172a; }
+.ui-trend { font-size: 0.8rem; font-weight: 700; padding: 0.2rem 0.4rem; border-radius: 4px; }
+.ui-trend.up { color: #15803d; background: #f0fdf4; }
+.ui-trend.down { color: #b91c1c; background: #fef2f2; }
+.ui-metric-pill { background: #f8fafc; border: 1px solid #e2e8f0; padding: 0.15rem 0.5rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; width: fit-content; }`
+    },
+
+    // 3. TABELAS - 6. tabela-glassmorphism-dark
+    {
+        id: "tabela-glassmorphism-dark",
+        nome: "Tabela Glassmorphism Futurista",
+        categoria: "tabelas",
+        html: `<div class="ui-glass-container">
+    <table class="ui-tabela-glass">
+        <thead>
+            <tr>
+                <th>Ativo</th>
+                <th>Rede</th>
+                <th>Saldo</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    <div class="ui-crypto-cell">
+                        <span class="ui-crypto-icon eth">Ξ</span>
+                        <div>
+                            <strong>Ethereum</strong>
+                            <small>ETH</small>
+                        </div>
+                    </div>
+                </td>
+                <td><span class="ui-glass-badge">Mainnet</span></td>
+                <td><strong class="ui-glass-val">2.45 ETH</strong></td>
+                <td><span class="ui-glow-dot active"></span> Conectado</td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="ui-crypto-cell">
+                        <span class="ui-crypto-icon btc">₿</span>
+                        <div>
+                            <strong>Bitcoin</strong>
+                            <small>BTC</small>
+                        </div>
+                    </div>
+                </td>
+                <td><span class="ui-glass-badge">Lightning</span></td>
+                <td><strong class="ui-glass-val">0.18 BTC</strong></td>
+                <td><span class="ui-glow-dot active"></span> Conectado</td>
+            </tr>
+        </tbody>
+    </table>
+</div>`,
+        css: `/* Estilos da Tabela Glassmorphism */
+.ui-glass-container {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    padding: 1.5rem; border-radius: 16px; max-width: 650px;
+}
+.ui-tabela-glass {
+    width: 100%; border-collapse: collapse; font-family: system-ui, sans-serif;
+    background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-radius: 12px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.ui-tabela-glass th {
+    background: rgba(255, 255, 255, 0.03); color: #94a3b8; text-align: left;
+    padding: 0.9rem 1rem; font-size: 0.8rem; font-weight: 600; border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.ui-tabela-glass td { padding: 0.9rem 1rem; color: #f8fafc; font-size: 0.85rem; border-bottom: 1px solid rgba(255, 255, 255, 0.05); vertical-align: middle; }
+.ui-tabela-glass tr:last-child td { border-bottom: none; }
+.ui-crypto-cell { display: flex; align-items: center; gap: 0.75rem; }
+.ui-crypto-icon {
+    width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center;
+    justify-content: center; font-weight: bold; font-size: 0.9rem;
+}
+.ui-crypto-icon.eth { background: rgba(99, 102, 241, 0.2); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.4); }
+.ui-crypto-icon.btc { background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); }
+.ui-crypto-cell strong { display: block; color: #f8fafc; line-height: 1.2; }
+.ui-crypto-cell small { color: #64748b; font-size: 0.75rem; }
+.ui-glass-badge {
+    background: rgba(255, 255, 255, 0.1); padding: 0.2rem 0.5rem;
+    border-radius: 6px; font-size: 0.75rem; color: #cbd5e1;
+}
+.ui-glass-val { color: #38bdf8; font-family: monospace; font-size: 0.9rem; }
+.ui-glow-dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 4px;
+}
+.ui-glow-dot.active { background: #34d399; box-shadow: 0 0 8px #34d399; }`
+    },
 
     // 4. MODAL - 1. modal-confirmacao-moderno
     {
