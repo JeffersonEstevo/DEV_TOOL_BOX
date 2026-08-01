@@ -689,6 +689,11 @@ document.addEventListener("click", function(event) {
         event.preventDefault();
         if (typeof limparTodosCamposDistancia === "function") limparTodosCamposDistancia();
     }
+    // === 04. CONVERSORES - 10. Triângulo de Potência ===
+    if (event.target.closest('#btn-limpar-potencia')) {
+        event.preventDefault();
+        if (typeof limparPotencia === "function") limparPotencia();
+    }    
     // === 05. REDE - 01. Máscara e CIDR ===
     if (event.target.closest('#btn-limpar-rede')) {
         event.preventDefault();

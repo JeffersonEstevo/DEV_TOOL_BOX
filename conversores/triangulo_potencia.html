@@ -1,0 +1,80 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Triângulo de Potências (CA)</h2>
+        <p>Calcule e visualize a relação dinâmica entre a Potência Ativa, Reativa, Aparente e o Fator de Potência (Cos $\varphi$).</p>
+    </header>
+
+    <div class="generator-workspace potencia-workspace">
+        
+        <h3 class="secao-titulo">Calculadora de Potências</h3>
+        <div class="potencia-grid">
+            
+            <div class="potencia-field">
+                <label for="pot-ativa">Potência Ativa (P)</label>
+                <div class="input-unidade-wrapper">
+                    <input type="number" id="pot-ativa" placeholder="Ex: 1000" step="any">
+                    <span class="input-unidade">W</span>
+                </div>
+                <small class="field-help">Trabalho útil realizado pelo circuito.</small>
+            </div>
+
+            <div class="potencia-field">
+                <label for="pot-reativa">Potência Reativa (Q)</label>
+                <div class="input-unidade-wrapper">
+                    <input type="number" id="pot-reativa" placeholder="Ex: 750" step="any">
+                    <span class="input-unidade">VAR</span>
+                </div>
+                <small class="field-help">Potência dos campos magnéticos/elétricos.</small>
+            </div>
+
+            <div class="potencia-field">
+                <label for="pot-aparente">Potência Aparente (S)</label>
+                <div class="input-unidade-wrapper">
+                    <input type="number" id="pot-aparente" placeholder="Calculado automaticamente" step="any">
+                    <span class="input-unidade">VA</span>
+                </div>
+                <small class="field-help">Total fornecida pela fonte ($S^2 = P^2 + Q^2$).</small>
+            </div>
+
+            <div class="potencia-field">
+                <label for="pot-fp">Fator de Potência ($\cos \varphi$)</label>
+                <div class="input-unidade-wrapper">
+                    <input type="number" id="pot-fp" placeholder="0 a 1" step="any" max="1" min="0">
+                    <span class="input-unidade">fp</span>
+                </div>
+                <small class="field-help">Relação entre Ativa e Aparente ($P / S$).</small>
+            </div>
+
+        </div>
+
+        <h3 class="secao-titulo" style="margin-top: 2rem;">Visualização Trigonométrica</h3>
+        <div class="potencia-info-box">
+            <div class="info-item">
+                <span class="info-label">Ângulo de Defasagem ($\varphi$):</span>
+                <span id="res-angulo" class="info-valor">0.00°</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Seno do Ângulo ($\sin \varphi$):</span>
+                <span id="res-seno" class="info-valor">0.0000</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Classificação da Carga:</span>
+                <span id="res-tipo-carga" class="info-valor text-success">Indutiva / Resistiva</span>
+            </div>
+        </div>
+
+        <div class="potencia-formula-box">
+            <p><strong>Relações Trigonométricas Fundamentais:</strong></p>
+            <code>P = S · cos(φ) &nbsp;|&nbsp; Q = S · sen(φ) &nbsp;|&nbsp; S = √(P² + Q²)</code>
+        </div>
+
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="btn-limpar-potencia" class="btn btn-success">
+            <i class="bi bi-trash3-fill"></i> Limpar Calculadora
+        </button>
+    </div>
+</div>
+
+<script src="static/js/conversores/triangulo_potencia.js"></script>
