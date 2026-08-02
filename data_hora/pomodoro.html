@@ -1,0 +1,47 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Temporizador Pomodoro</h2>
+        <p>Aumente sua produtividade alternando ciclos de foco intenso com pausas revigorantes.</p>
+    </header>
+
+    <!-- Abas de Modos do Pomodoro -->
+    <div class="data-hora-tabs pomodoro-tabs">
+        <button class="tab-btn active" onclick="mudarModoPomodoro('foco', 25)">
+            <i class="bi bi-bullseye"></i> Foco
+        </button>
+        <button class="tab-btn" onclick="mudarModoPomodoro('pausaCurta', 5)">
+            <i class="bi bi-cup-hot-fill"></i> Pausa Curta
+        </button>
+        <button class="tab-btn" onclick="mudarModoPomodoro('pausaLonga', 15)">
+            <i class="bi bi-moon-stars-fill"></i> Pausa Longa
+        </button>
+    </div>
+
+    <div class="generator-workspace dh-workspace active" style="text-align: center;">
+        <!-- Visor do Pomodoro -->
+        <div class="chrono-display-wrapper pomodoro-display-box">
+            <span id="pomo-display" class="chrono-time">25:00</span>
+            <small id="pomo-status-label" class="field-help" style="display: block; margin-top: 0.5rem; font-weight: 600;">Hora de focar!</small>
+        </div>
+
+        <!-- Ações do Pomodoro -->
+        <div class="chrono-actions">
+            <button id="btn-pomo-start" class="chrono-btn btn-start" onclick="alternarPomodoro()">
+                <i class="bi bi-play-fill"></i> Iniciar
+            </button>
+            <button id="btn-pomo-reset" class="chrono-btn btn-reset" onclick="reiniciarPomodoro()">
+                <i class="bi bi-arrow-counterclockwise"></i> Reiniciar
+            </button>
+        </div>
+
+        <!-- Estatísticas da Sessão -->
+        <div class="chrono-laps-container" style="text-align: center;">
+            <h5><i class="bi bi-check2-circle"></i> Ciclos Concluídos</h5>
+            <div class="pomo-stats">
+                <span id="pomo-counter">0</span> ciclos completados hoje
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="static/js/data_hora/pomodoro.js"></script>
