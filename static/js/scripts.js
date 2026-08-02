@@ -14,6 +14,22 @@ window.toggleMenu = function toggleMenu() {
         }
     }
 };
+
+// Fecha o menu lateral automaticamente no celular ao clicar em qualquer link de ferramenta
+document.addEventListener("click", (e) => {
+    if (window.innerWidth <= 768) {
+        const appContainer = document.getElementById("app-container");
+        const toggleIcon = document.getElementById("toggle-icon");
+        
+        // Se clicar em um link do menu ou na camada de fundo escuro, fecha o menu
+        if (appContainer && !appContainer.classList.contains("sidebar-hidden")) {
+            if (e.target.closest('.nav-links a') || e.target === appContainer) {
+                appContainer.classList.add("sidebar-hidden");
+                if (toggleIcon) toggleIcon.className = "bi bi-arrow-right-short";
+            }
+        }
+    }
+});
 // Copia o conteúdo de um elemento para a área de transferência
 window.copiarTextoDeElemento = function(idElemento, idAlerta) {
     const elementoTexto = document.getElementById(idElemento);

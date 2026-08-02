@@ -776,3 +776,50 @@ img, video, canvas, svg, table, pre, code {
         gap: 1rem;
     }
 }
+
+
+
+
+/* ==========================================================================
+   === MENU LATERAL RESPONSIVO MOBILE (GAVETA COM FECHAMENTO INTELIGENTE) ===
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  /* 1. O menu fica oculto por padrão fora da tela */
+  #sidebar {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1050;
+    width: var(--sidebar-width) !important;
+    transform: translateX(-100%) !important;
+    transition: transform 0.3s ease-in-out;
+    margin-left: 0 !important;
+    box-shadow: none;
+  }
+
+  /* 2. Quando aberto, ele desliza para a tela com sombra nítida */
+  #app-container:not(.sidebar-hidden) #sidebar {
+    transform: translateX(0) !important;
+    box-shadow: 20px 0 50px rgba(0, 0, 0, 0.4);
+  }
+
+  /* 3. Camada de fundo escuro sutil atrás do menu para dar contraste (opcional, mas ajuda a focar) */
+  #app-container:not(.sidebar-hidden)::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1040;
+  }
+
+  /* 4. Conteúdo principal ocupa 100% da largura sempre */
+  #main-content {
+    width: 100% !important;
+    min-width: 0;
+  }
+}
