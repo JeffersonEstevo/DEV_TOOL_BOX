@@ -738,6 +738,11 @@ document.addEventListener("click", function(event) {
         event.preventDefault();
         if (typeof limparTodosCamposConv === "function") limparTodosCamposConv();
     }
+    // === 06. DATA/HORA - 05. Cronômetro ===
+    if (event.target.closest('#btn-limpar-conv-datas')) { // ou ajuste para o ID do botão de limpar do cronômetro se houver
+        event.preventDefault();
+        if (typeof zerarCronometro === "function") zerarCronometro();
+    }
     // === 07. CORES - 01. Seletor de Cores ===
     if (event.target.closest('#btn-limpar-cores')) {
         event.preventDefault();

@@ -1,0 +1,36 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Cronômetro & Temporizador</h2>
+        <p>Meça intervalos de tempo com precisão, registre voltas (laps) e controle contagens progressivas.</p>
+    </header>
+
+    <div class="generator-workspace dh-workspace active" style="text-align: center;">
+        <!-- Visor do Cronômetro -->
+        <div class="chrono-display-wrapper">
+            <span id="chrono-display" class="chrono-time">00:00:00<small>.00</small></span>
+        </div>
+
+        <!-- Ações Principais -->
+        <div class="chrono-actions">
+            <button id="btn-chrono-start" class="chrono-btn btn-start" onclick="alternarCronometro()">
+                <i class="bi bi-play-fill"></i> Iniciar
+            </button>
+            <button id="btn-chrono-lap" class="chrono-btn btn-lap" onclick="registrarVoltaCronometro()" disabled>
+                <i class="bi bi-flag-fill"></i> Volta
+            </button>
+            <button id="btn-chrono-reset" class="chrono-btn btn-reset" onclick="zerarCronometro()" disabled>
+                <i class="bi bi-arrow-counterclockwise"></i> Zerar
+            </button>
+        </div>
+
+        <!-- Histórico / Voltas -->
+        <div class="chrono-laps-container">
+            <h5><i class="bi bi-list-ol"></i> Registro de Voltas</h5>
+            <div id="chrono-laps-list" class="chrono-laps-list">
+                <span class="chrono-empty-laps">Nenhuma volta registrada ainda.</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="static/js/data_hora/cronometro.js"></script>
