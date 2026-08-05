@@ -2,7 +2,7 @@
 === 01. TEXTO - 17. Comparação de Listas ===
 ========================================================================== */
 
-/* Container principal da ferramenta na SPA */
+/* Container principal da ferramenta na SPA: Garante largura total sem estouros horizontais */
 .tool-container.workspace-largo {
   width: 100%;
   max-width: 100%;
@@ -11,7 +11,7 @@
   padding: 1rem;
 }
 
-/* Grid de entrada (Inputs A e B) - Responsivo */
+/* Grid de entrada (Inputs A e B): Organiza os campos de texto lado a lado em telas grandes */
 .tool-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -20,7 +20,7 @@
   box-sizing: border-box;
 }
 
-/* Grid de resultados de 3 colunas */
+/* Grid de resultados de 3 colunas: Distribui os cards de diff (ex: comuns, exclusivas A, exclusivas B) */
 .result-grid-three {
   display: grid !important;
   grid-template-columns: repeat(3, 1fr) !important;
@@ -30,7 +30,7 @@
   margin-top: 1rem;
 }
 
-/* Contador discreto posicionado abaixo de cada textarea de entrada */
+/* Contador discreto posicionado abaixo de cada textarea para exibir quantidade de itens/linhas */
 .list-counter {
   font-size: 0.85rem;
   color: var(--text-muted, #777);
@@ -39,14 +39,14 @@
   font-weight: 500;
 }
 
-/* Mensagem amigável para listas de resultados vazias */
+/* Mensagem amigável exibida quando uma das listas de resultado não possui itens */
 .empty-list-msg {
   color: var(--text-muted, #888);
   font-style: italic;
   opacity: 0.7;
 }
 
-/* Ajustes de cores para as novas bordas/headers de cards de resultado */
+/* Estilização e borda superior para o card de informações neutras */
 .card-info {
   border-top: 4px solid var(--info-color, #17a2b8);
 }
@@ -57,6 +57,7 @@
   padding: 0.75rem;
 }
 
+/* Estilização e borda superior para o card de alertas/remoções */
 .card-danger {
   border-top: 4px solid var(--danger-color, #dc3545);
 }
@@ -67,6 +68,7 @@
   padding: 0.75rem;
 }
 
+/* Estilização e borda superior para o card de sucesso/adições */
 .card-success {
   border-top: 4px solid var(--success-color, #28a745);
 }
@@ -77,7 +79,7 @@
   padding: 0.75rem;
 }
 
-/* Caixa de diff otimizada com rolagem interna e quebra natural */
+/* Caixa de diff otimizada com rolagem interna, fonte monoespaçada e quebra de palavras */
 .diff-box {
   width: 100% !important;
   min-height: 200px;
@@ -91,7 +93,7 @@
   word-break: break-word;
 }
 
-/* Alinha o título do card e o botão de copiar nas extremidades */
+/* Alinha o título do card à esquerda e o botão de copiar à direita nas extremidades */
 .result-card .card-header {
   display: flex !important;
   justify-content: space-between !important;
@@ -99,7 +101,7 @@
   padding: 0.5rem 0.75rem !important;
 }
 
-/* Estilo do botão de copiar individual */
+/* Estilo padrão do botão de copiar individual presente no card */
 .btn-copy-card {
   background: transparent;
   border: 1px solid currentColor;
@@ -115,12 +117,13 @@
   opacity: 0.8;
 }
 
+/* Efeito de hover no botão de cópia */
 .btn-copy-card:hover {
   opacity: 1;
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-/* Efeito de sucesso quando copiado */
+/* Efeito visual aplicado quando o conteúdo do card é copiado com sucesso */
 .btn-copy-card.copied {
   background-color: rgba(40, 167, 69, 0.2) !important;
   border-color: #28a745 !important;
@@ -132,14 +135,14 @@
 === RESPONSIVIDADE (MEDIA QUERIES) ===
 ========================================================================== */
 
-/* Celulares (abaixo de 768px): Empilha as caixas de entrada (Lista A e B) */
+/* Celulares (abaixo de 768px): Empilha as caixas de entrada (Lista A e B) em coluna única */
 @media (max-width: 768px) {
   .tool-grid {
     grid-template-columns: 1fr !important;
   }
 }
 
-/* Tablets e Celulares (abaixo de 1024px): Empilha os 3 cards de resultado */
+/* Tablets e Celulares (abaixo de 1024px): Empilha os 3 cards de resultado verticalmente */
 @media (max-width: 1024px) {
   .result-grid-three {
     grid-template-columns: 1fr !important;
