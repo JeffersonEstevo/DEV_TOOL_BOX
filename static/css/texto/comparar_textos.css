@@ -1,9 +1,17 @@
 /* ==========================================================================
-   === 01. TEXTO - 11. Comparação de Textos ===
-   ========================================================================== */
+=== 01. TEXTO - 11. Comparação de Textos ===
+========================================================================== */
 
-/* Força os elementos do grid a organizarem-se em duas colunas fixas e proporcionais 
-   para exibir os campos de comparação lado a lado */
+/* Container principal da ferramenta na SPA: Controla a largura total e o preenchimento interno */
+.tool-container.workspace-largo {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  padding: 1rem;
+}
+
+/* Força os elementos do grid a organizarem-se em duas colunas fixas e proporcionais para os inputs */
 .tool-grid {
   display: grid !important;
   grid-template-columns: repeat(2, 1fr) !important;
@@ -20,8 +28,7 @@
   width: 100% !important;
 }
 
-/* Padroniza os textareas específicos de comparação para ocuparem 100% da largura, 
-   com fundo dinâmico e redimensionamento restrito à vertical */
+/* Padroniza os textareas específicos de comparação para 100% de largura e redimensionamento vertical */
 .tool-container textarea {
   width: 100% !important;
   min-width: 100% !important;
@@ -37,31 +44,115 @@
   resize: vertical;
 }
 
+/* Contador discreto posicionado abaixo de cada textarea para contagem de caracteres/linhas */
+.text-counter {
+  font-size: 0.85rem;
+  color: var(--text-muted, #777);
+  text-align: right;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
 /* Configuração estrutural do card que abriga o resultado da comparação */
 .result-card {
   width: 100% !important;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-main);
+  overflow: hidden;
+  margin-bottom: 1.25rem;
 }
 
-/* Estilização da caixa de exibição de diferenças (diff) com suporte a monoespaçamento 
-   e quebra automática para evitar estouros no layout */
+/* Alinha o título do card e o botão de copiar nas extremidades opostas */
+.result-card .card-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 0.75rem !important;
+}
+
+/* Ajuste visual para cards de informação (ex: dados neutros ou gerais) */
+.card-info {
+  border-top: 4px solid var(--info-color, #17a2b8);
+}
+.card-info .card-header {
+  background-color: rgba(23, 162, 184, 0.1);
+  color: var(--info-color, #17a2b8);
+  font-weight: bold;
+}
+
+/* Ajuste visual para cards de perigo/remoções (ex: texto removido) */
+.card-danger {
+  border-top: 4px solid var(--danger-color, #dc3545);
+}
+.card-danger .card-header {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: var(--danger-color, #dc3545);
+  font-weight: bold;
+}
+
+/* Ajuste visual para cards de sucesso/adições (ex: texto adicionado) */
+.card-success {
+  border-top: 4px solid var(--success-color, #28a745);
+}
+.card-success .card-header {
+  background-color: rgba(40, 167, 69, 0.1);
+  color: var(--success-color, #28a745);
+  font-weight: bold;
+}
+
+/* Estilo interativo do botão de copiar individual presente no cabeçalho do card */
+.btn-copy-card {
+  background: transparent;
+  border: 1px solid currentColor;
+  color: inherit;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius, 4px);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.2s ease;
+  opacity: 0.8;
+}
+
+/* Efeito de hover no botão de cópia */
+.btn-copy-card:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Efeito visual aplicado temporariamente quando o texto do card é copiado com sucesso */
+.btn-copy-card.copied {
+  background-color: rgba(40, 167, 69, 0.2) !important;
+  border-color: #28a745 !important;
+  color: #28a745 !important;
+  opacity: 1;
+}
+
+/* Caixa de diff otimizada com rolagem interna e quebra natural de palavras longas */
 .diff-box {
   width: 100% !important;
-  min-height: 220px;
+  min-height: 200px;
+  max-height: 400px;
+  overflow-y: auto;
   padding: 1rem;
-  background-color: var(--bg-sidebar);
-  border-radius: var(--radius);
+  background-color: var(--bg-sidebar, #f8f9fa);
   font-family: monospace;
   white-space: pre-wrap;
-  word-break: break-all;
+  word-break: break-word;
+  box-sizing: border-box;
 }
 
 /* Painel que envolve os resultados gerados após a ação de comparar */
 #result-panel {
   width: 100%;
   margin-top: 2rem;
+  box-sizing: border-box;
 }
 
 /* Título interno do painel de resultados */
@@ -71,29 +162,24 @@
   color: var(--text-main);
 }
 
-/* Responsividade: Empilha os campos em apenas 1 coluna em dispositivos móveis (telas estreitas) */
+/* ==========================================================================
+=== RESPONSIVIDADE (MEDIA QUERIES) ===
+========================================================================== */
+
+/* Ajusta espaçamentos internos para tablets e telas médias */
+@media (max-width: 1024px) {
+  .tool-grid {
+    gap: 1rem !important;
+  }
+}
+
+/* Celulares (abaixo de 768px): Empilha as caixas de entrada (Texto A e B) em uma única coluna */
 @media (max-width: 768px) {
   .tool-grid {
     grid-template-columns: 1fr !important;
   }
-}
-
-/* Expande o container principal da ferramenta de comparação para aproveitar melhor telas largas */
-.tool-container:has(.workspace-largo) {
-  max-width: 1200px !important;
-  width: 95% !important;
-  margin: 0 auto !important;
-}
-
-/* Garante que o workspace largo utilize totalmente o espaço liberado */
-.workspace-largo {
-  max-width: 100% !important;
-  width: 100% !important;
-  padding: 1.5rem !important;
-}
-
-/* Mantém o grid de duas colunas perfeitamente alinhado dentro do workspace largo */
-.workspace-largo .tool-grid {
-  grid-template-columns: repeat(2, 1fr) !important;
-  width: 100% !important;
+  
+  .tool-container.workspace-largo {
+    padding: 0.5rem;
+  }
 }
