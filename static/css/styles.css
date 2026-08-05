@@ -789,12 +789,18 @@ img, video, canvas, svg, table, pre, code {
     top: 0;
     left: 0;
     height: 100vh;
+    height: 100dvh; /* Altura dinâmica ideal para navegadores mobile */
     z-index: 1050;
     width: var(--sidebar-width) !important;
     transform: translateX(-100%) !important;
     transition: transform 0.3s ease-in-out;
     margin-left: 0 !important;
     box-shadow: none;
+    
+    /* === CORREÇÃO DO SCROLL === */
+    overflow-y: auto !important;          /* Ativa a rolagem vertical própria do menu */
+    -webkit-overflow-scrolling: touch;    /* Suaviza o scroll em dispositivos iOS (Safari) */
+    overscroll-behavior: contain;         /* Impede que o scroll puxe a página de fundo */
   }
 
   /* 2. Quando aberto, ele desliza para a tela com sombra nítida */
@@ -803,7 +809,14 @@ img, video, canvas, svg, table, pre, code {
     box-shadow: 20px 0 50px rgba(0, 0, 0, 0.4);
   }
 
-  /* 3. Camada de fundo escuro sutil atrás do menu para dar contraste (opcional, mas ajuda a focar) */
+  /* 3. Trava o fundo da página para o scroll não vazar para o body */
+  #app-container:not(.sidebar-hidden) {
+    overflow: hidden;
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  /* 4. Camada de fundo escuro sutil atrás do menu para dar contraste */
   #app-container:not(.sidebar-hidden)::before {
     content: '';
     position: fixed;
@@ -813,9 +826,10 @@ img, video, canvas, svg, table, pre, code {
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.4);
     z-index: 1040;
+    pointer-events: auto; /* Garante que toque fora feche ou bloqueie o clique */
   }
 
-  /* 4. Conteúdo principal ocupa 100% da largura sempre */
+  /* 5. Conteúdo principal ocupa 100% da largura sempre */
   #main-content {
     width: 100% !important;
     min-width: 0;
