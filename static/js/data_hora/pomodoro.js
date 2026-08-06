@@ -47,8 +47,12 @@ function atualizarVisorPomodoro() {
 
     display.textContent = `${mStr}:${sStr}`;
 
-    // Atualiza título da aba do navegador dinamicamente
-    document.title = `(${mStr}:${sStr}) Pomodoro - Conversores`;
+    // Atualiza o título da aba apenas se o Pomodoro estiver rodando ativamente
+    if (window.pomoIsRunning) {
+        document.title = `(${mStr}:${sStr}) Pomodoro - Conversores`;
+    } else {
+        document.title = `Dev Tool Box`;
+    }
 }
 
 function mudarModoPomodoro(modo, minutos) {
@@ -134,6 +138,9 @@ function pararPomodoro() {
         btnStart.innerHTML = `<i class="bi bi-play-fill"></i> Continuar`;
         btnStart.className = 'chrono-btn btn-start';
     }
+
+    // Reseta o título da aba imediatamente ao pausar
+    atualizarVisorPomodoro();
 }
 
 function reiniciarPomodoro() {
