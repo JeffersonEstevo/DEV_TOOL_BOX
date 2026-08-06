@@ -1,31 +1,197 @@
-/* Estilos específicos para contador_caracteres */
+/* ==========================================================================
+=== 01. TEXTO - 11. Comparação de Textos & Contador de Caracteres ===
+========================================================================== */
+
+/* Container principal da ferramenta na SPA: Controla a largura total, espaçamento fluido e previne transbordamentos horizontais indesejados */
+.tool-container.workspace-largo {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  padding: clamp(0.75rem, 2vw, 1.5rem); /* Padding fluido responsivo */
+}
+
+/* Força os elementos do grid a organizarem-se de forma flexível e proporcional, adaptando-se automaticamente ao espaço */
+.tool-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important; /* minmax(0, 1fr) evita que elementos com texto longo estourem o grid */
+  gap: 1.5rem !important;
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+/* Garante que cada grupo de campo ocupe toda a largura disponível da sua respectiva coluna com respiros fluidos */
+.field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100% !important;
+  min-width: 0; /* Essencial para evitar que flex-items transbordem em telas menores */
+}
+
+/* Padroniza os textareas específicos para largura fluida máxima e redimensionamento vertical seguro */
+.tool-container textarea {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  padding: 0.75rem !important;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+/* Contador discreto posicionado abaixo de cada textarea para contagem de caracteres/linhas */
+.text-counter {
+  font-size: 0.85rem;
+  color: var(--text-muted, #777);
+  text-align: right;
+  margin-top: 0.25rem;
+  font-weight: 500;
+}
+
+/* Configuração estrutural do card que abriga o resultado da comparação ou métricas */
+.result-card {
+  width: 100% !important;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-main);
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+}
+
+/* Alinha o título do card e os botões de ação nas extremidades opostas de forma responsiva */
+.result-card .card-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  padding: 0.75rem !important;
+  flex-wrap: wrap; /* Garante que elementos internos não quebrem o layout se o espaço for estreito */
+  gap: 0.5rem;
+}
+
+/* Ajuste visual para cards de informação (dados neutros ou gerais) */
+.card-info {
+  border-top: 4px solid var(--info-color, #17a2b8);
+}
+.card-info .card-header {
+  background-color: rgba(23, 162, 184, 0.1);
+  color: var(--info-color, #17a2b8);
+  font-weight: bold;
+}
+
+/* Ajuste visual para cards de perigo/remoções (texto removido) */
+.card-danger {
+  border-top: 4px solid var(--danger-color, #dc3545);
+}
+.card-danger .card-header {
+  background-color: rgba(220, 53, 69, 0.1);
+  color: var(--danger-color, #dc3545);
+  font-weight: bold;
+}
+
+/* Ajuste visual para cards de sucesso/adições (texto adicionado) */
+.card-success {
+  border-top: 4px solid var(--success-color, #28a745);
+}
+.card-success .card-header {
+  background-color: rgba(40, 167, 69, 0.1);
+  color: var(--success-color, #28a745);
+  font-weight: bold;
+}
+
+/* Estilo interativo do botão de copiar individual presente no cabeçalho do card */
+.btn-copy-card {
+  background: transparent;
+  border: 1px solid currentColor;
+  color: inherit;
+  font-size: 0.75rem;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius, 4px);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.2s ease;
+  opacity: 0.8;
+}
+
+/* Efeito de hover no botão de cópia */
+.btn-copy-card:hover {
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Efeito visual aplicado temporariamente quando o texto do card é copiado com sucesso */
+.btn-copy-card.copied {
+  background-color: rgba(40, 167, 69, 0.2) !important;
+  border-color: #28a745 !important;
+  color: #28a745 !important;
+  opacity: 1;
+}
+
+/* Caixa de diff otimizada com rolagem interna e quebra natural de palavras longas */
+.diff-box {
+  width: 100% !important;
+  min-height: 200px;
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: auto; /* Garante scroll horizontal caso uma palavra gigante sem espaços force o limite */
+  padding: 1rem;
+  background-color: var(--bg-sidebar, #f8f9fa);
+  font-family: monospace;
+  white-space: pre-wrap;
+  word-break: break-word;
+  box-sizing: border-box;
+}
+
+/* Painel que envolve os resultados gerados após a ação de comparar */
+#result-panel {
+  width: 100%;
+  margin-top: 2rem;
+  box-sizing: border-box;
+}
+
+/* Título interno do painel de resultados */
+#result-panel h3 {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  color: var(--text-main);
+}
 
 
 /* ==========================================================================
-   6. CONTADOR DE CARACTERES
-   ========================================================================== */
+=== 06. CONTADOR DE CARACTERES (Integração Fluida) ===
+========================================================================== */
 
-/* Ajuste específico do grid para o contador (2/3 para o texto, 1/3 para métricas) */
+/* Ajuste específico do grid para o contador (2 partes para o campo de texto, 1 parte para as métricas) */
 .grid-counter {
   grid-template-columns: 2fr 1fr;
 }
 
-@media (max-width: 768px) {
-  .grid-counter {
-    grid-template-columns: 1fr;
-  }
-}
-
+/* Mantém o card de métricas perfeitamente alinhado no topo da sua coluna em telas grandes */
 .metrics-card {
   align-self: start;
+  width: 100%;
+  box-sizing: border-box;
 }
 
+/* Organiza a lista de métricas em uma coluna flexível e espaçada */
 .metrics-list {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding: 1rem;
 }
 
+/* Cada linha de métrica individual (rótulo + valor numérico) */
 .metric-item {
   display: flex;
   justify-content: space-between;
@@ -34,21 +200,57 @@
   border-bottom: 1px solid var(--border-color);
   font-size: 0.95rem;
   color: var(--text-main);
+  gap: 0.5rem;
 }
 
+/* Remove a linha divisória do último elemento da lista de métricas */
 .metric-item:last-child {
   border-bottom: none;
   padding-bottom: 0;
 }
 
+/* Estilização moderna e monoespaçada para os números das métricas para evitar quebra de alinhamento */
 .count-text {
   font-weight: 700;
   font-size: 1.25rem;
   font-family: ui-monospace, SFMono-Regular, monospace;
 }
 
-/* Cores modernas para substituir o Bootstrap */
+/* Cores modernas e padronizadas para estados e métricas */
 .metric-primary { color: var(--accent); }
 .metric-success { color: #166534; }
 .metric-danger { color: #991b1b; }
 .metric-warning { color: #b45309; }
+
+
+/* ==========================================================================
+=== RESPONSIVIDADE GLOBAL E FLUIDEZ (MEDIA QUERIES) ===
+========================================================================== */
+
+/* Ajustes estruturais intermediários para tablets e telas médias (abaixo de 1024px) */
+@media (max-width: 1024px) {
+  .tool-grid,
+  .grid-counter {
+    gap: 1rem !important;
+  }
+}
+
+/* Dispositivos móveis e tablets compactos (abaixo de 768px): Empilha todas as colunas em coluna única */
+@media (max-width: 768px) {
+  .tool-grid,
+  .grid-counter {
+    grid-template-columns: 1fr !important;
+  }
+  
+  .tool-container.workspace-largo {
+    padding: 0.5rem;
+  }
+
+  /* Reduz levemente tamanhos de fontes em telas muito pequenas para respiro visual */
+  .diff-box {
+    min-height: 150px;
+    max-height: 300px;
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+}
