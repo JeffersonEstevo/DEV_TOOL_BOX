@@ -6,13 +6,13 @@
 
     <!-- Abas de Modos do Pomodoro -->
     <div class="data-hora-tabs pomodoro-tabs">
-        <button class="tab-btn active" onclick="mudarModoPomodoro('foco', 25)">
+        <button class="tab-btn active" onclick="mudarModoPomodoro('foco')">
             <i class="bi bi-bullseye"></i> Foco
         </button>
-        <button class="tab-btn" onclick="mudarModoPomodoro('pausaCurta', 5)">
+        <button class="tab-btn" onclick="mudarModoPomodoro('pausaCurta')">
             <i class="bi bi-cup-hot-fill"></i> Pausa Curta
         </button>
-        <button class="tab-btn" onclick="mudarModoPomodoro('pausaLonga', 15)">
+        <button class="tab-btn" onclick="mudarModoPomodoro('pausaLonga')">
             <i class="bi bi-moon-stars-fill"></i> Pausa Longa
         </button>
     </div>
@@ -40,6 +40,38 @@
             <div class="pomo-stats">
                 <span id="pomo-counter">0</span> ciclos completados hoje
             </div>
+        </div>
+    </div>
+
+    <!-- Botão de Configurações do Pomodoro -->
+    <div style="display: flex; justify-content: flex-end; margin-bottom: 0.5rem;">
+        <button class="chrono-btn" onclick="abrirConfigPomodoro()" style="padding: 0.4rem 0.8rem; font-size: 0.85rem; background-color: var(--bg-sidebar); color: var(--text-main); border: 1px solid var(--border-color);">
+            <i class="bi bi-gear-fill"></i> Configurar Tempos
+        </button>
+    </div>
+
+    <!-- Modal / Painel de Configuração de Tempos -->
+    <div id="pomo-settings-modal" style="display: none; background: var(--bg-sidebar); border: 2px solid var(--border-color); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.5rem; text-align: left;">
+        <h5 style="margin-top: 0; margin-bottom: 1rem; color: var(--text-main); display: flex; align-items: center; gap: 0.4rem;">
+            <i class="bi bi-sliders"></i> Personalizar Duração (Minutos)
+        </h5>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1rem; margin-bottom: 1rem;">
+            <div>
+                <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-main); display: block; margin-bottom: 0.3rem;">Foco</label>
+                <input type="number" id="input-time-foco" min="1" max="120" value="25" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: calc(var(--radius) - 2px); background: var(--bg-main); color: var(--text-main);">
+            </div>
+            <div>
+                <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-main); display: block; margin-bottom: 0.3rem;">Pausa Curta</label>
+                <input type="number" id="input-time-curta" min="1" max="30" value="5" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: calc(var(--radius) - 2px); background: var(--bg-main); color: var(--text-main);">
+            </div>
+            <div>
+                <label style="font-size: 0.85rem; font-weight: 600; color: var(--text-main); display: block; margin-bottom: 0.3rem;">Pausa Longa</label>
+                <input type="number" id="input-time-longa" min="1" max="60" value="15" style="width: 100%; padding: 0.5rem; border: 1px solid var(--border-color); border-radius: calc(var(--radius) - 2px); background: var(--bg-main); color: var(--text-main);">
+            </div>
+        </div>
+        <div style="display: flex; gap: 0.5rem; justify-content: flex-end;">
+            <button class="chrono-btn" onclick="fecharConfigPomodoro()" style="background: transparent; color: var(--text-main); border: 1px solid var(--border-color); padding: 0.4rem 1rem;">Cancelar</button>
+            <button class="chrono-btn btn-start" onclick="salvarConfigPomodoro()" style="padding: 0.4rem 1rem;">Salvar</button>
         </div>
     </div>
 </div>
