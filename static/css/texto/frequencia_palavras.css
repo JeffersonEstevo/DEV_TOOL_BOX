@@ -1,33 +1,54 @@
-/* Estilos específicos para frequencia_palavras */
-
-
 /* ==========================================================================
-   8. FREQUÊNCIA DE PALAVRAS
+   === 08. FREQUÊNCIA DE PALAVRAS (frequencia_palavras) ===
    ========================================================================== */
+
+/* Container principal da lista de frequência. Garante rolagem suave, 
+   organização em coluna e altura máxima adaptável para evitar estouros na tela */
 .freq-words-container {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   max-height: 400px;
   overflow-y: auto;
+  /* Suaviza a rolagem em navegadores modernos */
+  scroll-behavior: smooth;
+  /* Otimização de renderização */
+  will-change: scroll-position;
 }
 
+/* Linha individual para cada palavra e sua contagem. 
+   Usa flexbox para espaçar o nome e o contador de forma responsiva */
 .freq-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  /* Utiliza unidades relativas para melhor adaptação em diferentes densidades de tela */
   padding: 0.5rem 0.75rem;
   background-color: var(--bg-main);
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
   font-size: 0.9rem;
+  /* Transição suave para interações futuras (ex: hover) */
+  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
+/* Efeito sutil ao passar o mouse para melhorar a interatividade em desktops */
+.freq-row:hover {
+  border-color: var(--accent);
+}
+
+/* Nome da palavra. Garante que palavras longas quebrem corretamente 
+   ou respeitem o espaço sem distorcer o layout da linha */
 .freq-word-name {
   font-weight: 600;
   color: var(--text-main);
+  word-break: break-word;
+  overflow-wrap: break-word;
+  padding-right: 0.5rem;
 }
 
+/* Badge (etiqueta) que exibe a contagem numérica da palavra. 
+   Evita quebras de linha indesejadas no contador */
 .freq-badge {
   background-color: var(--accent-light);
   color: var(--accent);
@@ -35,8 +56,12 @@
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
   font-size: 0.8rem;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
+/* Estado vazio (quando nenhuma palavra foi processada). 
+   Centralizado e com tipografia suave para melhor legibilidade */
 .empty-state {
   color: var(--text-muted);
   font-size: 0.9rem;
@@ -45,3 +70,27 @@
   padding: 1rem 0;
 }
 
+/* ==========================================================================
+   === AJUSTES DE RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS ===
+   ========================================================================== */
+
+/* Ajustes para telas pequenas (smartphones compactos até 480px) */
+@media (max-width: 480px) {
+  .freq-words-container {
+    /* Reduz levemente a altura máxima em celulares para garantir que 
+       o rodapé ou outros elementos da página não fiquem inacessíveis */
+    max-height: 300px;
+  }
+
+  .freq-row {
+    /* Ajusta o espaçamento interno para otimizar o uso de telas menores */
+    padding: 0.4rem 0.6rem;
+    font-size: 0.85rem;
+  }
+
+  .freq-badge {
+    /* Ajuste proporcional do tamanho da fonte no selo numérico */
+    font-size: 0.75rem;
+    padding: 0.15rem 0.4rem;
+  }
+}
