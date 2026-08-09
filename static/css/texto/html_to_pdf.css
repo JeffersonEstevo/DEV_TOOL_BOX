@@ -2,23 +2,25 @@
    === 01. TEXTO - 16. Gerador de PDF a partir de HTML ===
    ========================================================================== */
 
-/* Layout em grid responsivo que divide o espaço em colunas iguais e previne expansões */
+/* Layout em grid responsivo que ajusta automaticamente as colunas conforme o espaço */
 .tool-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
     width: 100%;
+    box-sizing: border-box;
 }
 
-/* Garante que os grupos de campos ocupem toda a largura da coluna sem estouros */
+/* Garante que os grupos de campos ocupem o espaço adequado sem estouros de largura */
 .field-group {
     display: flex;
     flex-direction: column;
     min-width: 0;
     width: 100%;
+    box-sizing: border-box;
 }
 
-/* Área de entrada do código HTML bruto com fonte monoespaçada e sem redimensionamento */
+/* Área de entrada do código HTML bruto com fonte monoespaçada e redimensionamento travado */
 .pdf-textarea {
     width: 100%;
     max-width: 100%;
@@ -37,12 +39,12 @@
     box-sizing: border-box;
 }
 
-/* Efeito sutil de foco na borda do textarea */
+/* Efeito sutil de foco na borda do campo de texto */
 .pdf-textarea:focus {
-    border-color: rgba(0, 0, 0, 0.25);
+    border-color: var(--accent, rgba(0, 0, 0, 0.25));
 }
 
-/* Container de visualização (preview) com barras de rolagem vertical e horizontal independentes */
+/* Container de visualização (preview) com barras de rolagem independentes */
 .pdf-preview-container {
     width: 100%;
     max-width: 100%; 
@@ -71,10 +73,11 @@
 }
 
 /* --------------------------------------------------------------------------
-   PRÉ-VISUALIZAÇÃO EM TELA (aproximada do formato de documento A4)
+   PRÉ-VISUALIZAÇÃO EM TELA (Simulação de Página A4)
    -------------------------------------------------------------------------- */
 
-/* Simula a folha de papel com largura mínima garantida para preservar a fidelidade do layout */
+/* Simula a folha de papel. Em telas menores que 650px, adaptamos via responsividade 
+   para evitar que transborde horizontalmente de forma indesejada no mobile. */
 .pdf-page-preview {
     width: 100%;
     min-width: 650px;
@@ -92,7 +95,7 @@
     overflow-wrap: break-word;
 }
 
-/* Estilização de títulos principais na página de preview */
+/* Estilização de títulos principais (H1) com linha de destaque inferior */
 .pdf-page-preview h1 {
     font-size: 2rem;
     color: #0f172a;
@@ -105,7 +108,7 @@
     overflow-wrap: break-word;
 }
 
-/* Estilização de subtítulos (h2) */
+/* Estilização de subtítulos (H2) */
 .pdf-page-preview h2 {
     font-size: 1.5rem;
     color: #1e293b;
@@ -114,7 +117,7 @@
     margin-bottom: 0.75rem;
 }
 
-/* Estilização de subtítulos menores (h3) */
+/* Estilização de subtítulos menores (H3) */
 .pdf-page-preview h3 {
     font-size: 1.2rem;
     color: #334155;
@@ -123,7 +126,7 @@
     margin-bottom: 0.5rem;
 }
 
-/* Tabelas adaptadas para manter largura fixa sem estourar o layout da folha */
+/* Tabelas adaptadas com largura fixa para preservar a proporção no documento simulado */
 .pdf-page-preview table {
     width: 100% !important;
     max-width: 100% !important;
@@ -174,7 +177,7 @@
     margin-bottom: 0.4rem;
 }
 
-/* Citações em bloco (blockquotes) com destaque lateral */
+/* Citações em bloco (blockquotes) com barra lateral colorida */
 .pdf-page-preview blockquote {
     border-left: 4px solid #6366f1;
     background-color: #f8fafc;
@@ -196,7 +199,7 @@
     word-break: break-all;
 }
 
-/* Blocos de código extensos com rolagem horizontal interna */
+/* Blocos de código extensos com fundo escuro e scroll horizontal interno */
 .pdf-page-preview pre {
     background-color: #0f172a;
     color: #f8fafc;
@@ -216,7 +219,7 @@
     white-space: pre;
 }
 
-/* Blocos de destaque (callouts) */
+/* Blocos de destaque estruturados (callouts) */
 .pdf-page-preview .callout {
     background-color: #eff6ff;
     border: 1px solid #bfdbfe;
@@ -230,12 +233,12 @@
    INTERFACES E EFEITOS DE CARREGAMENTO (UI)
    -------------------------------------------------------------------------- */
 
-/* Oculta elementos completamente */
+/* Oculta elementos completamente do fluxo visual e de acessibilidade */
 .hidden {
     display: none !important;
 }
 
-/* Alinha elementos de botões em estado de carregamento */
+/* Alinha os elementos internos de botões que estão em estado de ação/carregamento */
 .btn-loading {
     display: inline-flex;
     align-items: center;
@@ -252,7 +255,34 @@
     animation: spin-anim 0.8s linear infinite;
 }
 
-/* Animação de rotação contínua para o spinner */
+/* Animação contínua de rotação para o spinner */
 @keyframes spin-anim {
     to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   === AJUSTES DE RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS (HTML TO PDF) ===
+   ========================================================================== */
+
+@media (max-width: 768px) {
+    /* Reduz a altura dos textareas e previews em telas intermediárias/tablets */
+    .pdf-textarea,
+    .pdf-preview-container {
+        height: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Ajusta ainda mais a altura em smartphones para caber na tela sem forçar scroll excessivo */
+    .pdf-textarea,
+    .pdf-preview-container {
+        height: 320px;
+        padding: 0.75rem;
+    }
+
+    /* Em telas menores, reduz o espaçamento interno da página simulada para otimizar o conteúdo */
+    .pdf-page-preview {
+        padding: 20px;
+        min-width: 500px; /* Garante estabilidade visual sem quebrar tabelas complexas */
+    }
 }

@@ -2,53 +2,58 @@
    === 08. FREQUÊNCIA DE PALAVRAS (frequencia_palavras) ===
    ========================================================================== */
 
-/* Container principal da lista de frequência. Garante rolagem suave, 
-   organização em coluna e altura máxima adaptável para evitar estouros na tela */
+/* Container principal da lista de frequência. 
+   Usa flexbox em coluna com altura máxima adaptável e rolagem suave interna. 
+   'min-width: 0' evita que itens flexíveis extrapolem o container pai. */
 .freq-words-container {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   max-height: 400px;
   overflow-y: auto;
+  min-width: 0;
   /* Suaviza a rolagem em navegadores modernos */
   scroll-behavior: smooth;
-  /* Otimização de renderização */
+  /* Otimização de renderização acelerada por hardware */
   will-change: scroll-position;
 }
 
 /* Linha individual para cada palavra e sua contagem. 
-   Usa flexbox para espaçar o nome e o contador de forma responsiva */
+   Utiliza flexbox para distribuir o espaço de forma responsiva entre o nome e o selo. */
 .freq-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* Utiliza unidades relativas para melhor adaptação em diferentes densidades de tela */
   padding: 0.5rem 0.75rem;
   background-color: var(--bg-main);
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
   font-size: 0.9rem;
-  /* Transição suave para interações futuras (ex: hover) */
+  box-sizing: border-box;
+  /* Transição suave para interações de hover */
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
-/* Efeito sutil ao passar o mouse para melhorar a interatividade em desktops */
+/* Efeito visual ao passar o mouse para melhorar a interatividade em desktops */
 .freq-row:hover {
   border-color: var(--accent);
 }
 
-/* Nome da palavra. Garante que palavras longas quebrem corretamente 
-   ou respeitem o espaço sem distorcer o layout da linha */
+/* Nome da palavra. 
+   Garante que palavras longas ou sem espaços quebrem corretamente 
+   sem distorcer a linha ou empurrar o contador para fora. */
 .freq-word-name {
   font-weight: 600;
   color: var(--text-main);
   word-break: break-word;
   overflow-wrap: break-word;
   padding-right: 0.5rem;
+  min-width: 0;
+  flex: 1;
 }
 
-/* Badge (etiqueta) que exibe a contagem numérica da palavra. 
-   Evita quebras de linha indesejadas no contador */
+/* Badge (etiqueta) que exibe a contagem numérica. 
+   'flex-shrink: 0' impede que o contador seja esmagado em nomes longos. */
 .freq-badge {
   background-color: var(--accent-light);
   color: var(--accent);
@@ -61,7 +66,7 @@
 }
 
 /* Estado vazio (quando nenhuma palavra foi processada). 
-   Centralizado e com tipografia suave para melhor legibilidade */
+   Centralizado e com tipografia suave para melhor legibilidade. */
 .empty-state {
   color: var(--text-muted);
   font-size: 0.9rem;
@@ -77,19 +82,18 @@
 /* Ajustes para telas pequenas (smartphones compactos até 480px) */
 @media (max-width: 480px) {
   .freq-words-container {
-    /* Reduz levemente a altura máxima em celulares para garantir que 
-       o rodapé ou outros elementos da página não fiquem inacessíveis */
-    max-height: 300px;
+    /* Reduz levemente a altura máxima para preservar a usabilidade do rodapé */
+    max-height: 280px;
   }
 
   .freq-row {
-    /* Ajusta o espaçamento interno para otimizar o uso de telas menores */
+    /* Otimiza o espaçamento interno economizando espaço vertical útil */
     padding: 0.4rem 0.6rem;
     font-size: 0.85rem;
   }
 
   .freq-badge {
-    /* Ajuste proporcional do tamanho da fonte no selo numérico */
+    /* Proporção reduzida do selo numérico em telas compactas */
     font-size: 0.75rem;
     padding: 0.15rem 0.4rem;
   }
