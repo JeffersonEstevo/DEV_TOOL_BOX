@@ -2,14 +2,15 @@
    === 01. TEXTO - 14. Gerador de Lorem Ipsum ===
    ========================================================================== */
 
-/* Agrupa elementos em linha com espaçamento controlado, limitando a largura total 
-   do conjunto e definindo uma pilha de fontes padrão */
+/* Agrupa elementos em linha com espaçamento controlado. 
+   'max-width: 100%' combinado com 'box-sizing' impede transbordamentos em viewports restritas */
 .ui-input-group-separated {
     display: flex;
     gap: 0.5rem;
     width: 100%;
     max-width: 280px;
     font-family: system-ui, sans-serif;
+    box-sizing: border-box;
 }
 
 /* Estilo base padronizado para campos de entrada e seleção (altura, bordas, cores e transições) */
@@ -30,10 +31,14 @@
 .ui-input-field.num {
     width: 35%;
     flex-shrink: 0;
+    /* Reduz o padding lateral para sobrar mais espaço interno para o número */
+    padding: 0 0.4rem; 
+    /* Centraliza o texto para melhor legibilidade em campos estreitos */
+    text-align: center; 
 }
 
 /* Define proporção maior para o select e injeta uma seta SVG customizada 
-   no lugar do ícone nativo do navegador */
+   no lugar do ícone nativo do navegador, mantendo compatibilidade multiplataforma */
 .ui-input-field.sel {
     width: 65%;
     flex-shrink: 0;
@@ -45,19 +50,22 @@
     padding-right: 2rem;
     appearance: none;
     -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
-/* Efeito visual de foco com borda azul e halo translúcido ao redor do campo */
+/* Efeito visual de foco com borda destacada e halo translúcido */
 .ui-input-field:focus {
     border-color: #3b82f6;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
-/* Organiza múltiplos botões de rádio (radio buttons) horizontalmente com espaçamento */
+/* Organiza múltiplos botões de rádio horizontalmente com espaçamento e quebra automática segura */
 .radio-group {
     display: flex;
+    flex-wrap: wrap;
     gap: 1.5rem;
     padding: 0.25rem 0;
+    box-sizing: border-box;
 }
 
 /* Alinha o texto ao lado do radio button, alterando o cursor para indicar interatividade */
@@ -68,13 +76,15 @@
     font-size: 0.95rem;
     color: var(--text-main);
     cursor: pointer;
+    user-select: none;
 }
 
 .radio-label input[type="radio"] {
     cursor: pointer;
 }
 
-/* Container do bloco de saída de dados com limite de altura e rolagem vertical automática */
+/* Container do bloco de saída de dados com limite de altura, rolagem vertical automática 
+   e 'min-width: 0' para evitar estouros em grids responsivos */
 .lorem-output-container {
     max-height: 520px;
     overflow-y: auto;
@@ -82,13 +92,46 @@
     border-radius: var(--radius);
     padding: 1.2rem;
     background-color: var(--bg-main);
+    box-sizing: border-box;
+    min-width: 0;
 }
 
-/* Área interna que formata e preserva as quebras de linha do texto gerado */
+/* Área interna que formata e preserva quebras de linha e quebra de palavras longas */
 .lorem-text-area {
     font-size: 0.95rem;
     line-height: 1.6;
     color: var(--text-main);
     white-space: pre-wrap;
     word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* ==========================================================================
+   === AJUSTES DE RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS ===
+   ========================================================================== */
+
+/* Ajustes responsivos para telas compactas (smartphones) */
+@media (max-width: 480px) {
+    .ui-input-group-separated {
+        max-width: 100%;
+    }
+
+    /* Aumenta levemente a proporção do input numérico no mobile para dar mais respiro ao número */
+    .ui-input-field.num {
+        width: 40%; 
+    }
+
+    /* O restante ganha o espaço proporcional adaptado */
+    .ui-input-field.sel {
+        width: 60%;
+    }
+
+    .radio-group {
+        gap: 1rem;
+    }
+
+    .lorem-output-container {
+        max-height: 380px;
+        padding: 1rem;
+    }
 }
