@@ -2,20 +2,23 @@
    === 01. TEXTO - 15. Conversor de Markdown para HTML ===
    ========================================================================== */
 
-/* Layout em grid responsivo que divide os blocos lado a lado de forma automática */
+/* Layout em grid responsivo com min-width: 0 para evitar estouros nas colunas */
 .tool-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
     width: 100%;
+    box-sizing: border-box;
 }
 
-/* Garante que os grupos de campos respeitem o limite do grid e previne estouros de largura */
+/* Garante que os grupos de campos respeitem o limite do grid, previnem estouros 
+   e mantenham a fluidez correta com min-width: 0 */
 .field-group {
     display: flex;
     flex-direction: column;
     min-width: 0;
     width: 100%;
+    box-sizing: border-box;
 }
 
 /* Caixa de entrada do código Markdown com altura fixa, fonte monoespaçada e sem redimensionamento */
@@ -33,18 +36,21 @@
     line-height: 1.5;
     resize: none;
     outline: none;
-    transition: border-color 0.2s ease;
-    white-space: pre-wrap;
-    word-break: break-word; 
     box-sizing: border-box;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    transition: border-color 0.15s, box-shadow 0.15s;
 }
 
-/* Efeito sutil na borda ao focar no textarea do Markdown */
+/* Efeito visual de foco padronizado com borda destacada e halo translúcido */
 .markdown-textarea:focus {
-    border-color: rgba(0, 0, 0, 0.2); 
+    border-color: #3b82f6; 
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
-/* Container do bloco de saída do código HTML gerado, com rolagem vertical automática */
+/* Container do bloco de saída do código HTML gerado, com rolagem vertical automática 
+   e min-width: 0 para total segurança em grids */
 .markdown-output-container {
     width: 100%;
     max-width: 100%;
@@ -56,9 +62,10 @@
     padding: 1rem;
     background-color: var(--bg-main);
     box-sizing: border-box;
+    min-width: 0;
 }
 
-/* Área interna formatada para exibição do código HTML com quebras automáticas */
+/* Área interna formatada para exibição do código HTML com quebras automáticas seguras */
 .markdown-text-area {
     margin: 0;
     font-family: var(--font-mono, monospace);
@@ -67,7 +74,7 @@
     color: var(--text-main);
     white-space: pre-wrap;
     word-wrap: break-word;
-    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 /* Oculta completamente o alerta/toast quando inativo */
@@ -87,4 +94,17 @@
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(4px); }
     to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   === AJUSTES DE RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS ===
+   ========================================================================== */
+
+/* Ajustes responsivos para telas compactas (smartphones) */
+@media (max-width: 480px) {
+    .markdown-textarea,
+    .markdown-output-container {
+        height: 380px;
+        padding: 0.875rem;
+    }
 }
