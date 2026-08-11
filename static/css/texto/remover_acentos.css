@@ -1,5 +1,12 @@
-/* Estilos específicos para remover_acentos */
-
 /* ==========================================================================
    === 01. TEXTO - 04. Remover Acentos ===
    ========================================================================== */
+
+   /* Garante que o grid da ferramenta de acentos se comporte com segurança máxima */
+.tool-container.workspace-largo .tool-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    box-sizing: border-box;
+}
