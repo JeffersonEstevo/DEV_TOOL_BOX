@@ -14,6 +14,17 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  box-sizing: border-box; /* Garante consistência no cálculo de tamanho */
+  min-width: 0;           /* Evita que elementos flex estourem o container */
+}
+
+/* Agrupamento de cada seção da tabela para isolar espaçamentos com segurança */
+.ascii-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 /* Títulos das seções da tabela ASCII com linha divisória inferior para destaque */
@@ -31,6 +42,7 @@
   border-collapse: collapse;
   text-align: left;
   font-size: 0.9rem;
+  box-sizing: border-box;
 }
 
 /* Espaçamento interno e divisórias das células e cabeçalhos da tabela */
@@ -38,6 +50,7 @@
 .ascii-table-data td {
   padding: 0.4rem 0.6rem;
   border-bottom: 1px solid var(--border-color);
+  box-sizing: border-box; /* Mantém o alinhamento correto das bordas com o padding */
 }
 
 /* Estilização do cabeçalho da tabela com leve fundo translúcido e texto em negrito */
@@ -73,4 +86,22 @@
 /* Oculta linhas específicas da tabela durante filtros ou buscas */
 .hidden-row {
   display: none !important;
+}
+
+/* ==========================================================================
+   === AJUSTES RESPONSIVOS PARA TABELA ASCII ===
+   ========================================================================== */
+@media (max-width: 768px) {
+  .ascii-tables-wrapper {
+    max-height: 460px;
+    padding: 0.75rem;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .ascii-tables-wrapper {
+    max-height: 400px;
+    padding: 0.5rem;
+  }
 }
