@@ -1,7 +1,7 @@
 /**
- * Módulo de Calculadora Científica (Compatível com SPA / Content Loader)
+ * Módulo de Calculadora Científica (Compatível com SPA / Content Loader - Seguro contra re-declaração)
  */
-const CalculadoraCientifica = (function () {
+window.CalculadoraCientifica = window.CalculadoraCientifica || (function () {
     // Estado interno da calculadora
     let state = {
         currentInput: "0",
@@ -295,5 +295,5 @@ const CalculadoraCientifica = (function () {
 
 // Função global exportada para ser chamada no seu Content Loader
 window.gerenciarCalculadoraCientifica = function (buttonElement) {
-    CalculadoraCientifica.processarAcao(buttonElement);
+    window.CalculadoraCientifica.processarAcao(buttonElement);
 };
