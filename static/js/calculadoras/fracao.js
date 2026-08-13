@@ -1,5 +1,10 @@
-// Adiciona nova fração dinamicamente
-document.getElementById("add-fraction-field").addEventListener("click", () => {
+// Adiciona nova fração dinamicamente com proteção contra duplo disparo mobile
+let ultimoCliqueAdicionar = 0;
+document.getElementById("add-fraction-field").addEventListener("click", (e) => {
+    const agora = Date.now();
+    if (agora - ultimoCliqueAdicionar < 300) return; // Ignora cliques fantasmas em menos de 300ms
+    ultimoCliqueAdicionar = agora;
+
     const container = document.getElementById("fraction-container");
     const fractionBlocks = container.querySelectorAll(".fraction-block");
     const nextIndex = fractionBlocks.length + 1;
@@ -34,6 +39,26 @@ document.getElementById("add-fraction-field").addEventListener("click", () => {
 
     container.appendChild(opDiv);
     container.appendChild(fracDiv);
+});
+
+// Remove a última fração (mantendo pelo menos 2) com proteção contra duplo disparo mobile
+let ultimoCliqueRemover = 0;
+document.getElementById("remove-fraction-field").addEventListener("click", () => {
+    const agora = Date.now();
+    if (agora - ultimoCliqueRemover < 300) return;
+    ultimoCliqueRemover = agora;
+
+    const container = document.getElementById("fraction-container");
+    const fractionBlocks = container.querySelectorAll(".fraction-block");
+
+    if (fractionBlocks.length <= 2) {
+        alert("A calculadora precisa de pelo menos 2 frações para realizar a operação.");
+        return;
+    }
+
+    // Remove o último bloco de fração e o operador imediatamente anterior
+    container.removeChild(container.lastChild);
+    container.removeChild(container.lastChild);
 });
 
 // Remove a última fração (mantendo pelo menos 2)
