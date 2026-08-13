@@ -61,21 +61,6 @@ document.getElementById("remove-fraction-field").addEventListener("click", () =>
     container.removeChild(container.lastChild);
 });
 
-// Remove a última fração (mantendo pelo menos 2)
-document.getElementById("remove-fraction-field").addEventListener("click", () => {
-    const container = document.getElementById("fraction-container");
-    const fractionBlocks = container.querySelectorAll(".fraction-block");
-
-    if (fractionBlocks.length <= 2) {
-        alert("A calculadora precisa de pelo menos 2 frações para realizar a operação.");
-        return;
-    }
-
-    // Remove o último bloco de fração e o operador imediatamente anterior
-    container.removeChild(container.lastChild);
-    container.removeChild(container.lastChild);
-});
-
 function executarCalculoDeFracao() {
     const container = document.getElementById("fraction-container");
     const numInputs = container.querySelectorAll(".numerator");
