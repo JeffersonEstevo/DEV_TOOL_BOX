@@ -8,25 +8,36 @@
   border-radius: var(--radius);
   padding: 1.5rem 1rem;
   max-width: 480px;
+  width: 100% !important;
   margin: 0 auto 1.5rem auto;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 .labor-grid-vertical {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  width: 100% !important;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 .labor-row-duo {
-  display: grid;
+  display: grid !important;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
+  width: 100% !important;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 .labor-input-discount input {
   background-color: var(--bg-main) !important;
   color: #e11d48 !important;
   font-weight: 700;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 .labor-input-liquid input {
@@ -35,6 +46,8 @@
   color: var(--success-color) !important;
   font-weight: 700;
   font-size: 1.2rem !important;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 /* Estilização da Tabela Informativa da Aba 2 */
@@ -43,6 +56,9 @@
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
   background-color: var(--bg-main);
+  width: 100% !important;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 .tabela-referencia {
@@ -50,6 +66,7 @@
   border-collapse: collapse;
   text-align: left;
   font-size: 0.85rem;
+  box-sizing: border-box;
 }
 
 .tabela-referencia th {
@@ -70,23 +87,26 @@
   border-bottom: none;
 }
 
-
 .action-bar {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem; /* Espaço elegante entre os dois botões */
+  flex-wrap: wrap;
+  gap: 1rem;
   margin-top: 1.5rem;
+  width: 100% !important;
+  box-sizing: border-box;
 }
 
 @media (max-width: 400px) {
   .labor-row-duo {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
     gap: 0.75rem;
   }
+  .labor-workspace {
+    padding: 1rem 0.75rem;
+  }
 }
-
-
 
 /* ==========================================================================
    === CORREÇÃO DO CONTROLE DE ABAS - Trabalhista ===
@@ -102,17 +122,23 @@
 .tool-container #aba-calculadora-trabalhista.active,
 .tool-container #aba-tabelas-trabalhista.active {
   display: block !important;
+  width: 100% !important;
+  box-sizing: border-box;
+  min-width: 0;
 }
-
 
 /* Barra superior de navegação por abas */
 .tool-container .rede-tabs {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   border-bottom: 2px solid var(--border-color);
   margin-bottom: 1.5rem;
   padding: 0 1rem;
   max-width: 650px;
+  width: 100% !important;
+  box-sizing: border-box;
+  min-width: 0;
   margin-left: auto;
   margin-right: auto;
 }
@@ -133,6 +159,7 @@
   align-items: center;
   gap: 0.5rem;
   border-radius: 0;
+  box-sizing: border-box;
 }
 
 .tool-container .rede-tabs .tab-btn:hover {
