@@ -1,5 +1,3 @@
-/* Estilos específicos para media_aritmetica */
-
 /* ==========================================================================
    === 02. CALCULADORAS - 02. Média Aritmética ===
    ========================================================================== */
@@ -7,7 +5,10 @@
 .metrics-panel {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem; /* Reduzido de 1rem para aproximar os cards */
+  gap: 0.5rem;
+  width: 100% !important;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 /* Card Container da Métrica - Compactado */
@@ -16,15 +17,18 @@
   flex-direction: column;
   background-color: var(--bg-sidebar);
   border: 1px solid var(--border-color);
-  padding: 0.5rem 0.85rem; /* Reduzido o respiro superior/inferior para economizar altura */
+  padding: 0.5rem 0.85rem;
   border-radius: var(--radius);
-  gap: 0.25rem; /* Menor distância entre label e input */
+  gap: 0.25rem;
   transition: border-color 0.2s ease;
+  width: 100% !important;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 /* Rótulo da Métrica */
 .metric-label {
-  font-size: 0.75rem; /* Levemente menor para ganhar espaço */
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-muted);
   text-transform: uppercase;
@@ -34,9 +38,11 @@
 /* Grupo de Resultado Acoplado (Input + Botão Copiar) */
 .metric-output-group {
   display: flex;
-  width: 100%;
-  height: 36px; /* Altura fixa ideal para o grupo mantendo os elementos alinhados */
+  width: 100% !important;
+  height: 36px;
   align-items: stretch;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 /* Input do Resultado */
@@ -48,13 +54,15 @@
   border-bottom-left-radius: var(--radius);
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
-  padding: 0 0.6rem; /* Removemos o padding vertical direto para deixar a altura ser regida pelo container */
-  font-size: 1rem; /* Tamanho do número ajustado para caber confortavelmente */
+  padding: 0 0.6rem;
+  font-size: 1rem;
   font-weight: 700;
   color: var(--text-main);
   flex: 1;
   margin: 0 !important;
   box-shadow: none !important;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 /* Estado de Placeholder ("Nenhum valor") */
@@ -78,13 +86,13 @@
 
 .highlight-metric input.metric-input:not(.empty-state) {
   color: var(--primary-color);
-  font-size: 1.15rem; /* Ajustado para ter destaque sem exagerar no tamanho vertical */
+  font-size: 1.15rem;
   font-weight: 800;
 }
 
 /* Botão Copiar Acoplado Lateralmente */
 .metric-output-group button {
-  padding: 0 0.85rem; /* Ligeiramente mais compacto na largura também */
+  padding: 0 0.85rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -94,6 +102,8 @@
   border-bottom-right-radius: var(--radius);
   margin: 0 !important;
   cursor: pointer;
+  box-sizing: border-box;
+  flex-shrink: 0;
 }
 
 .metric-output-group button i {
@@ -130,10 +140,14 @@
 .mode-selector {
   display: flex;
   justify-content: flex-start;
+  width: 100% !important;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 .mode-selector .btn-group {
   box-shadow: none;
+  flex-wrap: wrap;
 }
 
 .mode-selector .btn-outline-primary {
@@ -142,6 +156,7 @@
   background-color: var(--bg-main);
   font-size: 0.85rem;
   font-weight: 600;
+  box-sizing: border-box;
 }
 
 .mode-selector .btn-check:checked + .btn-outline-primary {
