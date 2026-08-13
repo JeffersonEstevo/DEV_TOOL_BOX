@@ -1,15 +1,26 @@
 /* ==========================================================================
-   === 02. CALCULADORAS - 05. Calculadora Científica (Atualizado) ===
+   === 02. CALCULADORAS - 05. Calculadora Científica (Atualizado & Responsivo) ===
    ========================================================================== */
 
+/* Container principal da ferramenta, herdando as diretrizes de largura fluida */
+.tool-container {
+  width: 100% !important;
+  box-sizing: border-box;
+  min-width: 0;
+}
+
+/* Caixa principal da calculadora com largura máxima segura e centralizada */
 .scientific-calc-box {
   background-color: var(--clr-surface, #1e1e24);
   border-radius: var(--br-base, 18px);
   padding: 1.25rem;
-  max-width: 400px; /* Ajustado para acomodar 5 colunas confortavelmente */
+  width: 100%;
+  max-width: 440px; /* Levemente expandido para melhor respiro nas colunas */
   margin: 0 auto 1.5rem auto;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
   border: 1px solid var(--clr-gray-lt, #2d2d35);
+  box-sizing: border-box;
+  min-width: 0;
 }
 
 /* Barra de Status (Modos DEG/RAD e M) */
@@ -17,6 +28,7 @@
   display: flex;
   gap: 0.5rem;
   margin-bottom: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .status-badge {
@@ -33,6 +45,7 @@
   display: none;
 }
 
+/* Visor / Tela da Calculadora */
 .calc-screen {
   background-color: var(--clr-bg, #0f0f12);
   border-radius: var(--br-base, 8px);
@@ -44,6 +57,8 @@
   flex-direction: column;
   justify-content: flex-end;
   border: 1px solid var(--clr-gray-lt, rgba(255, 255, 255, 0.05));
+  box-sizing: border-box;
+  overflow: hidden;
 }
 
 .expression-preview {
@@ -54,6 +69,7 @@
   word-wrap: break-word;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .calc-screen input {
@@ -67,13 +83,16 @@
   width: 100%;
   box-shadow: none !important;
   pointer-events: none;
+  box-sizing: border-box;
 }
 
-/* Teclado ajustado para 5 colunas conforme sua estrutura HTML */
+/* Teclado estruturado em grade de 5 colunas fluidas */
 .calc-keyboard {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 0.4rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .btn-calc {
@@ -88,13 +107,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  box-sizing: border-box;
+  user-select: none;
 }
 
 .btn-calc:active {
   transform: scale(0.95);
 }
 
-/* Diferenciação de Cores das Teclas */
+/* Cores e Estados das Teclas */
 .btn-num { 
   background-color: #2d2d38; 
   color: #ffffff;
@@ -128,12 +149,71 @@
 .btn-meta:hover { background-color: #f43f5e; }
 
 .btn-action-equal {
-  grid-row: span 2; /* Ocupa 2 linhas na vertical */
+  grid-row: span 2; 
   background-color: #10b981;
   font-size: 1.5rem;
 }
 .btn-action-equal:hover { background-color: #059669; }
 
 .zero-btn {
-  grid-column: span 2; /* Ocupa 2 colunas na horizontal */
+  grid-column: span 2; 
+}
+
+/* ==========================================================================
+   === AJUSTES RESPONSIVOS PARA A CALCULADORA CIENTÍFICA ===
+   ========================================================================== */
+
+/* Tablets e dispositivos intermediários */
+@media (max-width: 768px) {
+  .scientific-calc-box {
+    padding: 1rem;
+  }
+}
+
+/* Smartphones compactos (telas menores que 480px) */
+@media (max-width: 480px) {
+  .scientific-calc-box {
+    padding: 0.75rem;
+    border-radius: 12px;
+  }
+
+  .calc-screen {
+    padding: 0.5rem 0.75rem;
+    min-height: 70px;
+    margin-bottom: 1rem;
+  }
+
+  .calc-screen input {
+    font-size: 1.6rem !important;
+  }
+
+  .calc-keyboard {
+    gap: 0.3rem;
+  }
+
+  .btn-calc {
+    padding: 0.6rem 0;
+    font-size: 0.9rem;
+    border-radius: 8px;
+  }
+
+  .btn-sci {
+    font-size: 0.75rem; /* Reduz funções científicas para não quebrar o layout */
+  }
+
+  .btn-mem {
+    font-size: 0.7rem;
+  }
+}
+
+/* Ajuste extremo para telas muito estreitas (ex: Galaxy Fold / < 360px) */
+@media (max-width: 360px) {
+  .btn-calc {
+    font-size: 0.8rem;
+    padding: 0.5rem 0;
+  }
+  
+  .btn-sci {
+    font-size: 0.65rem;
+  }
 }
