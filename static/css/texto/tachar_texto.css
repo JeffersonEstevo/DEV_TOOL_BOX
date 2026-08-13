@@ -4,23 +4,28 @@
    === 01. TEXTO - 18. Tachar Texto ===
    ========================================================================== */
 
-/* Força os elementos do grid a ocuparem 100% da largura da coluna útil */
+/* Força os elementos do grid a ocuparem 100% da largura da coluna útil,
+   assegurando layout em duas colunas equivalentes com espaçamento simétrico */
 .tool-grid {
   display: grid !important;
   grid-template-columns: repeat(2, 1fr) !important;
   gap: 1.5rem !important;
   width: 100% !important;
   box-sizing: border-box;
+  min-width: 0; /* Impede que itens do grid estourem o container em telas estreitas */
 }
 
+/* Agrupamento vertical dos campos de formulário com controle de largura segura */
 .field-group {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   width: 100% !important;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
-/* Força os textareas a ficarem largos e responsivos */
+/* Força os textareas a ficarem largos, fluidos e responsivos dentro do grid */
 .tool-container textarea {
   width: 100% !important;
   min-width: 100% !important;
@@ -36,15 +41,31 @@
   resize: vertical;
 }
 
+/* Barra divisória superior utilizada para isolar blocos de ações ou botões */
 .border-top-bar {
   border-top: 1px solid var(--border-color);
   padding-top: 1rem;
   margin-top: 1rem;
+  box-sizing: border-box;
+  width: 100%;
 }
 
-/* Responsividade para dispositivos móveis */
+/* ==========================================================================
+   === AJUSTES RESPONSIVOS PARA TACHAR TEXTO ===
+   ========================================================================== */
+
+/* Responsividade para dispositivos móveis: empilha as colunas em uma única coluna */
 @media (max-width: 768px) {
   .tool-grid {
     grid-template-columns: 1fr !important;
+    gap: 1rem !important; /* Reduz levemente o espaçamento entre blocos em telas menores */
+  }
+}
+
+/* Ajustes finos para telas muito pequenas */
+@media (max-width: 480px) {
+  .tool-container textarea {
+    padding: 0.6rem !important;
+    font-size: 0.95rem;
   }
 }
