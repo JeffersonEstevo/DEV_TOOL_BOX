@@ -1,7 +1,18 @@
 /* ==========================================================================
    === 03. GERADORES - 04. Cartão de Crédito ====
    ========================================================================== */
-.generator-workspace {
+
+/* Container principal da ferramenta */
+.tool-container {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  padding: 1rem;
+}
+
+/* Área de trabalho dos cards */
+.tool-container .generator-workspace {
   background-color: var(--bg-sidebar);
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
@@ -9,23 +20,26 @@
   max-width: 450px;
   margin: 0 auto 1.5rem auto;
   text-align: center;
+  box-sizing: border-box;
 }
 
-.tab-content {
+.tool-container .tab-content {
   display: none !important;
 }
 
-.tab-content.active {
+.tool-container .tab-content.active {
   display: block !important;
 }
 
-.generator-options {
+.tool-container .generator-options {
   margin-bottom: 1.5rem;
   display: flex;
   justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-.checkbox-container {
+.tool-container .checkbox-container {
   display: flex;
   align-items: center;
   gap: 0.5rem;
@@ -35,8 +49,9 @@
   user-select: none;
 }
 
-.generator-output-box input[type="text"] {
-  width: 100%;
+/* Inputs de texto no padrão original do sistema (removendo forçamentos que tiravam o foco nativo) */
+.tool-container .generator-output-box input[type="text"] {
+  width: 100% !important;
   padding: 0.75rem;
   font-size: 1.35rem; 
   font-weight: 700;
@@ -46,29 +61,31 @@
   border: 1px solid var(--border-color);
   color: var(--primary-color);
   border-radius: var(--radius);
-  transition: color 0.2s ease;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 /* Feedbacks de Validação */
-.validation-feedback {
+.tool-container .validation-feedback {
   padding: 0.5rem;
   border-radius: var(--radius);
   text-align: center;
   transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
-.validation-feedback.neutral {
+.tool-container .validation-feedback.neutral {
   background-color: transparent;
   color: var(--text-main);
   opacity: 0.6;
 }
 
-.validation-feedback.valid {
+.tool-container .validation-feedback.valid {
   background-color: rgba(40, 167, 69, 0.1);
   color: #28a745;
 }
 
-.validation-feedback.invalid {
+.tool-container .validation-feedback.invalid {
   background-color: rgba(220, 53, 69, 0.1);
   color: #dc3545;
 }
@@ -76,7 +93,7 @@
 /* ==========================================================================
    === AJUSTE DE ABAS NO PADRÃO SUPERIOR (CARTÃO) ===
    ========================================================================== */
-.rede-tabs {
+.tool-container .rede-tabs {
   display: flex;
   gap: 0.5rem;
   border-bottom: 2px solid var(--border-color);
@@ -85,9 +102,10 @@
   max-width: 450px;
   margin-left: auto;
   margin-right: auto;
+  box-sizing: border-box;
 }
 
-.rede-tabs .tab-btn {
+.tool-container .rede-tabs .tab-btn {
   background: none !important;
   border: none !important;
   padding: 0.75rem 1.2rem;
@@ -104,12 +122,12 @@
   border-radius: 0 !important;
 }
 
-.rede-tabs .tab-btn:hover {
+.tool-container .rede-tabs .tab-btn:hover {
   opacity: 1;
   color: var(--primary-color);
 }
 
-.rede-tabs .tab-btn.active {
+.tool-container .rede-tabs .tab-btn.active {
   opacity: 1;
   color: var(--primary-color);
   border-bottom-color: var(--primary-color) !important;
@@ -120,7 +138,12 @@
    ========================================================================== */
 .tool-container .action-bar {
   position: relative !important;
+  display: flex !important;
   justify-content: center !important;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem 0;
 }
 
 .tool-container .action-bar .grupo-acoes {
@@ -135,6 +158,10 @@
   position: absolute !important;
   right: 1.5rem !important;
   pointer-events: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
 }
 
 #cartao-generator-alert.hidden {
@@ -143,4 +170,23 @@
 
 #cartao-generator-alert:not(.hidden) {
   display: inline-flex !important;
+}
+
+/* ==========================================================================
+   === RESPONSIVIDADE (MEDIA QUERIES) ===
+   ========================================================================== */
+@media (max-width: 768px) {
+  .tool-container .generator-workspace,
+  .tool-container .rede-tabs {
+    max-width: 100% !important;
+  }
+
+  .tool-container .action-bar {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .tool-container .toast-alert {
+    position: static !important;
+  }
 }
