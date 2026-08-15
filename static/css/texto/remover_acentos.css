@@ -10,3 +10,26 @@
     width: 100%;
     box-sizing: border-box;
 }
+
+
+/* ==========================================================================
+   === AJUSTES DE RESPONSIVIDADE GLOBAL PARA DISPOSITIVOS MÓVEIS ===
+   ========================================================================== */
+@media (max-width: 480px) {
+    /* Reduz a altura dos textareas em celulares para evitar rolagem excessiva */
+    .tool-container textarea {
+        height: 220px !important;
+    }
+
+    /* Melhora o espaçamento das barras de ação em telas compactas */
+    .tool-container .action-bar {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .tool-container .action-bar .btn {
+        flex: 1;
+        min-width: 120px;
+        justify-content: center;
+    }
+}
