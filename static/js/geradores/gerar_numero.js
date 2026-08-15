@@ -1,4 +1,7 @@
-let ultimosNumerosGerados = [];
+// Verifica se a variável global já existe na SPA para evitar redeclaração
+if (typeof window.ultimosNumerosGerados === 'undefined') {
+    window.ultimosNumerosGerados = [];
+}
 
 function dispararGeracaoNumeros() {
     const qtdInput = parseInt(document.getElementById("num-quantidade")?.value) || 1;
@@ -14,7 +17,7 @@ function dispararGeracaoNumeros() {
 
     const totalPossivel = (max - min) + 1;
     if (unicos && quantidade > totalPossivel) {
-        ultimosNumerosGerados = [];
+        window.ultimosNumerosGerados = [];
         exibirResultadoNumeros(true, `Erro: Máx ${totalPossivel} números únicos.`);
         return;
     }
@@ -40,7 +43,7 @@ function dispararGeracaoNumeros() {
         numeros.sort((a, b) => b - a);
     }
 
-    ultimosNumerosGerados = numeros;
+    window.ultimosNumerosGerados = numeros;
     exibirResultadoNumeros(false, "", formato);
 }
 
@@ -53,18 +56,16 @@ function exibirResultadoNumeros(isError = false, errorMessage = "", formato = "t
         return;
     }
 
-    if (ultimosNumerosGerados.length === 0) {
+    if (window.ultimosNumerosGerados.length === 0) {
         painel.innerHTML = `<span style="opacity: 0.6; font-size: 0.9rem;">Aguardando geração...</span>`;
         return;
     }
 
     if (formato === 'lista') {
-        // Exibição em formato de lista separada por vírgula
-        painel.innerHTML = `<div style="word-break: break-all; font-family: monospace; font-weight: 700; font-size: 1rem; color: var(--text-main);">${ultimosNumerosGerados.join(', ')}</div>`;
+        painel.innerHTML = `<div style="word-break: break-all; font-family: monospace; font-weight: 700; font-size: 1rem; color: var(--text-main);">${window.ultimosNumerosGerados.join(', ')}</div>`;
     } else {
-        // Exibição em formato de tabela/grade compacta maximizada
         let html = '<div style="display: flex; flex-wrap: wrap; gap: 0.35rem; justify-content: center; align-items: center;">';
-        ultimosNumerosGerados.forEach(num => {
+        window.ultimosNumerosGerados.forEach(num => {
             html += `<div style="background: var(--bg-main); border: 1px solid var(--border-color); border-radius: 4px; padding: 0.25rem 0.5rem; font-weight: 700; font-family: monospace; font-size: 0.9rem; min-width: 38px; text-align: center;">${num}</div>`;
         });
         html += '</div>';
@@ -79,7 +80,7 @@ function resetarGeradorNumeros() {
     document.getElementById("num-unicos").checked = false;
     document.getElementById("num-ordenacao").value = "nenhuma";
     document.getElementById("num-formato").value = "tabela";
-    ultimosNumerosGerados = [];
+    window.ultimosNumerosGerados = [];
     exibirResultadoNumeros();
 }
 
