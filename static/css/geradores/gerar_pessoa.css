@@ -56,6 +56,7 @@
   flex-direction: column;
   gap: 0.3rem;
   box-sizing: border-box;
+  min-width: 0; /* Impede que elementos flex/grid estourem o container no mobile */
 }
 
 .tool-container .pessoa-field label {
@@ -63,6 +64,9 @@
   font-weight: 600;
   color: var(--text-main);
   opacity: 0.8;
+  white-space: nowrap; /* Evita quebra indesejada no título do campo */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Adiciona reticências caso o texto exceda o espaço */
 }
 
 /* Modificadores de tamanho das colunas no grid */
@@ -132,19 +136,32 @@
    === RESPONSIVIDADE (MEDIA QUERIES) ===
    ========================================================================== */
 @media (max-width: 768px) {
+  .tool-container {
+    padding: 0.5rem;
+  }
+
   .tool-container .pessoa-workspace {
     max-width: 100% !important;
-    padding: 1.25rem 1rem !important;
+    padding: 1rem 0.75rem !important;
+  }
+
+  .tool-container .pessoa-section {
+    padding: 0.85rem;
   }
 
   .tool-container .pessoa-grid {
     grid-template-columns: 1fr;
+    gap: 0.75rem;
   }
 
   .tool-container .pessoa-field.full-width,
   .tool-container .pessoa-field.triple-width,
   .tool-container .pessoa-field.double-width {
     grid-column: span 1;
+  }
+
+  .tool-container .pessoa-field label {
+    white-space: normal; /* Permite que quebre apenas em telas muito pequenas caso necessário, sem ocultar */
   }
 
   .tool-container .action-bar {
