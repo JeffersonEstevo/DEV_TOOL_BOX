@@ -1,17 +1,17 @@
-<div class="tool-container">
+<div class="tool-container workspace-largo">
     <header class="tool-header">
         <h2>Gerador de Arrays e Estruturas de Dados</h2>
         <p>Gere conjuntos de dados fictícios customizados, ordenados ou aleatórios para testes rápidos em múltiplas linguagens.</p>
     </header>
 
-    <div class="generator-workspace array-workspace" style="max-width: 650px !important;">
-        <div class="generator-options" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; text-align: left; margin-bottom: 1.5rem;">
+    <div class="generator-workspace array-workspace" style="max-width: 700px !important;">
+        <div class="generator-options generator-options-grid">
             
             <!-- Coluna 1 -->
-            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <div class="generator-options-column">
                 <div>
                     <label class="hash-label">Linguagem</label>
-                    <select id="array-linguagem" class="form-select" style="width: 100%; padding: 0.4rem; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border-color); border-radius: var(--radius);">
+                    <select id="array-linguagem" class="form-select">
                         <option value="javascript">JavaScript</option>
                         <option value="python">Python</option>
                         <option value="java">Java</option>
@@ -21,7 +21,7 @@
 
                 <div>
                     <label class="hash-label">Estrutura de Dados</label>
-                    <select id="array-estrutura" class="form-select" style="width: 100%; padding: 0.4rem; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border-color); border-radius: var(--radius);">
+                    <select id="array-estrutura" class="form-select">
                         <option value="array">Array / Lista Padrão</option>
                         <option value="matriz">Matriz Bidimensional</option>
                         <option value="tupla">Tupla</option>
@@ -32,7 +32,7 @@
 
                 <div>
                     <label class="hash-label">Tipo do Elemento</label>
-                    <select id="array-tipo-dado" class="form-select" style="width: 100%; padding: 0.4rem; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border-color); border-radius: var(--radius);">
+                    <select id="array-tipo-dado" class="form-select">
                         <option value="number">Números Inteiros</option>
                         <option value="string">Textos / Strings</option>
                         <option value="boolean">Booleanos (true/false)</option>
@@ -41,43 +41,41 @@
             </div>
 
             <!-- Coluna 2 -->
-            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+            <div class="generator-options-column">
                 <div style="display: flex; flex-direction: column;">
                     <label class="hash-label">Qtd. Elementos: <span id="array-qtd-val">10</span></label>
-                    <input type="range" id="array-quantidade" min="1" max="100" value="10" style="cursor: pointer; margin-top: 0.4rem;">
+                    <input type="range" id="array-quantidade" min="1" max="100" value="10">
                 </div>
 
                 <div id="container-tamanho-string" style="display: none;">
                     <label class="hash-label">Tam. de cada String</label>
-                    <input type="number" id="array-tamanho-string" min="1" max="20" value="5" style="width: 100%; padding: 0.35rem; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border-color); border-radius: var(--radius);">
+                    <input type="number" id="array-tamanho-string" min="1" max="20" value="5">
                 </div>
 
                 <div>
                     <label class="hash-label">Ordenação</label>
-                    <select id="array-ordenacao" class="form-select" style="width: 100%; padding: 0.4rem; background: var(--bg-main); color: var(--text-main); border: 1px solid var(--border-color); border-radius: var(--radius);">
+                    <select id="array-ordenacao" class="form-select">
                         <option value="aleatorio">Aleatório / Misturado</option>
                         <option value="crescente">Ordenado Crescente</option>
                         <option value="decrescente">Ordenado Decrescente</option>
                     </select>
                 </div>
 
-                <div style="padding-top: 0.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                <div style="padding-top: 0.25rem; display: flex; flex-direction: column; gap: 0.5rem;">
                     <label class="checkbox-container">
                         <input type="checkbox" id="array-repetidos" checked>
-                        <span class="checkmark"></span>
-                        Permitir valores repetidos
+                        <span>Permitir valores repetidos</span>
                     </label>
                     <label class="checkbox-container">
                         <input type="checkbox" id="array-positivos" checked>
-                        <span class="checkmark"></span>
-                        Apenas valores positivos (para números)
+                        <span>Apenas valores positivos (para números)</span>
                     </label>
                 </div>
             </div>
         </div>
 
         <div class="generator-output-box">
-            <textarea id="array-resultado" readonly rows="6" placeholder="Aguardando geração..." style="width: 100%; background: var(--bg-main); color: var(--primary-color); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 0.75rem; font-family: monospace; font-size: 0.9rem; resize: none; text-align: left;"></textarea>
+            <textarea id="array-resultado" readonly placeholder="Aguardando geração..."></textarea>
         </div>
     </div>
 
