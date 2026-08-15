@@ -455,6 +455,32 @@ document.addEventListener("click", function(event) {
         event.preventDefault();
         window.copiarTextoDeElemento('mean-value', 'mean-metrics-alert');
     }
+
+    // === 02. CALCULADORAS - 02. Média Aritmética (Ponderada) ===
+    if (event.target.closest('#clean-mean-button-ponderada')) {
+        event.preventDefault();
+        if (typeof limparMediaAritmeticaPonderada === "function") limparMediaAritmeticaPonderada();
+    }
+    if (event.target.closest('#copy-terms-btn-ponderada')) {
+        event.preventDefault();
+        window.copiarTextoDeElemento('number-of-terms-ponderada', 'mean-metrics-alert-ponderada');
+    }
+    if (event.target.closest('#copy-min-btn-ponderada')) {
+        event.preventDefault();
+        window.copiarTextoDeElemento('min-value-ponderada', 'mean-metrics-alert-ponderada');
+    }
+    if (event.target.closest('#copy-max-btn-ponderada')) {
+        event.preventDefault();
+        window.copiarTextoDeElemento('max-value-ponderada', 'mean-metrics-alert-ponderada');
+    }
+    if (event.target.closest('#copy-weight-btn-ponderada')) {
+        event.preventDefault();
+        window.copiarTextoDeElemento('weight-total-ponderada', 'mean-metrics-alert-ponderada');
+    }
+    if (event.target.closest('#copy-mean-btn-ponderada')) {
+        event.preventDefault();
+        window.copiarTextoDeElemento('mean-value-ponderada', 'mean-metrics-alert-ponderada');
+    }
     // === 02. CALCULADORAS - 03. Porcentagem ===
     if (event.target.closest('#clean-percentage-button')) {
         event.preventDefault();

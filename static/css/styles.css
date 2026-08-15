@@ -33,6 +33,9 @@
   --sidebar-width: 260px;     /* Largura fixa padrão da barra lateral */
   --radius: 8px;              /* Raio de arredondamento padrão para elementos */
   --transition: all 0.2s ease-in-out; /* Transição padrão suave para animações e hover */
+
+  --accent-light: #eef2ff;
+  --primary-color: var(--accent); /* alias de compatibilidade */
 }
 
 /* Sobrescrita de variáveis para o Modo Escuro (Dark Mode) */
@@ -47,6 +50,9 @@ body.dark-mode {
   --accent: #818cf8;          /* Índigo mais claro para melhor contraste no escuro */
   --accent-hover: #6366f1;    /* Cor de hover ajustada para o modo escuro */
   --accent-light: rgba(79, 70, 229, 0.15); /* Fundo translúcido adaptado */
+
+  --accent-light: rgba(79, 70, 229, 0.15);
+  --primary-color: var(--accent); /* redeclarar aqui também, pois --accent muda no dark mode */
 }
 
 /* Reset universal de caixas */

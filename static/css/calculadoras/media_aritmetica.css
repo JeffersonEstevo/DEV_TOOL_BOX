@@ -136,31 +136,67 @@
   }
 }
 
-/* Estilos para o seletor de modo (Simples / Ponderada) */
-.mode-selector {
-  display: flex;
-  justify-content: flex-start;
+/* ==========================================================================
+   === CONTROLE DE ABAS - Média Aritmética ===
+   ========================================================================== */
+
+/* Oculta por padrão todas as abas da calculadora de média */
+.tool-container #aba-media-simples,
+.tool-container #aba-media-ponderada {
+  display: none !important;
+}
+
+/* Exibe apenas a aba que estiver com a classe .active */
+.tool-container #aba-media-simples.active,
+.tool-container #aba-media-ponderada.active {
+  display: block !important;
   width: 100% !important;
   box-sizing: border-box;
   min-width: 0;
 }
 
-.mode-selector .btn-group {
-  box-shadow: none;
+/* Barra superior de navegação por abas */
+.tool-container .rede-tabs {
+  display: flex;
   flex-wrap: wrap;
+  gap: 0.5rem;
+  border-bottom: 2px solid var(--border-color);
+  margin-bottom: 1.5rem;
+  padding: 0 1rem;
+  width: 100% !important;
+  box-sizing: border-box;
+  min-width: 0;
 }
 
-.mode-selector .btn-outline-primary {
-  border-color: var(--border-color);
-  color: var(--text-muted);
-  background-color: var(--bg-main);
-  font-size: 0.85rem;
+/* Botões de aba */
+.tool-container .rede-tabs .tab-btn {
+  background: none;
+  border: none;
+  padding: 0.75rem 1.2rem;
+  font-size: 0.95rem;
   font-weight: 600;
+  color: var(--text-main);
+  opacity: 0.7;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0;
   box-sizing: border-box;
 }
 
-.mode-selector .btn-check:checked + .btn-outline-primary {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
-  color: #fff;
+.tool-container .rede-tabs .tab-btn:hover {
+  opacity: 1;
+  color: var(--primary-color);
+  background: none;
+}
+
+/* Aba selecionada com o underline indicador */
+.tool-container .rede-tabs .tab-btn.active {
+  opacity: 1;
+  background: none;
+  color: var(--primary-color);
+  border-bottom-color: var(--primary-color);
 }
