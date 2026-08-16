@@ -5,11 +5,13 @@
 /* 
  * 1. CONTAINER PRINCIPAL (WORKSPACE)
  * Alarga o painel para organizar os campos perfeitamente na tela.
- * A largura máxima de 850px garante bom espaçamento sem esticar excessivamente.
+ * O 'max-width: 850px' impede que os inputs fiquem esticados demais.
+ * O 'margin: 0 auto' centraliza perfeitamente o container na tela.
  */
 .tool-container .eletrica-workspace {
   max-width: 850px !important;
   width: 100% !important;
+  margin: 0 auto !important;
   text-align: left !important;
   padding: 1.5rem !important;
 }
@@ -159,6 +161,7 @@
   border-radius: 6px;
   box-sizing: border-box;
   box-shadow: none !important;
+  -moz-appearance: textfield; /* Unificado para Firefox */
 }
 
 /* Selects específicos para prefixos (ex: mili, quilo, mega) */
@@ -183,8 +186,4 @@
 .eletrica-field input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-
-.eletrica-field input[type="number"] {
-  -moz-appearance: textfield;
 }
