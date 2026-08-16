@@ -2,25 +2,41 @@
    === 04. CONVERSORES - 10. Triângulo de Potência ===
    ========================================================================== */
 
+/* 
+ * 1. CONTAINER PRINCIPAL (WORKSPACE)
+ * Alarga o painel para organizar os campos perfeitamente na tela.
+ * O 'max-width: 850px' impede que os inputs fiquem esticados demais.
+ * O 'margin: 0 auto' centraliza perfeitamente o container na tela.
+ */
 .tool-container .potencia-workspace {
   max-width: 850px !important;
   width: 100% !important;
+  margin: 0 auto !important;
   text-align: left !important;
   padding: 1.5rem !important;
 }
 
+/* 
+ * 2. SISTEMA DE GRID (GRADE EM 2 COLUNAS)
+ * Configurado em 2 colunas para manter a proporção e simetria dos campos do triângulo.
+ */
 .potencia-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 }
 
+/* Responsividade (Smartphones): Reduz para 1 coluna empilhada */
 @media (max-width: 550px) {
   .potencia-grid {
     grid-template-columns: 1fr;
   }
 }
 
+/* 
+ * 3. CARD INDIVIDUAL (BLOCO DE CAMPO DE POTÊNCIA)
+ * Contêiner em formato de card para agrupar o label, input e unidades.
+ */
 .potencia-field {
   display: flex;
   flex-direction: column;
@@ -33,10 +49,12 @@
   transition: border-color 0.2s ease;
 }
 
+/* Feedback visual (Hover) no card */
 .potencia-field:hover {
   border-color: var(--primary-color);
 }
 
+/* Rótulos dos campos de potência */
 .potencia-field label {
   font-size: 0.8rem;
   font-weight: 600;
@@ -45,6 +63,10 @@
   margin-bottom: 0.1rem;
 }
 
+/* 
+ * 4. CAMPOS DE ENTRADA (INPUTS NUMÉRICOS)
+ * Padronizados com tamanho confortável, fontes legíveis, cores consistentes e suporte ao Firefox unificado.
+ */
 .potencia-field input[type="number"] {
   width: 100% !important;
   background-color: var(--bg-main) !important;
@@ -57,14 +79,20 @@
   border-radius: 6px;
   box-sizing: border-box;
   box-shadow: none !important;
+  -moz-appearance: textfield; /* Unificado para Firefox */
 }
 
+/* Feedback visual (Focus) ao interagir com o input */
 .potencia-field input[type="number"]:focus {
+  outline: none;
   border-color: var(--primary-color);
   background-color: var(--bg-sidebar);
 }
 
-/* Painel de resumo trigonométrico lateral/inferior */
+/* 
+ * 5. PAINEL DE RESUMO TRIGONOMÉTRICO (LATERAL/INFERIOR)
+ * Grade de 3 colunas para exibir os resultados calculados (como Fator de Potência, Ângulo, etc.).
+ */
 .potencia-info-box {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -76,6 +104,7 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
 }
 
+/* Responsividade do painel de resumo em telas menores */
 @media (max-width: 700px) {
   .potencia-info-box {
     grid-template-columns: 1fr;
@@ -101,6 +130,10 @@
   color: var(--primary-color);
 }
 
+/* 
+ * 6. CAIXA DE FÓRMULA
+ * Exibe o resumo matemático ou instrução de cálculo no rodapé.
+ */
 .potencia-formula-box {
   margin-top: 1.5rem;
   padding: 0.85rem;
@@ -119,12 +152,12 @@
   color: var(--primary-color);
 }
 
-/* Remove setas dos inputs numéricos */
+/* 
+ * 7. OCULTAR SETAS DOS INPUTS NUMÉRICOS (WebKit)
+ * Remove os seletores de incremento nativos (+/-) para manter o visual limpo.
+ */
 .potencia-field input[type="number"]::-webkit-inner-spin-button,
 .potencia-field input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-.potencia-field input[type="number"] {
-  -moz-appearance: textfield;
 }
