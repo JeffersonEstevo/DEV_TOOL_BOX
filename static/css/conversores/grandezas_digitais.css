@@ -11,106 +11,103 @@
   --digital-neon: #00ffcc; /* Define a cor neon (verde/ciano) para o display digital */
 }
 
-/* Limita a largura máxima da área de trabalho e ajusta o preenchimento interno */
+/* Limita a largura máxima da área de trabalho, centraliza e ajusta o preenchimento interno */
 .tool-container .digital-workspace {
-  max-width: 900px !important; /* Limita a largura máxima para não ficar muito largo em telas grandes */
-  width: 100% !important; /* Ocupa toda a largura disponível até atingir o máximo */
-  text-align: left !important; /* Alinha o conteúdo à esquerda */
-  padding: 1rem !important; /* Espaçamento interno da área de trabalho */
+  max-width: 850px !important; /* Mantém o mesmo padrão de largura dos demais conversores */
+  width: 100% !important;
+  margin: 0 auto !important; /* Centraliza perfeitamente na tela */
+  text-align: left !important;
+  padding: 1.5rem !important;
 }
 
-/* Grid dinâmico de 4 colunas para exibir os campos lado a lado sem rolagem excessiva */
+/* Grid dinâmico de 3 colunas para alinhar com o padrão e dar mais respiro aos cards */
 .digital-grid {
-  display: grid; /* Define o layout como grid */
-  grid-template-columns: repeat(4, 1fr); /* Cria 4 colunas com largura igual (1fr cada) */
-  gap: 0.75rem; /* Espaçamento entre os cards */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 colunas simétricas */
+  gap: 1rem; /* Espaçamento idêntico aos outros conversores */
 }
 
 /* Responsividade: Reduz para 2 colunas em tablets e telas intermediárias */
-@media (max-width: 1024px) {
+@media (max-width: 900px) {
   .digital-grid {
-    grid-template-columns: repeat(2, 1fr); /* Muda de 4 para 2 colunas em telas menores que 1024px */
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
 /* Responsividade: Reduz para 1 única coluna em dispositivos móveis (smartphones) */
-@media (max-width: 600px) {
+@media (max-width: 550px) {
   .digital-grid {
-    grid-template-columns: 1fr; /* Muda para 1 coluna (empilhada) em telas menores que 600px */
+    grid-template-columns: 1fr;
   }
 }
 
-/* Card individual para cada unidade digital (mais fino e compacto verticalmente) */
+/* Card individual para cada unidade digital (com proporções alinhadas ao restante do sistema) */
 .digital-field.digital-card {
-  background: var(--digital-bg, #1e1e2f); /* Fundo escuro do card, com fallback */
-  border: 1px solid var(--digital-border, #2a2a3c); /* Borda escura, com fallback */
-  border-radius: 8px; /* Arredondamento das bordas */
-  padding: 0.75rem 1rem; /* Espaçamento interno reduzido (mais compacto) */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra suave para dar profundidade */
-  transition: transform 0.2s ease, border-color 0.2s ease; /* Transição suave para hover */
+  background: var(--digital-bg, #1e1e2f);
+  border: 1px solid var(--digital-border, #2a2a3c);
+  border-radius: var(--radius, 8px);
+  padding: 0.85rem; /* Ajustado para o mesmo padrão de respiro */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, border-color 0.2s ease;
 }
 
 /* Destaca levemente a borda do card ao passar o mouse */
 .digital-field.digital-card:hover {
-  border-color: var(--digital-accent, #4f46e5); /* Muda a borda para roxo ao passar o mouse */
+  border-color: var(--primary-color);
 }
 
 /* Rótulo descritivo contendo o ícone e o nome da unidade de medida */
 .digital-field label {
-  display: flex; /* Alinha ícone e texto horizontalmente */
-  align-items: center; /* Centraliza verticalmente ícone e texto */
-  gap: 0.4rem; /* Espaçamento entre o ícone e o nome */
-  font-size: 0.75rem; /* Texto pequeno para o label */
-  font-weight: 600; /* Peso semi-negrito */
-  color: var(--digital-text, #f8fafc); /* Cor do texto (branco), com fallback */
-  opacity: 0.9; /* Leve transparência para não ser tão agressivo */
-  margin-bottom: 0.35rem; /* Pequeno espaço abaixo do label */
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem; /* Padronizado com os outros labels */
+  font-weight: 600;
+  color: var(--digital-text, #f8fafc);
+  opacity: 0.9;
+  margin-bottom: 0.1rem;
 }
 
 /* Wrapper interno que agrupa o campo numérico e a sigla da unidade */
 .digital-display-wrapper {
-  position: relative; /* Permite posicionamento de elementos filhos se necessário */
-  display: flex; /* Alinha input e sufixo horizontalmente */
-  align-items: center; /* Centraliza verticalmente */
-  background-color: rgba(0, 0, 0, 0.25); /* Fundo escuro translúcido para efeito de display */
-  border: 1px solid var(--digital-border, #2a2a3c); /* Borda escura, com fallback */
-  border-radius: 6px; /* Arredondamento das bordas */
-  padding: 0.15rem 0.5rem; /* Espaçamento interno reduzido */
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-main); /* Alinhado ao padrão de fundo dos inputs */
+  border: 1px solid var(--digital-border, #2a2a3c);
+  border-radius: 6px;
+  padding: 0.25rem 0.6rem;
 }
 
 /* Estilo do campo de input numérico com visual estilo display digital */
 .digital-input {
-  width: 100% !important; /* Ocupa toda a largura disponível */
-  background: transparent !important; /* Fundo transparente para mostrar o fundo do wrapper */
-  border: none !important; /* Remove a borda padrão do input */
-  outline: none !important; /* Remove o outline de foco padrão */
-  font-family: 'Courier New', Courier, monospace, sans-serif; /* Fonte monoespaçada estilo digital */
-  font-size: 1.1rem !important; /* Tamanho da fonte do número */
-  font-weight: 700 !important; /* Negrito para destacar o número */
-  color: var(--digital-neon, #00ffcc) !important; /* Cor neon (verde/ciano) para o display, com fallback */
-  padding: 0.2rem 0 !important; /* Espaçamento vertical reduzido */
-  box-shadow: none !important; /* Remove qualquer sombra aplicada */
+  width: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  font-family: 'Courier New', Courier, monospace, sans-serif;
+  font-size: 1.05rem !important; /* Padronizado com os tamanhos do sistema */
+  font-weight: 600 !important;
+  color: var(--digital-neon, #00ffcc) !important;
+  padding: 0.4rem 0 !important;
+  box-shadow: none !important;
+  -moz-appearance: textfield; /* Unificado para Firefox */
 }
 
 /* Sigla ou sufixo fixo exibido no canto direito de cada visor digital */
 .digital-unit {
-  font-size: 0.75rem; /* Texto pequeno para a sigla */
-  font-weight: 700; /* Negrito para destacar */
-  color: var(--digital-text, #f8fafc); /* Cor do texto (branco), com fallback */
-  opacity: 0.5; /* Meia-transparência para não competir com o número */
-  text-transform: uppercase; /* Deixa a sigla em maiúsculas (ex: KB, MB, GB) */
-  margin-left: 0.4rem; /* Espaço à esquerda para separar do número */
-  letter-spacing: 0.5px; /* Pequeno espaçamento entre letras para melhor legibilidade */
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--digital-text, #f8fafc);
+  opacity: 0.5;
+  text-transform: uppercase;
+  margin-left: 0.4rem;
+  letter-spacing: 0.5px;
 }
 
 /* Remove as setas de incremento padrão dos inputs numéricos em navegadores WebKit */
 .digital-input::-webkit-inner-spin-button,
 .digital-input::-webkit-outer-spin-button {
-  -webkit-appearance: none; /* Remove a aparência padrão das setas no Chrome/Safari/Edge */
-  margin: 0; /* Remove margens extras */
-}
-
-/* Remove as setas de incremento em navegadores Firefox */
-.digital-input {
-  -moz-appearance: textfield; /* Remove as setas no Firefox, deixando como campo de texto */
+  -webkit-appearance: none;
+  margin: 0;
 }
