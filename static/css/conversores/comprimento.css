@@ -6,11 +6,13 @@
  * 1. CONTAINER PRINCIPAL (WORKSPACE)
  * Alarga o painel para organizar os campos confortavelmente na tela.
  * O 'max-width: 850px' impede que os inputs fiquem esticados demais em monitores ultrawide.
+ * O 'margin: 0 auto' centraliza perfeitamente o container na tela.
  * O 'padding: 1.5rem' cria um respiro interno em volta de todo o conversor.
  */
 .tool-container .comprimento-workspace {
   max-width: 850px !important;
   width: 100% !important;
+  margin: 0 auto !important;
   text-align: left !important;
   padding: 1.5rem !important;
 }
@@ -96,6 +98,7 @@
   border-radius: 6px;
   box-sizing: border-box; /* Garante que padding e border não quebrem o width de 100% */
   box-shadow: none !important;
+  -moz-appearance: textfield; /* Unificado para Firefox */
 }
 
 /* Feedback visual (Focus): Quando o usuário clica para digitar no campo */
@@ -115,13 +118,4 @@
 .comprimento-field input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
-}
-
-/* 
- * Hack para Mozilla Firefox.
- * Altera a aparência do campo de número para se comportar visualmente como texto,
- * o que força o navegador a esconder as setinhas.
- */
-.comprimento-field input[type="number"] {
-  -moz-appearance: textfield;
 }

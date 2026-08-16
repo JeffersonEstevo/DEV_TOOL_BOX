@@ -15,14 +15,14 @@
 }
 
 /* 
- * 2. SISTEMA DE GRID (GRADE EM 3 COLUNAS)
- * Otimizado para 3 colunas para acomodar bem as unidades de distância de forma harmoniosa.
+ * 2. SISTEMA DE GRADE (GRID EM 3 COLUNAS)
+ * Otimizado para 3 colunas para acomodar perfeitamente os elementos 
+ * de forma harmoniosa e mantendo o padrão dos demais conversores.
  */
 .distancia-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
-  margin-bottom: 1.5rem; /* Espaço para o botão de limpar abaixo */
 }
 
 /* Responsividade (Tablets e telas médias): Reduz de 3 para 2 colunas */

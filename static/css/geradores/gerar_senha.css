@@ -101,9 +101,9 @@
   display: flex;
   align-items: center; /* Centraliza ícone verticalmente */
   justify-content: center; /* Centraliza ícone horizontalmente */
-  height: 38px !important; /* ADICIONE - Mesma altura do input */
-  min-width: 38px !important; /* ADICIONE - Largura mínima para não ficar muito estreito */
-  box-sizing: border-box; /* ADICIONE - Garante que o padding seja incluído no tamanho total */
+  height: 38px !important; /* Mesma altura do input */
+  min-width: 38px !important; /* Largura mínima para não ficar muito estreito */
+  box-sizing: border-box; /* Garante que o padding seja incluído no tamanho total */
 }
 
 /* ==========================================================================
