@@ -143,6 +143,10 @@ function autorizarEventosSenha() {
     if (slider && labelVal) {
         slider.addEventListener("input", function() {
             labelVal.textContent = this.value;
+            
+            // === NOVO: Atualiza a cor do progresso ===
+            atualizarProgressoSlider(this);
+            
             dispararGeracaoSenha();
         });
     }
@@ -159,6 +163,21 @@ function autorizarEventosSenha() {
     });
 
     document.getElementById("verificar-senha-input")?.addEventListener("input", processarSenhaManual);
+    
+    // === NOVO: Inicializa o progresso ao carregar ===
+    if (slider) {
+        atualizarProgressoSlider(slider);
+    }
+}
+
+// Função para atualizar a cor do progresso do slider
+function atualizarProgressoSlider(slider) {
+    if (!slider) return;
+    const value = parseFloat(slider.value);
+    const min = parseFloat(slider.min) || 0;
+    const max = parseFloat(slider.max) || 100;
+    const percent = ((value - min) / (max - min)) * 100;
+    slider.style.setProperty('--progress', percent + '%');
 }
 
 // Inicializadores automáticos

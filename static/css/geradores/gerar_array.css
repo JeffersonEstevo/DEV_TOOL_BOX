@@ -7,27 +7,27 @@
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  overflow-x: hidden;
-  padding: 1rem;
+  overflow-x: hidden; /* Esconde scroll horizontal desnecessário */
+  padding: 1rem; /* Espaçamento interno do container */
 }
 
 /* Área de trabalho (Workspace) centralizada */
 .tool-container .array-workspace {
-  background-color: var(--bg-sidebar);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  margin: 0 auto 1.5rem auto;
+  background-color: var(--bg-sidebar); /* Fundo da área de trabalho, que no tema claro é branco e no escuro é mais escuro */
+  border: 1px solid var(--border-color); /* Borda sutil que muda conforme o tema */
+  border-radius: var(--radius); /* Arredondamento padrão da aplicação (8px) */
+  padding: 1.5rem; /* Espaçamento interno confortável */
+  margin: 0 auto 1.5rem auto; /* Centraliza horizontalmente e adiciona margem inferior */
   box-sizing: border-box;
 }
 
 /* Grid de opções interno do HTML (2 colunas perfeitamente distribuídas) */
 .tool-container .generator-options {
-  display: grid !important;
-  grid-template-columns: repeat(2, 1fr) !important;
-  gap: 1.5rem !important;
-  text-align: left;
-  margin-bottom: 1.5rem;
+  display: grid !important; /* Força o uso de grid para layout em colunas */
+  grid-template-columns: repeat(2, 1fr) !important; /* Cria 2 colunas com largura igual (1fr cada) */
+  gap: 1.5rem !important; /* Espaçamento entre as colunas */
+  text-align: left; /* Alinha o texto à esquerda */
+  margin-bottom: 1.5rem; /* Espaço inferior antes da próxima seção */
   width: 100%;
   box-sizing: border-box;
 }
@@ -35,8 +35,8 @@
 /* Organização interna de cada coluna do grid de opções */
 .tool-container .generator-options > div {
   display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  flex-direction: column; /* Empilha os elementos verticalmente dentro de cada coluna */
+  gap: 0.75rem; /* Espaçamento entre os elementos dentro da coluna */
   width: 100%;
   box-sizing: border-box;
 }
@@ -44,56 +44,48 @@
 /* Padronização dos selects e inputs mantendo a herança de foco nativa */
 .tool-container .form-select,
 .tool-container input[type="number"] {
-  width: 100% !important;
-  padding: 0.45rem !important;
-  background-color: var(--bg-main) !important;
-  color: var(--text-main) !important;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius) !important;
-  font-size: 0.9rem;
+  width: 100% !important; /* Ocupa toda a largura do container */
+  padding: 0.45rem !important; /* Espaçamento interno adequado */
+  background-color: var(--bg-main) !important; /* Fundo que se adapta ao tema (claro/escuro) */
+  color: var(--text-main) !important; /* Cor do texto que se adapta ao tema */
+  border: 1px solid var(--border-color); /* Borda sutil que muda conforme o tema */
+  border-radius: var(--radius) !important; /* Arredondamento padrão */
+  font-size: 0.9rem; /* Tamanho do texto ligeiramente menor */
   box-sizing: border-box;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.tool-container input[type="range"] {
-  width: 100%;
-  cursor: pointer;
-  margin-top: 0.4rem;
-  accent-color: var(--primary-color);
-  box-sizing: border-box;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Transição suave para interações */
 }
 
 /* Caixa de texto de saída (textarea) adaptada ao padrão */
 .tool-container .generator-output-box textarea {
-  width: 100% !important;
-  min-height: 200px;
-  max-height: 350px;
-  overflow-y: auto;
-  background-color: var(--bg-main) !important;
-  color: var(--primary-color) !important;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius) !important;
-  padding: 1rem !important;
-  font-family: monospace;
+  width: 100% !important; /* Ocupa toda largura disponível */
+  min-height: 200px; /* Altura mínima para visualização do código gerado */
+  max-height: 350px; /* Limite máximo para não ocupar muito espaço */
+  overflow-y: auto; /* Adiciona scroll vertical se o conteúdo ultrapassar o máximo */
+  background-color: var(--bg-main) !important; /* Fundo adaptável ao tema */
+  color: var(--primary-color) !important; /* Texto na cor de destaque (roxo/índigo) */
+  border: 1px solid var(--border-color); /* Borda adaptável ao tema */
+  border-radius: var(--radius) !important; /* Arredondamento padrão */
+  padding: 1rem !important; /* Espaçamento interno generoso */
+  font-family: monospace; /* Fonte monoespaçada para código */
   font-size: 0.9rem;
-  white-space: pre-wrap;
-  word-break: break-word;
-  resize: vertical;
+  white-space: pre-wrap; /* Mantém espaços e quebras de linha */
+  word-break: break-word; /* Quebra palavras longas para evitar overflow */
+  resize: vertical; /* Permite redimensionar apenas verticalmente */
   box-sizing: border-box;
-  text-align: left;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  text-align: left; /* Alinhamento à esquerda para código */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Efeito suave ao focar */
 }
 
 /* Container de checkboxes */
 .tool-container .checkbox-container {
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  color: var(--text-main);
-  cursor: pointer;
-  user-select: none;
-  margin-top: 0.25rem;
+  align-items: center; /* Centraliza verticalmente checkbox e texto */
+  gap: 0.5rem; /* Espaço entre o checkbox e o texto */
+  font-size: 0.9rem; /* Tamanho do texto */
+  color: var(--text-main); /* Cor do texto adaptável ao tema */
+  cursor: pointer; /* Muda cursor para indicar que é clicável */
+  user-select: none; /* Previne seleção acidental do texto */
+  margin-top: 0.25rem; /* Pequeno espaçamento superior */
   box-sizing: border-box;
 }
 
@@ -101,63 +93,69 @@
    === BARRA DE AÇÕES E TOAST DE CÓPIA (ARRAY) - PADRÃO CEP/CPF ===
    ========================================================================== */
 .tool-container .action-bar {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  gap: 0.75rem !important;
+  display: flex !important; /* Layout flexível para alinhar os botões */
+  justify-content: center !important; /* Centraliza os elementos horizontalmente */
+  align-items: center !important; /* Centraliza verticalmente */
+  gap: 0.75rem !important; /* Espaçamento entre os elementos */
   width: 100%;
   box-sizing: border-box;
-  padding: 1rem 0 !important;
-  position: relative !important;
+  padding: 1rem 0 !important; /* Espaçamento vertical interno */
+  position: relative !important; /* Referência para posicionamento de elementos filhos */
 }
 
 .tool-container .action-bar .grupo-acoes {
   display: flex;
-  gap: 0.5rem;
+  gap: 0.5rem; /* Espaçamento entre os botões dentro do grupo */
   align-items: center;
   justify-content: center;
 }
 
 .tool-container .toast-alert {
-  position: static !important;
-  transform: none !important;
-  display: inline-flex;
+  position: static !important; /* Remove posicionamento absoluto, fica no fluxo normal */
+  transform: none !important; /* Remove transformações */
+  display: inline-flex; /* Alinha ícone e texto horizontalmente */
   align-items: center;
-  gap: 0.4rem;
-  font-size: 0.85rem;
-  margin-left: 0;
-  white-space: nowrap;
+  gap: 0.4rem; /* Espaço entre ícone e mensagem */
+  font-size: 0.85rem; /* Texto um pouco menor que o padrão */
+  margin-left: 0; /* Remove margem esquerda */
+  white-space: nowrap; /* Impede quebra de linha no toast */
 }
 
 #array-generator-alert.hidden {
-  display: none !important;
+  display: none !important; /* Esconde o toast quando tem a classe hidden */
 }
 
 #array-generator-alert:not(.hidden) {
-  display: inline-flex !important;
+  display: inline-flex !important; /* Mostra como flex quando NÃO tem a classe hidden */
 }
 
 /* ==========================================================================
    === RESPONSIVIDADE (MEDIA QUERIES) ===
    ========================================================================== */
 @media (max-width: 768px) {
+  /* Ajustes para dispositivos móveis (tablets e celulares) */
   .tool-container .generator-workspace,
   .tool-container .array-workspace {
-    max-width: 100% !important;
-    padding: 1.25rem 1rem !important;
+    max-width: 100% !important; /* Ocupa toda largura disponível */
+    padding: 1.25rem 1rem !important; /* Reduz o padding em telas menores */
+  }
+
+  .tool-container .rede-tabs {
+    flex-wrap: wrap; /* Só quebra em telas pequenas */
+    justify-content: center; /* Centraliza quando quebra */
   }
 
   .tool-container .generator-options {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: 1fr !important; /* Muda de 2 colunas para 1 coluna (empilha) */
   }
 
   .tool-container .action-bar {
-    flex-direction: column;
+    flex-direction: column; /* Empilha os botões verticalmente */
     gap: 0.75rem;
   }
 
   .tool-container .toast-alert {
-    position: static !important;
-    margin-left: 0;
+    position: static !important; /* Mantém no fluxo normal */
+    margin-left: 0; /* Remove margem em telas pequenas */
   }
 }

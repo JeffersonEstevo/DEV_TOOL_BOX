@@ -171,6 +171,8 @@ function inicializarEventosArray() {
     if (slider && labelVal) {
         slider.addEventListener("input", function() {
             labelVal.textContent = this.value;
+            // === PARA PROGRESSO DO SLIDE ===
+            atualizarProgressoSlider(this);
             dispararGeracaoArray();
         });
     }
@@ -186,6 +188,22 @@ function inicializarEventosArray() {
     seletores.forEach(id => {
         document.getElementById(id)?.addEventListener("change", dispararGeracaoArray);
     });
+
+    // === PARA INICIALIZAR O PROGRESSO ===
+    if (slider) {
+        atualizarProgressoSlider(slider);
+    }
+}
+
+
+// Função para atualizar a cor do progresso do slider
+function atualizarProgressoSlider(slider) {
+    if (!slider) return;
+    const value = parseFloat(slider.value);
+    const min = parseFloat(slider.min) || 0;
+    const max = parseFloat(slider.max) || 100;
+    const percent = ((value - min) / (max - min)) * 100;
+    slider.style.setProperty('--progress', percent + '%');
 }
 
 // Inicializadores
