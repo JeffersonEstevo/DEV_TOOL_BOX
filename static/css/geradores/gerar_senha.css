@@ -92,6 +92,7 @@
   font-family: monospace; /* Fonte para exibir hashes */
   color: var(--text-main); /* Cor adaptável ao tema */
   box-sizing: border-box;
+  height: 38px; /* ADICIONE - Altura fixa para alinhar com o botão */
 }
 
 .tool-container .btn-mini-copy {
@@ -100,6 +101,9 @@
   display: flex;
   align-items: center; /* Centraliza ícone verticalmente */
   justify-content: center; /* Centraliza ícone horizontalmente */
+  height: 38px !important; /* ADICIONE - Mesma altura do input */
+  min-width: 38px !important; /* ADICIONE - Largura mínima para não ficar muito estreito */
+  box-sizing: border-box; /* ADICIONE - Garante que o padding seja incluído no tamanho total */
 }
 
 /* ==========================================================================
