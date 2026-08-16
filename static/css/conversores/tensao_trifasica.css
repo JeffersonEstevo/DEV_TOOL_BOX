@@ -73,17 +73,20 @@
   font-weight: 700;
 }
 
-.card-valor-fn { 
+.card-valor-fn,
+.card-valor-ff { 
   color: var(--text-main); 
 }
 
-.card-valor-ff { 
+.card-valor-ff,
+.card-valor-fn { 
   color: var(--primary-color); 
 }
 
 .card-seta {
   color: var(--border-color);
   font-size: 0.9rem;
+  padding: 0.8rem;
 }
 
 /* 
