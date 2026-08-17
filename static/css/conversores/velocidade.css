@@ -5,11 +5,13 @@
 /* 
  * 1. CONTAINER PRINCIPAL (WORKSPACE)
  * Alarga o painel para organizar os campos perfeitamente na tela.
- * A largura máxima de 850px garante bom espaçamento, mantendo o padrão equilibrado.
+ * O 'max-width: 850px' impede que os inputs fiquem esticados demais.
+ * O 'margin: 0 auto' centraliza perfeitamente o container na tela.
  */
 .tool-container .velocidade-workspace {
   max-width: 850px !important;
   width: 100% !important;
+  margin: 0 auto !important;
   text-align: left !important;
   padding: 1.5rem !important;
 }
@@ -74,7 +76,7 @@
 
 /* 
  * 4. CAMPOS DE ENTRADA (INPUTS NUMÉRICOS)
- * Padronizados com tamanho confortável, fontes legíveis e cores consistentes com o tema.
+ * Padronizados com tamanho confortável, fontes legíveis, cores consistentes e suporte ao Firefox unificado.
  */
 .velocidade-field input[type="number"] {
   width: 100% !important;
@@ -88,6 +90,7 @@
   border-radius: 6px;
   box-sizing: border-box;
   box-shadow: none !important;
+  -moz-appearance: textfield; /* Unificado para Firefox */
 }
 
 /* Feedback visual (Focus) ao interagir com o input */
@@ -98,7 +101,7 @@
 }
 
 /* 
- * 5. OCULTAR SETAS DOS INPUTS NUMÉRICOS
+ * 5. OCULTAR SETAS DOS INPUTS NUMÉRICOS (WebKit)
  * Remove os seletores de incremento nativos (+/-) para manter um visual limpo.
  */
 .velocidade-field input[type="number"]::-webkit-inner-spin-button,
@@ -106,9 +109,3 @@
   -webkit-appearance: none;
   margin: 0;
 }
-
-.velocidade-field input[type="number"] {
-  -moz-appearance: textfield;
-}
-
-
