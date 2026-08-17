@@ -1,63 +1,94 @@
-/* Estilos específicos para o conversor de bases numéricas */
-
 /* ==========================================================================
    === 05. REDE - 02. Conversor de Bases ===
    ========================================================================== */
 
+/* 
+ * 1. CONTAINER PRINCIPAL DO CONVERSOR (WORKSPACE)
+ * Define a largura máxima ideal para o conversor, centraliza perfeitamente o bloco 
+ * na tela e aplica espaçamento interno confortável.
+ */
 .tool-container .bases-workspace {
-  max-width: 650px !important;
-  width: 100% !important;
-  text-align: left !important;
-  padding: 2rem !important;
+  max-width: 650px !important;    /* Limita a largura máxima para manter o layout compacto e organizado */
+  width: 100% !important;         /* Garante comportamento fluido preenchendo o espaço disponível */
+  margin: 0 auto !important;      /* Centraliza horizontalmente o container na tela */
+  text-align: left !important;    /* Garante alinhamento à esquerda dos textos internos */
+  padding: 2rem !important;       /* Espaçamento interno simétrico ao redor dos campos */
 }
 
+/* 
+ * 2. GRADE DE CAMPOS DE ENTRADA (BASES GRID)
+ * Organiza os campos de conversão (Binário, Decimal, Hexadecimal, etc.) em 2 colunas simétricas.
+ */
 .bases-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+  display: grid;                  /* Ativa o modelo de grade CSS */
+  grid-template-columns: repeat(2, 1fr); /* Cria 2 colunas de larguras iguais */
+  gap: 1.5rem;                    /* Espaçamento interno simétrico entre os campos da grade */
 }
 
-@media (max-width: 480px) {
+/* Responsividade avançada para dispositivos móveis e telas estreitas */
+@media (max-width: 520px) {
   .bases-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;   /* Converte a grade para coluna única (empilhada) em telas pequenas */
+    gap: 1.15rem;                 /* Reduz ligeiramente o espaçamento entre os campos */
+  }
+  .tool-container .bases-workspace {
+    padding: 1.25rem !important;  /* Reduz o padding lateral em mobile para otimizar o espaço útil */
   }
 }
 
+/* Ajuste preventivo adicional para telas muito pequenas (abaixo de 360px) */
+@media (max-width: 360px) {
+  .tool-container .bases-workspace {
+    padding: 1rem !important;     
+  }
+}
+
+/* 
+ * 3. CAMPO INDIVIDUAL DE ENTRADA (BASES FIELD)
+ * Agrupa o rótulo, o campo de texto e a mensagem de ajuda verticalmente.
+ */
 .bases-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+  display: flex;                  /* Utiliza flexbox para empilhar os elementos internos */
+  flex-direction: column;         /* Direção em coluna (Label em cima, Input no meio, Help embaixo) */
+  gap: 0.4rem;                    /* Espaçamento interno entre os componentes do campo */
 }
 
+/* Rótulos descritivos de cada base numérica */
 .bases-field label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-main);
+  font-size: 0.85rem;             /* Tamanho de fonte compacto e legível */
+  font-weight: 600;               /* Peso semi-negrito para destaque do título */
+  color: var(--text-main);        /* Cor padrão baseada nas variáveis de tema */
 }
 
+/* Campos de texto do conversor de bases */
 .bases-field input[type="text"] {
-  width: 100%;
-  padding: 0.65rem;
-  font-size: 1.15rem;
-  font-weight: 700;
-  font-family: monospace; /* Fonte mono ajuda na leitura de binários e hexas */
-  background-color: var(--bg-main);
-  border: 1px solid var(--border-color);
-  color: var(--primary-color);
-  border-radius: var(--radius);
-  box-sizing: border-box;
+  width: 100%;                    /* Ocupa 100% da largura do container pai */
+  padding: 0.65rem;               /* Espaçamento interno para digitação confortável */
+  font-size: 1.15rem;             /* Tamanho de texto ligeiramente maior para clareza */
+  font-weight: 700;               /* Texto em forte negrito */
+  font-family: monospace;         /* Fonte monoespaçada essencial para leitura clara de sequências binárias e hexas */
+  background-color: var(--bg-main); /* Cor de fundo padrão do tema */
+  border: 1px solid var(--border-color); /* Borda sutil delimitadora */
+  color: var(--primary-color);    /* Cor do texto em destaque primário */
+  border-radius: var(--radius);   /* Arredondamento de bordas padrão do sistema */
+  box-sizing: border-box;         /* Inclui padding e borda no cálculo total de largura para evitar estouros */
+  word-break: break-all;          /* Previne bugs de transbordamento com textos longos */
 }
 
+/* Feedback visual (Focus) ao interagir ativamente com o input */
 .bases-field input[type="text"]:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  background-color: var(--bg-sidebar);
+  outline: none;                  /* Remove o contorno padrão do navegador */
+  border-color: var(--primary-color); /* Acende a borda com a cor primária do tema */
+  background-color: var(--bg-sidebar); /* Altera sutilmente o fundo durante a digitação ativa */
 }
 
+/* 
+ * 4. TEXTO DE AJUDA E ORIENTAÇÃO (FIELD HELP)
+ * Pequenas notas descritivas abaixo dos inputs para orientar o usuário sobre o formato.
+ */
 .field-help {
-  font-size: 0.75rem;
-  color: var(--text-main);
-  opacity: 0.6;
+  font-size: 0.75rem;             /* Tamanho pequeno e discreto */
+  color: var(--text-main);        /* Cor padrão do texto */
+  opacity: 0.6;                   /* Opacidade reduzida para hierarquia visual secundária */
+  line-height: 1.3;               /* Altura de linha ajustada */
 }
-
-
