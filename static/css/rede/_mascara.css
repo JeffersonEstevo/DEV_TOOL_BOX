@@ -15,16 +15,65 @@
   padding: 1.5rem 2rem 2rem 2rem !important; /* Espaçamento interno confortável ao redor do conteúdo */
 }
 
-/* ==========================================================================
-   === ABAS — OVERRIDE ESPECÍFICO (MÁSCARA & CIDR) ===
-   Comportamento completo de .rede-tabs/.tab-btn/.tab-content agora é global
-   (styles.css, seção 15). Aqui só ajustamos o max-width, pra combinar com a
-   largura de 700px do .rede-workspace acima (a barra de abas é irmã do
-   workspace, não filha, então não herda a largura dele automaticamente).
-   ========================================================================== */
-.tool-container .rede-tabs {
-  max-width: 700px;
-  margin-inline: auto;
+/* 
+ * 2. BARRA DE ABAS SUPERIOR (NAVEGAÇÃO ENTRE IPV4 E IPV6)
+ * Cria o sistema de abas superior, centralizando-o e aplicando uma linha divisória inferior.
+ */
+.rede-tabs {
+  display: flex;                  /* Organiza os botões de aba em linha (flexbox) */
+  gap: 0.5rem;                    /* Espaçamento horizontal entre os botões */
+  border-bottom: 2px solid var(--border-color); /* Linha delimitadora inferior da barra de abas */
+  margin-bottom: 1.5rem;          /* Espaço abaixo da barra de abas separando do workspace */
+  padding: 0 1rem;                /* Espaçamento interno lateral */
+  max-width: 700px;               /* Alinha a largura máxima com o restante do container */
+  margin-left: auto;              /* Centralização automática à esquerda */
+  margin-right: auto;             /* Centralização automática à direita */
+}
+
+/* 
+ * Botões individuais de aba dentro da rede
+ * Padroniza a aparência de cada botão de navegação entre as abas de IPv4 e IPv6.
+ */
+.rede-tabs .tab-btn {
+  background: none;               /* Remove qualquer cor de fundo padrão */
+  border: none;                   /* Remove bordas padrão */
+  padding: 0.75rem 1.2rem;        /* Área de clique confortável */
+  font-size: 0.95rem;             /* Tamanho da fonte limpo e legível */
+  font-weight: 600;               /* Deixa o texto em semi-negrito */
+  color: var(--text-main);        /* Cor do texto baseada nas variáveis do tema */
+  opacity: 0.7;                   /* Deixa abas inativas levemente translúcidas */
+  cursor: pointer;                /* Altera o cursor do mouse para indicador de clique */
+  border-bottom: 3px solid transparent; /* Reserva espaço inferior para o indicador ativo */
+  transition: all 0.2s ease;      /* Suaviza animações de transição */
+  display: flex;                  /* Alinha ícone e texto lado a lado */
+  align-items: center;            /* Centraliza verticalmente o ícone e o texto */
+  gap: 0.5rem;                    /* Espaço entre o ícone e o texto */
+  border-radius: 0;               /* Remove cantos arredondados */
+}
+
+/* Efeito de hover (passar o mouse) nas abas inativas */
+.rede-tabs .tab-btn:hover {
+  opacity: 1;                     /* Remove a transparência ao passar o mouse */
+  color: var(--primary-color);    /* Altera a cor do texto para a cor primária */
+  background: none;               /* Garante fundo transparente */
+}
+
+/* Estado ativo (aba selecionada no momento) */
+.rede-tabs .tab-btn.active {
+  opacity: 1;                     /* Totalmente opaco e destacado */
+  background: none;               /* Fundo transparente */
+  color: var(--primary-color);    /* Cor do texto em destaque primário */
+  border-bottom-color: var(--primary-color); /* Acende a linha inferior indicando aba ativa */
+}
+
+/* Gerenciamento de visibilidade do conteúdo das abas: Oculta por padrão */
+.tab-content {
+  display: none !important;       /* Esconde conteúdos que não estão selecionados */
+}
+
+/* Exibe o conteúdo quando a aba correspondente possui a classe .active */
+.tab-content.active {
+  display: block !important;      /* Torna o bloco visível */
 }
 
 /* 
@@ -33,16 +82,18 @@
  */
 .rede-grid {
   display: grid;                  /* Ativa o layout de grade CSS */
-  grid-template-columns: repeat(2, minmax(0, 1fr)); /* 2 colunas iguais, com minmax(0, ...)
-                                      para impedir estouro de largura em telas estreitas
-                                      (mesma proteção usada no restante da aplicação) */
+  grid-template-columns: repeat(2, 1fr); /* Cria 2 colunas de tamanhos iguais */
   gap: 1.25rem;                   /* Espaçamento interno entre os campos da grade */
 }
 
 /* Media query para adaptação em dispositivos móveis (smartphones) */
 @media (max-width: 520px) {
   .rede-grid { 
-    grid-template-columns: minmax(0, 1fr); /* Reduz o grid para 1 coluna empilhada em telas pequenas */
+    grid-template-columns: 1fr;   /* Reduz o grid para 1 coluna empilhada em telas pequenas */
+  }
+  .rede-tabs { 
+    flex-direction: column;       /* Empilha as abas verticalmente em telas estreitas */
+    gap: 2px;                     /* Reduz o espaço entre as abas empilhadas */
   }
 }
 
@@ -72,8 +123,13 @@
   border-radius: var(--radius);   /* Arredondamento de bordas padrão do sistema */
   box-sizing: border-box;         /* Inclui padding e borda no cálculo total de largura */
 }
-/* Observação: :focus não é redeclarado aqui — border-color e box-shadow de foco já
-   são globais (styles.css, seção 9) e usam a cor de destaque do tema (roxo/índigo). */
+
+/* Feedback visual (Focus) ao interagir ativamente com o input */
+.rede-field input:focus {
+  outline: none;                  /* Remove contorno padrão do navegador */
+  border-color: var(--primary-color); /* Destaca a borda com a cor primária */
+  background-color: var(--bg-sidebar); /* Altera levemente o fundo no estado de foco */
+}
 
 /* 
  * 4. WRAPPER E PREFIXO "/" DO CIDR
@@ -110,8 +166,7 @@
  */
 .rede-resultados {
   display: grid;                  /* Ativa grade CSS para organizar os blocos de resultado */
-  grid-template-columns: repeat(2, minmax(0, 1fr)); /* Divide o painel em 2 colunas simétricas,
-                                      protegidas contra estouro com minmax(0, ...) */
+  grid-template-columns: repeat(2, 1fr); /* Divide o painel em 2 colunas simétricas */
   gap: 0.75rem;                   /* Espaçamento interno compacto entre as linhas */
   background-color: var(--bg-main); /* Fundo padrão do tema */
   border: 1px solid var(--border-color); /* Borda delimitadora sutil */
@@ -129,6 +184,7 @@
 
 /* Modificador para linhas que ocupam a largura total de ponta a ponta do painel */
 .resultado-linha.full-width {
+  grid-span: 2;                   /* Compatibilidade legada */
   grid-column: span 2;            /* Expande o elemento cobrindo 2 colunas inteiras da grade */
 }
 
@@ -138,7 +194,7 @@
     grid-column: span 1;          /* Reseta para 1 coluna em telas estreitas */
   }
   .rede-resultados { 
-    grid-template-columns: minmax(0, 1fr); /* Transforma o painel de resultados em coluna única */
+    grid-template-columns: 1fr;   /* Transforma o painel de resultados em coluna única */
   }
 }
 

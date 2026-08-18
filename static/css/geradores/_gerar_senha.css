@@ -24,6 +24,14 @@
   box-sizing: border-box;
 }
 
+.tool-container .tab-content {
+  display: none !important; /* Esconde todas as abas por padrão */
+}
+
+.tool-container .tab-content.active {
+  display: block !important; /* Mostra apenas a aba ativa */
+}
+
 .tool-container .generator-options {
   margin-bottom: 1.5rem; /* Espaço inferior antes do próximo elemento */
   display: flex;
@@ -99,13 +107,46 @@
 }
 
 /* ==========================================================================
-   === ABAS — OVERRIDE ESPECÍFICO (SENHAS) ===
-   Comportamento completo agora é global (styles.css, seção 15). Só ajustamos
-   o max-width aqui, pra combinar com a largura de 500px do .generator-workspace.
+   === AJUSTE DE ABAS NO PADRÃO SUPERIOR (SENHAS) ===
    ========================================================================== */
 .tool-container .rede-tabs {
-  max-width: 540px;
-  margin-inline: auto;
+  display: flex; /* Alinha as abas horizontalmente */
+  gap: 0.5rem; /* Espaçamento entre abas */
+  border-bottom: 2px solid var(--border-color); /* Linha inferior que separa abas do conteúdo */
+  margin-bottom: 1.5rem; /* Espaço abaixo das abas */
+  padding: 0 1rem; /* Espaçamento lateral */
+  max-width: 540px; /* Largura máxima para não ficar muito largo */
+  margin-left: auto; /* Centraliza horizontalmente */
+  margin-right: auto; /* Centraliza horizontalmente */
+  box-sizing: border-box;
+}
+
+.tool-container .rede-tabs .tab-btn {
+  background: none !important; /* Remove fundo padrão */
+  border: none !important; /* Remove borda padrão */
+  padding: 0.75rem 1.2rem; /* Espaçamento interno do botão */
+  font-size: 0.95rem;
+  font-weight: 600; /* Texto semi-negrito */
+  color: var(--text-main); /* Cor adaptável ao tema */
+  opacity: 0.7; /* Transparência para abas inativas */
+  cursor: pointer; /* Indica que é clicável */
+  border-bottom: 3px solid transparent !important; /* Espaço reservado para o indicador de aba ativa */
+  transition: all 0.2s ease; /* Transição suave para hover e ativação */
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Espaçamento entre ícone e texto */
+  border-radius: 0 !important; /* Remove arredondamento para ficar reto */
+}
+
+.tool-container .rede-tabs .tab-btn:hover {
+  opacity: 1; /* Remove transparência ao passar o mouse */
+  color: var(--primary-color); /* Muda para cor de destaque (roxo) */
+}
+
+.tool-container .rede-tabs .tab-btn.active {
+  opacity: 1; /* Totalmente visível */
+  color: var(--primary-color); /* Cor de destaque (roxo) */
+  border-bottom-color: var(--primary-color) !important; /* Linha roxa indicando aba ativa */
 }
 
 /* ==========================================================================
@@ -153,12 +194,16 @@
    ========================================================================== */
 @media (max-width: 768px) {
   /* Ajustes para dispositivos móveis */
-  .tool-container .generator-workspace {
+  .tool-container .generator-workspace,
+  .tool-container .rede-tabs {
     max-width: 100% !important; /* Ocupa toda largura em telas pequenas */
     padding: 1.25rem 1rem !important; /* Reduz o padding */
   }
-  /* .rede-tabs não precisa mais de ajuste aqui: o empilhamento em telas
-     pequenas (@media max-width:520px) já é padrão global (styles.css, seção 15) */
+
+  .tool-container .rede-tabs {
+    flex-wrap: wrap; /* Só quebra em telas pequenas */
+    justify-content: center; /* Centraliza quando quebra */
+  }
 
   .tool-container .action-bar {
     flex-direction: column; /* Empilha botões verticalmente em telas pequenas */

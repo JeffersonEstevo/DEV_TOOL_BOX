@@ -36,9 +36,6 @@
 
   --accent-light: #eef2ff;
   --primary-color: var(--accent); /* alias de compatibilidade */
-  --primary-rgb: 79, 70, 229;     /* Versão em números (R, G, B) de --accent (#4f46e5),
-                                      necessária para compor rgba() em sombras/anéis de
-                                      foco. Mantenha sincronizado se --accent mudar. */
 }
 
 /* Sobrescrita de variáveis para o Modo Escuro (Dark Mode) */
@@ -56,7 +53,6 @@ body.dark-mode {
 
   --accent-light: rgba(79, 70, 229, 0.15);
   --primary-color: var(--accent); /* redeclarar aqui também, pois --accent muda no dark mode */
-  --primary-rgb: 129, 140, 248;   /* Versão em números de --accent no dark mode (#818cf8) */
 }
 
 /* Reset universal de caixas */
@@ -331,18 +327,6 @@ details[open] summary::after {
   display: flex;              /* Organiza cabeçalho, grids e ações em coluna */
   flex-direction: column;
   gap: 1.5rem;                /* Espaçamento vertical entre blocos da ferramenta */
-}
-
-/* CORREÇÃO ESTRUTURAL: como .tool-container é flex-direction:column, cada filho direto
-   (tool-header, rede-tabs, workspaces, action-bar, etc.) é um item flex — e item flex,
-   por padrão, tem min-width:auto, ou seja, NÃO encolhe abaixo do tamanho do seu próprio
-   conteúdo. Um texto sem quebra, uma tabela larga ou qualquer coisa parecida em QUALQUER
-   ferramenta pode forçar esse item (e a página inteira) a ficar mais largo que a tela no
-   mobile. Essa regra blinda todos os filhos de uma vez, seguindo o mesmo padrão que já
-   era usado em `.welcome-grid > div` (ver seção 3). Ferramentas específicas não
-   precisam mais lembrar de adicionar min-width:0 manualmente. */
-.tool-container > * {
-  min-width: 0;
 }
 
 .tool-header h2 {
@@ -663,20 +647,8 @@ input[type="text"]:focus,
 input[type="number"]:focus, 
 select:focus, 
 textarea:focus {
-  /* CORREÇÃO: antes era um azul hardcoded (#3b82f6) com !important, que ganhava de
-     QUALQUER tentativa de sobrescrita nas ferramentas específicas (mesmo com classes
-     mais específicas, !important sempre vence por especificidade igual de origem).
-     Isso é o motivo real do azul aparecer "em cada parte específica": não era escolha
-     de cada ferramenta, era essa regra global vencendo por baixo dos panos. Trocado
-     para a cor de destaque do tema (roxo/índigo), que já se adapta sozinha ao dark
-     mode via variável CSS. */
-  border-color: var(--primary-color) !important; /* Mantido !important propositalmente,
-                                      pois esse é o ÚNICO lugar que deve definir a cor de
-                                      foco — nenhuma ferramenta específica deve mais
-                                      redeclarar isso (ver seção 15, mais abaixo) */
-  box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.15); /* Anel de foco translúcido na
-                                      mesma cor, usando --primary-rgb para funcionar
-                                      dentro de rgba() */
+  border-color: #3b82f6 !important; /* Altera a borda para azul de foco destacado */
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15); /* Adiciona anel de foco translúcido ao redor */
 }
 
 /* Sobrescrita de inputs no Dark Mode */
@@ -696,19 +668,8 @@ body.dark-mode textarea:hover {
   border-color: var(--text-muted, #64748b); /* Altera cor da borda no hover escuro */
 }
 
-/* CORREÇÃO: accent-color amplo (checkbox E radio, em qualquer lugar do app, não só
-   dentro de .tool-container) — evita que o navegador mostre o azul nativo do sistema
-   operacional em checkboxes/radios fora das ferramentas (ex: modais, configurações) */
-input[type="checkbox"],
-input[type="radio"] {
+.tool-container input[type="checkbox"] {
   accent-color: var(--primary-color);
-}
-
-/* CORREÇÃO: cor de seleção de texto (quando o usuário arrasta o mouse sobre um texto)
-   também usava o azul padrão do navegador. Alinhado à cor de destaque do tema. */
-::selection {
-  background-color: var(--primary-color);
-  color: #ffffff;
 }
 
 
@@ -971,124 +932,3 @@ img, video, canvas, svg, table, pre, code {
   box-shadow: 0 1px 4px rgba(0,0,0,0.2);
 }
 
-
-/* ==========================================================================
-   === 15. SISTEMA DE ABAS PADRONIZADO (.rede-tabs / .tab-btn / .tab-content) ===
-   ==========================================================================
-   Consolidado a partir de ~11 cópias quase idênticas espalhadas pelos CSS de
-   ferramentas específicas (mascara, sub_redes, gerar_senha, gerar_cpf, gerar_cnpj,
-   gerar_cep, gerar_uuid, gerar_cartao_credito, media_aritmetica, trabalhista,
-   web_dev/css). Esta é a ÚNICA definição que deve existir no projeto — não
-   redeclare .rede-tabs/.tab-btn/.tab-content em CSS de ferramenta nenhuma.
-
-   O QUE CADA FERRAMENTA PODE (e deve) SOBRESCREVER, SE PRECISAR:
-   - `max-width` do .rede-tabs: como a barra de abas é IRMÃ do workspace da
-     ferramenta (não filha), ela não herda a largura do card abaixo. Se sua
-     ferramenta tiver um workspace mais estreito que o padrão, adicione só isso
-     no CSS da ferramenta:
-         .tool-container .rede-tabs { max-width: 700px; margin-inline: auto; }
-   - `justify-content` do .rede-tabs, se quiser abas centralizadas em vez de
-     alinhadas à esquerda (padrão).
-   Não sobrescreva mais nada disso (cores, tipografia, hover/active, tab-content)
-   — se sobrescrever, está duplicando o que já existe aqui.
-
-   POR QUE TEM !IMPORTANT AQUI (e normalmente evitamos !important no projeto):
-   Enquanto a limpeza dos CSS de ferramenta antigos não termina em todos os
-   arquivos, pode sobrar por aí uma cópia velha de ".tool-container .rede-tabs
-   .tab-btn {...}" (especificidade 0,3,0) — mais específica que um simples
-   ".tab-btn" (0,1,0), então venceria a regra global mesmo carregando antes
-   dela. Por isso: (1) usamos aqui a MESMA especificidade máxima já vista em
-   qualquer variante do projeto, e (2) travamos com !important as propriedades
-   de aparência/layout que, pelo contrato acima, nenhuma ferramenta deve mais
-   redeclarar. Isso garante a aparência correta mesmo com sobras de CSS antigo
-   não removidas ainda. Ambos podem ser removidos no futuro, quando tivermos
-   certeza de que nenhum arquivo de ferramenta duplica mais isso.
-   ========================================================================== */
-
-.tool-container .rede-tabs {
-  display: flex !important;       /* Organiza os botões de aba em linha */
-  gap: 0.5rem !important;         /* Espaço horizontal entre abas */
-  border-bottom: 2px solid var(--border-color) !important; /* Linha divisória inferior */
-  margin-bottom: 1.5rem !important; /* Espaço abaixo da barra de abas */
-  padding: 0 1rem !important;     /* Respiro lateral interno */
-  width: 100%;                    /* Preenche o espaço disponível por padrão; SEM
-                                      !important de propósito — é a única propriedade
-                                      que cada ferramenta pode legitimamente sobrescrever
-                                      (junto com max-width) para combinar com seu workspace */
-  box-sizing: border-box !important;
-}
-
-.tool-container .rede-tabs .tab-btn {
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.5rem !important;         /* Espaço entre ícone e texto do botão */
-  background: none !important;
-  border: none !important;
-  flex: 0 1 auto !important;      /* CRÍTICO: nunca cresce (flex-grow:0) para preencher
-                                      a barra — é isso que garante que o "underline" da
-                                      aba ativa fique do tamanho exato do texto, e não
-                                      esticado ocupando toda a largura disponível */
-  width: auto !important;         /* Reforço explícito: o botão nunca deve ter largura
-                                      forçada por nenhum CSS de ferramenta antigo */
-  padding: 0.75rem 1.2rem !important;
-  font-size: 0.95rem !important;
-  font-weight: 600 !important;
-  color: var(--text-main) !important;
-  opacity: 0.7;                   /* Aba inativa levemente translúcida (sem !important:
-                                      hover/active abaixo precisam poder sobrescrever) */
-  cursor: pointer !important;
-  border-bottom: 3px solid transparent !important; /* Reserva espaço para o indicador ativo */
-  margin-bottom: -2px !important; /* Alinha a borda do botão exatamente em cima da
-                                      linha de 2px do .rede-tabs, evitando um efeito
-                                      de linha dupla (ideia adotada do web_dev/css.css) */
-  transition: all 0.2s ease;
-  border-radius: 0 !important;    /* Sem cantos arredondados */
-  min-width: 0 !important;        /* CRÍTICO: item flex tem min-width:auto por padrão
-                                      e não encolhe abaixo do próprio conteúdo. Sem
-                                      isso, um label de aba longo ("Particionamento &
-                                      Comunicação") força a barra inteira — e a
-                                      página — a ficarem mais largas que a tela no
-                                      mobile. NÃO adicione white-space:nowrap aqui:
-                                      foi essa combinação (nowrap + sem min-width:0)
-                                      que causou esse bug originalmente. */
-}
-
-.tool-container .rede-tabs .tab-btn:hover {
-  opacity: 1;
-  color: var(--primary-color) !important;
-}
-
-.tool-container .rede-tabs .tab-btn.active {
-  opacity: 1;
-  color: var(--primary-color) !important;
-  border-bottom-color: var(--primary-color) !important;
-}
-
-.tab-content {
-  display: none !important;       /* Esconde conteúdo de abas inativas */
-}
-
-.tab-content.active {
-  display: block !important;      /* Mostra apenas a aba ativa */
-}
-
-/* Responsividade padrão das abas: empilha verticalmente em telas pequenas e permite
-   que o texto do botão quebre em vez de estourar a largura (ver nota do min-width:0
-   acima — normalmente nem chega a precisar quebrar, mas fica garantido). */
-@media (max-width: 520px) {
-  .tool-container .rede-tabs {
-    flex-direction: column !important;
-    align-items: center !important; /* CORREÇÃO: align-items:stretch é o valor padrão
-                                      do flexbox. Sem essa linha, ao empilhar os botões
-                                      em coluna, cada .tab-btn esticava para ocupar 100%
-                                      da largura do container — e o border-bottom (o
-                                      "underline" colorido) esticava junto, cobrindo a
-                                      tela toda em vez de só o texto. */
-    gap: 2px !important;
-    padding: 0 !important;
-  }
-
-  .tool-container .rede-tabs .tab-btn {
-    justify-content: center !important;
-  }
-}

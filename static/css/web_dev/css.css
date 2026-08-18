@@ -151,56 +151,8 @@
 
 
 /* ==========================================================================
-   === ESTILIZAÇÃO DAS ABAS (PADRÃO UNIFICADO DA APLICAÇÃO) ===
+   === ABAS ===
+   .rede-tabs/.tab-btn/.tab-content agora é 100% global (styles.css, seção 15).
+   Este arquivo não precisa de nenhum override — a largura padrão (100%, sem
+   max-width) já é o que esta ferramenta usava aqui.
    ========================================================================== */
-
-.rede-tabs {
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 0.5rem;
-  border-bottom: 2px solid var(--border-color);
-  margin-bottom: 1.5rem;
-  padding: 0 1rem;
-  width: 100%;
-}
-
-.rede-tabs .tab-btn {
-  display: inline-flex !important;
-  flex-direction: row !important;
-  align-items: center;
-  gap: 0.5rem;
-  background: none !important;
-  border: none !important;
-  padding: 0.75rem 1.2rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text-main);
-  opacity: 0.7;
-  cursor: pointer;
-  border-bottom: 3px solid transparent !important;
-  margin-bottom: -2px;
-  transition: all 0.2s ease;
-  border-radius: 0 !important;
-  white-space: nowrap;
-}
-
-.rede-tabs .tab-btn:hover {
-  opacity: 1;
-  color: var(--primary-color);
-}
-
-.rede-tabs .tab-btn.active {
-  opacity: 1;
-  color: var(--primary-color);
-  border-bottom-color: var(--primary-color) !important;
-}
-
-.tab-content {
-  display: none !important;
-}
-
-.tab-content.active {
-  display: block !important;
-}
