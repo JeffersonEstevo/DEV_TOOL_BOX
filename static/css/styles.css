@@ -510,6 +510,20 @@ details[open] summary::after {
 }
 
 
+/* Utilitário global para quebra de linha em barras de ação com múltiplos botões */
+.flex-wrap {
+  display: flex;                /* Ativa layout flexível em linha */
+  flex-wrap: wrap;              /* Permite que os elementos quebrem para a linha de baixo se faltar espaço */
+  gap: 0.5rem;                  /* Espaçamento uniforme entre os botões quebrados */
+  align-items: center;          /* Alinha os itens verticalmente ao centro */
+}
+
+/* Garante que botões dentro de barras flexíveis se ajustem bem ao quebrar de linha */
+.action-bar.flex-wrap .btn {
+  flex: 1 1 auto;          /* Permite que cresçam e encolham de forma flexível */
+  justify-content: center; /* Centraliza o texto e ícone no botão */
+}
+
 /* ==========================================================================
    5. COMPORTAMENTOS DINÂMICOS E SCRIPTS DE INTERFACE
    ========================================================================== */

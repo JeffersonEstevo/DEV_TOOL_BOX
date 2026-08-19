@@ -2,31 +2,13 @@
    === 01. TEXTO - 01. Converter Texto ===
    ========================================================================== */
 
-/* Permite que os elementos internos quebrem para a próxima linha quando faltar espaço, 
-   adicionando um espaçamento padrão (gap) entre eles */
-.flex-wrap {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  align-items: center;
-}
+/* 
+  NOTA DE ARQUITETURA:
+  Esta ferramenta utiliza exclusivamente o sistema de estilos globais da SPA.
+  Nenhum CSS específico é necessário aqui para o layout ou responsividade.
 
-/* Cria uma barra separadora superior com espaçamento e alinhamento vertical, 
-   mantendo os botões agrupados de forma natural e compacta */
-.border-top-bar {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 1.5rem;
-  padding-top: 1rem;
-  border-top: 1px solid var(--border-color);
-  align-items: center;
-  justify-content: flex-start; /* Mantém os botões alinhados lado a lado, sem espalhar nas pontas */
-  gap: 0.75rem; /* Espaçamento controlado entre o botão de limpar e os demais */
-}
-
-/* Ajuste sutil para manter a usabilidade em celulares sem esticar desnecessariamente */
-@media (max-width: 480px) {
-  .border-top-bar {
-    gap: 0.5rem;
-  }
-}
+  - Para ajustar o comportamento de quebra de linha dos botões de casing, 
+    consulte a regra global `.flex-wrap` no 'styles.css'.
+  - Para ajustar o redimensionamento dinâmico dos botões ao quebrarem de linha, 
+    consulte a regra global `.action-bar.flex-wrap .btn` no 'styles.css'.
+*/
