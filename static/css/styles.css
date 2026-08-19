@@ -524,6 +524,7 @@ details[open] summary::after {
   justify-content: center; /* Centraliza o texto e ícone no botão */
 }
 
+
 /* ==========================================================================
    5. COMPORTAMENTOS DINÂMICOS E SCRIPTS DE INTERFACE
    ========================================================================== */
@@ -620,6 +621,34 @@ body.dark-mode .pdf-page-preview code {
   animation: fadeIn 0.2s ease-in-out; /* Animação suave de surgimento na tela */
 }
 
+
+/* ==========================================================================
+   REGRAS OPCIONAIS (ISOLADAS PARA USO FUTURO)
+   Caso precise forçar o toast para a linha de baixo nas barras inferiores:
+   ========================================================================== */
+
+/* 1. Permite quebra de linha controlada na barra inferior */
+/*
+.action-bar.border-top-bar {
+  flex-wrap: wrap;
+}
+*/
+
+/* 2. Mantém os botões da barra inferior com tamanho compacto (sem esticar) */
+/*
+.action-bar.border-top-bar .btn {
+  flex: 0 0 auto;
+}
+*/
+
+/* 3. Força o toast a ocupar 100% da largura, descendo para a linha inferior */
+/*
+.action-bar.border-top-bar .toast-alert {
+  flex-basis: 100%;
+  margin-top: 0.25rem;
+}
+*/
+
 @keyframes fadeIn {
   from { 
     opacity: 0;               /* Começa totalmente transparente */
@@ -630,7 +659,6 @@ body.dark-mode .pdf-page-preview code {
     transform: translateY(0);   /* Posiciona na coordenada original */
   }
 }
-
 
 /* ==========================================================================
    8. WORKSPACE LARGO (LAYOUTS EXPANDIDOS)
