@@ -1,8 +1,8 @@
 // === 01. TEXTO - 18. Tachar Texto ===
 
 function executarTacharTexto() {
-    const originalTextArea = document.getElementById("original-text");
-    const output = document.getElementById("final-text");
+    const originalTextArea = document.getElementById("original-strike-text");
+    const output = document.getElementById("final-strike-text");
 
     if (!originalTextArea || !output) return;
 
@@ -20,7 +20,7 @@ function executarTacharTexto() {
 }
 
 function copiarTextoTachado() {
-    const output = document.getElementById("final-text");
+    const output = document.getElementById("final-strike-text");
     const alertBox = document.getElementById("copy-strike-alert");
 
     if (!output || !output.value.trim()) return;
@@ -38,7 +38,7 @@ function copiarTextoTachado() {
 }
 
 function limparTacharTexto() {
-    const fields = ["original-text", "final-text"];
+    const fields = ["original-strike-text", "final-strike-text"];
     fields.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.value = "";
