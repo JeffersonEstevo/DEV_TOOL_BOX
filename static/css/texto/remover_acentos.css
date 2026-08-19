@@ -1,35 +1,3 @@
 /* ==========================================================================
    === 01. TEXTO - 04. Remover Acentos ===
    ========================================================================== */
-
-   /* Garante que o grid da ferramenta de acentos se comporte com segurança máxima */
-.tool-container.workspace-largo .tool-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-
-/* ==========================================================================
-   === AJUSTES DE RESPONSIVIDADE GLOBAL PARA DISPOSITIVOS MÓVEIS ===
-   ========================================================================== */
-@media (max-width: 480px) {
-    /* Reduz a altura dos textareas em celulares para evitar rolagem excessiva */
-    .tool-container textarea {
-        height: 220px !important;
-    }
-
-    /* Melhora o espaçamento das barras de ação em telas compactas */
-    .tool-container .action-bar {
-        flex-wrap: wrap;
-        gap: 0.75rem;
-    }
-
-    .tool-container .action-bar .btn {
-        flex: 1;
-        min-width: 120px;
-        justify-content: center;
-    }
-}
