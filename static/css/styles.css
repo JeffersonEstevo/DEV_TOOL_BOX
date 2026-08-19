@@ -363,6 +363,13 @@ details[open] summary::after {
   gap: 1.5rem;                /* Espaçamento entre os itens da grid */
 }
 
+/* Força o grid inteligente a empilhar as caixas em telas menores (tablets e celulares) */
+@media (max-width: 768px) {
+  .tool-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
 .field-group {
   display: flex;              /* Organiza label e input em coluna */
   flex-direction: column;
