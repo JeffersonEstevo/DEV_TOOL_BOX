@@ -1016,6 +1016,7 @@ img, video, canvas, svg, table, pre, code {
                                       que cada ferramenta pode legitimamente sobrescrever
                                       (junto com max-width) para combinar com seu workspace */
   box-sizing: border-box !important;
+  justify-content: center; /* Centralizar abas no meio */
 }
 
 .tool-container .rede-tabs .tab-btn {
@@ -1083,7 +1084,10 @@ img, video, canvas, svg, table, pre, code {
                                       em coluna, cada .tab-btn esticava para ocupar 100%
                                       da largura do container — e o border-bottom (o
                                       "underline" colorido) esticava junto, cobrindo a
-                                      tela toda em vez de só o texto. */
+                                      tela toda em vez de só o texto. Isso não vinha de
+                                      nenhuma duplicata antiga: era o comportamento
+                                      padrão do flexbox em flex-direction:column, que
+                                      esquecemos de neutralizar. */
     gap: 2px !important;
     padding: 0 !important;
   }
