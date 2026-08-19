@@ -1,3 +1,7 @@
+/* ==========================================================================
+   === 01. TEXTO - 12. Substituir Palavras ===
+   ========================================================================== */
+
 /* Layout de 2 colunas para campos de "Localizar" e "Substituir" */
 .form-row-2col {
   display: grid;
