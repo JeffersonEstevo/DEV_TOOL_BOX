@@ -4,8 +4,8 @@ function inicializarSubstituidor() {
     if (!originalTextArea) return;
 
     // GARANTIA: Remove o ouvinte antigo antes de adicionar (evita duplicação se reinjetado)
-    originalTextArea.removeEventListener("paste", tratarColagem);
-    originalTextArea.addEventListener("paste", tratarColagem);
+    //originalTextArea.removeEventListener("paste", tratarColagem);
+    //originalTextArea.addEventListener("paste", tratarColagem);
 }
 
 function executarSubstituicaoDePalavras() {
