@@ -1,0 +1,227 @@
+/* Estilos específicos para o calculador de sub-redes */
+
+/* ==========================================================================
+   === 05. REDE - 04. Calculadora de Sub-redes & Particionamento (IPv4) ===
+   ========================================================================== */
+
+/*
+ * 1. WORKSPACE PRINCIPAL (CONTAINER)
+ * Define a largura máxima de 800px (maior que o padrão de 700px do mascara.css
+ * porque essa tela precisa acomodar a tabela de particionamento da Aba 2),
+ * centraliza o bloco na tela e garante que padding/borda não estourem a largura.
+ */
+.tool-container .subredes-workspace {
+  max-width: 800px !important;    /* Largura máxima aumentada para caber a tabela da Aba 2 */
+  width: 100% !important;         /* Ocupa toda a largura disponível até o limite acima */
+  text-align: left !important;    /* Alinhamento padrão do conteúdo interno */
+  padding: 2rem !important;       /* Espaçamento interno confortável em telas grandes */
+  margin-left: auto;              /* Centraliza horizontalmente o bloco... */
+  margin-right: auto;             /* ...em conjunto com margin-left: auto */
+  box-sizing: border-box !important; /* CORREÇÃO: sem isso, o padding de 2rem soma-se à
+                                         largura total e estoura o container pai em telas
+                                         estreitas, causando rolagem horizontal indevida */
+  overflow-x: hidden;             /* CORREÇÃO (trava de segurança): impede que qualquer
+                                      filho com largura mínima maior que a tela (texto sem
+                                      quebra, tabela larga, etc.) force a página inteira a
+                                      ficar mais larga que o viewport no mobile */
+}
+
+/*
+ * 2. GRID DE CAMPOS - ABA 1 (CALCULADORA PRINCIPAL)
+ * Grid assimétrico: campo de IP maior (2fr) e campo de máscara menor (1fr).
+ */
+.subredes-grid {
+  display: grid;                  /* Ativa layout em grade */
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); /* CORREÇÃO: minmax(0, ...) evita
+                                      o mesmo tipo de estouro de largura que ocorria nas
+                                      abas — sem isso, itens de grid também não encolhem
+                                      abaixo do conteúdo mínimo por padrão */
+  gap: 1.5rem;                    /* Espaço entre os dois campos */
+}
+
+/*
+ * 3. CAMPOS DE ENTRADA (COMPARTILHADO ENTRE AS DUAS ABAS)
+ * Padroniza altura, tipografia e cores dos inputs/selects de toda a ferramenta.
+ */
+.subredes-field {
+  display: flex;                  /* Empilha label e input verticalmente */
+  flex-direction: column;
+  gap: 0.4rem;                    /* Espaço entre rótulo e campo */
+}
+
+.subredes-field label {
+  font-size: 0.85rem;             /* Rótulo compacto */
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.subredes-field input[type="text"],
+.subredes-field select {
+  width: 100%;                    /* Preenche a coluna do grid */
+  padding: 0.5rem 0.75rem;        /* Espaçamento interno enxuto */
+  font-size: 0.85rem;             /* Tamanho de texto confortável e consistente */
+  font-weight: 500;               /* Peso médio (evita negrito pesado do padrão antigo) */
+  font-family: monospace;         /* Fonte monoespaçada para IPs/máscaras */
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  color: var(--primary-color);
+  border-radius: var(--radius);
+  box-sizing: border-box;         /* Garante que padding não estoure a largura do grid */
+  height: 38px;                   /* Altura fixa para alinhar input e select lado a lado */
+}
+
+.subredes-field input[type="text"]:focus,
+.subredes-field select:focus {
+  /* outline:none e border-color já são globais (styles.css, seção 9). Aqui só
+     adicionamos o que é específico desta ferramenta: mudar o fundo no foco. */
+  background-color: var(--bg-sidebar);
+}
+
+/*
+ * 4. TABELA DE RESULTADOS - ABA 1
+ * O próprio #subredes-resultados (div que envolve a tabela no HTML) recebe
+ * overflow-x para proteger o layout caso a tabela não caiba na tela.
+ */
+#subredes-resultados {
+  overflow-x: auto;               /* CORREÇÃO: evita que a tabela quebre o layout em
+                                      telas estreitas, criando rolagem horizontal apenas
+                                      dentro da própria tabela em vez de no body inteiro */
+  -webkit-overflow-scrolling: touch; /* Rolagem suave em iOS */
+}
+
+.subredes-table {
+  width: 100%;
+  min-width: 320px;               /* Evita que a tabela colapse demais e vire ilegível */
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background-color: var(--bg-sidebar);
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.subredes-table th {
+  background-color: var(--primary-color);
+  color: #fff;
+  padding: 0.75rem 1rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+.subredes-table td {
+  padding: 0.65rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  font-size: 0.9rem;
+  color: var(--text-main);
+}
+
+.subredes-table tr:last-child td {
+  border-bottom: none;
+}
+
+.mono-text {
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: var(--primary-color);
+}
+
+/*
+ * 5. ABAS — OVERRIDE ESPECÍFICO DESTA FERRAMENTA
+ * O comportamento completo de .rede-tabs/.tab-btn/.tab-content agora é GLOBAL
+ * (styles.css, seção 15) — inclui hover, active, tab-content show/hide e a
+ * responsividade mobile (empilhar abas em telas pequenas). Aqui só ajustamos
+ * o max-width, porque a barra de abas é irmã do .subredes-workspace (não
+ * filha) e precisa combinar visualmente com a largura de 800px do card abaixo.
+ */
+.tool-container .rede-tabs {
+  max-width: 800px;
+  margin-inline: auto;
+}
+
+/*
+ * 6. GRID DE 3 COLUNAS - ABA 2 (PARTICIONAMENTO)
+ * Três breakpoints controlam esse grid: desktop (3 colunas), tablet (2 colunas,
+ * evitando o espremido que existia antes) e mobile (1 coluna).
+ */
+.subredes-grid-tres {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.5fr) minmax(0, 1.5fr); /* 3 colunas
+                                      simétricas no desktop, com minmax(0, ...) para
+                                      impedir estouro de largura (mesma lógica do grid
+                                      acima e das abas) */
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/*
+ * 7. TABELA DE PARTICIONAMENTO - ABA 2
+ * Container com rolagem vertical (linhas geradas dinamicamente) E horizontal
+ * (proteção para telas estreitas, já que a tabela tem 4 colunas de texto).
+ */
+.part-tabela-container {
+  max-height: 400px;              /* Limita altura quando há muitas sub-redes geradas */
+  overflow-y: auto;               /* Rolagem vertical para a lista de sub-redes */
+  overflow-x: auto;               /* CORREÇÃO: protege contra estouro horizontal em
+                                      telas estreitas, já que a tabela tem 4 colunas */
+  -webkit-overflow-scrolling: touch;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+}
+
+.part-tabela-container .subredes-table {
+  min-width: 560px;               /* Garante que as 4 colunas continuem legíveis mesmo
+                                      quando o container aciona a rolagem horizontal */
+}
+
+/* Destaque visual para a sub-rede onde o host informado realmente está */
+.linha-local {
+  border-left: 4px solid #28a745;
+}
+
+/*
+ * 8. RESPONSIVIDADE E MEDIA QUERIES
+ * Breakpoints padronizados em 768px (tablet) e 520px (mobile), alinhados com o
+ * restante da aplicação (format-conversor.css e mascara.css usam 520px como
+ * ponto de corte principal para mobile).
+ */
+
+/* --- Tablet: reduz o grid de 3 colunas para 2 antes de ficar espremido --- */
+@media (max-width: 768px) {
+  .subredes-grid-tres {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); /* CORREÇÃO: breakpoint
+                                        intermediário que faltava, evitando 3 colunas de
+                                        1.5fr apertadas em tablets */
+  }
+}
+
+/* --- Mobile: colapsa grids, reduz padding e empilha as abas --- */
+@media (max-width: 520px) {
+  .tool-container .subredes-workspace {
+    padding: 1.25rem !important;  /* CORREÇÃO: reduz padding em mobile (o valor fixo de
+                                      2rem original consumia espaço útil demais na tela) */
+  }
+
+  .subredes-grid {
+    grid-template-columns: minmax(0, 1fr); /* Empilha os 2 campos da Aba 1 */
+  }
+
+  .subredes-grid-tres {
+    grid-template-columns: minmax(0, 1fr); /* Empilha os 3 campos da Aba 2 */
+  }
+
+  .rede-tabs {
+    flex-direction: column;       /* Empilha as abas verticalmente */
+    gap: 2px;
+    padding: 0;                   /* Remove respiro lateral desnecessário no mobile */
+  }
+
+  .rede-tabs .tab-btn {
+    justify-content: center;      /* Centraliza ícone + texto na aba empilhada */
+  }
+
+  .subredes-table th,
+  .subredes-table td {
+    padding: 0.5rem 0.65rem;      /* Reduz padding da tabela para caber melhor */
+    font-size: 0.8rem;
+  }
+}

@@ -1,10 +1,10 @@
 <div class="tool-container">
     <header class="tool-header">
         <h2>Calculadora de Sub-redes & Particionamento (IPv4)</h2>
-        <p>Calcule o endereçamento de hosts ou planeje o fatiamento de sub-redes descobrindo instantaneamente quais redes se comunicam diretamente (L2) ou via roteador (L3).</p>
+        <p>Calcule o endereçamento de hosts ou planeje o fatiamento de sub-redes (Subnetting) descobrindo instantaneamente quais redes se comunicam diretamente no mesmo switch (L2) ou precisam de roteador (L3).</p>
     </header>
 
-    <!-- Sistema de Abas Padronizado -->
+    <!-- Estrutura de Abas exatamente no seu padrão -->
     <div class="rede-tabs">
         <button class="tab-btn active" onclick="alternarAbaSubrede('aba-calculadora')">
             <i class="bi bi-calculator"></i> Calculadora IPv4
@@ -14,7 +14,7 @@
         </button>
     </div>
 
-    <!-- ABA 1: Calculadora Principal -->
+    <!-- ABA 1: Calculadora Principal (Preservada) -->
     <div id="aba-calculadora" class="generator-workspace subredes-workspace tab-content active">
         <div class="subredes-grid">
             <div class="subredes-field">
@@ -28,11 +28,11 @@
                 <select id="subrede-cidr">
                     <!-- Gerado dinamicamente via JS -->
                 </select>
-                <small class="field-help">Selecione o prefixo</small>
+                <small class="field-help">Selecione o prefixo de sub-rede</small>
             </div>
         </div>
 
-        <div class="subredes-resultados-wrapper" id="subredes-resultados" style="display: none;">
+        <div class="subredes-resultados" id="subredes-resultados" style="display: none; margin-top: 1.5rem;">
             <table class="subredes-table">
                 <thead>
                     <tr>
@@ -85,13 +85,13 @@
         </div>
     </div>
 
-    <!-- ABA 2: Particionamento & Comunicação -->
+    <!-- ABA 2: NOVO Particionamento & Comunicação -->
     <div id="aba-particionamento" class="generator-workspace subredes-workspace tab-content">
         <div class="subredes-grid-tres">
             <div class="subredes-field">
                 <label for="part-ip">Endereço IP do Host</label>
                 <input type="text" id="part-ip" placeholder="Ex: 192.168.1.50" value="192.168.1.50" autocomplete="off">
-                <small class="field-help">IP a testar</small>
+                <small class="field-help">IP que você deseja testar</small>
             </div>
 
             <div class="subredes-field">
@@ -99,19 +99,19 @@
                 <select id="part-cidr-origem">
                     <!-- Preenchido via JS -->
                 </select>
-                <small class="field-help">Rede total</small>
+                <small class="field-help">Rede total disponível</small>
             </div>
 
             <div class="subredes-field">
                 <label for="part-cidr-destino">Sub-redes Desejadas</label>
                 <select id="part-cidr-destino">
-                    <!-- Preenchido via JS -->
+                    <!-- Preenchido dinamicamente via JS baseado na Rede Mãe -->
                 </select>
-                <small class="field-help">Divisões menores</small>
+                <small class="field-help">Tamanho das divisões menores</small>
             </div>
         </div>
 
-        <div class="part-resultados-wrapper" id="part-resultados" style="display: none;">
+        <div class="part-resultados" id="part-resultados" style="display: none; margin-top: 1.5rem;">
             <div class="part-tabela-container">
                 <table class="subredes-table">
                     <thead>
@@ -119,11 +119,11 @@
                             <th>Sub-rede</th>
                             <th>Faixa de IPs Úteis</th>
                             <th>Broadcast</th>
-                            <th>Comunicação</th>
+                            <th>Comunicação com o Host</th>
                         </tr>
                     </thead>
                     <tbody id="part-tabela-corpo">
-                        <!-- Gerado via JS -->
+                        <!-- Linhas geradas dinamicamente via JS -->
                     </tbody>
                 </table>
             </div>
@@ -131,7 +131,7 @@
     </div>
 
     <div class="action-bar border-top-bar" style="justify-content: center;">
-        <button id="btn-limpar-subredes" class="btn btn-success" onclick="limparTodosCamposSubredes()">
+        <button id="btn-limpar-subredes" class="btn btn-success">
             <i class="bi bi-trash3-fill"></i> Limpar Campos
         </button>
     </div>
