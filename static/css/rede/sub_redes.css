@@ -6,6 +6,9 @@
  * 1. WORKSPACE PRINCIPAL
  * Define largura máxima de 800px, centraliza o card e aplica trava de segurança
  * contra vazamento horizontal (`overflow-x: hidden`).
+ * `min-width: 0` reforça a trava caso este workspace esteja dentro de um
+ * flex/grid do tema global — sem isso, containers flex/grid podem ignorar
+ * o overflow-x e crescer para acomodar o conteúdo interno.
  */
 .tool-container .subredes-workspace {
   max-width: 800px !important;
@@ -15,6 +18,7 @@
   margin-inline: auto;
   box-sizing: border-box !important;
   overflow-x: hidden;
+  min-width: 0;
 }
 
 /* 
@@ -80,28 +84,20 @@
 }
 
 /* 
- * 5. TABELAS E RESULTADOS COM TRAVA DE VAZAMENTO E QUEBRA DE TEXTO
- * Uso de `table-layout: fixed` associado a propriedades de quebra para 
- * permitir que palavras longas quebrem e desçam de linha.
+ * 5. TABELA DA ABA 1 (CALCULADORA) — permanece com table-layout: fixed
+ * Só tem 2 colunas (rótulo + valor), então não sofre com compressão
+ * de conteúdo e não precisa de scroll próprio.
  */
-#subredes-resultados,
-.part-tabela-container {
+#subredes-resultados {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   width: 100%;
   box-sizing: border-box;
 }
 
-.part-tabela-container {
-  max-height: 400px;
-  overflow-y: auto;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-}
-
 .subredes-table {
   width: 100%;
-  table-layout: fixed; /* Força a tabela a respeitar estritamente a largura 100% do container */
+  table-layout: fixed;
   border-collapse: collapse;
   margin-top: 1rem;
   background-color: var(--bg-sidebar);
@@ -144,8 +140,57 @@
 }
 
 /* 
+ * 5.1. TABELA DA ABA 2 (PARTICIONAMENTO) — scroll lateral isolado
+ * Diferente da Aba 1, essa tabela tem 4 colunas com conteúdo longo
+ * (IPs, faixas de endereço). Em vez de comprimir tudo com fixed,
+ * a tabela ganha largura própria (min-width + max-content) e o
+ * SCROLL fica contido dentro de `.part-tabela-container`.
+ *
+ * As duas propriedades que evitam o vazamento pra página inteira:
+ * - min-width: 0    → desativa o comportamento padrão de containers
+ *                      flex/grid de nunca encolher abaixo do conteúdo filho
+ * - contain: layout inline-size → isola completamente a largura da tabela;
+ *                      nenhum ancestral (mesmo fora do nosso controle,
+ *                      como um wrapper do tema) é influenciado pelo
+ *                      conteúdo interno deste container
+ */
+.part-tabela-container {
+  max-height: 400px;
+  overflow-x: auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  width: 100%;
+  min-width: 0;
+  contain: layout inline-size;
+  box-sizing: border-box;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+}
+
+#part-resultados .subredes-table {
+  table-layout: auto;    /* libera as colunas para o tamanho natural do conteúdo */
+  min-width: 640px;      /* espaço suficiente para IPs/faixas não comprimirem */
+  width: max-content;    /* a tabela cresce conforme necessário; o excesso
+                             é absorvido pelo scroll do container acima */
+}
+
+#part-resultados .subredes-table th,
+#part-resultados .subredes-table td {
+  white-space: nowrap;   /* impede quebra no meio do IP/faixa */
+  word-break: normal;
+  overflow-wrap: normal;
+}
+
+/* A coluna "Comunicação" tem texto curto (ex: "Local (L2)") e pode
+   continuar quebrando normalmente sem prejudicar a leitura */
+#part-resultados .subredes-table td:last-child,
+#part-resultados .subredes-table th:last-child {
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* 
  * 6. RESPONSIVIDADE E MEDIA QUERIES
- * Ajustes fluidos para tablets (768px) e dispositivos móveis (520px).
  */
 @media (max-width: 768px) {
   .subredes-grid-tres {
@@ -154,15 +199,29 @@
 }
 
 @media (max-width: 520px) {
-  /* Reduz o tamanho da fonte e garante comportamento fluido nos containers das tabelas em mobile */
   .subredes-table th,
   .subredes-table td {
     font-size: 0.75rem;
   }
 
-  #subredes-resultados,
-  .part-tabela-container {
-    -webkit-overflow-scrolling: touch;
-    overflow-x: auto;
+  #part-resultados .subredes-table {
+    min-width: 560px;
+  }
+
+  /* NOVO: empilha os campos em coluna única no mobile, garantindo que
+     cada select/input ocupe 100% da largura disponível. Isso resolve
+     o texto cortado nos selects (ex: "/24 (255.255.255.0)"), já que
+     o campo deixa de dividir espaço com os vizinhos. */
+  .subredes-grid,
+  .subredes-grid-tres {
+    grid-template-columns: 1fr;
+  }
+
+  /* Reduz levemente a fonte dos selects/inputs nessa largura, dando
+     folga extra pro texto mais longo (ex: opções do CIDR de particionamento,
+     que incluem quantidade de sub-redes e IPs por sub-rede) */
+  .subredes-field input[type="text"],
+  .subredes-field select {
+    font-size: 0.8rem;
   }
 }
