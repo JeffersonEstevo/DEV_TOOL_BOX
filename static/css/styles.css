@@ -356,19 +356,55 @@ details[open] summary::after {
   font-size: 0.95rem;         /* Tamanho de fonte legível */
 }
 
-/* Grid Inteligente Adaptável */
+/* Grid Global Modificado: Força uma única coluna empilhada em qualquer tela */
 .tool-grid {
-  display: grid;              /* Ativa layout em grid CSS */
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Colunas responsivas automáticas (mínimo 300px) */
-  gap: 1.5rem;                /* Espaçamento entre os itens da grid */
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 1.5rem !important;
 }
 
-/* Força o grid inteligente a empilhar as caixas em telas menores (tablets e celulares) */
+/* Força o grid inteligente a empilhar as caixas em telas menores (tablets e celulares) 
 @media (max-width: 768px) {
   .tool-grid {
     grid-template-columns: minmax(0, 1fr) !important;
   }
 }
+
+*/
+
+/* ==========================================================================
+   FUTURO (OPCIONAL): GRID DE 2 COLUNAS LARGAS PARA OS TEXTAREAS PRINCIPAIS
+   ==========================================================================
+   QUANDO DESCOMENTAR ESTES BLOCOS:
+   Descomente apenas se, em um momento futuro, você decidir que as caixas de 
+   texto principais (Texto A e Texto B) devem voltar a ficar LADO A LADO em 
+   telas maiores (notebooks/desktops), mas sem espremer o layout e mantendo 
+   todos os botões, opções e resultados empilhados um abaixo do outro.
+   ========================================================================== */
+
+/* 1. Ativa o grid de 2 colunas largas apenas no primeiro .tool-grid da ferramenta 
+.tool-container > .tool-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important; 
+  gap: 2rem !important; 
+  width: 100% !important;
+}
+*/
+
+/* 2. Controla o segundo .tool-grid mais abaixo (como nos resultados do comparador).
+   (Mude para '1fr' se quiser os resultados empilhados, ou mantenha 'repeat(2, 1fr)' se quiser lado a lado) 
+.tool-container .tool-grid .tool-grid {
+  grid-template-columns: repeat(2, 1fr) !important; 
+}
+*/
+
+/* 3. Responsivo para celulares: garante que abaixo de 768px tudo vire coluna única automaticamente 
+@media (max-width: 768px) {
+  .tool-container > .tool-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+*/
 
 .field-group {
   display: flex;              /* Organiza label e input em coluna */
