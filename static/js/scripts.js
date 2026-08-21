@@ -1071,3 +1071,46 @@ document.addEventListener('DOMContentLoaded', () => {
 // Escuta a troca de abas e o carregamento inicial da SPA
 window.addEventListener('hashchange', dispararInicializadoresDeModulo);
 window.addEventListener('DOMContentLoaded', dispararInicializadoresDeModulo);
+
+// ==========================================================================
+// 10. ORQUESTRAÇÃO DE INICIALIZAÇÃO DE MÓDULOS NA MUDANÇA DE ROTA (SPA)
+// ==========================================================================
+// Suponha que a sua instância global do WebSocket esteja armazenada em uma variável
+let meuWebSocket = null;
+
+function conectarWebSocket() {
+    // Evita abrir múltiplas conexões se já estiver conectado
+    if (meuWebSocket && meuWebSocket.readyState === WebSocket.OPEN) return;
+
+    meuWebSocket = new WebSocket('ws://seu-servidor-aqui');
+
+    meuWebSocket.onopen = () => {
+        console.log('WebSocket conectado!');
+    };
+
+    meuWebSocket.onclose = () => {
+        console.log('WebSocket desconectado.');
+    };
+}
+
+// Chame a conexão inicial normalmente no carregamento
+conectarWebSocket();
+
+// --- Tratamento do Back-Forward Cache ---
+
+window.addEventListener('pagehide', (event) => {
+    // event.persisted indica que a página entrou no bfcache
+    if (event.persisted && meuWebSocket) {
+        console.log('Página entrou no bfcache. Fechando WebSocket...');
+        meuWebSocket.close();
+        meuWebSocket = null;
+    }
+});
+
+window.addEventListener('pageshow', (event) => {
+    // Se a página foi restaurada do cache, o WebSocket estará fechado/nulo
+    if (event.persisted) {
+        console.log('Página restaurada do bfcache. Reconectando WebSocket...');
+        conectarWebSocket();
+    }
+});
