@@ -735,6 +735,12 @@ textarea {
   transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Transições suaves para foco e hover */
 }
 
+/* Regra complementar exclusiva para travar o crescimento exagerado do select */
+select {
+  width: 100% !important;          /* Mantém o comportamento fluido */
+  max-width: 350px !important;     /* TRAVA o crescimento: ele nunca vai passar de 350px de largura, mesmo em telas gigantes */
+}
+
 /* Estados de Hover em Inputs (Modo Claro) */
 input[type="text"]:hover, 
 input[type="number"]:hover, 

@@ -1,99 +1,92 @@
 /* ==========================================================================
-   === REDE - Conversor JSON ⇄ YAML ===
+   === REDE - Conversor JSON ⇄ YAML (Estilização Restaurada) ===
    ========================================================================== */
 
-/* 
- * 1. ÁREA DE DIGITAÇÃO PRINCIPAL (FORMAT TEXTAREA)
- * Define a caixa de texto para entrada de dados (JSON/YAML) com largura controlada,
- * altura generosa para códigos longos, fonte monoespaçada e sem redimensionamento manual.
- */
+/* 1. LAYOUT PRINCIPAL: Caixas lado a lado em telas grandes, empilhadas em mobile */
+.tool-container > .tool-grid {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important; /* Duas colunas largas e proporcionais */
+  gap: 2rem !important; /* Espaçamento generoso entre as caixas */
+  width: 100% !important;
+}
+
+/* 2. ÁREA DE DIGITAÇÃO PRINCIPAL (FORMAT TEXTAREA) */
 .format-textarea {
-  width: 100%;                    /* Ocupa 100% da largura do container pai */
-  max-width: 500px;               /* Limita a largura máxima para manter o input mais fino e estreito horizontalmente */
-  height: 520px;                  /* Altura fixa otimizada para visualização confortável de estruturas de dados */
-  padding: 1rem;                  /* Espaçamento interno confortável para digitação */
-  border: 1px solid var(--border-color); /* Borda sutil padronizada pelo tema */
-  border-radius: var(--radius);   /* Arredondamento de cantos padrão do sistema */
-  background-color: var(--bg-main); /* Cor de fundo padrão do tema */
-  color: var(--text-main);        /* Cor do texto principal */
-  font-family: var(--font-mono, monospace); /* Usa fonte monoespaçada para alinhamento perfeito de JSON/YAML */
-  font-size: 0.9rem;              /* Tamanho de fonte legível para blocos de código */
-  line-height: 1.5;               /* Altura de linha ajustada para facilitar a leitura */
-  resize: none;                   /* Desativa o redimensionamento manual pelo usuário para preservar o design */
-  outline: none;                  /* Remove contorno padrão do navegador */
-  box-sizing: border-box;         /* Inclui padding e bordas no cálculo total de largura/altura */
+  width: 100%;
+  max-width: 100%;
+  height: 480px;
+  padding: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-family: var(--font-mono, monospace);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+  box-sizing: border-box;
 }
 
-/* Estado de foco ativo da área de texto principal */
 .format-textarea:focus {
-  border-color: var(--primary-color); /* Destaca a borda com a cor primária ao focar */
-  background-color: var(--bg-sidebar); /* Altera levemente o fundo para indicar interação ativa */
+  border-color: var(--primary-color);
+  background-color: var(--bg-sidebar);
 }
 
-/* 
- * 2. JANELA DE RESULTADOS (FORMAT OUTPUT CONTAINER)
- * Container destinado a exibir o resultado da conversão, mantendo a mesma simetria,
- * largura e altura dos blocos de entrada, com rolagem vertical automática.
- */
+/* 3. JANELA DE RESULTADOS (FORMAT OUTPUT CONTAINER) - Estilização restaurada */
 .format-output-container {
-  width: 100%;                    /* Ocupa 100% da largura disponível */
-  max-width: 500px;               /* Mantém a simetria exata com o campo de entrada (500px) */
-  height: 520px;                  /* Altura fixa idêntica à do textarea para harmonia visual do layout */
-  overflow-y: auto;               /* Adiciona barra de rolagem vertical automática caso o conteúdo exceda a altura */
-  border: 1px solid var(--border-color); /* Borda sutil alinhada ao tema */
-  border-radius: var(--radius);   /* Arredondamento padrão do sistema */
-  padding: 1rem;                  /* Espaçamento interno simétrico */
-  background-color: var(--bg-main); /* Fundo padrão do tema */
-  box-sizing: border-box;         /* Inclui padding e bordas no cálculo de dimensões */
+  width: 100%;
+  max-width: 100%;
+  height: 480px;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 1rem;
+  background-color: var(--bg-main);
+  box-sizing: border-box;
 }
 
-/* 
- * 3. TEXTO DE EXIBIÇÃO DE RESULTADO (FORMAT TEXT AREA)
- * Formatação aplicada ao texto gerado dentro do container de saída.
- */
+/* 4. TEXTO DE EXIBIÇÃO DE RESULTADO */
 .format-text-area {
-  margin: 0;                      /* Remove margens padrão indesejadas */
-  font-family: var(--font-mono, monospace); /* Garante fonte monoespaçada para códigos */
-  font-size: 0.9rem;              /* Tamanho de fonte consistente com a entrada */
-  line-height: 1.5;               /* Altura de linha confortável */
-  color: var(--text-main);        /* Cor do texto baseada no tema */
-  white-space: pre-wrap;          /* Preserva espaços em branco, tabulações e quebras de linha */
-  word-wrap: break-word;          /* Quebra palavras longas para evitar estouro horizontal */
+  margin: 0;
+  font-family: var(--font-mono, monospace);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: var(--text-main);
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
-/* 
- * 4. CAIXA DE ERROS DE SINTAXE/COMPILAÇÃO (FORMAT ERROR BOX)
- * Painel de destaque visual para reportar erros de validação de JSON ou YAML ao usuário.
- */
+/* 5. CAIXA DE ERROS DE SINTAXE/COMPILAÇÃO */
 .format-error-box {
-  background-color: rgba(217, 56, 58, 0.08); /* Fundo avermelhado translúcido suave */
-  border: 1px solid #d9383a;      /* Borda vermelha destacada indicando erro crítico */
-  color: #d9383a;                 /* Texto em tom avermelhado contrastante */
-  border-radius: var(--radius);   /* Arredondamento de cantos padrão */
-  padding: 0.75rem;               /* Espaçamento interno da caixa de erro */
-  font-size: 0.85rem;             /* Tamanho de fonte compactado */
-  font-family: var(--font-mono, monospace); /* Fonte monoespaçada para rastros de erro e linhas */
-  margin-bottom: 0.75rem;         /* Espaço inferior separando da área de texto */
-  line-height: 1.4;               /* Altura de linha legível */
-  word-break: break-all;          /* Quebra strings muito longas para prevenir bugs de layout */
-  max-width: 500px;               /* Alinha perfeitamente a largura máxima com a dos demais blocos */
-  box-sizing: border-box;         /* Garante cálculo correto de padding e borda */
+  background-color: rgba(217, 56, 58, 0.08);
+  border: 1px solid #d9383a;
+  color: #d9383a;
+  border-radius: var(--radius);
+  padding: 0.75rem;
+  font-size: 0.85rem;
+  font-family: var(--font-mono, monospace);
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+  word-break: break-all;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Classe utilitária para ocultar a caixa de erro quando tudo estiver correto */
 .format-error-box.hidden {
-  display: none !important;       /* Oculta completamente o elemento ignorando regras de fluxo */
+  display: none !important;
 }
 
-/* 
- * 5. RESPONSIVIDADE E ADAPTAÇÃO PARA DISPOSITIVOS MÓVEIS
- * Media queries essenciais para garantir que os blocos fiquem fluidos em telas estreitas.
- */
-@media (max-width: 520px) {
+/* 6. RESPONSIVIDADE E ADAPTAÇÃO PARA DISPOSITIVOS MÓVEIS */
+@media (max-width: 768px) {
+  /* Força coluna única em tablets e celulares */
+  .tool-container > .tool-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem !important;
+  }
+
   .format-textarea,
-  .format-output-container,
-  .format-error-box {
-    max-width: 100% !important;   /* Expande os blocos para preencher toda a tela em smartphones */
-    height: 400px;                /* Reduz ligeiramente a altura em mobile para melhor aproveitamento vertical */
+  .format-output-container {
+    height: 380px;
   }
 }
