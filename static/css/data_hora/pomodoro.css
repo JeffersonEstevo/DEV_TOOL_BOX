@@ -1,129 +1,196 @@
 /* ==========================================================================
-   === 06. DATA/HORA - 06.Pomodoro ===
+   === 06. DATA/HORA - 06. Pomodoro ===
    ========================================================================== */
- 
-   
+
+/* Workspace centralizado do Pomodoro: limita a largura máxima e centraliza na tela */
+.dh-workspace {
+    max-width: 550px;           /* Define a largura máxima do card do Pomodoro */
+    margin-inline: auto;        /* Centraliza o card horizontalmente na página */
+}
+
+/* Abas de navegação de modos do Pomodoro (Foco, Pausa Curta, Pausa Longa) */
 .pomodoro-tabs {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    border-bottom: 2px solid var(--border-color, #e5e7eb);
-    margin-bottom: 1rem;
-    padding: 0 1rem;
+    display: flex;              /* Organiza as abas em formato flexível (linha) */
+    justify-content: center;    /* Centraliza as abas horizontalmente */
+    flex-wrap: wrap;            /* Permite quebrar linha caso o espaço seja menor no mobile */
+    gap: 0.5rem;                /* Espaçamento uniforme entre cada aba */
+    border-bottom: 2px solid var(--border-color); /* Linha divisória inferior da barra de abas */
+    margin-bottom: 1rem;        /* Margem abaixo da barra de abas */
+    padding: 0 1rem;            /* Espaçamento interno lateral nas abas */
 }
 
+/* Botões individuais que compõem as abas do Pomodoro */
 .pomodoro-tabs .tab-btn {
-    background: none;
-    border: none;
-    padding: 0.75rem 1.2rem;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--text-main, #374151);
-    opacity: 0.7;
-    cursor: pointer;
-    border-bottom: 3px solid transparent;
-    transition: all 0.2s ease;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    background: none;           /* Remove qualquer cor de fundo padrão do botão */
+    border: none;               /* Remove bordas nativas */
+    padding: 0.75rem 1.2rem;    /* Espaçamento interno (altura e largura) do botão de aba */
+    font-size: 0.95rem;         /* Tamanho da fonte do texto da aba */
+    font-weight: 600;           /* Deixa o texto semi-negrito */
+    color: var(--text-main);    /* Cor do texto baseada na variável global do tema */
+    opacity: 0.7;               /* Deixa as abas inativas levemente translúcidas */
+    cursor: pointer;            /* Altera o cursor do mouse para indicador de clique */
+    border-bottom: 3px solid transparent; /* Cria uma borda inferior invisível para animação ativa */
+    transition: var(--transition);        /* Aplica transição suave global para hover/mudanças */
+    display: flex;              /* Alinha ícone e texto lado a lado */
+    align-items: center;        /* Centraliza verticalmente o ícone com o texto */
+    gap: 0.5rem;                /* Espaçamento entre o ícone e o texto da aba */
 }
 
+/* Estado de foco ou passagem do mouse (hover) nas abas */
 .pomodoro-tabs .tab-btn:hover {
-    opacity: 1;
-    color: var(--primary-color, #2563eb);
+    opacity: 1;                 /* Remove a translucidez ao passar o mouse */
+    color: var(--primary-color);/* Altera a cor do texto para a cor primária de destaque */
 }
 
+/* Estado ativo (aba atualmente selecionada) */
 .pomodoro-tabs .tab-btn.active {
-    opacity: 1;
-    color: var(--primary-color, #2563eb);
-    border-bottom-color: var(--primary-color, #2563eb);
+    opacity: 1;                 /* Torna o texto 100% opaco e visível */
+    color: var(--primary-color);/* Destaca a cor do texto com a cor primária */
+    border-bottom-color: var(--primary-color); /* Pinta a borda inferior com a cor de destaque */
 }
 
+/* Caixa principal decorativa que abriga o visor digital do temporizador */
 .pomodoro-display-box {
-    background: linear-gradient(135deg, var(--bg-main, #f9fafb) 0%, var(--bg-sidebar, #f3f4f6) 100%);
-    border: 2px solid var(--border-color, #e5e7eb);
-    border-radius: var(--radius, 8px);
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    text-align: center;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    background: linear-gradient(135deg, var(--bg-main) 0%, var(--bg-sidebar) 100%); /* Gradiente sutil de fundo */
+    border: 2px solid var(--border-color);   /* Borda padrão ao redor da caixa */
+    border-radius: var(--radius);            /* Arredondamento padrão dos cantos */
+    padding: 1.5rem 1rem;                    /* Espaçamento interno superior/inferior e lateral */
+    margin-bottom: 1.25rem;                  /* Espaçamento abaixo da caixa do visor */
+    text-align: center;                      /* Centraliza todo o texto interno do visor */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05); /* Sombra interna leve para efeito de profundidade */
+    overflow: hidden;                        /* Garante que nenhum conteúdo interno vaze para fora */
 }
 
-.chrono-time {
-    font-size: 3rem;
-    font-weight: 800;
-    font-family: monospace;
-    color: var(--primary-color, #2563eb);
-    letter-spacing: 2px;
+/* Visor digital principal com os números do temporizador */
+.pomodoro-display-box .chrono-time {
+    font-size: clamp(2.5rem, 10vw, 3.5rem);  /* Tamanho fluido: responsivo dinamicamente para não estourar em telas pequenas */
+    font-weight: 800;                        /* Texto com peso máximo (negrito forte) */
+    font-family: monospace;                  /* Fonte monoespaçada para evitar saltos nos dígitos do relógio */
+    color: var(--primary-color);             /* Cor principal de destaque do tema atual */
+    letter-spacing: 2px;                     /* Espaçamento entre os números do relógio */
+    word-break: break-all;                   /* Força a quebra de caracteres em casos extremos de layout */
 }
 
+/* Container que agrupa os botões de controle (Iniciar, Reiniciar) */
 .chrono-actions {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin-bottom: 1.5rem;
+    display: flex;              /* Alinha os botões em linha */
+    flex-wrap: wrap;            /* Permite quebrar linha automaticamente se o espaço acabar */
+    gap: 1rem;                  /* Espaçamento uniforme entre os botões */
+    justify-content: center;    /* Centraliza os botões horizontalmente no container */
+    margin-bottom: 1.25rem;     /* Espaçamento abaixo da barra de botões */
 }
 
+/* Estilização base aplicada a todos os botões de ação do temporizador */
 .chrono-btn {
-    padding: 0.65rem 1.5rem;
-    font-size: 0.95rem;
-    font-weight: 600;
-    border-radius: var(--radius, 8px);
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    transition: opacity 0.2s ease, transform 0.1s ease;
+    padding: 0.65rem 1.5rem;    /* Espaçamento interno confortável para toque/clique */
+    font-size: 0.95rem;         /* Tamanho da fonte legível */
+    font-weight: 600;           /* Peso semi-negrito para o texto do botão */
+    border-radius: var(--radius);/* Arredondamento padrão dos cantos do botão */
+    border: none;               /* Remove bordas padrão */
+    cursor: pointer;            /* Altera o cursor para o formato de clique */
+    display: inline-flex;       /* Alinha ícones e textos internos de forma fluida */
+    align-items: center;        /* Centraliza os elementos verticalmente */
+    justify-content: center;    /* Centraliza os elementos horizontalmente */
+    gap: 0.4rem;                /* Espaçamento entre o ícone e o texto do botão */
+    transition: opacity 0.2s ease, transform 0.1s ease; /* Transições suaves para interações */
 }
 
+/* Efeito visual de clique (afundamento leve) no botão pressionado */
 .chrono-btn:active:not(:disabled) {
-    transform: scale(0.97);
+    transform: scale(0.97);     /* Reduz levemente o tamanho dando feedback tátil */
 }
 
+/* Estado desativado do botão (quando indisponível para uso) */
+.chrono-btn:disabled {
+    opacity: 0.4;               /* Deixa o botão translúcido indicando inatividade */
+    cursor: not-allowed;        /* Altera o cursor para o formato de bloqueado */
+}
+
+/* Botão de Iniciar (Ação principal positiva) */
 .btn-start {
-    background-color: var(--primary-color, #2563eb);
-    color: #fff;
+    background-color: var(--primary-color); /* Utiliza a cor primária de destaque do sistema */
+    color: #fff;                             /* Texto na cor branca para forte contraste */
 }
 
+/* Botão de Pausar (Ação de alerta ou interrupção temporária) */
 .btn-pause {
-    background-color: #f59e0b;
-    color: #fff;
+    background-color: #f59e0b;               /* Cor laranja/amarela de alerta */
+    color: #fff;                             /* Texto na cor branca */
 }
 
+/* Botão de Reiniciar / Zerar (Ação de reset) */
 .btn-reset {
-    background-color: #ef4444;
-    color: #fff;
+    background-color: #ef4444;               /* Cor vermelha indicando reset/destrutivo */
+    color: #fff;                             /* Texto na cor branca */
 }
 
+/* Bloco contenedor das estatísticas (Ciclos concluídos) */
 .chrono-laps-container {
-    background-color: var(--bg-sidebar, #f3f4f6);
-    border: 1px solid var(--border-color, #e5e7eb);
-    border-radius: var(--radius, 8px);
-    padding: 1rem;
-    text-align: center;
+    background-color: var(--bg-sidebar);     /* Fundo estrutural baseado na barra lateral / cards */
+    border: 1px solid var(--border-color);   /* Borda fina padrão do sistema */
+    border-radius: var(--radius);            /* Arredondamento padrão */
+    padding: 1rem;                           /* Espaçamento interno do container */
+    text-align: center;                      /* Centraliza o texto das estatísticas */
 }
 
+/* Título estrutural dentro do container de estatísticas */
 .chrono-laps-container h5 {
-    margin: 0 0 0.75rem 0;
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--text-main, #374151);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.4rem;
+    margin: 0 0 0.75rem 0;                   /* Remove margens superiores e aplica espaço inferior */
+    font-size: 0.9rem;                       /* Tamanho de fonte reduzido para cabeçalhos secundários */
+    font-weight: 700;                        /* Negrito acentuado */
+    color: var(--text-main);                 /* Cor principal do texto */
+    display: flex;                           /* Alinha o ícone e o texto do título */
+    align-items: center;                     /* Centraliza verticalmente o ícone do título */
+    justify-content: center;                 /* Centraliza horizontalmente o título */
+    gap: 0.4rem;                             /* Espaço entre o ícone e o texto do título */
 }
 
+/* Texto descritivo das estatísticas de ciclos */
 .pomo-stats {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--text-main, #374151);
+    font-size: 0.95rem;                      /* Tamanho padrão do texto estatístico */
+    font-weight: 600;                        /* Semi-negrito */
+    color: var(--text-main);                 /* Cor do texto principal */
 }
 
+/* Destaque numérico para a quantidade de ciclos completados */
 .pomo-stats span {
-    font-size: 1.25rem;
-    font-weight: 800;
-    color: var(--primary-color, #2563eb);
-    font-family: monospace;
+    font-size: 1.25rem;                      /* Fonte maior para destacar o número de ciclos */
+    font-weight: 800;                        /* Negrito forte */
+    color: var(--primary-color);             /* Cor de destaque do tema */
+    font-family: monospace;                  /* Fonte monoespaçada para os números */
+}
+
+/* Painel de Configurações de Tempos (Modal / Bloco expansível de inputs) */
+#pomo-settings-modal {
+    background: var(--bg-sidebar);           /* Fundo baseado na cor de painéis laterais */
+    border: 2px solid var(--border-color);   /* Borda destacada com a cor padrão do sistema */
+    border-radius: var(--radius);            /* Arredondamento padrão */
+    padding: 1.5rem;                         /* Espaçamento interno confortável para os campos */
+    margin-bottom: 1.5rem;                   /* Margem inferior */
+    text-align: left;                        /* Alinha o conteúdo interno à esquerda */
+}
+
+/* Regras de adaptação responsiva para telas menores (Dispositivos móveis com largura até 520px) */
+@media (max-width: 520px) {
+    /* Ajusta o espaçamento lateral das abas no mobile para economizar espaço */
+    .pomodoro-tabs {
+        padding: 0 0.25rem;
+    }
+    
+    /* Diminui levemente o padding e o tamanho de fonte dos botões de aba no celular */
+    .pomodoro-tabs .tab-btn {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.85rem;
+    }
+
+    /* Muda a direção da barra de botões principais para empilhada (vertical) no celular */
+    .chrono-actions {
+        flex-direction: column; 
+        width: 100%;
+    }
+
+    /* Faz cada botão de ação ocupar 100% da largura útil, facilitando o toque em telas sensíveis ao toque */
+    .chrono-actions .chrono-btn {
+        width: 100%;
+    }
 }
