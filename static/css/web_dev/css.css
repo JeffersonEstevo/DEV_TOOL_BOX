@@ -1,15 +1,23 @@
 /* ==========================================================================
    === 08. DEV_WEB - Showcase de CSS Base & Starter Kit (Isolado) ===
+   ==========================================================================
+   Este arquivo é totalmente autocontido: nenhuma classe daqui depende de
+   utilitários do styles.css global (ex: .auto-grid). Só usa var(...) do
+   tema (--primary-color, --border-color etc — essas sim vêm do global) e o
+   reset universal de box-sizing que já existe em styles.css seção 11
+   (*, *::before, *::after { box-sizing: border-box }) — por isso não
+   precisamos redeclarar box-sizing em cada seletor abaixo.
    ========================================================================== */
-
-/* 1. Container e Fundo Geral do Preview */
+ 
+/* 1. Container e Fundo Geral do Preview (conteúdo demonstrativo, usa as
+   variáveis --clr-* isoladas, definidas pelo próprio gerador/JS) */
 .sk-preview-wrapper {
   background-color: var(--clr-bg, #f8fafc);
   color: var(--clr-text, #0f172a);
   font-family: var(--ff-regular, sans-serif);
   border-radius: var(--br-base, 8px);
 }
-
+ 
 /* 2. Card Interno */
 .sk-preview-wrapper .sk-card {
   background-color: var(--clr-surface, #ffffff);
@@ -18,7 +26,7 @@
   padding: 1.5rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
 }
-
+ 
 /* 3. Força a aplicação do arredondamento em todos os elementos do showcase */
 .sk-preview-wrapper .sk-input,
 .sk-preview-wrapper .sk-btn,
@@ -27,43 +35,51 @@
   border-radius: var(--br-base, 8px) !important;
   transition: border-radius 0.2s ease, background-color 0.2s ease;
 }
-
+ 
 /* 4. Tipografia Isolada (Títulos e Textos) */
-.sk-preview-wrapper h1, 
-.sk-preview-wrapper h2, 
+.sk-preview-wrapper h1,
+.sk-preview-wrapper h2,
 .sk-preview-wrapper h3,
-.sk-preview-wrapper h4, 
-.sk-preview-wrapper h5, 
+.sk-preview-wrapper h4,
+.sk-preview-wrapper h5,
 .sk-preview-wrapper h6 {
   color: var(--clr-text, #0f172a);
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   font-family: var(--ff-headings, inherit);
+  overflow-wrap: break-word;    /* Protege contra título muito longo/sem espaço
+                                    forçar largura maior que o card, mesmo sem
+                                    depender de nenhuma regra global */
 }
-
+ 
 .sk-preview-wrapper h1 { font-size: 1.8rem; }
 .sk-preview-wrapper h2 { font-size: 1.5rem; }
 .sk-preview-wrapper h3 { font-size: 1.25rem; }
 .sk-preview-wrapper h4 { font-size: 1.1rem; }
 .sk-preview-wrapper h5 { font-size: 0.95rem; }
 .sk-preview-wrapper h6 { font-size: 0.85rem; }
-
+ 
 .sk-preview-wrapper p,
 .sk-preview-wrapper li {
   font-size: 0.9rem;
   margin-bottom: 1rem;
   color: var(--clr-text, #0f172a);
+  overflow-wrap: break-word;
 }
-
+ 
 .sk-preview-wrapper a {
   color: var(--clr-primary-base, #2563eb);
   text-decoration: none;
 }
-
+ 
 .sk-preview-wrapper a:hover {
   text-decoration: underline;
 }
-
+ 
+.sk-preview-wrapper a.sk-secondary {
+  color: var(--clr-secondary-base, #475569);
+}
+ 
 .sk-preview-wrapper blockquote {
   padding: 0.6rem 1rem;
   border-left: 4px solid var(--clr-primary-base, #2563eb);
@@ -73,13 +89,18 @@
   margin-bottom: 1rem;
   color: var(--clr-text, #0f172a);
 }
-
+ 
+.sk-preview-wrapper blockquote.sk-secondary {
+  border-left-color: var(--clr-secondary-base, #475569);
+  background-color: var(--clr-secondary-light, rgba(71, 85, 105, 0.12));
+}
+ 
 .sk-preview-wrapper .sk-hr {
   border: none;
   border-top: 1px dashed var(--clr-gray-lt, #e2e8f0);
   margin: 1.2rem 0;
 }
-
+ 
 /* 5. Badges e Tags */
 .sk-preview-wrapper .sk-badge {
   display: inline-block;
@@ -89,29 +110,28 @@
   border-radius: 9999px;
   text-transform: uppercase;
 }
-
+ 
 .sk-preview-wrapper .sk-badge-primary {
   background-color: var(--clr-primary-light, rgba(37, 99, 235, 0.1));
   color: var(--clr-primary-base, #2563eb);
 }
-
+ 
 .sk-preview-wrapper .sk-badge-outline {
   border: 1px solid var(--clr-gray-lt, #e2e8f0);
   color: var(--clr-text, #0f172a);
 }
-
+ 
 .sk-preview-wrapper .sk-badge-secondary {
   background-color: var(--clr-secondary-light, rgba(71, 85, 105, 0.12)) !important;
   color: var(--clr-secondary-base, #475569) !important;
 }
-
+ 
 /* 6. Formulários e Inputs com Forçamento de Variáveis */
 .sk-preview-wrapper .sk-input,
 .sk-preview-wrapper select.sk-input {
   width: 100%;
   padding: 0.5rem 0.8rem;
   font-size: 0.85rem;
-  box-sizing: border-box;
   background-color: var(--clr-surface, #ffffff) !important;
   color: var(--clr-text, #0f172a) !important;
   border: 1px solid var(--clr-gray-lt, #e2e8f0) !important;
@@ -119,12 +139,17 @@
   outline: none;
   transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
 }
-
+ 
 .sk-preview-wrapper .sk-input:focus,
-.sk-preview-wrapper select.sk-input:focus {
+.sk-preview-wrapper select.sk-input:focus,
+.sk-preview-wrapper .sk-input.sk-primary {
   border-color: var(--clr-primary-base, #2563eb) !important;
 }
-
+ 
+.sk-preview-wrapper .sk-input.sk-secondary {
+  border-color: var(--clr-secondary-base, #475569) !important;
+}
+ 
 /* 7. Botões */
 .sk-preview-wrapper .sk-btn {
   padding: 0.5rem 1rem;
@@ -133,26 +158,301 @@
   cursor: pointer;
   border: 1px solid transparent;
 }
-
+ 
 .sk-preview-wrapper .sk-btn-primary {
   background-color: var(--clr-primary-base, #2563eb);
   color: #ffffff;
 }
-
+ 
 .sk-preview-wrapper .sk-btn-secondary {
   background-color: var(--clr-secondary-base, #475569) !important;
   color: #ffffff !important;
   border: none !important;
 }
-
+ 
 .sk-preview-wrapper .sk-btn-secondary:hover {
   opacity: 0.9;
 }
-
-
+ 
+/* 8. Blocos de código e pequenos espaçamentos reutilizáveis do preview */
+.sk-preview-wrapper pre {
+  border-left: 4px solid var(--clr-primary-base, #2563eb);
+}
+.sk-preview-wrapper pre.sk-secondary {
+  border-left-color: var(--clr-secondary-base, #475569);
+}
+.sk-preview-wrapper .sk-pre-espacado { margin-top: 0.8rem; }
+.sk-preview-wrapper .sk-pre-espacado-menor { margin-top: 0.5rem; }
+.sk-preview-wrapper .sk-badges-row { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+.sk-preview-wrapper .sk-lista-row { display: flex; gap: 2rem; margin-top: 0.8rem; flex-wrap: wrap; }
+.sk-preview-wrapper .sk-acoes-row { display: flex; gap: 0.8rem; margin-top: 0.8rem; flex-wrap: wrap; align-items: center; }
+.sk-preview-wrapper .sk-campo-label-mini { font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.2rem; }
+ 
+/* Grid de comparação primário/secundário (blockquotes, campos de formulário).
+   auto-fit + minmax: se auto-ajusta em qualquer largura, sem depender de
+   nenhuma classe do styles.css global. */
+.sk-preview-wrapper .sk-demo-grid-2col {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.sk-preview-wrapper .sk-demo-grid-2col--form {
+  margin-top: 0.8rem;
+}
+ 
+ 
 /* ==========================================================================
-   === ABAS ===
-   .rede-tabs/.tab-btn/.tab-content agora é 100% global (styles.css, seção 15).
-   Este arquivo não precisa de nenhum override — a largura padrão (100%, sem
-   max-width) já é o que esta ferramenta usava aqui.
+   === CONTROLES DO GERADOR (usam o tema real da aplicação — var(--primary-
+   color) etc — e não var(--clr-*), que é só do preview isolado) ===
    ========================================================================== */
+ 
+.webdev-workspace {
+  max-width: 100%;
+}
+#aba-gerador.webdev-workspace {
+  padding: 1rem 2rem;
+}
+#aba-paletas.webdev-workspace {
+  padding: 1.5rem 2rem;
+}
+ 
+.config-css-topo {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+ 
+.cores-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+ 
+.campo-label-css {
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+ 
+/* CORREÇÃO PRINCIPAL: usada nas duas linhas de controle (cores, e tipografia
+   + arredondamento). Antes a segunda linha tinha `grid-template-columns:
+   280px 180px` — colunas em PX FIXO nunca encolhem, então em qualquer tela
+   menor que ~480px isso forçava a página inteira a ficar mais larga que o
+   viewport (esse era o estouro lateral). auto-fit + minmax(200px, 1fr) se
+   ajusta sozinho em qualquer largura, sem @media nenhuma. */
+.css-config-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.2rem;
+}
+ 
+.cor-input-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+ 
+.cor-swatch {
+  width: 42px;
+  height: 38px;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 0;
+  flex-shrink: 0;              /* Nunca encolhe, mesmo que o campo hex ao lado cresça */
+}
+ 
+.cor-hex-texto {
+  width: 100%;
+  min-width: 0;                 /* Permite encolher dentro do grid sem forçar overflow */
+  height: 38px;
+  padding: 0.55rem;
+  font-family: monospace;
+  font-weight: 600;
+  /* Fundo, borda, cor de texto e foco vêm do estilo global de
+     input[type="text"] (styles.css) — não precisa redeclarar aqui. */
+}
+ 
+.select-campo-css {
+  width: 100%;
+  min-width: 0;                 /* Idem: garante que o select encolha dentro do grid */
+  padding: 0.55rem;
+  font-size: 0.85rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-weight: 600;
+  height: 38px;
+  margin: 0;
+}
+ 
+/* Grid principal: preview (maior) vs código gerado (menor). Usa fr (não px
+   fixo), então encolhe normalmente — o breakpoint abaixo só troca a
+   PROPORÇÃO (empilhar), não é o que resolve overflow. */
+.grid-layout-css {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 2rem;
+  align-items: start;
+  min-width: 0;
+}
+ 
+.painel-preview-css {
+  border: 1px solid var(--border-color);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  background-color: var(--bg-main);
+  min-width: 0;                 /* Item de grid: sem isso, não encolhe abaixo do
+                                    conteúdo mínimo (mesma lógica do bug das abas) */
+}
+ 
+.titulo-subsecao {
+  margin-bottom: 1rem;
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+ 
+.titulo-subsecao--sem-margem {
+  margin-bottom: 0;
+}
+ 
+#container-preview-css-base {
+  max-height: 520px;
+  overflow-y: auto;
+  padding: 1.5rem;
+  transition: background-color 0.2s ease;
+}
+ 
+.painel-codigo-css {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  min-width: 0;
+}
+ 
+.caixa-codigo-copia__topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+ 
+.btn-copiar-codigo-css {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+ 
+.codigo-css-output {
+  width: 100%;
+  height: 500px;
+  font-family: monospace;
+  font-size: 0.8rem;
+  padding: 0.8rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-sidebar);
+  color: var(--text-main);
+  resize: vertical;
+}
+ 
+.paletas-intro {
+  margin-bottom: 1.5rem;
+}
+.paletas-intro h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+.paletas-intro p {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+ 
+/* Grid de paletas: auto-fill + minmax já era responsivo por natureza.
+   minmax(240px, 1fr) (reduzido de 320px) garante que caiba até em celulares
+   bem estreitos (~320px de largura) sem precisar de @media. */
+.grid-paletas {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+ 
+.grupo-acoes--paletas {
+  display: none; /* Estado inicial (aba Paletas começa oculta). Se o JS
+                     alternar isso via elemento.style.display diretamente,
+                     funciona normalmente: inline sempre vence uma classe
+                     sem !important. */
+}
+ 
+.aviso-paletas {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+ 
+.action-bar-centralizado {
+  justify-content: center;
+}
+ 
+ 
+/* ==========================================================================
+   === RESPONSIVIDADE (768px / 520px) ===
+   ==========================================================================
+   Diferente da versão anterior, nenhuma regra aqui existe para "esconder o
+   estouro" (nada de overflow-x:hidden em massa) — os grids acima já não
+   estouram em nenhuma largura, então essas media queries só ajustam
+   proporção/espaçamento, que é o papel real de um breakpoint.
+   ========================================================================== */
+ 
+@media (max-width: 768px) {
+  #aba-gerador.webdev-workspace,
+  #aba-paletas.webdev-workspace {
+    padding: 1.25rem;
+  }
+ 
+  .grid-layout-css {
+    grid-template-columns: minmax(0, 1fr); /* Empilha preview e código — a proporção
+                                    1.2fr/0.8fr só faz sentido lado a lado */
+    gap: 1.5rem;
+  }
+ 
+  .codigo-css-output {
+    height: 320px;                /* Empilhado embaixo do preview (que já tem 520px de
+                                    altura própria), 500px deixaria a página muito longa */
+  }
+}
+ 
+@media (max-width: 520px) {
+  .painel-preview-css {
+    padding: 1rem;
+  }
+ 
+  #container-preview-css-base {
+    padding: 1rem;
+    overflow-x: auto;              /* Scroll horizontal só em mobile: os blocos
+                                    <pre><code> têm linhas fixas que não quebram, e em
+                                    telas estreitas isso pode ultrapassar a largura do
+                                    painel. Em desktop o painel já é largo o bastante e
+                                    essa barra de rolagem não é necessária. */
+    -webkit-overflow-scrolling: touch;
+  }
+ 
+  .sk-preview-wrapper .sk-card {
+    padding: 1rem;
+  }
+ 
+  .sk-preview-wrapper pre {
+    max-width: 100%;               /* Impede que o bloco em si (não só o texto dentro)
+                                    force largura maior que o card em telas pequenas;
+                                    o scroll interno do container acima cuida do
+                                    conteúdo que ainda não couber */
+  }
+}
