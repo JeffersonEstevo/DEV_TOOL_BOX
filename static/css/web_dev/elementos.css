@@ -63,9 +63,7 @@
     background-color: var(--bg-main);        /* Fundo dinâmico baseado no tema atual */
     display: flex;                           /* Organiza o conteúdo interno de forma flexível */
     
-    /* Alinha ao início (esquerda) em vez de centralizar, 
-       impedindo que o conteúdo comece cortado fora da tela */
-    justify-content: flex-start; 
+    justify-content: center; /* Centraliza componentes normais/menores por padrão */
     
     align-items: center;                     /* Centraliza os itens verticalmente */
     min-height: 150px;                       /* Altura mínima garantida para o box de preview */
@@ -73,6 +71,15 @@
     max-width: 100%;                         /* Limita a largura máxima para não estourar a tela */
     box-sizing: border-box;                  /* Inclui o padding no cálculo total da largura */
     width: 100%;                             /* Ocupa 100% da largura disponível */
+}
+
+/* Exceção inteligente: Se o componente dentro do preview for uma tabela ou 
+   tiver largura fixa grande que exija scroll, alinhamos ao início (esquerda) 
+   para evitar que o conteúdo comece cortado */
+.preview-real-ui:has(table),
+.preview-real-ui:has(.table-container),
+.preview-real-ui:has([style*="width: 5"], [style*="width: 6"], [style*="width: 7"], [style*="width: 8"], [style*="width: 9"], [style*="width: 10"]) {
+    justify-content: flex-start;
 }
 
 /* Garante que tabelas e elementos de largura fixa dentro do preview 
