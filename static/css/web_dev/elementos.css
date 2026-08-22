@@ -2,80 +2,170 @@
    === 08. DEV_WEB - 02. Biblioteca de Elementos UI ===
    ========================================================================== */
 
-/* Bloco que envolve o preview do componente + botões de código */
+/* REDE DE SEGURANÇA GLOBAL DA FERRAMENTA: 
+   Impede absolutamente qualquer elemento interno de causar scroll horizontal */
+.tool-container:has(#grid-biblioteca-ui),
+.generator-workspace.workspace-elementos {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+}
+
+/* Força todos os elementos filhos dentro do workspace a nunca ultrapassarem 100% de largura */
+.workspace-elementos *, 
+.workspace-elementos *::before, 
+.workspace-elementos *::after {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Bloco principal que envolve o preview do componente + cabeçalho e rodapé de código */
 .bloco-componente-ui {
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  background-color: var(--bg-main);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+    border: 1px solid var(--border-color);   /* Borda fina utilizando a cor padrão do tema */
+    border-radius: var(--radius);            /* Arredondamento padrão dos cantos do card */
+    background-color: var(--bg-main);        /* Fundo principal dinâmico (claro ou escuro) */
+    overflow: hidden;                        /* Oculta qualquer elemento filho que transborde os cantos arredondados */
+    display: flex;                           /* Organiza o conteúdo interno em formato de coluna flexível */
+    flex-direction: column;                  
+    width: 100%;                             /* Garante largura total sem estourar o container pai */
+    box-sizing: border-box;                  /* Inclui o padding no cálculo total da largura */
+    min-width: 0;                            /* Impede estouro de flexbox */
 }
 
+/* Topo do card do componente (onde fica o título e o badge de categoria) */
 .topo-componente-ui {
-  padding: 0.75rem 1.2rem;
-  background-color: var(--bg-sidebar);
-  border-bottom: 1px solid var(--border-color);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    padding: 0.75rem 1.2rem;                 /* Espaçamento interno confortável */
+    background-color: var(--bg-sidebar);     /* Fundo contrastante baseado na barra lateral */
+    border-bottom: 1px solid var(--border-color); /* Linha divisória inferior */
+    display: flex;                           /* Alinha os itens horizontalmente nas extremidades */
+    justify-content: space-between;          
+    align-items: center;                     /* Centraliza verticalmente o título e o badge */
+    gap: 0.5rem;                             /* Espaço de segurança caso o texto seja longo */
+    flex-wrap: wrap;                         /* Permite quebrar linha em telas muito estreitas */
+    min-width: 0;
 }
 
+/* Badge indicativo da categoria do componente UI */
 .badge-categoria-ui {
-  font-size: 0.75rem;
-  padding: 0.2rem 0.6rem;
-  background-color: var(--primary-color);
-  color: #ffffff;
-  border-radius: 50px;
-  text-transform: uppercase;
-  font-weight: 700;
+    font-size: 0.75rem;                      /* Fonte pequena para o selo/badge */
+    padding: 0.2rem 0.6rem;                  /* Espaçamento interno do badge */
+    background-color: var(--primary-color);  /* Cor de destaque principal do tema */
+    color: #ffffff;                          /* Texto sempre em branco para forte contraste */
+    border-radius: 50px;                     /* Deixa o formato totalmente pílula/arredondado */
+    text-transform: uppercase;               /* Força o texto em letras maiúsculas */
+    font-weight: 700;                        /* Negrito forte */
+    white-space: nowrap;                     /* Impede que o texto do badge quebre linha */
 }
 
-/* Área onde o componente realmente renderiza vivo na tela */
+/* Área onde o componente visual renderiza "vivo" na tela */
 .preview-real-ui {
-  padding: 2.5rem;
-  background-color: #f8fafc; /* Fundo neutro claro para destacar os elementos */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 150px;
-  overflow-x: auto;
+    padding: 1.5rem;                         /* Espaçamento interno confortável para o preview */
+    background-color: var(--bg-main);        /* Fundo dinâmico baseado no tema atual */
+    display: flex;                           /* Organiza o conteúdo interno de forma flexível */
+    
+    /* Alinha ao início (esquerda) em vez de centralizar, 
+       impedindo que o conteúdo comece cortado fora da tela */
+    justify-content: flex-start; 
+    
+    align-items: center;                     /* Centraliza os itens verticalmente */
+    min-height: 150px;                       /* Altura mínima garantida para o box de preview */
+    overflow-x: auto;                        /* Ativa o scroll horizontal isolado caso o elemento interno seja largo */
+    max-width: 100%;                         /* Limita a largura máxima para não estourar a tela */
+    box-sizing: border-box;                  /* Inclui o padding no cálculo total da largura */
+    width: 100%;                             /* Ocupa 100% da largura disponível */
 }
 
-/* Painel sanfonado/retrátil ou de exibição dos códigos para copiar */
+/* Garante que tabelas e elementos de largura fixa dentro do preview 
+   comecem sempre alinhados do início */
+.preview-real-ui table,
+.preview-real-ui .table-container,
+.preview-real-ui > div {
+    margin-inline: 0 !important; /* Remove margens automáticas laterais que centralizam */
+    text-align: left;            /* Alinha o texto interno à esquerda */
+}
+
+
+/* Container de abas de filtro superior no mobile */
+.abas-elementos-container {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+
+/* Rodapé sanfonado/retrátil que exibe os códigos HTML e CSS para cópia */
 .rodape-codigos-ui {
-  border-top: 1px solid var(--border-color);
-  background-color: var(--bg-sidebar);
-  padding: 1rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+    border-top: 1px solid var(--border-color);/* Linha divisória superior */
+    background-color: var(--bg-sidebar);     /* Fundo padronizado com painéis laterais */
+    padding: 1rem;                           /* Espaçamento interno */
+    display: grid;                           /* Organiza as caixas de código em grade lado a lado */
+    grid-template-columns: 1fr 1fr;          /* Duas colunas iguais (HTML e CSS) */
+    gap: 1rem;                               /* Espaçamento entre as caixas de código */
+    box-sizing: border-box;                  
+    width: 100%;                             
+    min-width: 0;
 }
 
-@media (max-width: 768px) {
-  .rodape-codigos-ui {
-    grid-template-columns: 1fr;
-  }
-}
-
+/* Caixa individual que agrupa o rótulo e a área de texto (textarea) do código */
 .caixa-codigo-ui {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+    display: flex;                           /* Organiza o label e o textarea em coluna */
+    flex-direction: column;                  
+    gap: 0.4rem;                             /* Espaço entre o título do código e a caixa de texto */
+    min-width: 0;                            /* Impede que o flexbox force overflow horizontal */
+    width: 100%;                             
+    box-sizing: border-box;
 }
 
+/* Área de texto onde o código fonte editável/copiável é exibido */
 .caixa-codigo-ui textarea {
-  width: 100%;
-  height: 120px;
-  font-family: monospace;
-  font-size: 0.8rem;
-  padding: 0.5rem;
-  background-color: var(--bg-main);
-  color: var(--text-main);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  resize: vertical;
+    width: 100%;                             /* Ocupa 100% da largura da coluna do grid */
+    height: 120px;                           /* Altura fixa padrão para visualização do código */
+    font-family: monospace;                  /* Fonte monoespaçada ideal para códigos */
+    font-size: 0.8rem;                       /* Tamanho de fonte legível e compacto */
+    padding: 0.5rem;                         /* Espaçamento interno */
+    background-color: var(--bg-main);        /* Fundo dinâmico baseado no tema atual */
+    color: var(--text-main);                 /* Cor do texto do código baseada no tema */
+    border: 1px solid var(--border-color);   /* Borda padrão */
+    border-radius: var(--radius);            /* Arredondamento padrão */
+    resize: vertical;                        /* Permite redimensionamento vertical pelo usuário */
+    box-sizing: border-box;                  /* Impede que o padding quebre a largura 100% */
+    max-width: 100%;
+}
+
+/* Regras responsivas para telas de tablet ou menores */
+@media (max-width: 768px) {
+    .workspace-elementos {
+        padding: 0.75rem 0.5rem !important;  /* Reduz o padding lateral do workspace no celular */
+    }
+
+    .rodape-codigos-ui {
+        grid-template-columns: 1fr;          /* Colapsa para uma única coluna empilhada no mobile */
+        padding: 0.75rem;                    /* Reduz o padding para aproveitar melhor a tela */
+    }
 }
 
 
+/* ==========================================================================
+   === CORREÇÃO DE RESPONSIVIDADE PARA O MODAL DE CONFIRMAÇÃO ===
+   ========================================================================== */
 
+/* Garante que o container de botões do modal permita quebra de linha em telas estreitas */
+.ui-modal-actions {
+    display: flex;
+    justify-content: flex-end; /* Alinha à direita quando há espaço */
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;           /* CRUCIAL: Faz os botões caírem para a linha de baixo se não couberem */
+    width: 100%;
+}
+
+/* Regra responsiva específica para telas de celular (<= 520px) */
+@media (max-width: 520px) {
+    .ui-modal-actions {
+        flex-direction: column; /* Empilha os botões verticalmente no mobile */
+        align-items: stretch;    /* Faz ambos ocuparem 100% da largura de forma organizada */
+    }
+
+    .ui-modal-btn {
+        width: 100%;             /* Botões ocupam a largura total facilitando o clique no celular */
+        text-align: center;
+    }
+}
