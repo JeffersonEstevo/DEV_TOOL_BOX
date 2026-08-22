@@ -200,6 +200,14 @@
 .sk-preview-wrapper .sk-demo-grid-2col--form {
   margin-top: 0.8rem;
 }
+
+/* Garante que blocos de código e texto longo quebrem corretamente sem vazar */
+.sk-preview-wrapper pre,
+.sk-preview-wrapper code {
+    white-space: pre-wrap;       /* Quebra as linhas longas respeitando a indentação */
+    word-break: break-word;      /* Evita que palavras longas estourem o container */
+    overflow-x: auto;            /* Adiciona scroll interno seguro caso necessário */
+}
  
  
 /* ==========================================================================
