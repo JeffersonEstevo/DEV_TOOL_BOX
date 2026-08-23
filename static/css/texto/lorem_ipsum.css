@@ -2,64 +2,18 @@
    === 01. TEXTO - 14. Gerador de Lorem Ipsum ===
    ========================================================================== */
 
-/* Agrupa elementos em linha com espaçamento controlado. 
-   'max-width: 100%' combinado com 'box-sizing' impede transbordamentos em viewports restritas */
-.ui-input-group-separated {
-    display: flex;
-    gap: 0.5rem;
-    width: 100%;
-    max-width: 280px;
-    font-family: system-ui, sans-serif;
-    box-sizing: border-box;
+/* Restringe a largura máxima do container da ferramenta para evitar que fique ultra largo em notebooks */
+.tool-container {
+    max-width: 800px;
 }
 
-/* Estilo base padronizado para campos de entrada e seleção (altura, bordas, cores e transições) */
-.ui-input-field {
-    height: 40px;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius);
-    background-color: var(--bg-main);
-    color: var(--text-main);
-    font-size: 0.95rem;
-    padding: 0 0.75rem;
-    outline: none;
-    box-sizing: border-box;
-    transition: border-color 0.15s, box-shadow 0.15s;
-}
-
-/* Define proporção compacta para o input numérico dentro do grupo */
+/* Mantém o input numérico com tamanho padrão compacto e seguro */
 .ui-input-field.num {
-    width: 35%;
-    flex-shrink: 0;
-    /* Reduz o padding lateral para sobrar mais espaço interno para o número */
-    padding: 0 0.4rem; 
-    /* Centraliza o texto para melhor legibilidade em campos estreitos */
-    text-align: center; 
+    width: 100px;
+    max-width: 100%;
 }
 
-/* Define proporção maior para o select e injeta uma seta SVG customizada 
-   no lugar do ícone nativo do navegador, mantendo compatibilidade multiplataforma */
-.ui-input-field.sel {
-    width: 65%;
-    flex-shrink: 0;
-    cursor: pointer;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 0.75rem center;
-    background-size: 1rem;
-    padding-right: 2rem;
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-}
-
-/* Efeito visual de foco com borda destacada e halo translúcido */
-.ui-input-field:focus {
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
-}
-
-/* Organiza múltiplos botões de rádio horizontalmente com espaçamento e quebra automática segura */
+/* Grupo de rádio com quebra segura */
 .radio-group {
     display: flex;
     flex-wrap: wrap;
@@ -68,7 +22,6 @@
     box-sizing: border-box;
 }
 
-/* Alinha o texto ao lado do radio button, alterando o cursor para indicar interatividade */
 .radio-label {
     display: flex;
     align-items: center;
@@ -83,8 +36,7 @@
     cursor: pointer;
 }
 
-/* Container do bloco de saída de dados com limite de altura, rolagem vertical automática 
-   e 'min-width: 0' para evitar estouros em grids responsivos */
+/* Container de saída do Lorem Ipsum */
 .lorem-output-container {
     max-height: 520px;
     overflow-y: auto;
@@ -96,7 +48,7 @@
     min-width: 0;
 }
 
-/* Área interna que formata e preserva quebras de linha e quebra de palavras longas */
+/* Área de texto interna com quebra de linha correta */
 .lorem-text-area {
     font-size: 0.95rem;
     line-height: 1.6;
@@ -107,25 +59,10 @@
 }
 
 /* ==========================================================================
-   === AJUSTES DE RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS ===
+   === AJUSTES DE RESPONSIVIDADE ===
    ========================================================================== */
 
-/* Ajustes responsivos para telas compactas (smartphones) */
-@media (max-width: 480px) {
-    .ui-input-group-separated {
-        max-width: 100%;
-    }
-
-    /* Aumenta levemente a proporção do input numérico no mobile para dar mais respiro ao número */
-    .ui-input-field.num {
-        width: 40%; 
-    }
-
-    /* O restante ganha o espaço proporcional adaptado */
-    .ui-input-field.sel {
-        width: 60%;
-    }
-
+@media (max-width: 520px) {
     .radio-group {
         gap: 1rem;
     }
