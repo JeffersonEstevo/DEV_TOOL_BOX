@@ -2,106 +2,116 @@
    === 01. TEXTO - 13. Tabela ASCII ===
    ========================================================================== */
 
+/* Restringe a largura máxima do container da ferramenta para evitar que fique ultra largo */
+.tool-container {
+    max-width: 850px;
+}
+
+/* Controla a proporção do grid: controles à esquerda e tabela mais fina à direita */
+.tool-container .tool-grid {
+    grid-template-columns: 280px minmax(0, 1fr);
+}
+
 /* Envolve as tabelas ASCII com limite de altura, barra de rolagem vertical 
    e espaçamento interno para organizar múltiplos blocos de dados */
 .ascii-tables-wrapper {
-  max-height: 520px;
-  overflow-y: auto;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  padding: 1rem;
-  background-color: var(--bg-main);
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  box-sizing: border-box; /* Garante consistência no cálculo de tamanho */
-  min-width: 0;           /* Evita que elementos flex estourem o container */
+    max-height: 520px;
+    overflow-y: auto;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    padding: 1rem;
+    background-color: var(--bg-main);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    box-sizing: border-box; /* Garante consistência no cálculo de tamanho */
+    min-width: 0;           /* Evita que elementos flex estourem o container */
 }
 
 /* Agrupamento de cada seção da tabela para isolar espaçamentos com segurança */
 .ascii-section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  min-width: 0;
-  box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 /* Títulos das seções da tabela ASCII com linha divisória inferior para destaque */
 .ascii-section h3 {
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-  color: var(--text-main);
-  border-bottom: 2px solid var(--border-color);
-  padding-bottom: 0.25rem;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0.25rem;
 }
 
 /* Estrutura principal da tabela de dados ASCII */
 .ascii-table-data {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: left;
-  font-size: 0.9rem;
-  box-sizing: border-box;
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: 0.9rem;
+    box-sizing: border-box;
 }
 
 /* Espaçamento interno e divisórias das células e cabeçalhos da tabela */
 .ascii-table-data th,
 .ascii-table-data td {
-  padding: 0.4rem 0.6rem;
-  border-bottom: 1px solid var(--border-color);
-  box-sizing: border-box; /* Mantém o alinhamento correto das bordas com o padding */
+    padding: 0.4rem 0.6rem;
+    border-bottom: 1px solid var(--border-color);
+    box-sizing: border-box; /* Mantém o alinhamento correto das bordas com o padding */
 }
 
 /* Estilização do cabeçalho da tabela com leve fundo translúcido e texto em negrito */
 .ascii-table-data th {
-  background-color: rgba(0, 0, 0, 0.02);
-  font-weight: 600;
+    background-color: rgba(0, 0, 0, 0.02);
+    font-weight: 600;
 }
 
 /* Efeito de destaque sutil ao passar o mouse sobre as linhas da tabela */
 .ascii-row:hover {
-  background-color: rgba(0, 0, 0, 0.04);
+    background-color: rgba(0, 0, 0, 0.04);
 }
 
 /* Largura e cor da coluna de códigos numéricos */
 .ascii-code {
-  width: 30%;
-  color: var(--text-main);
+    width: 30%;
+    color: var(--text-main);
 }
 
 /* Padronização da fonte monoespaçada para exibição correta dos caracteres ASCII */
 .ascii-char {
-  font-family: var(--font-mono, monospace);
-  color: var(--text-main);
+    font-family: var(--font-mono, monospace);
+    color: var(--text-main);
 }
 
 /* Estilo de destaque diferenciado (avermelhado e itálico) para caracteres de controle invisíveis */
 .control-char {
-  color: #d9383a;
-  font-style: italic;
-  font-size: 0.85rem;
+    color: #d9383a;
+    font-style: italic;
+    font-size: 0.85rem;
 }
 
 /* Oculta linhas específicas da tabela durante filtros ou buscas */
 .hidden-row {
-  display: none !important;
+    display: none !important;
 }
 
 /* ==========================================================================
    === AJUSTES RESPONSIVOS PARA TABELA ASCII ===
    ========================================================================== */
 @media (max-width: 768px) {
-  .ascii-tables-wrapper {
-    max-height: 460px;
-    padding: 0.75rem;
-    gap: 1rem;
-  }
+    .ascii-tables-wrapper {
+        max-height: 460px;
+        padding: 0.75rem;
+        gap: 1rem;
+    }
 }
 
 @media (max-width: 480px) {
-  .ascii-tables-wrapper {
-    max-height: 400px;
-    padding: 0.5rem;
-  }
+    .ascii-tables-wrapper {
+        max-height: 400px;
+        padding: 0.5rem;
+    }
 }
