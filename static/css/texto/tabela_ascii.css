@@ -4,98 +4,98 @@
 
 /* Restringe a largura máxima do container da ferramenta para evitar que fique ultra largo */
 .tool-container {
-    max-width: 850px;
+    max-width: 850px;               /* Limita a largura máxima do card da aplicação na tela */
 }
 
 /* Controla a proporção do grid: controles à esquerda e tabela mais fina à direita */
 .tool-container .tool-grid {
-    grid-template-columns: 280px minmax(0, 1fr);
+    grid-template-columns: 280px minmax(0, 1fr); /* Define colunas fixas/flexíveis sem estourar o layout */
 }
 
 /* Envolve as tabelas ASCII com limite de altura, barra de rolagem vertical 
    e espaçamento interno para organizar múltiplos blocos de dados */
 .ascii-tables-wrapper {
-    max-height: 520px;
-    overflow-y: auto;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius);
-    padding: 1rem;
-    background-color: var(--bg-main);
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    box-sizing: border-box; /* Garante consistência no cálculo de tamanho */
-    min-width: 0;           /* Evita que elementos flex estourem o container */
+    max-height: 520px;              /* Limita a altura máxima da área de visualização das tabelas */
+    overflow-y: auto;               /* Ativa a rolagem vertical caso o conteúdo exceda o limite */
+    border: 1px solid var(--border-color); /* Adiciona uma borda sutil ao redor do wrapper */
+    border-radius: var(--radius);   /* Arredonda as bordas do container de acordo com o tema */
+    padding: 1rem;                  /* Define o espaçamento interno ao redor das tabelas */
+    background-color: var(--bg-main); /* Aplica a cor de fundo principal da aplicação */
+    display: flex;                  /* Transforma o elemento em um container flexível */
+    flex-direction: column;         /* Organiza as seções filhas em uma coluna vertical */
+    gap: 1.5rem;                    /* Define o espaçamento vertical entre as seções da tabela */
+    box-sizing: border-box;         /* Garante consistência no cálculo de tamanho incluindo padding/bordas */
+    min-width: 0;                   /* Evita que elementos flex estourem o container horizontalmente */
 }
 
 /* Agrupamento de cada seção da tabela para isolar espaçamentos com segurança */
 .ascii-section {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    min-width: 0;
-    box-sizing: border-box;
+    display: flex;                  /* Utiliza layout flexbox para organizar o conteúdo da seção */
+    flex-direction: column;         /* Empilha os elementos da seção verticalmente */
+    gap: 0.5rem;                    /* Espaço vertical entre o título e a tabela da seção */
+    min-width: 0;                   /* Impede estouro horizontal de largura em itens filhos */
+    box-sizing: border-box;         /* Inclui margens internas e bordas no cálculo de dimensões */
 }
 
 /* Títulos das seções da tabela ASCII com linha divisória inferior para destaque */
 .ascii-section h3 {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-    color: var(--text-main);
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 0.25rem;
+    font-size: 1rem;                /* Define um tamanho de fonte legível e proporcional para o título */
+    margin-bottom: 0.5rem;          /* Espaço inferior separando o título da tabela logo abaixo */
+    color: var(--text-main);        /* Define a cor principal do texto conforme o tema ativo */
+    border-bottom: 2px solid var(--border-color); /* Cria uma linha divisória estética abaixo do título */
+    padding-bottom: 0.25rem;        /* Respiro entre o texto do título e a linha divisória */
 }
 
 /* Estrutura principal da tabela de dados ASCII */
 .ascii-table-data {
-    width: 100%;
-    border-collapse: collapse;
-    text-align: left;
-    font-size: 0.9rem;
-    box-sizing: border-box;
+    width: 100%;                    /* Faz a tabela ocupar 100% da largura disponível da seção */
+    border-collapse: collapse;      /* Junta as bordas adjacentes para um design limpo */
+    text-align: left;               /* Alinha o texto das células à esquerda por padrão */
+    font-size: 0.9rem;              /* Define o tamanho da fonte compacto para dados tabulares */
+    box-sizing: border-box;         /* Padroniza o modelo de caixa da tabela */
 }
 
 /* Espaçamento interno e divisórias das células e cabeçalhos da tabela */
 .ascii-table-data th,
 .ascii-table-data td {
-    padding: 0.4rem 0.6rem;
-    border-bottom: 1px solid var(--border-color);
-    box-sizing: border-box; /* Mantém o alinhamento correto das bordas com o padding */
+    padding: 0.4rem 0.6rem;         /* Define respiro interno confortável nas células */
+    border-bottom: 1px solid var(--border-color); /* Cria uma linha divisória sutil entre as linhas */
+    box-sizing: border-box;         /* Mantém o alinhamento correto das bordas com o padding */
 }
 
 /* Estilização do cabeçalho da tabela com leve fundo translúcido e texto em negrito */
 .ascii-table-data th {
-    background-color: rgba(0, 0, 0, 0.02);
-    font-weight: 600;
+    background-color: rgba(0, 0, 0, 0.02); /* Aplica um fundo translúcido sutil para destacar o cabeçalho */
+    font-weight: 600;               /* Deixa o texto do cabeçalho em semi-negrito */
 }
 
 /* Efeito de destaque sutil ao passar o mouse sobre as linhas da tabela */
 .ascii-row:hover {
-    background-color: rgba(0, 0, 0, 0.04);
+    background-color: rgba(0, 0, 0, 0.04); /* Altera levemente o fundo ao passar o cursor para melhor usabilidade */
 }
 
 /* Largura e cor da coluna de códigos numéricos */
 .ascii-code {
-    width: 30%;
-    color: var(--text-main);
+    width: 30%;                     /* Define uma largura fixa proporcional para a coluna de códigos */
+    color: var(--text-main);        /* Utiliza a cor de texto padrão da aplicação */
 }
 
 /* Padronização da fonte monoespaçada para exibição correta dos caracteres ASCII */
 .ascii-char {
-    font-family: var(--font-mono, monospace);
-    color: var(--text-main);
+    font-family: var(--font-mono, monospace); /* Aplica fonte monoespaçada para alinhamento perfeito de caracteres */
+    color: var(--text-main);        /* Aplica a cor de texto principal do tema */
 }
 
 /* Estilo de destaque diferenciado (avermelhado e itálico) para caracteres de controle invisíveis */
 .control-char {
-    color: #d9383a;
-    font-style: italic;
-    font-size: 0.85rem;
+    color: #d9383a;                 /* Utiliza um tom avermelhado para indicar caracteres de controle/especiais */
+    font-style: italic;             /* Aplica estilo itálico para diferenciar visualmente os comandos */
+    font-size: 0.85rem;             /* Reduz levemente o tamanho da fonte para melhor encaixe */
 }
 
 /* Oculta linhas específicas da tabela durante filtros ou buscas */
 .hidden-row {
-    display: none !important;
+    display: none !important;       /* Força a ocultação imediata de linhas filtradas fora da busca */
 }
 
 /* ==========================================================================
@@ -103,15 +103,15 @@
    ========================================================================== */
 @media (max-width: 768px) {
     .ascii-tables-wrapper {
-        max-height: 460px;
-        padding: 0.75rem;
-        gap: 1rem;
+        max-height: 460px;          /* Reduz a altura máxima do container para telas de tablets */
+        padding: 0.75rem;           /* Diminui o espaçamento interno proporcionalmente */
+        gap: 1rem;                  /* Reduz o espaço entre as seções */
     }
 }
 
 @media (max-width: 480px) {
     .ascii-tables-wrapper {
-        max-height: 400px;
-        padding: 0.5rem;
+        max-height: 400px;          /* Ajusta a altura máxima para telas compactas de smartphones */
+        padding: 0.5rem;            /* Aplica padding ainda mais compacto */
     }
 }
