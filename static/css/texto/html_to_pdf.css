@@ -2,16 +2,20 @@
    === 01. TEXTO - 16. Gerador de PDF a partir de HTML ===
    ========================================================================== */
 
-/* Layout em grid responsivo que ajusta automaticamente as colunas conforme o espaço */
-.tool-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+/* Restringe a largura máxima do container para seguir o padrão de área centralizada */
+.tool-container {
+    max-width: 950px; /* Ajuste para o tamanho ideal da sua ferramenta de duas colunas */
+}
+
+/* Controla a proporção fixa/flexível das colunas do grid (editor à esquerda, preview à direita) */
+.tool-container .tool-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); /* 50% para cada ou use proporções exatas se preferir */
     gap: 1.5rem;
     width: 100%;
     box-sizing: border-box;
 }
 
-/* Garante que os grupos de campos ocupem o espaço adequado sem estouros de largura */
+/* Garante que os grupos de campos ocupem o espaço adequado sem estouros */
 .field-group {
     display: flex;
     flex-direction: column;
