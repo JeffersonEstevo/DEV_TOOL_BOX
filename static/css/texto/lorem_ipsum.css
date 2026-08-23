@@ -4,58 +4,60 @@
 
 /* Restringe a largura máxima do container da ferramenta para evitar que fique ultra largo em notebooks */
 .tool-container {
-    max-width: 800px;
+    max-width: 800px;               /* Limita a largura máxima do card da ferramenta na tela */
 }
 
 /* Mantém o input numérico com tamanho padrão compacto e seguro */
 .ui-input-field.num {
-    width: 100px;
-    max-width: 100%;
+    width: 100px;                   /* Define uma largura fixa enxusta para campos numéricos */
+    max-width: 100%;                /* Garante que o input não ultrapasse o espaço disponível do pai */
 }
 
 /* Grupo de rádio com quebra segura */
 .radio-group {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    padding: 0.25rem 0;
-    box-sizing: border-box;
+    display: flex;                  /* Organiza os elementos de rádio em um container flexível */
+    flex-wrap: wrap;                /* Permite a quebra de linha dos itens caso o espaço horizontal acabe */
+    gap: 1.5rem;                    /* Define o espaçamento horizontal e vertical entre as opções */
+    padding: 0.25rem 0;             /* Adiciona um pequeno respiro vertical interno */
+    box-sizing: border-box;         /* Inclui padding no cálculo total de dimensões */
 }
 
+/* Estilização individual dos rótulos de rádio */
 .radio-label {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    font-size: 0.95rem;
-    color: var(--text-main);
-    cursor: pointer;
-    user-select: none;
+    display: flex;                  /* Alinha o botão de rádio e seu texto lado a lado via flexbox */
+    align-items: center;            /* Centraliza verticalmente o input de rádio em relação ao texto */
+    gap: 0.4rem;                    /* Espaço horizontal entre a bolinha de seleção e o rótulo */
+    font-size: 0.95rem;             /* Define um tamanho de fonte legível para as opções */
+    color: var(--text-main);        /* Aplica a cor principal do texto de acordo com o tema */
+    cursor: pointer;                /* Altera o cursor para indicar interatividade ao passar o mouse */
+    user-select: none;              /* Impede a seleção acidental do texto do rótulo ao clicar */
 }
 
+/* Altera o cursor dos inputs de rádio para ponteiro interativo */
 .radio-label input[type="radio"] {
-    cursor: pointer;
+    cursor: pointer;                /* Força o cursor de clique na bolinha nativa do input */
 }
 
 /* Container de saída do Lorem Ipsum */
 .lorem-output-container {
-    max-height: 520px;
-    overflow-y: auto;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius);
-    padding: 1.2rem;
-    background-color: var(--bg-main);
-    box-sizing: border-box;
-    min-width: 0;
+    max-height: 520px;              /* Limita a altura máxima da caixa de exibição de texto gerado */
+    overflow-y: auto;               /* Ativa a barra de rolagem vertical caso o texto gerado seja extenso */
+    border: 1px solid var(--border-color); /* Aplica uma borda delimitadora sutil usando a cor do tema */
+    border-radius: var(--radius);   /* Arredonda os cantos do container conforme o padrão do sistema */
+    padding: 1.2rem;                /* Define o espaçamento interno ao redor do texto gerado */
+    background-color: var(--bg-main); /* Aplica a cor de fundo principal da área de trabalho */
+    box-sizing: border-box;         /* Inclui bordas e preenchimentos no cálculo de tamanho */
+    min-width: 0;                   /* Impede que elementos flex internos causem overflow horizontal */
 }
 
 /* Área de texto interna com quebra de linha correta */
 .lorem-text-area {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: var(--text-main);
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    font-size: 0.95rem;             /* Define o tamanho de fonte ideal para leitura confortável do texto */
+    line-height: 1.6;               /* Espaçamento entrelinhas generoso para melhor legibilidade */
+    color: var(--text-main);        /* Aplica a cor de texto padrão da aplicação */
+    white-space: pre-wrap;          /* Preserva espaços em branco e quebras de linha literais, permitindo wrap */
+    word-wrap: break-word;          /* Força a quebra de palavras muito longas para evitar vazamento */
+    overflow-wrap: break-word;      /* Compatibilidade moderna para quebra segura de palavras extensas */
 }
 
 /* ==========================================================================
@@ -64,11 +66,11 @@
 
 @media (max-width: 520px) {
     .radio-group {
-        gap: 1rem;
+        gap: 1rem;                  /* Reduz o espaçamento entre as opções de rádio em telas menores */
     }
 
     .lorem-output-container {
-        max-height: 380px;
-        padding: 1rem;
+        max-height: 380px;          /* Diminui a altura máxima do container de saída em smartphones */
+        padding: 1rem;              /* Reduz o padding interno proporcionalmente para telas compactas */
     }
 }
