@@ -4,7 +4,7 @@
 
 /* Restringe a largura máxima do container principal para manter a área centralizada e organizada */
 .tool-container {
-    max-width: 1100px;              /* Limita a largura global do card da ferramenta na tela */
+    max-width: 950px;               /* Limita a largura global do card da ferramenta na tela para evitar que fique ultra largo */
 }
 
 /* Controla a proporção das colunas do grid (editor HTML à esquerda, pré-visualização à direita) */
