@@ -2,171 +2,179 @@
    === 02. CALCULADORAS - 03. Porcentagem ===
    ========================================================================== */
 
+/* Container principal em coluna que agrupa os cards de porcentagem */
 .percent-container-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-  width: 100% !important;
-  box-sizing: border-box;
-  min-width: 0;
+  display: flex;                          /* Organiza os cards em coluna */
+  flex-direction: column;                 /* Direção vertical */
+  gap: 1.5rem;                            /* Espaçamento generoso entre os cards */
+  margin-bottom: 2rem;                    /* Margem inferior para separar do final da tela */
+  width: 100% !important;                 /* Ocupa toda a largura disponível */
+  box-sizing: border-box;                 /* Inclui padding e borda no cálculo de largura */
+  min-width: 0;                           /* Previne overflow em containers flex */
 }
 
+/* Card individual para cada tipo de cálculo de porcentagem */
 .percent-card {
-  background-color: var(--bg-sidebar);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  padding: 1.25rem 1.5rem;
-  width: 100% !important;
-  box-sizing: border-box;
-  min-width: 0;
+  background-color: var(--bg-sidebar);    /* Fundo adaptável ao tema */
+  border: 1px solid var(--border-color);  /* Borda sutil padronizada */
+  border-radius: var(--radius);           /* Arredondamento padrão do sistema */
+  padding: 1.25rem 1.5rem;                /* Respiro interno confortável */
+  width: 100% !important;                 /* Ocupa toda a largura do container pai */
+  box-sizing: border-box;                 /* Garante dimensões corretas */
+  min-width: 0;                           /* Evita estouro horizontal */
 }
 
+/* Título de cada card de porcentagem */
 .percent-card h3 {
-  font-size: 1.05rem;
-  margin-bottom: 1rem;
-  color: var(--primary-color);
-  font-weight: 600;
+  font-size: 1.05rem;                     /* Tamanho de fonte intermediário para cabeçalho */
+  margin-bottom: 1rem;                    /* Espaço inferior separando do conteúdo do card */
+  color: var(--primary-color);            /* Cor primária/destaque do tema */
+  font-weight: 600;                       /* Semi-negrito para destaque adequado */
 }
 
-/* Alinhamento dos inputs inline com os textos */
+/* Alinhamento dos inputs inline com os textos explicativos */
 .percent-inline-inputs {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 1.25rem;
-  width: 100% !important;
-  box-sizing: border-box;
-  min-width: 0;
+  display: flex;                          /* Alinha textos e inputs lado a lado */
+  flex-wrap: wrap;                        /* Quebra linha em telas menores se necessário */
+  align-items: center;                    /* Centraliza verticalmente os itens */
+  gap: 0.6rem;                            /* Espaçamento uniforme entre elementos */
+  margin-bottom: 1.25rem;                 /* Espaço abaixo da linha de inputs */
+  width: 100% !important;                 /* Ocupa toda a largura do card */
+  box-sizing: border-box;                 /* Cálculo correto de caixa */
+  min-width: 0;                           /* Previne overflow */
 }
 
+/* Texto descritivo/rotulado entre ou ao lado dos inputs */
 .percent-inline-inputs span {
-  font-size: 0.95rem;
-  color: var(--text-main);
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
+  font-size: 0.95rem;                     /* Tamanho de fonte legível para rótulos */
+  color: var(--text-main);                /* Cor de texto principal adaptável */
+  font-weight: 500;                       /* Peso médio para boa leitura */
+  display: inline-flex;                   /* Comportamento flex inline */
+  align-items: center;                    /* Centralização vertical */
 }
 
+/* Inputs numéricos dentro das linhas de porcentagem */
 .percent-inline-inputs input[type="number"] {
-  width: 140px;
-  max-width: 100%;
-  padding: 0.5rem 0.6rem;
-  font-size: 0.95rem;
-  box-sizing: border-box;
-  margin: 0;
-  border-radius: var(--radius);
-  border: 1px solid var(--border-color);
-  background-color: var(--bg-main);
-  color: var(--text-main);
-  min-width: 0;
+  width: 140px;                           /* Largura fixa inicial para padronizar caixas numéricas */
+  max-width: 100%;                        /* Nunca ultrapassa o espaço disponível */
+  padding: 0.5rem 0.6rem;                 /* Respiro interno confortável */
+  font-size: 0.95rem;                     /* Tamanho de fonte proporcional */
+  box-sizing: border-box;                 /* Dimensões consistentes */
+  margin: 0;                              /* Remove margens padrão */
+  border-radius: var(--radius);           /* Arredondamento padrão do sistema */
+  border: 1px solid var(--border-color);  /* Borda sutil padrão */
+  background-color: var(--bg-main);       /* Fundo adaptável ao tema */
+  color: var(--text-main);                /* Cor de texto principal */
+  min-width: 0;                           /* Previne overflow */
 }
 
-/* Container que alinha o grupo de saída (Input+Botão) + o Toast ao lado */
+/* Container que alinha o grupo de saída (Input + Botão) junto com o Toast de cópia */
 .percent-output-container {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-  width: 100% !important;
-  box-sizing: border-box;
-  min-width: 0;
+  display: flex;                          /* Alinha saída e alerta lado a lado */
+  align-items: center;                    /* Centraliza verticalmente os elementos */
+  gap: 0.75rem;                           /* Espaço entre o grupo de saída e o toast */
+  flex-wrap: wrap;                        /* Permite quebra em telas estreitas */
+  width: 100% !important;                 /* Ocupa largura total */
+  box-sizing: border-box;                 /* Caixa de dimensionamento correta */
+  min-width: 0;                           /* Evita estouro horizontal */
 }
 
-/* Grupo de Saída Unificado (Input + Botão Copiar) */
+/* Grupo de Saída Unificado (Input de resultado + Botão Copiar) */
 .percent-output-group {
-  display: flex;
-  width: 100% !important;
-  max-width: 280px;
-  align-items: stretch;
-  box-sizing: border-box;
-  min-width: 0;
+  display: flex;                          /* Alinha input de resultado e botão lado a lado */
+  width: 100% !important;                 /* Ocupa largura disponível */
+  max-width: 280px;                       /* Limita a largura máxima para manter aspecto compacto */
+  align-items: stretch;                   /* Estica filhos para preencher altura total */
+  box-sizing: border-box;                 /* Dimensões corretas */
+  min-width: 0;                           /* Previne overflow */
 }
 
+/* Input de texto que exibe o resultado do cálculo de porcentagem */
 .percent-output-group input[type="text"] {
-  background-color: var(--bg-main);
-  border: 1px solid var(--border-color);
-  border-right: none;
-  border-top-left-radius: var(--radius);
-  border-bottom-left-radius: var(--radius);
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  font-weight: 700;
-  color: var(--success-color);
-  cursor: default;
-  font-size: 1rem;
-  padding: 0.5rem 0.75rem;
-  flex: 1;
-  margin: 0 !important;
-  box-sizing: border-box;
-  min-width: 0;
+  background-color: var(--bg-main);       /* Fundo adaptável ao tema */
+  border: 1px solid var(--border-color);  /* Borda sutil padrão */
+  border-right: none;                     /* Remove borda direita para acoplamento perfeito ao botão */
+  border-top-left-radius: var(--radius);  /* Arredondamento superior esquerdo */
+  border-bottom-left-radius: var(--radius); /* Arredondamento inferior esquerdo */
+  border-top-right-radius: 0;             /* Sem arredondamento direito */
+  border-bottom-right-radius: 0;          /* Sem arredondamento inferior direito */
+  font-weight: 700;                       /* Negrito para destacar o valor obtido */
+  color: var(--success-color);            /* Cor de sucesso do tema para o resultado */
+  cursor: default;                        /* Cursor padrão indicando campo somente leitura/cópia */
+  font-size: 1rem;                        /* Tamanho de fonte padrão */
+  padding: 0.5rem 0.75rem;                /* Respiro interno adequado */
+  flex: 1;                                /* Ocupa o espaço flexível restante */
+  margin: 0 !important;                   /* Remove margens extras */
+  box-sizing: border-box;                 /* Cálculo correto de caixa */
+  min-width: 0;                           /* Previne estouro */
 }
 
+/* Botão de cópia acoplado ao input de resultado */
 .percent-output-group button {
-  padding: 0 1rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  border-top-right-radius: var(--radius);
-  border-bottom-right-radius: var(--radius);
-  margin: 0 !important;
-  cursor: pointer;
-  box-sizing: border-box;
-  flex-shrink: 0;
+  padding: 0 1rem;                        /* Respiro horizontal confortável para o botão/ícone */
+  display: inline-flex;                   /* Centraliza ícone perfeitamente */
+  align-items: center;                    /* Centralização vertical */
+  justify-content: center;                /* Centralização horizontal */
+  border-top-left-radius: 0;              /* Sem arredondamento esquerdo (colado no input) */
+  border-bottom-left-radius: 0;           /* Sem arredondamento inferior esquerdo */
+  border-top-right-radius: var(--radius); /* Arredondamento superior direito */
+  border-bottom-right-radius: var(--radius); /* Arredondamento inferior direito */
+  margin: 0 !important;                   /* Remove margens padrão */
+  cursor: pointer;                        /* Cursor de clique interativo */
+  box-sizing: border-box;                 /* Dimensões consistentes */
+  flex-shrink: 0;                         /* Impede que o botão encolha */
 }
 
+/* Estilização e alinhamento do ícone dentro do botão de cópia */
 .percent-output-group button i {
-  line-height: 1 !important;
-  font-size: 1.1rem;
+  line-height: 1 !important;              /* Normaliza a altura da linha do ícone */
+  font-size: 1.1rem;                      /* Tamanho proporcional do ícone */
 }
 
-/* Estilização do Toast individual ao lado do botão */
+/* Estilização do alerta Toast exibido ao lado após a cópia bem-sucedida */
 .percent-output-container .toast-alert {
-  display: inline-flex !important;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--success-color, #28a745);
-  white-space: nowrap;
-  animation: fadeIn 0.2s ease-in-out;
+  display: inline-flex !important;        /* Força exibição em flex inline */
+  align-items: center;                    /* Centraliza ícone e texto verticalmente */
+  gap: 0.4rem;                            /* Espaço entre ícone e texto do alerta */
+  font-size: 0.85rem;                     /* Fonte compacta para o aviso */
+  font-weight: 600;                       /* Semi-negrito para destaque */
+  color: var(--success-color, #28a745);   /* Cor de sucesso indicando feedback positivo */
+  white-space: nowrap;                    /* Impede que o texto do toast quebre linha */
+  animation: fadeIn 0.2s ease-in-out;     /* Animação suave de surgimento */
 }
 
-/* Garante que esconde de fato quando a classe .hidden estiver ativa */
+/* Oculta completamente o toast quando a classe .hidden estiver aplicada */
 .percent-output-container .toast-alert.hidden {
-  display: none !important;
+  display: none !important;               /* Força ocultação total */
 }
 
-/* Classe de animação opcional caso não esteja no CSS global */
+/* Animação de fade-in para o surgimento suave do toast */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(2px); }
-  to { opacity: 1; transform: translateY(0); }
+  from { opacity: 0; transform: translateY(2px); } /* Inicia transparente e levemente deslocado */
+  to { opacity: 1; transform: translateY(0); }     /* Termina visível na posição original */
 }
 
-/* Responsividade para telas de celulares */
+/* Responsividade adaptada para telas de smartphones */
 @media (max-width: 576px) {
   .percent-inline-inputs {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.5rem;
+    flex-direction: column;               /* Empilha os inputs verticalmente em telas estreitas */
+    align-items: stretch;                 /* Estica os itens para preencher a largura */
+    gap: 0.5rem;                          /* Espaçamento reduzido entre os campos empilhados */
   }
 
   .percent-inline-inputs span {
-    margin-top: 0.25rem;
+    margin-top: 0.25rem;                  /* Pequeno respiro superior para rótulos empilhados */
   }
 
   .percent-inline-inputs input[type="number"] {
-    width: 100% !important;
+    width: 100% !important;               /* Faz o input ocupar toda a largura disponível no mobile */
   }
 
   .percent-output-group {
-    max-width: 100%;
+    max-width: 100%;                      /* Expande o grupo de saída para preencher a tela */
   }
 
   .percent-card {
-    padding: 1rem 1rem;
+    padding: 1rem 1rem;                   /* Reduz o padding interno do card em celulares */
   }
 }
