@@ -4,110 +4,129 @@
 
 /* VARIÁVEIS LOCAIS APENAS PARA ESTE COMPONENTE */
 .digital-field.digital-card {
-  --digital-bg: #1e1e2f; /* Define a cor de fundo escura para os cards */
-  --digital-border: #2a2a3c; /* Define a cor das bordas dos cards e wrappers */
-  --digital-text: #f8fafc; /* Define a cor do texto (branco) para labels e sufixos */
-  --digital-accent: #4f46e5; /* Define a cor de destaque (roxo/índigo) para hover e interações */
-  --digital-neon: #00ffcc; /* Define a cor neon (verde/ciano) para o display digital */
+  --digital-bg: #1e1e2f;                  /* Define a cor de fundo escura para os cards */
+  --digital-border: #2a2a3c;              /* Define a cor das bordas dos cards e wrappers */
+  --digital-text: #f8fafc;                /* Define a cor do texto (branco) para labels e sufixos */
+  --digital-accent: #4f46e5;              /* Define a cor de destaque (roxo/índigo) para hover e interações */
+  --digital-neon: #00ffcc;                /* Define a cor neon (verde/ciano) para o display digital */
 }
 
 /* Limita a largura máxima da área de trabalho, centraliza e ajusta o preenchimento interno */
 .tool-container .digital-workspace {
-  max-width: 850px !important; /* Mantém o mesmo padrão de largura dos demais conversores */
-  width: 100% !important;
-  margin: 0 auto !important; /* Centraliza perfeitamente na tela */
-  text-align: left !important;
-  padding: 1.5rem !important;
+  max-width: 850px !important;            /* Mantém o mesmo padrão de largura dos demais conversores */
+  width: 100% !important;                 /* Ocupa largura total disponível */
+  margin: 0 auto !important;              /* Centraliza perfeitamente na tela */
+  text-align: left !important;            /* Alinhamento base à esquerda */
+  padding: 1.5rem !important;             /* Respiro interno confortável */
+  box-sizing: border-box;                 /* Inclui padding no cálculo de largura */
+  min-width: 0;                           /* Previne overflow em containers flex */
 }
 
 /* Grid dinâmico de 3 colunas para alinhar com o padrão e dar mais respiro aos cards */
 .digital-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 colunas simétricas */
-  gap: 1rem; /* Espaçamento idêntico aos outros conversores */
+  display: grid;                          /* Ativa o layout em grade */
+  grid-template-columns: repeat(3, 1fr);  /* 3 colunas simétricas */
+  gap: 1rem;                              /* Espaçamento idêntico aos outros conversores */
+  width: 100% !important;                 /* Ocupa largura total */
+  box-sizing: border-box;                 /* Dimensões consistentes */
+  min-width: 0;                           /* Previne overflow */
 }
 
-/* Responsividade: Reduz para 2 colunas em tablets e telas intermediárias */
+/* Responsividade: Reduz para 2 colunas em tablets e telas intermediárias (900px) */
 @media (max-width: 900px) {
   .digital-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* Reduz para 2 colunas */
   }
 }
 
-/* Responsividade: Reduz para 1 única coluna em dispositivos móveis (smartphones) */
-@media (max-width: 550px) {
+/* Responsividade: Reduz para 1 única coluna em dispositivos móveis (smartphones) - ajustado para 520px conforme padrão global */
+@media (max-width: 520px) {
   .digital-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;           /* Colapsa para uma única coluna empilhada */
   }
 }
 
 /* Card individual para cada unidade digital (com proporções alinhadas ao restante do sistema) */
 .digital-field.digital-card {
-  background: var(--digital-bg, #1e1e2f);
-  border: 1px solid var(--digital-border, #2a2a3c);
-  border-radius: var(--radius, 8px);
-  padding: 0.85rem; /* Ajustado para o mesmo padrão de respiro */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  background: var(--digital-bg);          /* Fundo escura do card (utiliza variável local ou fallback) */
+  border: 1px solid var(--digital-border);/* Borda sutil do card */
+  border-radius: var(--radius);           /* Arredondamento padrão do sistema */
+  padding: 0.85rem;                       /* Ajustado para o mesmo padrão de respiro */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Sombra leve para profundidade */
+  transition: transform 0.2s ease, border-color 0.2s ease; /* Transições suaves */
+  width: 100% !important;                 /* Ocupa largura total da célula do grid */
+  box-sizing: border-box;                 /* Cálculo correto de caixa */
+  min-width: 0;                           /* Previne overflow */
 }
 
 /* Destaca levemente a borda do card ao passar o mouse */
 .digital-field.digital-card:hover {
-  border-color: var(--primary-color);
+  border-color: var(--primary-color);     /* Altera a borda para a cor primária/destaque do tema */
 }
 
 /* Rótulo descritivo contendo o ícone e o nome da unidade de medida */
 .digital-field label {
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.8rem; /* Padronizado com os outros labels */
-  font-weight: 600;
-  color: var(--digital-text, #f8fafc);
-  opacity: 0.9;
-  margin-bottom: 0.1rem;
+  display: flex;                          /* Organiza ícone e texto em linha */
+  align-items: center;                    /* Centralização vertical */
+  gap: 0.4rem;                            /* Espaço entre ícone e texto */
+  font-size: 0.8rem;                      /* Padronizado com os outros labels do sistema */
+  font-weight: 600;                       /* Semi-negrito para destaque adequado */
+  color: var(--digital-text);             /* Cor do texto principal do componente */
+  opacity: 0.9;                           /* Transparência sutil */
+  margin-bottom: 0.1rem;                  /* Margem inferior mínima */
+  white-space: nowrap;                    /* Evita quebras indesejadas */
+  overflow: hidden;                       /* Oculta excesso */
+  text-overflow: ellipsis;                /* Adiciona reticências caso o texto exceda a largura */
 }
 
 /* Wrapper interno que agrupa o campo numérico e a sigla da unidade */
 .digital-display-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  background-color: var(--bg-main); /* Alinhado ao padrão de fundo dos inputs */
-  border: 1px solid var(--digital-border, #2a2a3c);
-  border-radius: 6px;
-  padding: 0.25rem 0.6rem;
+  position: relative;                     /* Posicionamento relativo para elementos internos */
+  display: flex;                          /* Alinha input e unidade em linha */
+  align-items: center;                    /* Centralização vertical */
+  background-color: var(--bg-main);       /* Alinhado ao padrão de fundo dos inputs do sistema */
+  border: 1px solid var(--digital-border);/* Borda padrão do wrapper */
+  border-radius: var(--radius);           /* Arredondamento padrão do sistema (ajustado de 6px para var(--radius)) */
+  padding: 0.25rem 0.6rem;                /* Respiro interno compacto para o visor */
+  width: 100% !important;                 /* Ocupa largura total do card */
+  box-sizing: border-box;                 /* Dimensões consistentes */
+  min-width: 0;                           /* Previne overflow */
 }
 
 /* Estilo do campo de input numérico com visual estilo display digital */
 .digital-input {
-  width: 100% !important;
-  background: transparent !important;
-  border: none !important;
-  outline: none !important;
-  font-family: 'Courier New', Courier, monospace, sans-serif;
-  font-size: 1.05rem !important; /* Padronizado com os tamanhos do sistema */
-  font-weight: 600 !important;
-  color: var(--digital-neon, #00ffcc) !important;
-  padding: 0.4rem 0 !important;
-  box-shadow: none !important;
-  -moz-appearance: textfield; /* Unificado para Firefox */
+  width: 100% !important;                 /* Preenche o espaço disponível no wrapper */
+  max-width: 100% !important;             /* Limita ao tamanho máximo */
+  background: transparent !important;     /* Fundo transparente para integrar com o wrapper */
+  border: none !important;                /* Sem bordas próprias */
+  outline: none !important;               /* Remove contorno padrão */
+  font-family: 'Courier New', Courier, monospace, sans-serif; /* Fonte monoespaçada estilo display */
+  font-size: 1.05rem !important;          /* Padronizado com os tamanhos do sistema */
+  font-weight: 600 !important;            /* Semi-negrito para os números */
+  color: var(--digital-neon) !important;  /* Cor neon (verde/ciano) para o display digital */
+  padding: 0.4rem 0 !important;           /* Respiro vertical interno */
+  box-shadow: none !important;            /* Remove sombras extras */
+  margin: 0 !important;                   /* Remove margens padrão */
+  min-width: 0;                           /* Previne overflow horizontal */
+  -moz-appearance: textfield;             /* Padroniza remoção de spinners no Firefox */
 }
 
 /* Sigla ou sufixo fixo exibido no canto direito de cada visor digital */
 .digital-unit {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--digital-text, #f8fafc);
-  opacity: 0.5;
-  text-transform: uppercase;
-  margin-left: 0.4rem;
-  letter-spacing: 0.5px;
+  font-size: 0.75rem;                     /* Fonte menor e compacta para a sigla */
+  font-weight: 700;                       /* Negrito forte para destaque da unidade */
+  color: var(--digital-text);             /* Cor do texto padronizada */
+  opacity: 0.5;                           /* Opacidade reduzida para sutil contraste */
+  text-transform: uppercase;              /* Caixa alta em todas as siglas */
+  margin-left: 0.4rem;                    /* Espaçamento à esquerda separando do input */
+  letter-spacing: 0.5px;                  /* Espaçamento elegante entre letras */
+  white-space: nowrap;                    /* Impede quebra de linha na unidade */
+  flex-shrink: 0;                         /* Impede que a unidade encolha */
 }
 
 /* Remove as setas de incremento padrão dos inputs numéricos em navegadores WebKit */
 .digital-input::-webkit-inner-spin-button,
 .digital-input::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+  -webkit-appearance: none;               /* Oculta botões de incremento/decremento nativos */
+  margin: 0;                              /* Zera margens */
 }
