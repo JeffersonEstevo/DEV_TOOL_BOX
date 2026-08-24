@@ -2,180 +2,153 @@
    === 02. CALCULADORAS - 01. Frações ===
    ========================================================================== */
 
-/* Centraliza o texto do placeholder dentro do input numérico — não existe
-   regra global para isso (é uma escolha visual específica desta ferramenta,
-   já que os inputs de fração são bem estreitos). Precisa dos 3 prefixos de
-   navegador porque a pseudo-classe de placeholder não é padronizada. */
-.fraction-block input[type="number"]::-webkit-input-placeholder { text-align: center; } /* Chrome / Safari / Edge */
-.fraction-block input[type="number"]::-moz-placeholder { text-align: center; }         /* Firefox 19+ */
-.fraction-block input[type="number"]:-ms-input-placeholder { text-align: center; }    /* IE 10+ */
+/* Centraliza o texto do placeholder dentro do input numérico, pois a regra global
+   não centraliza placeholders de inputs estreitos */
+.fraction-block input[type="number"]::-webkit-input-placeholder { text-align: center; }
+.fraction-block input[type="number"]::-moz-placeholder { text-align: center; }
+.fraction-block input[type="number"]:-ms-input-placeholder { text-align: center; }
 
-/* Workspace expansível para suportar múltiplas frações em linha com segurança responsiva */
+/* Workspace específico para suportar múltiplas frações em linha com responsividade */
 .fraction-workspace {
-  display: flex;                        /* Alinha os blocos de fração e o operador lado a lado */
-  align-items: center;                  /* Centraliza verticalmente cada bloco entre si */
-  justify-content: center;              /* Centraliza o conjunto horizontalmente no card */
-  flex-wrap: wrap;                      /* Permite quebrar para a linha de baixo em telas estreitas,
-                                            em vez de forçar tudo numa única linha e estourar */
-  gap: 1rem;                            /* Espaçamento entre os blocos de fração e o operador */
-  background-color: var(--bg-sidebar);  /* Fundo do card, adaptável ao tema */
-  border: 1px solid var(--border-color); /* Borda sutil padronizada */
-  padding: 2rem 1.5rem;                 /* Respiro interno generoso no desktop */
-  border-radius: var(--radius);         /* Arredondamento padrão do sistema */
-  max-width: 900px;                     /* Largura máxima do card — mais largo que o padrão porque
-                                            precisa caber várias frações lado a lado */
-  width: 100% !important;               /* Ocupa toda a largura disponível até o limite acima */
-  margin: 0 auto 1.5rem auto;           /* Centraliza horizontalmente e separa do que vem depois */
-  min-width: 0;                         /* Permite encolher em telas menores sem forçar overflow
-                                            horizontal (mantido por segurança — remova só se
-                                            confirmar que este workspace é filho direto de
-                                            .tool-container, que já cobre isso globalmente) */
+  display: flex;                          /* Alinha os blocos de fração e operadores lado a lado */
+  align-items: center;                    /* Centraliza verticalmente os elementos internos */
+  justify-content: center;                /* Centraliza o conjunto horizontalmente no card */
+  flex-wrap: wrap;                        /* Permite quebrar linha em telas estreitas */
+  gap: 1rem;                              /* Espaçamento entre blocos de fração e operadores */
+  background-color: var(--bg-sidebar);    /* Fundo adaptável ao tema */
+  border: 1px solid var(--border-color);  /* Borda sutil padronizada */
+  padding: 2rem 1.5rem;                   /* Respiro interno generoso no desktop */
+  border-radius: var(--radius);           /* Arredondamento padrão do sistema */
+  max-width: 900px;                       /* Largura máxima expandida para caber várias frações */
+  width: 100% !important;                 /* Ocupa toda a largura disponível até o limite acima */
+  margin: 0 auto 1.5rem auto;             /* Centraliza horizontalmente e separa do rodapé */
 }
 
+/* Alinha o bloco do operador matemático (+, -, ×, ÷) */
 .fraction-operator-block {
-  display: flex;              /* Alinha o operador (+, -, ×, ÷) com o botão de remover, se houver */
-  align-items: center;        /* Centraliza verticalmente em relação aos blocos de fração ao lado */
-  flex-shrink: 0;             /* Nunca encolhe — o operador precisa manter tamanho legível mesmo
-                                  se os blocos de fração ao redor comprimirem */
+  display: flex;                          /* Alinha o operador com o botão de remover ao lado */
+  align-items: center;                    /* Centraliza verticalmente em relação às frações */
+  flex-shrink: 0;                         /* Impede o encolhimento do operador */
 }
 
-/* Barra de controles de adicionar/remover limpa e fluida */
+/* Barra de controles de adicionar/remover frações */
 .fraction-controls-bar {
-  display: flex;               /* Alinha os botões de adicionar/remover fração em linha */
-  justify-content: center;     /* Centraliza os botões horizontalmente */
-  align-items: center;         /* Centraliza verticalmente */
-  flex-wrap: wrap;             /* Quebra linha em telas estreitas em vez de estourar */
-  gap: 0.75rem;                 /* Espaçamento entre os botões */
-  margin-top: -0.5rem;         /* Aproxima essa barra do workspace acima, compensando o
-                                   margin-bottom que o workspace já deixa */
-  margin-bottom: 1.5rem;       /* Espaço antes do próximo bloco (resultado) */
-  width: 100% !important;      /* Ocupa toda a largura disponível do container pai */
+  display: flex;                          /* Alinha os botões de controle em linha */
+  justify-content: center;                /* Centraliza os botões horizontalmente */
+  align-items: center;                    /* Centraliza verticalmente */
+  flex-wrap: wrap;                        /* Permite quebra de linha em telas estreitas */
+  gap: 0.75rem;                           /* Espaçamento entre os botões */
+  margin-top: -0.5rem;                    /* Aproxima a barra do workspace superior */
+  margin-bottom: 1.5rem;                  /* Espaço antes do bloco de resultado */
+  width: 100% !important;                 /* Ocupa toda a largura disponível */
 }
 
+/* Bloco individual de fração (numerador, linha, denominador) */
 .fraction-block {
-  display: flex;               /* Empilha o input, a linha divisória e o próximo input */
-  flex-direction: column;      /* Direção vertical (numerador em cima, denominador embaixo) */
-  align-items: center;         /* Centraliza os elementos internos horizontalmente */
-  gap: 0.75rem;                /* Espaço entre numerador, linha e denominador */
-  width: 85px;                 /* Largura fixa do bloco no desktop — cada fração ocupa uma
-                                   coluna estreita e previsível */
-  max-width: 100%;             /* Nunca ultrapassa o espaço disponível do pai, mesmo que a
-                                   largura fixa acima não caiba (ex: telas muito estreitas) */
-  flex-shrink: 0;              /* Não encolhe dentro do .fraction-workspace — cada fração
-                                   mantém sua largura própria até precisar quebrar linha */
-  min-width: 0;                /* Permite que o conteúdo interno (input) encolha sem forçar
-                                   o bloco a ultrapassar max-width em telas pequenas */
+  display: flex;                          /* Empilha os elementos internos verticalmente */
+  flex-direction: column;                 /* Direção vertical: numerador em cima, denominador embaixo */
+  align-items: center;                    /* Centraliza os elementos horizontalmente */
+  gap: 0.75rem;                           /* Espaço entre numerador, linha e denominador */
+  width: 85px;                            /* Largura fixa padrão no desktop para cada fração */
+  max-width: 100%;                        /* Nunca ultrapassa o espaço disponível */
+  flex-shrink: 0;                         /* Garante que a fração não encolha indevidamente */
 }
 
+/* Grupo de campo interno para cada parte da fração */
 .fraction-block .field-group {
-  display: flex;               /* Empilha label (se houver) e input */
-  flex-direction: column;      /* Direção vertical */
-  gap: 0.5rem;                 /* Espaço entre label e input */
-  width: 100% !important;      /* Preenche a largura do .fraction-block pai */
-  min-width: 0;                /* Permite encolher dentro do bloco de fração sem forçar overflow */
+  display: flex;                          /* Empilha label e input verticalmente */
+  flex-direction: column;                 /* Direção vertical */
+  gap: 0.5rem;                            /* Espaço entre label e input */
+  width: 100% !important;                 /* Preenche a largura do .fraction-block pai */
 }
 
-/* Regra única e definitiva para o input de números */
+/* Estilização específica para os inputs numéricos da fração */
 .fraction-block input[type="number"] {
-  text-align: center;          /* Números centralizados — mais legível numa fração estreita */
-  font-size: 1.35rem;          /* Fonte grande, já que o input é o elemento principal da tela */
-  font-weight: 600;            /* Semi-negrito para destacar o número digitado */
-  padding: 0.5rem 0.2rem;      /* Padding lateral reduzido — o input é estreito (85px) */
-  height: 48px;                /* Altura confortável para toque em mobile */
-  width: 100% !important;      /* Preenche a largura do .field-group pai */
-  max-width: 100% !important;  /* Nunca ultrapassa o pai, reforçando a regra acima */
-  margin: 0;                   /* Remove a margem inferior padrão de inputs (o layout em flex
-                                   já controla o espaçamento via gap, margem extra aqui
-                                   desalinharia os blocos) */
-  border-radius: var(--radius); /* Arredondamento padrão do sistema */
-  border: 1px solid var(--border-color); /* Borda sutil padronizada */
-  background-color: var(--bg-main);      /* Fundo adaptável ao tema */
-  color: var(--text-main);               /* Cor do texto adaptável ao tema */
-  min-width: 0;                /* Permite encolher dentro do field-group em telas pequenas */
+  text-align: center;                     /* Números centralizados para melhor legibilidade */
+  font-size: 1.35rem;                     /* Fonte grande destacada */
+  font-weight: 600;                       /* Semi-negrito para o número digitado */
+  padding: 0.5rem 0.2rem;                 /* Padding lateral reduzido para caber no bloco estreito */
+  height: 48px;                           /* Altura confortável para toque em dispositivos móveis */
+  width: 100% !important;                 /* Preenche o container pai */
+  max-width: 100% !important;             /* Limita ao tamanho máximo do pai */
+  margin: 0;                              /* Remove margens padrão de inputs */
 }
 
-/* Alvo específico para manter a fonte menor apenas nos placeholders */
+/* Reduz o tamanho da fonte apenas no placeholder para não competir com o número */
 .fraction-block input[type="number"]::placeholder {
-  font-size: 0.7rem;           /* Placeholder menor que o texto digitado, para não competir
-                                   visualmente com o número real quando preenchido */
-  line-height: normal;         /* Evita herdar o line-height do texto grande do input */
-  font-weight: 400;            /* Peso normal (o texto digitado é que fica em negrito) */
-  opacity: 0.7;                /* Leve transparência, padrão visual de placeholder */
+  font-size: 0.7rem;                      /* Placeholder menor que o texto digitado */
+  line-height: normal;                    /* Normaliza o espaçamento de linha */
+  font-weight: 400;                       /* Peso normal */
+  opacity: 0.7;                           /* Transparência padrão de placeholder */
 }
 
+/* Linha divisória horizontal entre numerador e denominador */
 .fraction-line {
-  width: 100%;                 /* Linha divisória ocupa toda a largura do bloco de fração */
-  height: 2px;                 /* Espessura fina da linha */
-  background-color: var(--text-main); /* Cor da linha acompanha o texto principal do tema */
-  border-radius: 1px;          /* Pontas levemente arredondadas */
+  width: 100%;                            /* Ocupa toda a largura do bloco de fração */
+  height: 2px;                            /* Espessura fina da linha */
+  background-color: var(--text-main);     /* Cor da linha baseada no texto principal */
+  border-radius: 1px;                     /* Pontas levemente arredondadas */
 }
 
+/* Alinha o select do operador matemático */
 .fraction-operator {
-  display: flex;               /* Centraliza o select do operador verticalmente */
-  align-items: center;
+  display: flex;                          /* Centraliza o select do operador verticalmente */
+  align-items: center;                    /* Centralização vertical */
 }
 
+/* Estilo visual do select de operador */
 .fraction-operator select {
-  font-size: 1.5rem;           /* Símbolo do operador (+, -, ×, ÷) grande e legível */
-  font-weight: 700;            /* Negrito para destacar o operador entre as frações */
-  padding: 0.5rem;             /* Espaçamento interno confortável */
-  text-align: center;          /* Centraliza o símbolo dentro do select */
-  cursor: pointer;             /* Indica que é clicável */
-  width: 65px;                 /* Largura fixa e estreita — só precisa caber um símbolo */
-  border-radius: var(--radius); /* Arredondamento padrão do sistema */
-  border: 1px solid var(--border-color); /* Borda sutil padronizada */
-  background-color: var(--bg-main);      /* Fundo adaptável ao tema */
-  color: var(--text-main);               /* Cor do texto adaptável ao tema */
+  font-size: 1.5rem;                      /* Símbolo grande e legível */
+  font-weight: 700;                       /* Negrito para destacar o operador */
+  padding: 0.5rem;                        /* Espaçamento interno confortável */
+  text-align: center;                     /* Centraliza o símbolo no select */
+  cursor: pointer;                        /* Indica interatividade */
+  width: 65px;                            /* Largura fixa estreita apropriada para um símbolo */
 }
 
+/* Utilitário de centralização de texto */
 .text-center-card {
-  text-align: center;          /* Utilitário simples para centralizar texto dentro de um card */
+  text-align: center;                     /* Centraliza o texto no card */
 }
 
-/* Exibição do Resultado da Fração */
+/* Exibição visual do resultado em formato de fração */
 .fraction-output-display {
-  font-size: 2rem;             /* Resultado em destaque, maior que os inputs de entrada */
-  font-weight: 700;            /* Negrito para dar peso visual ao resultado final */
-  display: inline-flex;        /* Permite empilhar numerador/linha/denominador do resultado */
-  flex-direction: column;      /* Direção vertical, igual ao formato de uma fração */
-  align-items: center;         /* Centraliza numerador e denominador horizontalmente */
-  justify-content: center;     /* Centraliza verticalmente dentro do espaço disponível */
-  line-height: 1.2;            /* Espaçamento entre linhas compacto, adequado a números */
-  min-width: 60px;             /* Largura mínima para o resultado não ficar espremido demais */
+  font-size: 2rem;                        /* Resultado destacado, maior que os inputs de entrada */
+  font-weight: 700;                       /* Negrito para forte apelo visual */
+  display: inline-flex;                   /* Permite empilhar numerador, linha e denominador */
+  flex-direction: column;                 /* Direção vertical */
+  align-items: center;                    /* Centraliza horizontalmente */
+  justify-content: center;                /* Centraliza verticalmente */
+  line-height: 1.2;                       /* Espaçamento de linha compacto para números */
+  min-width: 60px;                        /* Largura mínima para evitar espremimento */
 }
 
+/* Linha divisoria do bloco de resultado em fração */
 .fraction-output-line {
-  width: 100%;                 /* Linha divisória do resultado ocupa toda a largura do bloco */
-  min-width: 40px;             /* Garante uma largura mínima visível mesmo com números curtos */
-  height: 3px;                 /* Mais espessa que a linha dos inputs — destaca o resultado */
-  background-color: var(--text-main) !important; /* Cor sólida, sobrepondo qualquer herança */
-  margin: 0.3rem 0;            /* Espaço acima/abaixo da linha, separando numerador e denominador */
-  display: block;              /* Garante comportamento de bloco (ocupa a linha inteira) */
+  width: 100%;                            /* Ocupa toda a largura do bloco de resultado */
+  min-width: 40px;                        /* Garante largura mínima visível */
+  height: 3px;                            /* Mais espessa que a linha de entrada para destaque */
+  background-color: var(--text-main) !important; /* Cor sólida forçada */
+  margin: 0.3rem 0;                       /* Espaçamento superior e inferior */
+  display: block;                         /* Comportamento de bloco */
 }
 
+/* Exibição do resultado conversão em formato decimal */
 .decimal-output-display {
-  font-size: 2rem;             /* Mesmo tamanho do resultado em fração, para equilíbrio visual */
-  font-weight: 700;            /* Negrito, consistente com o destaque do resultado */
-  color: var(--success-color); /* Cor de sucesso/confirmação do tema, diferenciando do resultado
-                                   em fração acima (que usa a cor de texto padrão) */
+  font-size: 2rem;                        /* Mesmo tamanho do resultado em fração para harmonia */
+  font-weight: 700;                       /* Negrito consistente com os resultados */
+  color: var(--success-color);            /* Cor de sucesso do tema para diferenciar do resultado fracionário */
 }
 
+/* Sobrescreve o alinhamento da barra de ações para centralizar os botões */
 .action-bar {
-  display: flex;               /* Alinha os botões de ação em linha (já é o padrão global também,
-                                   redeclarado aqui só por clareza/segurança nesta ferramenta) */
-  justify-content: center;     /* CORREÇÃO/ESCOLHA LOCAL: centraliza os botões — o global não
-                                   define justify-content (fica alinhado à esquerda por padrão),
-                                   então esta linha é necessária para o visual centralizado */
-  align-items: center;         /* Centraliza verticalmente (mesmo valor do global, mantido por
-                                   clareza já que esta regra já precisa existir por causa do
-                                   justify-content acima) */
-  flex-wrap: wrap;             /* Permite que os botões quebrem linha em telas estreitas —
-                                   o global não define isso */
-  gap: 1rem;                   /* Espaçamento maior que o padrão global (0.75rem) — escolha
-                                   específica desta ferramenta para dar mais respiro entre os
-                                   botões de ação */
-  margin-top: 1.5rem;          /* Separa a barra de ações do resultado acima */
-  width: 100% !important;      /* Ocupa toda a largura disponível do container pai */
+  display: flex;                          /* Alinha os botões em linha */
+  justify-content: center;                /* Centraliza os botões horizontalmente */
+  align-items: center;                    /* Centraliza verticalmente */
+  flex-wrap: wrap;                        /* Permite quebra de linha em telas pequenas */
+  gap: 1rem;                              /* Espaçamento maior entre os botões de ação */
+  margin-top: 1.5rem;                     /* Separa do resultado superior */
+  width: 100% !important;                 /* Ocupa toda a largura do container pai */
 }
 
 /* ==========================================================================
@@ -184,28 +157,27 @@
 
 @media (max-width: 768px) {
   .fraction-workspace {
-    padding: 1.5rem 1rem;      /* Reduz o respiro interno generoso do desktop em telas médias */
-    gap: 0.75rem;               /* Reduz o espaço entre blocos de fração, ganhando espaço útil */
+    padding: 1.5rem 1rem;                 /* Reduz o padding interno em tablets */
+    gap: 0.75rem;                         /* Reduz o espaço entre blocos */
   }
 }
 
 @media (max-width: 520px) {
   .fraction-workspace {
-    gap: 0.5rem;                /* Espaçamento ainda menor entre blocos no celular */
-    padding: 1rem 0.5rem;      /* Padding mínimo, maximizando espaço útil na tela pequena */
+    gap: 0.5rem;                          /* Espaçamento ainda menor entre blocos em celulares */
+    padding: 1rem 0.5rem;                 /* Padding mínimo para maximizar o espaço útil */
   }
   .fraction-block {
-    width: 72px;                /* Blocos de fração mais estreitos, para caber mais lado a lado
-                                    antes de precisar quebrar linha */
+    width: 72px;                          /* Blocos de fração mais estreitos para caberem melhor */
   }
   .fraction-block input[type="number"] {
-    font-size: 1.15rem;         /* Fonte um pouco menor, proporcional ao bloco mais estreito */
-    height: 42px;                /* Altura reduzida, mantendo ainda uma área de toque razoável */
-    padding: 0.4rem 0.1rem;     /* Padding lateral ainda mais enxuto */
+    font-size: 1.15rem;                   /* Fonte ligeiramente menor nos inputs */
+    height: 42px;                         /* Altura reduzida mantendo a usabilidade ao toque */
+    padding: 0.4rem 0.1rem;               /* Padding lateral enxuto */
   }
   .fraction-operator select {
-    font-size: 1.25rem;         /* Símbolo do operador reduzido, acompanhando os inputs menores */
-    width: 55px;                 /* Select mais estreito, consistente com os blocos reduzidos */
-    padding: 0.3rem;             /* Padding reduzido */
+    font-size: 1.25rem;                   /* Símbolo do operador proporcional aos inputs menores */
+    width: 55px;                          /* Select mais estreito */
+    padding: 0.3rem;                      /* Padding reduzido */
   }
 }
