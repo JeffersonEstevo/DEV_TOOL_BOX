@@ -2,163 +2,140 @@
    === 02. CALCULADORAS - 02. Média Aritmética ===
    ========================================================================== */
 
+/* Painel que agrupa os cards de métricas em coluna */
 .metrics-panel {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  width: 100% !important;
-  box-sizing: border-box;
-  min-width: 0;
+  display: flex;                          /* Organiza os itens em coluna */
+  flex-direction: column;                 /* Direção vertical */
+  gap: 0.5rem;                            /* Espaçamento compacto entre os cards */
+  width: 100% !important;                 /* Ocupa toda a largura disponível */
+  box-sizing: border-box;                 /* Inclui padding e bordas no cálculo de largura */
+  min-width: 0;                           /* Impede estouro horizontal em containers flex */
 }
 
-/* Card Container da Métrica - Compactado */
+/* Card container individual de cada métrica */
 .metric-row-card {
-  display: flex;
-  flex-direction: column;
-  background-color: var(--bg-sidebar);
-  border: 1px solid var(--border-color);
-  padding: 0.5rem 0.85rem;
-  border-radius: var(--radius);
-  gap: 0.25rem;
-  transition: border-color 0.2s ease;
-  width: 100% !important;
-  box-sizing: border-box;
-  min-width: 0;
+  display: flex;                          /* Organiza o conteúdo em coluna */
+  flex-direction: column;                 /* Direção vertical */
+  background-color: var(--bg-sidebar);    /* Fundo adaptável ao tema */
+  border: 1px solid var(--border-color);  /* Borda sutil padronizada */
+  padding: 0.5rem 0.85rem;                /* Respiro interno compacto */
+  border-radius: var(--radius);           /* Arredondamento padrão do sistema */
+  gap: 0.25rem;                           /* Espaçamento estreito entre label e output */
+  transition: border-color 0.2s ease;     /* Transição suave para mudança de borda */
+  width: 100% !important;                 /* Ocupa toda a largura disponível */
+  box-sizing: border-box;                 /* Garante cálculo correto de dimensões */
+  min-width: 0;                           /* Evita overflow flex */
 }
 
-/* Rótulo da Métrica */
+/* Rótulo descritivo da métrica */
 .metric-label {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-size: 0.75rem;                     /* Fonte menor para legibilidade de legenda */
+  font-weight: 600;                       /* Semi-negrito para destaque leve */
+  color: var(--text-muted);               /* Cor secundária do texto adaptada ao tema */
+  text-transform: uppercase;              /* Caixa alta para padrão de rótulo técnico */
+  letter-spacing: 0.5px;                  /* Espaçamento elegante entre letras */
 }
 
-/* Grupo de Resultado Acoplado (Input + Botão Copiar) */
+/* Grupo acoplado que une o input de resultado e o botão de cópia lateral */
 .metric-output-group {
-  display: flex;
-  width: 100% !important;
-  height: 36px;
-  align-items: stretch;
-  box-sizing: border-box;
-  min-width: 0;
+  display: flex;                          /* Alinha input e botão lado a lado */
+  width: 100% !important;                 /* Ocupa toda a largura do card pai */
+  height: 36px;                           /* Altura fixa compacta */
+  align-items: stretch;                   /* Estica os filhos para preencherem a altura total */
+  box-sizing: border-box;                 /* Garante dimensões corretas */
+  min-width: 0;                           /* Previne estouro horizontal */
 }
 
-/* Input do Resultado */
+/* Input que exibe o resultado da métrica */
 .metric-output-group input.metric-input {
-  background-color: var(--bg-main);
-  border: 1px solid var(--border-color);
-  border-right: none;
-  border-top-left-radius: var(--radius);
-  border-bottom-left-radius: var(--radius);
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  padding: 0 0.6rem;
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--text-main);
-  flex: 1;
-  margin: 0 !important;
-  box-shadow: none !important;
-  box-sizing: border-box;
-  min-width: 0;
+  background-color: var(--bg-main);       /* Fundo base adaptável */
+  border: 1px solid var(--border-color);  /* Borda sutil padrão */
+  border-right: none;                     /* Remove a borda direita para acoplar ao botão */
+  border-top-left-radius: var(--radius);  /* Arredonda canto superior esquerdo */
+  border-bottom-left-radius: var(--radius); /* Arredondamento inferior esquerdo */
+  border-top-right-radius: 0;             /* Retira arredondamento direito para junção perfeita */
+  border-bottom-right-radius: 0;          /* Retira arredondamento inferior direito */
+  padding: 0 0.6rem;                      /* Respiro interno horizontal */
+  font-size: 1rem;                        /* Tamanho de fonte padrão para valor */
+  font-weight: 700;                       /* Negrito para dar destaque ao número */
+  color: var(--text-main);                /* Cor de texto principal */
+  flex: 1;                                /* Ocupa o espaço flexível remanescente */
+  margin: 0 !important;                   /* Remove margens extras */
+  box-shadow: none !important;            /* Remove sombra padrão de inputs */
+  box-sizing: border-box;                 /* Caixa de dimensionamento correta */
+  min-width: 0;                           /* Previne overflow */
 }
 
-/* Estado de Placeholder ("Nenhum valor") */
+/* Estado visual específico quando o input está vazio (placeholder textual) */
 .metric-output-group input.metric-input.empty-state {
-  color: var(--text-muted, #888) !important;
-  font-size: 0.85rem !important;
-  font-weight: 400 !important;
-  font-style: italic;
-  opacity: 0.75;
+  color: var(--text-muted, #888) !important; /* Cor de texto atenuada */
+  font-size: 0.85rem !important;          /* Fonte menor para o texto explicativo */
+  font-weight: 400 !important;            /* Peso normal sem negrito */
+  font-style: italic;                     /* Estilo itálico para indicar estado informativo */
+  opacity: 0.75;                          /* Transparência sutil */
 }
 
-/* Card da Métrica Principal (Média Aritmética - Destaque Visual) */
+/* Destaque visual especial para a métrica principal (ex: Média Aritmética) */
 .highlight-metric {
-  border-color: var(--primary-color);
-  background-color: rgba(var(--primary-rgb, 79, 70, 229), 0.04);
+  border-color: var(--primary-color);     /* Borda com a cor primária/destaque do tema */
+  background-color: rgba(var(--primary-rgb, 79, 70, 229), 0.04); /* Fundo translúcido sutil baseado na cor primária */
 }
 
+/* Ajusta a cor do rótulo na métrica de destaque */
 .highlight-metric .metric-label {
-  color: var(--primary-color);
+  color: var(--primary-color);            /* Aplica a cor de destaque ao texto do rótulo */
 }
 
+/* Aumenta a ênfase do valor quando preenchido na métrica principal */
 .highlight-metric input.metric-input:not(.empty-state) {
-  color: var(--primary-color);
-  font-size: 1.15rem;
-  font-weight: 800;
+  color: var(--primary-color);            /* Cor primária no texto do resultado */
+  font-size: 1.15rem;                     /* Fonte maior para forte apelo visual */
+  font-weight: 800;                       /* Extra-negrito para destaque máximo */
 }
 
-/* Botão Copiar Acoplado Lateralmente */
+/* Botão de cópia acoplado lateralmente ao input */
 .metric-output-group button {
-  padding: 0 0.85rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  border-top-right-radius: var(--radius);
-  border-bottom-right-radius: var(--radius);
-  margin: 0 !important;
-  cursor: pointer;
-  box-sizing: border-box;
-  flex-shrink: 0;
+  padding: 0 0.85rem;                     /* Respiro horizontal adequado para o ícone/botão */
+  display: inline-flex;                   /* Alinha o ícone perfeitamente ao centro */
+  align-items: center;                    /* Centralização vertical */
+  justify-content: center;                /* Centralização horizontal */
+  border-top-left-radius: 0;              /* Sem arredondamento esquerdo para colar no input */
+  border-bottom-left-radius: 0;           /* Sem arredondamento inferior esquerdo */
+  border-top-right-radius: var(--radius); /* Arredonda o canto superior direito */
+  border-bottom-right-radius: var(--radius); /* Arredondamento inferior direito */
+  margin: 0 !important;                   /* Remove margens padrão */
+  cursor: pointer;                        /* Cursor de clique */
+  box-sizing: border-box;                 /* Dimensões consistentes */
+  flex-shrink: 0;                         /* Impede que o botão encolha */
 }
 
+/* Estilização e alinhamento do ícone interno do botão de cópia */
 .metric-output-group button i {
-  line-height: 1 !important;
-  font-size: 0.95rem;
+  line-height: 1 !important;              /* Normaliza a altura da linha do ícone */
+  font-size: 0.95rem;                     /* Tamanho proporcional do ícone */
 }
 
-/* Ajuste fino no textarea da esquerda */
+/* Ajuste fino no textarea posicionado à esquerda no layout de grid */
 .tool-grid .field-group textarea {
-  padding: 0.75rem 0.85rem;
-  box-sizing: border-box;
+  padding: 0.75rem 0.85rem;               /* Padding interno confortável para digitação */
+  box-sizing: border-box;                 /* Cálculo correto de caixa */
 }
 
-/* Responsividade */
+/* Responsividade para telas menores (smartphones) */
 @media (max-width: 576px) {
   .metrics-panel {
-    gap: 0.4rem;
+    gap: 0.4rem;                          /* Espaçamento ainda mais reduzido entre cards */
   }
 
   .metric-row-card {
-    padding: 0.45rem 0.75rem;
+    padding: 0.45rem 0.75rem;             /* Padding interno compacto em telas estreitas */
   }
 
   .metric-output-group {
-    height: 34px;
+    height: 34px;                         /* Altura reduzida para otimizar espaço vertical */
   }
 
   .metric-output-group input.metric-input {
-    font-size: 0.95rem;
+    font-size: 0.95rem;                   /* Fonte ligeiramente menor no mobile */
   }
-}
-
-/* ==========================================================================
-   === CONTROLE DE ABAS - Média Aritmética ===
-   ========================================================================== */
-
-/* Oculta por padrão todas as abas da calculadora de média */
-.tool-container #aba-media-simples,
-.tool-container #aba-media-ponderada {
-  display: none !important;
-}
-
-/* Exibe apenas a aba que estiver com a classe .active */
-.tool-container #aba-media-simples.active,
-.tool-container #aba-media-ponderada.active {
-  display: block !important;
-  width: 100% !important;
-  box-sizing: border-box;
-  min-width: 0;
-}
-
-/* Barra superior de navegação por abas — OVERRIDE ESPECÍFICO (Média Aritmética)
-   Comportamento completo de .rede-tabs/.tab-btn agora é global (styles.css,
-   seção 15). Aqui só centralizamos os botões, que é a única diferença visual
-   real desta ferramenta em relação ao padrão (alinhado à esquerda). */
-.tool-container .rede-tabs {
-  justify-content: center;
 }
