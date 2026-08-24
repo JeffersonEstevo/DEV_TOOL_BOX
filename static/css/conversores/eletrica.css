@@ -9,11 +9,13 @@
  * O 'margin: 0 auto' centraliza perfeitamente o container na tela.
  */
 .tool-container .eletrica-workspace {
-  max-width: 850px !important;
-  width: 100% !important;
-  margin: 0 auto !important;
-  text-align: left !important;
-  padding: 1.5rem !important;
+  max-width: 850px !important;            /* Limita a largura máxima do workspace */
+  width: 100% !important;                 /* Ocupa largura total disponível */
+  margin: 0 auto !important;              /* Centraliza horizontalmente */
+  text-align: left !important;            /* Alinhamento base à esquerda */
+  padding: 1.5rem !important;             /* Respiro interno confortável */
+  box-sizing: border-box;                 /* Inclui padding no cálculo de largura */
+  min-width: 0;                           /* Previne overflow em containers flex */
 }
 
 /* 
@@ -22,14 +24,19 @@
  * Usa flexbox centralizado e uma borda inferior discreta para delimitar as abas.
  */
 .eletrica-tabs {
-  display: flex;
-  gap: 0.5rem;
-  border-bottom: 2px solid var(--border-color);
-  margin-bottom: 1.5rem;
-  padding: 0 1rem;
-  max-width: 850px;
-  margin-left: auto;
-  margin-right: auto;
+  display: flex;                          /* Organiza as abas em linha */
+  flex-wrap: wrap;                        /* Quebra linha se necessário em telas menores */
+  justify-content: center;                /* Centraliza os botões das abas no meio do container */
+  gap: 0.5rem;                            /* Espaçamento entre os botões */
+  border-bottom: 2px solid var(--border-color); /* Linha divisória inferior da barra de abas */
+  margin-bottom: 1.5rem;                  /* Espaço abaixo separando do conteúdo */
+  padding: 0 1rem;                        /* Respiro lateral */
+  max-width: 850px;                       /* Largura máxima alinhada ao workspace */
+  width: 100% !important;                 /* Ocupa largura total */
+  box-sizing: border-box;                 /* Cálculo correto de caixa */
+  min-width: 0;                           /* Previne overflow */
+  margin-left: auto;                      /* Centralização automática à esquerda */
+  margin-right: auto;                     /* Centralização automática à direita */
 }
 
 /* 
@@ -37,35 +44,36 @@
  * Estilo base limpo e moderno com efeito de transição suave.
  */
 .eletrica-tabs .tab-btn {
-  background: none;
-  border: none;
-  padding: 0.75rem 1.2rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text-main);
-  opacity: 0.7;
-  cursor: pointer;
-  border-bottom: 3px solid transparent;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  border-radius: 0;
+  background: none;                       /* Remove fundo padrão */
+  border: none;                           /* Remove bordas padrão */
+  padding: 0.75rem 1.2rem;                /* Respiro interno confortável para clique */
+  font-size: 0.95rem;                     /* Tamanho de fonte legível */
+  font-weight: 600;                       /* Semi-negrito */
+  color: var(--text-main);                /* Cor de texto principal */
+  opacity: 0.7;                           /* Opacidade reduzida para abas inativas */
+  cursor: pointer;                        /* Cursor interativo */
+  border-bottom: 3px solid transparent;   /* Borda inferior invisível reservada para o indicador */
+  transition: all 0.2s ease;              /* Transição suave para estados de hover/ativo */
+  display: flex;                          /* Alinha ícones e textos internos */
+  align-items: center;                    /* Centralização vertical */
+  gap: 0.5rem;                            /* Espaço entre ícone e texto */
+  border-radius: 0;                       /* Remove arredondamento lateral padrão */
+  box-sizing: border-box;                 /* Dimensões consistentes */
 }
 
 /* Feedback visual (Hover) nas abas */
 .eletrica-tabs .tab-btn:hover {
-  opacity: 1;
-  color: var(--primary-color);
-  background: none;
+  opacity: 1;                             /* Restaura opacidade total */
+  color: var(--primary-color);            /* Aplica a cor primária/destaque */
+  background: none;                       /* Garante ausência de fundo no hover */
 }
 
 /* Estado ativo da aba selecionada */
 .eletrica-tabs .tab-btn.active {
-  opacity: 1;
-  background: none;
-  color: var(--primary-color);
-  border-bottom-color: var(--primary-color);
+  opacity: 1;                             /* Opacidade total */
+  background: none;                       /* Sem fundo */
+  color: var(--primary-color);            /* Cor primária de destaque no texto */
+  border-bottom-color: var(--primary-color); /* Aplica a cor primária na linha inferior indicadora */
 }
 
 /* 
@@ -73,10 +81,13 @@
  * Gerencia qual conteúdo fica visível de acordo com a aba ativa.
  */
 .tab-content {
-  display: none !important;
+  display: none !important;               /* Oculta o conteúdo por padrão */
 }
 .tab-content.active {
-  display: block !important;
+  display: block !important;              /* Exibe apenas o conteúdo da aba ativa */
+  width: 100% !important;                 /* Ocupa largura total */
+  box-sizing: border-box;                 /* Dimensões consistentes */
+  min-width: 0;                           /* Previne overflow */
 }
 
 /* 
@@ -84,13 +95,15 @@
  * Pequenos cabeçalhos para separar grupos de inputs dentro de uma mesma aba.
  */
 .secao-titulo {
-  font-size: 0.9rem;
-  color: var(--primary-color);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 0.3rem;
-  margin-bottom: 1rem;
+  font-size: 0.9rem;                      /* Tamanho de fonte compacto para subtítulo */
+  color: var(--primary-color);            /* Cor primária/destaque */
+  text-transform: uppercase;              /* Caixa alta para forte apelo visual de título */
+  letter-spacing: 0.5px;                  /* Espaçamento elegante entre letras */
+  border-bottom: 1px solid var(--border-color); /* Linha divisória sutil inferior */
+  padding-bottom: 0.3rem;                 /* Respiro inferior */
+  margin-bottom: 1rem;                    /* Espaço abaixo da seção */
+  width: 100% !important;                 /* Ocupa largura total */
+  box-sizing: border-box;                 /* Dimensões consistentes */
 }
 
 /* 
@@ -99,15 +112,18 @@
  * 4 elementos (2 por linha), evitando que itens fiquem sozinhos na última linha.
  */
 .eletrica-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  display: grid;                          /* Ativa o layout em grade */
+  grid-template-columns: repeat(2, 1fr);  /* Define 2 colunas fluidas idênticas */
+  gap: 1rem;                              /* Espaçamento uniforme entre células */
+  width: 100% !important;                 /* Ocupa largura total */
+  box-sizing: border-box;                 /* Dimensões consistentes */
+  min-width: 0;                           /* Previne overflow */
 }
 
-/* Responsividade (Smartphones): Reduz para 1 coluna empilhada em telas menores */
-@media (max-width: 550px) {
+/* Responsividade (Smartphones): Reduz para 1 coluna empilhada em telas menores (ajustado para 520px conforme padrão global) */
+@media (max-width: 520px) {
   .eletrica-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;           /* Colapsa para uma única coluna empilhada */
   }
 }
 
@@ -116,20 +132,23 @@
  * Contêiner em formato de card para agrupar o label, input e selects de prefixo.
  */
 .eletrica-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  background: var(--bg-sidebar, #1e1e2f);
-  border: 1px solid var(--border-color, #2a2a3c);
-  border-radius: var(--radius, 8px);
-  padding: 0.85rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  transition: border-color 0.2s ease;
+  display: flex;                          /* Organiza conteúdo em coluna */
+  flex-direction: column;                 /* Direção vertical */
+  gap: 0.35rem;                           /* Espaço compacto entre os elementos internos */
+  background: var(--bg-sidebar);          /* Fundo adaptável ao tema (removido fallback fixo redundante) */
+  border: 1px solid var(--border-color);  /* Borda sutil padronizada do sistema */
+  border-radius: var(--radius);           /* Arredondamento padrão */
+  padding: 0.85rem;                       /* Respiro interno do card */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Sombra leve para profundidade */
+  transition: border-color 0.2s ease;     /* Transição suave de cor ao passar o mouse */
+  width: 100% !important;                 /* Ocupa largura total da célula do grid */
+  box-sizing: border-box;                 /* Cálculo correto de caixa */
+  min-width: 0;                           /* Previne overflow */
 }
 
 /* Feedback visual (Hover) no card */
 .eletrica-field:hover {
-  border-color: var(--primary-color);
+  border-color: var(--primary-color);     /* Altera a borda para a cor primária/destaque */
 }
 
 /* 
@@ -137,11 +156,14 @@
  * Títulos descritivos dos campos elétricos.
  */
 .eletrica-field label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-main);
-  opacity: 0.9;
-  margin-bottom: 0.1rem;
+  font-size: 0.8rem;                      /* Tamanho compacto para legenda */
+  font-weight: 600;                       /* Semi-negrito para destaque adequado */
+  color: var(--text-main);                /* Cor do texto principal do tema */
+  opacity: 0.9;                           /* Transparência sutil para equilibrar hierarquia */
+  margin-bottom: 0.1rem;                  /* Margem inferior mínima */
+  white-space: nowrap;                    /* Evita quebras indesejadas no rótulo */
+  overflow: hidden;                       /* Oculta excesso */
+  text-overflow: ellipsis;                /* Adiciona reticências caso o texto exceda a largura */
 }
 
 /* 
@@ -150,32 +172,35 @@
  */
 .eletrica-field input, 
 .prefixo-grupo select {
-  width: 100% !important;
-  background-color: var(--bg-main) !important;
-  border: 1px solid var(--border-color) !important;
-  outline: none !important;
-  font-size: 1.05rem !important;
-  font-weight: 600 !important;
-  color: var(--primary-color) !important;
-  padding: 0.5rem 0.6rem !important;
-  border-radius: 6px;
-  box-sizing: border-box;
-  box-shadow: none !important;
-  -moz-appearance: textfield; /* Unificado para Firefox */
+  width: 100% !important;                 /* Preenche a largura total do container pai */
+  max-width: 100% !important;             /* Limita ao tamanho máximo disponível */
+  background-color: var(--bg-main) !important; /* Fundo adaptável ao tema */
+  border: 1px solid var(--border-color) !important; /* Borda sutil padrão */
+  outline: none !important;               /* Remove outline padrão do navegador */
+  font-size: 1.05rem !important;          /* Tamanho de fonte destacado para valores */
+  font-weight: 600 !important;            /* Semi-negrito nos valores digitados/selecionados */
+  color: var(--primary-color) !important; /* Cor primária de destaque */
+  padding: 0.5rem 0.6rem !important;      /* Respiro interno confortável para toque */
+  border-radius: var(--radius);           /* Arredondamento padrão do sistema (unificado com var) */
+  box-sizing: border-box;                 /* Garante que padding e border não quebrem o width */
+  box-shadow: none !important;            /* Remove sombras extras */
+  margin: 0 !important;                   /* Remove margens padrão */
+  min-width: 0;                           /* Previne overflow horizontal */
+  -moz-appearance: textfield;             /* Padroniza remoção de spinners no Firefox */
 }
 
 /* Selects específicos para prefixos (ex: mili, quilo, mega) */
 .prefixo-grupo select {
-  font-size: 0.9rem;
-  color: var(--text-main);
+  font-size: 0.9rem;                      /* Fonte ligeiramente menor para opções de prefixo */
+  color: var(--text-main);                /* Cor de texto principal para o select */
 }
 
 /* Feedback visual (Focus) ao interagir com inputs ou selects */
 .eletrica-field input:focus, 
 .prefixo-grupo select:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  background-color: var(--bg-sidebar);
+  outline: none !important;               /* Remove contorno padrão forte */
+  border-color: var(--primary-color) !important; /* Pinta a borda com a cor principal */
+  background-color: var(--bg-sidebar) !important; /* Muda sutilmente o fundo para indicar foco ativo */
 }
 
 /* 
@@ -184,6 +209,6 @@
  */
 .eletrica-field input[type="number"]::-webkit-inner-spin-button,
 .eletrica-field input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+  -webkit-appearance: none;               /* Oculta os botões de incremento/decremento nativos */
+  margin: 0;                              /* Zera margens do elemento oculto */
 }
