@@ -363,106 +363,6 @@ details[open] summary::after {
   gap: 1.5rem !important;
 }
 
-/* ==========================================================================
-   === MODIFICADORES OPCIONAIS DO .tool-grid (NÃO mudam o padrão acima) ===
-   ==========================================================================
-   .tool-grid sozinho continua SEMPRE 1 coluna (comportamento já usado por
-   ferramentas existentes — não alterado, para não quebrar nada). Estes
-   modificadores são opt-in: adicione junto de .tool-grid quando a ferramenta
-   realmente quiser aproveitar espaço em telas maiores (tablet, desktop,
-   paisagem), em vez de escrever um grid novo do zero no CSS da ferramenta.
-
-   Uso: <div class="tool-grid tool-grid--auto"> ... </div>
-   ========================================================================== */
-
-/* Grid responsivo contínuo: auto-fit/minmax se ajusta sozinho a QUALQUER
-   largura de tela (tablet retrato, tablet paisagem, desktop, ultrawide) sem
-   precisar de nenhum @media manual. Use para campos/cards homogêneos (mesmo
-   "peso" visual cada um). */
-.tool-grid.tool-grid--auto {
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)) !important;
-}
-
-/* Variante compacta, para campos menores (números curtos, seletores) */
-.tool-grid.tool-grid--auto-compacto {
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)) !important;
-  gap: 1rem !important;
-}
-
-/* Variante para cards maiores (ex: cards de preset/paleta com preview) */
-.tool-grid.tool-grid--auto-largo {
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)) !important;
-}
-
-/* Proporção assimétrica FIXA de 2 colunas (ex: campo principal maior + campo
-   secundário menor) — quando a ordem/tamanho relativo importa, e por isso
-   auto-fit (que trata tudo como igual) não serve. minmax(0, ...) garante que
-   nunca estoura; a media query empilha em mobile. */
-.tool-grid.tool-grid--2-fixo {
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr) !important;
-}
-@media (max-width: 520px) {
-  .tool-grid.tool-grid--2-fixo {
-    grid-template-columns: minmax(0, 1fr) !important;
-  }
-}
-
-/* Proporção assimétrica FIXA de 3 colunas, com colapso em 2 etapas
-   (tablet → 2 colunas, mobile → 1 coluna) */
-.tool-grid.tool-grid--3-fixo {
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr) minmax(0, 1fr) !important;
-}
-@media (max-width: 768px) {
-  .tool-grid.tool-grid--3-fixo {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
-  }
-}
-@media (max-width: 520px) {
-  .tool-grid.tool-grid--3-fixo {
-    grid-template-columns: minmax(0, 1fr) !important;
-  }
-}
-
-/* ==========================================================================
-   === PRIMITIVOS DE LAYOUT: .row e .stack ===
-   ==========================================================================
-   Classes novas (sem uso anterior no projeto, sem risco de quebrar nada
-   existente). Cobrem os dois padrões de layout mais comuns que hoje cada
-   ferramenta reescreve do zero: uma linha de itens (botões, badges, campo +
-   botão) e uma coluna empilhada com espaçamento (label + input, blocos de
-   configuração). Preferir estas classes em vez de `display:flex` inline ou
-   redeclarado em CSS de ferramenta.
-   ========================================================================== */
-
-.stack {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.stack--compacto { gap: 0.5rem; }
-.stack--largo { gap: 1.5rem; }
-
-.row {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  flex-wrap: wrap;             /* Quebra por padrão — mais seguro contra overflow.
-                                   Use .row--sem-quebra para desativar quando tiver
-                                   certeza que sempre cabe (ex: ícone + texto curto) */
-}
-.row--compacto { gap: 0.4rem; }
-.row--centralizado { justify-content: center; }
-.row--espacado { justify-content: space-between; }
-.row--sem-quebra { flex-wrap: nowrap; }
-.row--topo { align-items: flex-start; }
-
-/* Filho de .stack ou .row que precisa poder encolher (ex: dentro de um grid
-   ou flex pai) sem forçar overflow — mesma lógica do min-width:0 já usado
-   em .tool-container > * */
-.stack, .row {
-  min-width: 0;
-}
-
 /* Força o grid inteligente a empilhar as caixas em telas menores (tablets e celulares) 
 @media (max-width: 768px) {
   .tool-grid {
@@ -615,13 +515,7 @@ details[open] summary::after {
   word-wrap: break-word;      /* Quebra palavras longas para evitar estourar o container */
   line-height: 1.6;           /* Espaçamento entrelinhas confortável para auditoria visual */
   min-height: 150px;          /* Altura mínima garantida para a caixa de diff */
-  max-height: min(60vh, 400px); /* CORREÇÃO: antes era um valor fixo (400px), que num
-                                   celular deitado (pouca altura de tela, muita largura)
-                                   podia não caber e forçar scroll da página inteira em
-                                   vez de só da caixa. min(60vh, 400px) usa 400px em
-                                   telas normais (60vh de uma tela comum já passa de
-                                   400px) mas encolhe automaticamente em viewports
-                                   baixos, sem precisar de @media (max-height) manual. */
+  max-height: 400px;          /* Altura máxima com barra de rolagem interna */
   overflow-y: auto;           /* Ativa rolagem vertical automática se o conteúdo exceder */
 }
 
@@ -813,12 +707,7 @@ body.dark-mode .pdf-page-preview code {
 }
 
 .workspace-largo {
-  max-width: 800px !important;  /* CORREÇÃO: estava "800%", que é um valor gigantesco
-                                   sem efeito prático (nunca trava largura nenhuma) —
-                                   quase certamente um typo de "800px". Se 800% era
-                                   proposital por algum motivo específico, reverta esta
-                                   linha; do jeito que estava, quem controlava a
-                                   largura de fato era só o width:80% abaixo. */
+  max-width: 800% !important;   /* Limite expandido em porcentagem extrema para liberdade de layout */
   width: 80% !important;        /* Define largura de 80% para o workspace interno */
   padding: 1.5rem !important;   /* Preenchimento interno espaçoso */
 }

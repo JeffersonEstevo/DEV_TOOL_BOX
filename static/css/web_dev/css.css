@@ -47,9 +47,9 @@
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
   font-family: var(--ff-headings, inherit);
-  overflow-wrap: break-word;    /* Protege contra título muito longo/sem espaço
-                                    forçar largura maior que o card, mesmo sem
-                                    depender de nenhuma regra global */
+  overflow-wrap: break-word;
+  width: 100%;
+  max-width: 100%;
 }
  
 .sk-preview-wrapper h1 { font-size: 1.8rem; }
@@ -65,6 +65,8 @@
   margin-bottom: 1rem;
   color: var(--clr-text, #0f172a);
   overflow-wrap: break-word;
+  width: 100%;
+  max-width: 100%;
 }
  
 .sk-preview-wrapper a {
@@ -88,6 +90,11 @@
   font-style: italic;
   margin-bottom: 1rem;
   color: var(--clr-text, #0f172a);
+  width: 100%;
+  max-width: 100%;
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: normal;
 }
  
 .sk-preview-wrapper blockquote.sk-secondary {
@@ -138,6 +145,8 @@
   border-radius: var(--br-base, 8px) !important;
   outline: none;
   transition: border-color 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+  display: block;
+  margin-bottom: 0.8rem;
 }
  
 .sk-preview-wrapper .sk-input:focus,
@@ -183,7 +192,7 @@
 }
 .sk-preview-wrapper .sk-pre-espacado { margin-top: 0.8rem; }
 .sk-preview-wrapper .sk-pre-espacado-menor { margin-top: 0.5rem; }
-.sk-preview-wrapper .sk-badges-row { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+.sk-preview-wrapper .sk-badges-row { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
 .sk-preview-wrapper .sk-lista-row { display: flex; gap: 2rem; margin-top: 0.8rem; flex-wrap: wrap; }
 .sk-preview-wrapper .sk-acoes-row { display: flex; gap: 0.8rem; margin-top: 0.8rem; flex-wrap: wrap; align-items: center; }
 .sk-preview-wrapper .sk-campo-label-mini { font-size: 0.8rem; font-weight: 600; display: block; margin-bottom: 0.2rem; }
@@ -193,12 +202,19 @@
    nenhuma classe do styles.css global. */
 .sk-preview-wrapper .sk-demo-grid-2col {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  grid-template-columns: 1fr; /* MUDEI AQUI: Força 1 única coluna (tudo empilhado) */
   gap: 1rem;
   margin-top: 1rem;
 }
 .sk-preview-wrapper .sk-demo-grid-2col--form {
   margin-top: 0.8rem;
+}
+
+/* CORREÇÃO MÁXIMA: Força QUALQUER item dentro desse grid a ocupar a linha inteira */
+.sk-preview-wrapper .sk-demo-grid-2col > * {
+  grid-column: 1 / -1;
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 /* Garante que blocos de código e texto longo quebrem corretamente sem vazar */
@@ -463,4 +479,46 @@
                                     o scroll interno do container acima cuida do
                                     conteúdo que ainda não couber */
   }
+}
+
+
+
+/* =========================================================
+   CORREÇÃO DA INTERFACE DE CONTROLES (PAINEL ESCURO)
+   Força os inputs, selects e o textarea a ficarem 100% empilhados
+   ========================================================= */
+
+/* 1. Força a grade de controles (Cores, Tipografia, etc) a ter apenas 1 coluna */
+.css-config-grid {
+  grid-template-columns: 1fr !important;
+}
+
+/* 2. Força os itens dentro da grade a ocuparem a linha inteira e descerem */
+.css-config-grid > * {
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+}
+
+/* 3. Corrige o contêiner principal (Preview e Código lado a lado)
+      para empilhar um abaixo do outro SEMPRE, independente do menu */
+.grid-layout-css {
+  grid-template-columns: 1fr !important;
+  gap: 2rem;
+}
+
+/* 4. Garante que o painel de código (textarea) ocupe 100% e fique abaixo */
+.painel-codigo-css {
+  width: 100% !important;
+}
+
+.codigo-css-output {
+  width: 100% !important;
+  height: 400px; /* Ajuste de altura para ficar bom empilhado */
+  resize: vertical;
+}
+
+/* 5. Garante que o Preview não fique espremido */
+#container-preview-css-base {
+  width: 100% !important;
+  max-width: 100% !important;
 }
