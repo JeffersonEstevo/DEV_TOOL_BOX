@@ -9,11 +9,13 @@
  * O 'margin: 0 auto' centraliza perfeitamente o container na tela.
  */
 .tool-container .temperatura-workspace {
-  max-width: 850px !important;
-  width: 100% !important;
-  margin: 0 auto !important;
-  text-align: left !important;
-  padding: 1.5rem !important;
+  max-width: 850px !important;            /* Limita a largura máxima do workspace */
+  width: 100% !important;                 /* Ocupa largura total disponível */
+  margin: 0 auto !important;              /* Centraliza horizontalmente */
+  text-align: left !important;            /* Alinhamento base à esquerda */
+  padding: 1.5rem !important;             /* Respiro interno confortável */
+  box-sizing: border-box;                 /* Inclui padding no cálculo de largura */
+  min-width: 0;                           /* Previne overflow em containers flex */
 }
 
 /* 
@@ -22,22 +24,25 @@
  * sem rolagens desnecessárias.
  */
 .temperatura-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
+  display: grid;                          /* Ativa o layout em grade */
+  grid-template-columns: repeat(3, 1fr);  /* Define 3 colunas fluidas idênticas */
+  gap: 1rem;                              /* Espaçamento uniforme entre células */
+  width: 100% !important;                 /* Ocupa largura total */
+  box-sizing: border-box;                 /* Dimensões consistentes */
+  min-width: 0;                           /* Previne overflow */
 }
 
 /* Responsividade (Tablets e telas médias): Reduz de 3 para 2 colunas */
 @media (max-width: 900px) {
   .temperatura-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* Reduz para 2 colunas */
   }
 }
 
-/* Responsividade (Smartphones): Reduz para 1 coluna empilhada */
-@media (max-width: 550px) {
+/* Responsividade (Smartphones): Reduz para 1 coluna empilhada (ajustado para 520px conforme padrão global) */
+@media (max-width: 520px) {
   .temperatura-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;           /* Colapsa para uma única coluna empilhada */
   }
 }
 
@@ -46,20 +51,23 @@
  * Contêiner em formato de card para agrupar o label e o input numérico.
  */
 .temperatura-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  background: var(--bg-sidebar, #1e1e2f);
-  border: 1px solid var(--border-color, #2a2a3c);
-  border-radius: var(--radius, 8px);
-  padding: 0.85rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  transition: border-color 0.2s ease;
+  display: flex;                          /* Organiza conteúdo em coluna */
+  flex-direction: column;                 /* Direção vertical */
+  gap: 0.35rem;                           /* Espaço compacto entre o label e o input */
+  background: var(--bg-sidebar);          /* Fundo adaptável ao tema (removido fallback fixo redundante) */
+  border: 1px solid var(--border-color);  /* Borda sutil padronizada do sistema */
+  border-radius: var(--radius);           /* Arredondamento padrão */
+  padding: 0.85rem;                       /* Respiro interno do card */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Sombra leve para profundidade */
+  transition: border-color 0.2s ease;     /* Transição suave de cor ao passar o mouse */
+  width: 100% !important;                 /* Ocupa largura total da célula do grid */
+  box-sizing: border-box;                 /* Cálculo correto de caixa */
+  min-width: 0;                           /* Previne overflow */
 }
 
 /* Feedback visual (Hover) no card */
 .temperatura-field:hover {
-  border-color: var(--primary-color);
+  border-color: var(--primary-color);     /* Altera a borda para a cor primária/destaque */
 }
 
 /* 
@@ -67,11 +75,14 @@
  * Títulos descritivos dos campos de temperatura.
  */
 .temperatura-field label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-main);
-  opacity: 0.9;
-  margin-bottom: 0.1rem;
+  font-size: 0.8rem;                      /* Tamanho compacto para legenda */
+  font-weight: 600;                       /* Semi-negrito para destaque adequado */
+  color: var(--text-main);                /* Cor do texto principal do tema */
+  opacity: 0.9;                           /* Transparência sutil para equilibrar hierarquia */
+  margin-bottom: 0.1rem;                  /* Margem inferior mínima */
+  white-space: nowrap;                    /* Evita quebras indesejadas no rótulo */
+  overflow: hidden;                       /* Oculta excesso */
+  text-overflow: ellipsis;                /* Adiciona reticências caso o texto exceda a largura */
 }
 
 /* 
@@ -79,25 +90,28 @@
  * Padronizados com tamanho confortável, fontes legíveis, cores consistentes e suporte ao Firefox unificado.
  */
 .temperatura-field input[type="number"] {
-  width: 100% !important;
-  background-color: var(--bg-main) !important;
-  border: 1px solid var(--border-color) !important;
-  outline: none !important;
-  font-size: 1.05rem !important;
-  font-weight: 600 !important;
-  color: var(--primary-color) !important;
-  padding: 0.5rem 0.6rem !important;
-  border-radius: 6px;
-  box-sizing: border-box;
-  box-shadow: none !important;
-  -moz-appearance: textfield; /* Unificado para Firefox */
+  width: 100% !important;                 /* Preenche a largura total do card pai */
+  max-width: 100% !important;             /* Limita ao tamanho máximo disponível */
+  background-color: var(--bg-main) !important; /* Fundo adaptável ao tema */
+  border: 1px solid var(--border-color) !important; /* Borda sutil padrão */
+  outline: none !important;               /* Remove outline padrão do navegador */
+  font-size: 1.05rem !important;          /* Tamanho de fonte destacado para valores */
+  font-weight: 600 !important;            /* Semi-negrito nos números digitados */
+  color: var(--primary-color) !important; /* Cor primária de destaque para o número */
+  padding: 0.5rem 0.6rem !important;      /* Respiro interno confortável para toque */
+  border-radius: var(--radius);           /* Arredondamento padrão do sistema (unificado com var) */
+  box-sizing: border-box;                 /* Garante que padding e border não quebrem o width */
+  box-shadow: none !important;            /* Remove sombras extras */
+  margin: 0 !important;                   /* Remove margens padrão */
+  min-width: 0;                           /* Previne overflow horizontal */
+  -moz-appearance: textfield;             /* Padroniza remoção de spinners no Firefox */
 }
 
 /* Feedback visual (Focus) ao interagir com o input */
 .temperatura-field input[type="number"]:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  background-color: var(--bg-sidebar);
+  outline: none !important;               /* Remove contorno padrão forte */
+  border-color: var(--primary-color) !important; /* Pinta a borda com a cor principal */
+  background-color: var(--bg-sidebar) !important; /* Muda sutilmente o fundo para indicar foco ativo */
 }
 
 /* 
@@ -106,6 +120,6 @@
  */
 .temperatura-field input[type="number"]::-webkit-inner-spin-button,
 .temperatura-field input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+  -webkit-appearance: none;               /* Oculta os botões de incremento/decremento nativos */
+  margin: 0;                              /* Zera margens do elemento oculto */
 }
