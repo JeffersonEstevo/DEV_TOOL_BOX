@@ -9,11 +9,13 @@
  * O 'margin: 0 auto' centraliza perfeitamente o container na tela.
  */
 .tool-container .trifasica-workspace {
-  max-width: 850px !important;
-  width: 100% !important;
-  margin: 0 auto !important;
-  text-align: left !important;
-  padding: 1.5rem !important;
+  max-width: 850px !important;            /* Limita a largura máxima do workspace */
+  width: 100% !important;                 /* Ocupa largura total disponível */
+  margin: 0 auto !important;              /* Centraliza horizontalmente */
+  text-align: left !important;            /* Alinhamento base à esquerda */
+  padding: 1.5rem !important;             /* Respiro interno confortável */
+  box-sizing: border-box;                 /* Inclui padding no cálculo de largura */
+  min-width: 0;                           /* Previne overflow em containers flex */
 }
 
 /* 
@@ -21,13 +23,15 @@
  * Pequenos cabeçalhos para separar grupos de elementos.
  */
 .secao-titulo {
-  font-size: 0.9rem;
-  color: var(--primary-color);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 0.3rem;
-  margin-bottom: 1rem;
+  font-size: 0.9rem;                      /* Tamanho de fonte compacto para subtítulo */
+  color: var(--primary-color);            /* Cor primária/destaque */
+  text-transform: uppercase;              /* Caixa alta para forte apelo visual de título */
+  letter-spacing: 0.5px;                  /* Espaçamento elegante entre letras */
+  border-bottom: 1px solid var(--border-color); /* Linha divisória sutil inferior */
+  padding-bottom: 0.3rem;                 /* Respiro inferior */
+  margin-bottom: 1rem;                    /* Espaço abaixo da seção */
+  width: 100% !important;                 /* Ocupa largura total */
+  box-sizing: border-box;                 /* Dimensões consistentes */
 }
 
 /* 
@@ -35,9 +39,12 @@
  * Organizado em grade de 2 colunas para exibir os dados estáticos de forma simétrica e limpa.
  */
 .trifasica-tabela-consulta {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  display: grid;                          /* Ativa o layout em grade */
+  grid-template-columns: repeat(2, 1fr);  /* Define 2 colunas fluidas idênticas */
+  gap: 1rem;                              /* Espaçamento uniforme entre células */
+  width: 100% !important;                 /* Ocupa largura total */
+  box-sizing: border-box;                 /* Dimensões consistentes */
+  min-width: 0;                           /* Previne overflow */
 }
 
 /* 
@@ -45,50 +52,57 @@
  * Estilizado com o mesmo padrão visual unificado (fundo, bordas arredondadas e sombras).
  */
 .consulta-card {
-  background: var(--bg-sidebar, #1e1e2f);
-  border: 1px solid var(--border-color, #2a2a3c);
-  border-radius: var(--radius, 8px);
-  padding: 0.85rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  transition: border-color 0.2s ease;
+  background: var(--bg-sidebar);          /* Fundo adaptável ao tema (removido fallback fixo redundante) */
+  border: 1px solid var(--border-color);  /* Borda sutil padronizada do sistema */
+  border-radius: var(--radius);           /* Arredondamento padrão do sistema */
+  padding: 0.85rem;                       /* Respiro interno do card */
+  display: flex;                          /* Organização interna flexível */
+  align-items: center;                    /* Centralização vertical */
+  justify-content: space-between;         /* Distribuição nas extremidades */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Sombra leve para profundidade */
+  transition: border-color 0.2s ease;     /* Transição suave de cor ao passar o mouse */
+  width: 100% !important;                 /* Ocupa largura total da célula */
+  box-sizing: border-box;                 /* Dimensões consistentes */
+  min-width: 0;                           /* Previne overflow */
 }
 
 /* Feedback visual (Hover) no card de consulta */
 .consulta-card:hover {
-  border-color: var(--primary-color);
+  border-color: var(--primary-color);     /* Altera a borda para a cor primária/destaque */
 }
 
 .card-label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-main);
-  opacity: 0.9;
-  display: block;
+  font-size: 0.8rem;                      /* Tamanho compacto para legenda */
+  font-weight: 600;                       /* Semi-negrito para destaque adequado */
+  color: var(--text-main);                /* Cor do texto principal do tema */
+  opacity: 0.9;                           /* Transparência sutil */
+  display: block;                         /* Exibição em bloco */
+  white-space: nowrap;                    /* Evita quebras indesejadas */
+  overflow: hidden;                       /* Oculta excesso */
+  text-overflow: ellipsis;                /* Adiciona reticências caso exceda */
 }
 
 .card-valor-fn, 
 .card-valor-ff {
-  font-size: 1.05rem;
-  font-weight: 700;
+  font-size: 1.05rem;                     /* Tamanho destacado de valor */
+  font-weight: 700;                       /* Negrito forte para valores */
 }
 
 .card-valor-fn,
 .card-valor-ff { 
-  color: var(--text-main); 
+  color: var(--text-main);                /* Cor principal para fase-neutro */
 }
 
 .card-valor-ff,
 .card-valor-fn { 
-  color: var(--primary-color); 
+  color: var(--primary-color);            /* Cor primária de destaque para fase-fase */
 }
 
 .card-seta {
-  color: var(--border-color);
-  font-size: 0.9rem;
-  padding: 0.8rem;
+  color: var(--border-color);             /* Cor sutil da borda para a seta indicativa */
+  font-size: 0.9rem;                      /* Tamanho proporcional */
+  padding: 0.8rem;                        /* Respiro ao redor da seta */
+  flex-shrink: 0;                         /* Impede que a seta encolha */
 }
 
 /* 
@@ -96,16 +110,19 @@
  * Configurado em 2 colunas para manter a simetria perfeita dos campos de entrada.
  */
 .trifasica-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
+  display: grid;                          /* Ativa o layout em grade */
+  grid-template-columns: repeat(2, 1fr);  /* Define 2 colunas fluidas idênticas */
+  gap: 1rem;                              /* Espaçamento uniforme entre células */
+  width: 100% !important;                 /* Ocupa largura total */
+  box-sizing: border-box;                 /* Dimensões consistentes */
+  min-width: 0;                           /* Previne overflow */
 }
 
-/* Responsividade (Smartphones): Reduz para 1 coluna empilhada */
-@media (max-width: 550px) {
+/* Responsividade (Smartphones): Reduz para 1 coluna empilhada (ajustado para 520px conforme padrão global) */
+@media (max-width: 520px) {
   .trifasica-tabela-consulta, 
   .trifasica-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;           /* Colapsa para uma única coluna empilhada */
   }
 }
 
@@ -114,35 +131,44 @@
  * Contêiner em formato de card para agrupar o label, input e unidades.
  */
 .trifasica-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  background: var(--bg-sidebar, #1e1e2f);
-  border: 1px solid var(--border-color, #2a2a3c);
-  border-radius: var(--radius, 8px);
-  padding: 0.85rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-  transition: border-color 0.2s ease;
+  display: flex;                          /* Organiza conteúdo em coluna */
+  flex-direction: column;                 /* Direção vertical */
+  gap: 0.35rem;                           /* Espaço compacto entre os elementos internos */
+  background: var(--bg-sidebar);          /* Fundo adaptável ao tema (removido fallback fixo redundante) */
+  border: 1px solid var(--border-color);  /* Borda sutil padronizada do sistema */
+  border-radius: var(--radius);           /* Arredondamento padrão do sistema */
+  padding: 0.85rem;                       /* Respiro interno do card */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Sombra leve para profundidade */
+  transition: border-color 0.2s ease;     /* Transição suave de cor ao passar o mouse */
+  width: 100% !important;                 /* Ocupa largura total da célula do grid */
+  box-sizing: border-box;                 /* Cálculo correto de caixa */
+  min-width: 0;                           /* Previne overflow */
 }
 
 /* Feedback visual (Hover) no card trifásico */
 .trifasica-field:hover {
-  border-color: var(--primary-color);
+  border-color: var(--primary-color);     /* Altera a borda para a cor primária/destaque */
 }
 
 /* Rótulos dos campos */
 .trifasica-field label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-main);
-  opacity: 0.9;
-  margin-bottom: 0.1rem;
+  font-size: 0.8rem;                      /* Tamanho compacto para legenda */
+  font-weight: 600;                       /* Semi-negrito para destaque adequado */
+  color: var(--text-main);                /* Cor do texto principal do tema */
+  opacity: 0.9;                           /* Transparência sutil */
+  margin-bottom: 0.1rem;                  /* Margem inferior mínima */
+  white-space: nowrap;                    /* Evita quebras indesejadas */
+  overflow: hidden;                       /* Oculta excesso */
+  text-overflow: ellipsis;                /* Adiciona reticências caso exceda */
 }
 
 .input-unidade-wrapper {
-  display: flex;
-  position: relative;
-  align-items: center;
+  display: flex;                          /* Organiza input e unidade em linha */
+  position: relative;                     /* Posicionamento relativo para o sufixo absoluto */
+  align-items: center;                    /* Centralização vertical */
+  width: 100% !important;                 /* Ocupa largura total */
+  box-sizing: border-box;                 /* Dimensões consistentes */
+  min-width: 0;                           /* Previne overflow */
 }
 
 /* 
@@ -150,41 +176,47 @@
  * Padronizados com tamanho confortável, fontes legíveis, cores consistentes e suporte ao Firefox unificado.
  */
 .trifasica-field input[type="number"] {
-  width: 100% !important;
-  background-color: var(--bg-main) !important;
-  border: 1px solid var(--border-color) !important;
-  outline: none !important;
-  font-size: 1.05rem !important;
-  font-weight: 600 !important;
-  color: var(--primary-color) !important;
-  padding: 0.5rem 2.2rem 0.5rem 0.6rem !important; /* Espaço à direita para a unidade fixa */
-  border-radius: 6px;
-  box-sizing: border-box;
-  box-shadow: none !important;
-  -moz-appearance: textfield; /* Unificado para Firefox */
+  width: 100% !important;                 /* Preenche a largura total do container pai */
+  max-width: 100% !important;             /* Limita ao tamanho máximo disponível */
+  background-color: var(--bg-main) !important; /* Fundo adaptável ao tema */
+  border: 1px solid var(--border-color) !important; /* Borda sutil padrão */
+  outline: none !important;               /* Remove outline padrão do navegador */
+  font-size: 1.05rem !important;          /* Tamanho de fonte destacado para valores */
+  font-weight: 600 !important;            /* Semi-negrito nos valores digitados */
+  color: var(--primary-color) !important; /* Cor primária de destaque */
+  padding: 0.5rem 2.2rem 0.5rem 0.6rem !important; /* Espaço à direita reservado para a unidade fixa */
+  border-radius: var(--radius);           /* Arredondamento padrão do sistema (unificado com var) */
+  box-sizing: border-box;                 /* Garante que padding e border não quebrem o width */
+  box-shadow: none !important;            /* Remove sombras extras */
+  margin: 0 !important;                   /* Remove margens padrão */
+  min-width: 0;                           /* Previne overflow horizontal */
+  -moz-appearance: textfield;             /* Padroniza remoção de spinners no Firefox */
 }
 
 /* Feedback visual (Focus) ao interagir com o input */
 .trifasica-field input[type="number"]:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  background-color: var(--bg-sidebar);
+  outline: none !important;               /* Remove contorno padrão forte */
+  border-color: var(--primary-color) !important; /* Pinta a borda com a cor principal */
+  background-color: var(--bg-sidebar) !important; /* Muda sutilmente o fundo para indicar foco ativo */
 }
 
 /* Rótulo de unidade fixo dentro do input (ex: V) */
 .input-unidade {
-  position: absolute;
-  right: 0.75rem;
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--text-main);
-  opacity: 0.7;
+  position: absolute;                     /* Posicionamento absoluto no canto direito do wrapper */
+  right: 0.75rem;                         /* Distância correta da borda direita */
+  font-weight: 600;                       /* Semi-negrito para a unidade */
+  font-size: 0.9rem;                      /* Tamanho proporcional */
+  color: var(--text-main);                /* Cor principal do texto */
+  opacity: 0.7;                           /* Opacidade sutil */
+  pointer-events: none;                   /* Impede que o label interfira no clique do input */
+  white-space: nowrap;                    /* Evita quebras de linha */
 }
 
 .field-help {
-  font-size: 0.75rem;
-  color: var(--text-main);
-  opacity: 0.7;
+  font-size: 0.75rem;                     /* Tamanho menor para texto de ajuda */
+  color: var(--text-main);                /* Cor principal do texto */
+  opacity: 0.7;                           /* Opacidade reduzida */
+  margin-top: 0.15rem;                    /* Pequeno respiro superior */
 }
 
 /* 
@@ -192,21 +224,24 @@
  * Exibe o resumo matemático ou instrução de cálculo no rodapé.
  */
 .trifasica-formula-box {
-  margin-top: 1.5rem;
-  padding: 0.85rem;
-  background: var(--bg-sidebar, #1e1e2f);
-  border: 1px solid var(--border-color, #2a2a3c);
-  border-radius: var(--radius, 8px);
-  text-align: center;
-  font-size: 0.85rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  margin-top: 1.5rem;                     /* Espaçamento superior separando do grid */
+  padding: 0.85rem;                       /* Respiro interno confortável */
+  background: var(--bg-sidebar);          /* Fundo adaptável ao tema (removido fallback fixo redundante) */
+  border: 1px solid var(--border-color);  /* Borda sutil padronizada do sistema */
+  border-radius: var(--radius);           /* Arredondamento padrão do sistema */
+  text-align: center;                     /* Centralização do texto explicativo */
+  font-size: 0.85rem;                     /* Tamanho compacto e legível */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Sombra leve para profundidade */
+  width: 100% !important;                 /* Ocupa largura total disponível */
+  box-sizing: border-box;                 /* Dimensões consistentes */
+  min-width: 0;                           /* Previne overflow */
 }
 
 .trifasica-formula-box code {
-  font-family: monospace;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--primary-color);
+  font-family: monospace;                 /* Fonte monoespaçada para fórmulas/código */
+  font-size: 0.95rem;                     /* Tamanho ligeiramente destacado */
+  font-weight: 700;                       /* Negrito forte */
+  color: var(--primary-color);            /* Cor primária/destaque */
 }
 
 /* 
@@ -215,6 +250,6 @@
  */
 .trifasica-field input[type="number"]::-webkit-inner-spin-button,
 .trifasica-field input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+  -webkit-appearance: none;               /* Oculta os botões de incremento/decremento nativos */
+  margin: 0;                              /* Zera margens */
 }
