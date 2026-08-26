@@ -2,112 +2,174 @@
    === 07. CORES - 04. Misturador de Cores (Color Mixer) ===
    ========================================================================== */
 
+/* 
+ * 1. CONTÊINER DE SELETORES DE CORES
+ * Organiza os seletores de cores horizontalmente com espaçamento distribuído.
+ */
 .mixer-seletores-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  gap: 1rem;
-  width: 100%;
+  display: flex;                          /* Ativa o modelo flexbox */
+  align-items: center;                    /* Alinha os itens verticalmente ao centro */
+  justify-content: space-evenly;          /* Distribui os elementos com espaçamento uniforme */
+  gap: 1rem;                              /* Espaçamento horizontal padrão entre os seletores */
+  width: 100%;                            /* Ocupa a largura total disponível */
+  box-sizing: border-box;                 /* Inclui padding e bordas no cálculo de dimensões */
+  min-width: 0;                           /* Previne estouro horizontal em containers flex */
 }
 
+/* 
+ * 2. ÍCONE SEPARADOR
+ * Centraliza o elemento separador (como o ícone de adição ou seta) entre os seletores.
+ */
 .mixer-icone-separador {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 1.5rem;
+  display: flex;                          /* Ativa o flexbox para centralização interna */
+  align-items: center;                    /* Centraliza verticalmente */
+  justify-content: center;                /* Centraliza horizontalmente */
+  margin-top: 1.5rem;                     /* Margem superior para alinhar visualmente com os campos */
+  min-width: 0;                           /* Previne estouro de layout */
 }
 
-/* Faixa de gradiente do CSS */
+/* 
+ * 3. FAIXA DE GRADIENTE DA MISTURA
+ * Barra visual que exibe a transição de gradiente gerada entre as cores misturadas.
+ */
 .faixa-gradiente-barra {
-  width: 100%;
-  height: 50px;
-  border-radius: var(--radius);
-  border: 1px solid var(--border-color);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  width: 100%;                            /* Ocupa a largura total do container pai */
+  height: 50px;                           /* Altura fixa otimizada para visualização da faixa */
+  border-radius: var(--radius);           /* Arredondamento padrão do sistema */
+  border: 1px solid var(--border-color);  /* Borda sutil padronizada pelo tema */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);/* Sombra suave para dar profundidade */
+  box-sizing: border-box;                 /* Garante cálculo correto de dimensões */
+  min-width: 0;                           /* Previne overflow */
 }
 
-/* Contêiner para a listagem dos blocos de cores gerados */
+/* 
+ * 4. CONTÊINER DA LISTAGEM DE CÓDIGOS DE CORES
+ * Caixa com rolagem vertical para exibir todos os blocos de códigos gerados na mistura.
+ */
 .lista-codigos-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  max-height: 280px;
-  overflow-y: auto;
-  padding-right: 0.5rem;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  padding: 0.6rem;
-  background-color: var(--bg-main);
+  display: flex;                          /* Organiza os itens em coluna */
+  flex-direction: column;                 /* Direção vertical para a lista */
+  gap: 0.4rem;                            /* Espaçamento compacto entre os códigos listados */
+  max-height: 280px;                      /* Limita a altura máxima para evitar poluição visual */
+  overflow-y: auto;                       /* Ativa rolagem vertical quando o conteúdo exceder o limite */
+  padding: 0.6rem;                        /* Respiro interno padrão */
+  padding-right: 0.5rem;                  /* Ajuste de padding lateral para a barra de rolagem */
+  border: 1px solid var(--border-color);  /* Borda sutil de contorno */
+  border-radius: var(--radius);           /* Arredondamento padrão do sistema */
+  background-color: var(--bg-main);       /* Fundo adaptado ao tema atual */
+  box-sizing: border-box;                 /* Cálculo consistente de caixa */
+  min-width: 0;                           /* Previne transbordamento horizontal */
 }
 
-/* Linha contendo o bloco de cor e o respectivo código textual */
+/* 
+ * 5. ITEM DA LISTA DE MISTURA
+ * Linha individual que abriga a amostra de cor e o respectivo texto do código hexadecimal/RGB.
+ */
 .item-codigo-mistura {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  padding: 0.3rem 0.5rem;
-  border-radius: 4px;
-  transition: background-color 0.1s ease;
+  display: flex;                          /* Organiza amostra e texto lado a lado */
+  align-items: center;                    /* Alinha verticalmente ao centro */
+  gap: 0.8rem;                            /* Espaçamento entre o bloco de cor e o texto */
+  padding: 0.3rem 0.5rem;                 /* Respiro interno compacto */
+  border-radius: 4px;                     /* Leve arredondamento interno */
+  transition: background-color 0.1s ease; /* Transição rápida e fluida para o hover */
+  box-sizing: border-box;                 /* Garante dimensões corretas */
+  min-width: 0;                           /* Previne overflow */
 }
 
+/* Efeito de destaque ao passar o mouse sobre o item da lista */
 .item-codigo-mistura:hover {
-  background-color: var(--bg-sidebar);
+  background-color: var(--bg-sidebar);    /* Altera o fundo para destacar a linha selecionada */
 }
 
+/* 
+ * 6. AMOSTRA DO BLOCO DE COR
+ * Pequeno quadrado colorido que ilustra visualmente a cor gerada naquela etapa.
+ */
 .bloco-cor-amostra {
-  width: 30px;
-  height: 20px;
-  border-radius: 3px;
-  border: 1px solid rgba(0,0,0,0.15);
-  flex-shrink: 0;
+  width: 30px;                            /* Largura fixa para a amostra */
+  height: 20px;                           /* Altura fixa para a amostra */
+  border-radius: 3px;                     /* Cantos levemente arredondados */
+  border: 1px solid rgba(0,0,0,0.15);     /* Borda discreta para contraste em cores claras */
+  flex-shrink: 0;                         /* Impede que o bloco seja redimensionado à força */
+  box-sizing: border-box;                 /* Cálculo de caixa seguro */
 }
 
+/* 
+ * 7. TEXTO DO CÓDIGO DA AMOSTRA
+ * Exibição tipográfica do código da cor com fonte monoespaciada para facilitar a leitura.
+ */
 .texto-codigo-amostra {
-  font-family: monospace;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--text-main);
+  font-family: monospace;                 /* Usa fonte monoespaciada para códigos exatos */
+  font-size: 0.95rem;                     /* Tamanho legível para os códigos */
+  font-weight: 700;                       /* Negrito forte para destaque do valor */
+  color: var(--text-main);                /* Cor do texto principal adaptada ao tema */
+  white-space: nowrap;                    /* Impede quebras indesejadas no código */
+  overflow: hidden;                       /* Oculta excesso se necessário */
+  text-overflow: ellipsis;                /* Adiciona reticências caso o texto exceda o espaço */
+  min-width: 0;                           /* Previne overflow */
 }
 
-
-
-
-/* Transforma a div no próprio seletor */
+/* 
+ * 8. CAIXA DE PRÉ-VISUALIZAÇÃO (PREVIEW INTERATIVO)
+ * Transforma uma div em um seletor de cores customizado e interativo.
+ */
 .preview-caixa {
-  width: 100%;
-  height: 50px; /* Mesma altura da faixa de gradiente */
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 2px solid var(--border-color);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  position: relative;
-  background: #66FF99; /* Cor inicial */
+  width: 100%;                            /* Ocupa a largura total disponível */
+  height: 50px;                           /* Mesma altura da faixa de gradiente para harmonia visual */
+  border-radius: var(--radius);           /* Arredondamento padrão do sistema */
+  overflow: hidden;                       /* Oculta elementos que vazem do container */
+  border: 2px solid var(--border-color);  /* Borda destacada de contorno */
+  cursor: pointer;                        /* Cursor de clique para indicar interatividade */
+  transition: all 0.2s ease;              /* Transição suave para efeitos visuais */
+  position: relative;                     /* Posicionamento relativo para aninhar o input invisível */
+  box-sizing: border-box;                 /* Cálculo seguro de dimensões */
+  min-width: 0;                           /* Previne estouro horizontal */
 }
 
+/* Feedback visual ao passar o mouse sobre a caixa de preview */
 .preview-caixa:hover {
-  border-color: var(--primary-color);
-  transform: scale(1.02);
+  border-color: var(--primary-color);     /* Altera a cor da borda para o destaque principal */
+  transform: scale(1.02);                 /* Leve efeito de zoom para feedback tátil visual */
 }
 
-/* Esconde o input color, mas mantém funcional */
+/* 
+ * 9. INPUT DE COR OCULTO
+ * Oculta visualmente o seletor nativo, mas o mantém funcional cobrindo toda a área da caixa.
+ */
 .preview-caixa input[type="color"] {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-  border: none;
-  padding: 0;
-  margin: 0;
+  position: absolute;                     /* Posicionamento absoluto preenchendo o container */
+  top: 0;                                 /* Alinhado ao topo */
+  left: 0;                                /* Alinhado à esquerda */
+  width: 100%;                            /* Largura total da caixa */
+  height: 100%;                           /* Altura total da caixa */
+  opacity: 0;                             /* Totalmente invisível */
+  cursor: pointer;                        /* Mantém o cursor de clique ativo */
+  border: none;                           /* Remove bordas nativas */
+  padding: 0;                             /* Remove espaçamentos internos */
+  margin: 0;                              /* Remove margens */
 }
 
-/* A div mostra a cor através do background */
+/* 
+ * 10. CAMADA VISUAL DA COR
+ * Div interna que exibe a cor real através da propriedade background.
+ */
 .preview-caixa .cor-visual {
-  width: 100%;
-  height: 100%;
-  pointer-events: none; /* Permite clicar no input por cima */
+  width: 100%;                            /* Preenche toda a largura da caixa */
+  height: 100%;                           /* Preenche toda a altura da caixa */
+  pointer-events: none;                   /* Desativa eventos de mouse para permitir o clique direto no input oculto */
+  box-sizing: border-box;                 /* Cálculo consistente de caixa */
 }
 
+/* Responsividade para telas médias e tablets */
+@media (max-width: 768px) {
+  .mixer-seletores-container {
+    flex-direction: column;               /* Empilha os seletores verticalmente em telas menores */
+  }
+}
+
+/* Responsividade para smartphones */
+@media (max-width: 520px) {
+  .mixer-seletores-container {
+    gap: 0.75rem;                         /* Reduz o espaçamento entre os blocos empilhados */
+  }
+}
