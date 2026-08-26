@@ -2,128 +2,187 @@
    === 07. CORES - 03. Gerador de Gradiente e Contraste ===
    ========================================================================== */
 
+/* Linha divisória horizontal sutil para separar seções internas da ferramenta */
 .divisor-ferramenta {
-  border: 0;
-  border-top: 1px solid var(--border-color);
-  margin: 1.5rem 0;
+  border: 0;                              /* Remove a borda padrão do elemento */
+  border-top: 1px solid var(--border-color); /* Aplica uma linha divisória superior com a cor de borda do tema */
+  margin: 1.5rem 0;                       /* Define o espaçamento vertical superior e inferior */
+  width: 100%;                            /* Ocupa a largura total disponível */
+  box-sizing: border-box;                 /* Inclui paddings e bordas no cálculo total de dimensões */
 }
 
+/* Rótulo descritivo para as subseções da ferramenta */
 .titulo-subsecao {
-  display: block;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-main);
-  margin-bottom: 0.6rem;
+  display: block;                         /* Garante comportamento de bloco para quebrar a linha corretamente */
+  font-size: 0.85rem;                     /* Define um tamanho de fonte compacto e elegante */
+  font-weight: 600;                       /* Aplica peso seminegrito para destaque adequado */
+  color: var(--text-main);                /* Atribui a cor principal do texto baseada no tema atual */
+  margin-bottom: 0.6rem;                  /* Cria um respiro inferior para separar do elemento seguinte */
+  width: 100%;                            /* Ocupa largura total */
+  box-sizing: border-box;                 /* Cálculo seguro de caixa */
+  overflow: hidden;                       /* Oculta excessos caso o texto seja muito longo */
+  text-overflow: ellipsis;                /* Adiciona reticências se necessário */
+  white-space: nowrap;                    /* Evita quebras de linha indesejadas */
 }
 
-/* Régua do Gradiente */
+/* Régua do Gradiente que abriga a escala tonal de cores */
 .escala-tonal-barra {
-  display: flex;
-  width: 100%;
-  height: 45px;
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 1px solid var(--border-color);
-  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
-  margin-bottom: 1.5rem;
+  display: flex;                          /* Ativa o modelo flexbox para alinhar os blocos de tons horizontalmente */
+  width: 100%;                            /* Ocupa 100% da largura do container pai */
+  height: 45px;                           /* Define altura fixa padronizada para a barra de gradiente */
+  border-radius: var(--radius);           /* Aplica o raio de arredondamento padrão do projeto */
+  overflow: hidden;                       /* Oculta qualquer conteúdo que ultrapasse os limites da barra */
+  border: 1px solid var(--border-color);  /* Aplica a borda sutil padrão do sistema */
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05); /* Adiciona uma sombra interna sutil para profundidade */
+  margin-bottom: 1.5rem;                  /* Cria um espaço inferior para separar da próxima seção */
+  box-sizing: border-box;                 /* Cálculo consistente de dimensões */
 }
 
+/* Bloco individual de tom dentro da escala tonal */
 .tom-bloco {
-  flex: 1;
-  height: 100%;
-  cursor: pointer;
-  transition: transform 0.1s ease;
-  position: relative;
+  flex: 1;                                /* Permite que cada bloco de tom distribua o espaço de forma igualitária */
+  height: 100%;                           /* Ocupa 100% da altura da barra contenedora */
+  cursor: pointer;                        /* Altera o cursor para o formato de clique indicando interatividade */
+  transition: transform 0.1s ease;        /* Aplica transição suave para efeitos de zoom/escala */
+  position: relative;                     /* Estabelece contexto para posicionamento se necessário */
+  box-sizing: border-box;                 /* Cálculo seguro */
 }
 
+/* Efeito de destaque ao passar o mouse sobre um bloco de tom individual */
 .tom-bloco:hover {
-  transform: scaleY(1.1);
-  z-index: 2;
+  transform: scaleY(1.1);                 /* Estica o bloco discretamente para cima e para baixo no eixo Y */
+  z-index: 2;                             /* Eleva a camada do bloco hover para ficar acima dos vizinhos */
 }
 
-/* Painel de Exibição de Amostras de Texto */
+/* Painel de Exibição de Amostras de Texto para teste de contraste */
 .painel-preview-texto {
-  width: 100%;
-  padding: 1.5rem;
-  border-radius: var(--radius);
-  border: 1px solid var(--border-color);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  box-sizing: border-box;
-  transition: background-color 0.2s ease;
+  width: 100%;                            /* Ocupa 100% da largura disponível */
+  padding: 1.5rem;                        /* Aplica espaçamento interno confortável ao redor do painel */
+  border-radius: var(--radius);           /* Arredonda as pontas do painel com o raio padrão */
+  border: 1px solid var(--border-color);  /* Adiciona borda sutil padrão do sistema */
+  display: flex;                          /* Ativa o modelo flexbox em coluna */
+  flex-direction: column;                 /* Empilha as linhas de texto de teste verticalmente */
+  gap: 1rem;                              /* Define espaçamento uniforme entre os textos de exemplo */
+  box-sizing: border-box;                 /* Inclui paddings e bordas no cálculo de dimensões */
+  transition: background-color 0.2s ease; /* Animação suave na alteração de cor de fundo */
 }
 
+/* Linha de texto de teste individual dentro do painel de preview */
 .texto-teste {
-  font-size: 1.1rem;
-  font-weight: 700;
-  text-align: center;
-  padding: 0.4rem;
-  border-radius: 4px;
+  font-size: 1.1rem;                      /* Define um tamanho de fonte destacado para legibilidade */
+  font-weight: 700;                       /* Aplica peso em negrito para simular textos reais de interface */
+  text-align: center;                     /* Centraliza o texto de teste horizontalmente */
+  padding: 0.4rem;                        /* Respiro interno ao redor do texto de amostra */
+  border-radius: 4px;                     /* Arredondamento leve nas bordas do bloco de texto */
+  width: 100%;                            /* Ocupa largura total */
+  box-sizing: border-box;                 /* Cálculo seguro */
+  overflow: hidden;                       /* Oculta excessos laterais */
+  text-overflow: ellipsis;                /* Adiciona reticências se o texto exceder o espaço */
+  white-space: nowrap;                    /* Evita quebras de linha indesejadas */
 }
 
-/* Variantes de Contraste */
+/* Variante de contraste: texto escuro puro */
 .texto-escuro {
-  color: #1A1A1A;
+  color: #1A1A1A;                         /* Define uma cor de texto escura de alto contraste */
 }
 
+/* Variante de contraste: texto escuro acompanhado de sombra clara para fundos intermediários */
 .texto-escuro-sombra {
-  color: #1A1A1A;
-  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6);
+  color: #1A1A1A;                         /* Define a cor de texto escura */
+  text-shadow: 0 1px 2px rgba(255, 255, 255, 0.6); /* Adiciona sombra clara para destacar o texto sobre fundos escuros/médios */
 }
 
+/* Variante de contraste: texto claro puro */
 .texto-claro {
-  color: #FFFFFF;
+  color: #FFFFFF;                         /* Define cor de texto branca pura */
 }
 
+/* Variante de contraste: texto claro acompanhado de sombra escura para fundos claros */
 .texto-claro-sombra {
-  color: #FFFFFF;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  color: #FFFFFF;                         /* Define cor de texto branca */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); /* Adiciona sombra escura marcante para destacar o texto sobre fundos claros */
 }
 
-
-
-/* Seletor da Cor Base */
+/* Seletor da Cor Base superior que centraliza o controle visual */
 .picker-topo-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
+  display: flex;                          /* Ativa o flexbox em coluna */
+  flex-direction: column;                 /* Empilha os elementos do seletor verticalmente */
+  align-items: center;                    /* Centraliza os elementos filhos horizontalmente */
+  gap: 0.5rem;                            /* Espaçamento vertical entre a pré-visualização e o texto de ajuda */
+  margin-bottom: 1rem;                    /* Margem inferior para separar do restante da ferramenta */
+  width: 100%;                            /* Ocupa largura total */
+  box-sizing: border-box;                 /* Cálculo seguro */
 }
 
+/* Caixa de pré-visualização interativa para a cor base do gradiente */
 #preview-grad-cor {
-  width: 100%;
-  max-width: 200px;
-  height: 45px; /* Mesma altura da escala tonal */
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 2px solid var(--border-color);
-  cursor: pointer;
-  transition: all 0.2s ease;
-  position: relative;
+  width: 100%;                            /* Ocupa 100% da largura do container pai */
+  max-width: 200px;                       /* Limita a largura máxima para manter uma proporção compacta */
+  height: 45px;                           /* Define altura fixa igualando-se geometricamente à barra tonal */
+  border-radius: var(--radius);           /* Aplica o arredondamento padrão do projeto */
+  overflow: hidden;                       /* Oculta elementos que extrapolem os limites do box */
+  border: 2px solid var(--border-color);  /* Adiciona borda de contorno visível */
+  cursor: pointer;                        /* Altera o cursor para o formato de clique */
+  transition: all 0.2s ease;              /* Transição suave para interações de hover */
+  position: relative;                     /* Contexto de posicionamento interno */
+  box-sizing: border-box;                 /* Cálculo seguro de caixa */
 }
 
+/* Efeito de hover interativo na caixa de pré-visualização da cor base */
 #preview-grad-cor:hover {
-  border-color: var(--primary-color);
-  transform: scale(1.02);
+  border-color: var(--primary-color);     /* Altera a cor da borda para o tom primário de destaque */
+  transform: scale(1.02);                 /* Aplica um zoom sutil para dar feedback de interatividade */
 }
 
+/* Input nativo de tipo cor posicionado dentro do preview */
 #preview-grad-cor input[type="color"] {
-  width: 100%;
-  height: 100%;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  background: none;
-  display: block;
+  width: 100%;                            /* Faz o input preencher toda a largura do preview */
+  height: 100%;                           /* Faz o input preencher toda a altura do preview */
+  border: none;                           /* Remove bordas nativas do input de cor */
+  padding: 0;                             /* Remove espaçamentos internos nativos */
+  cursor: pointer;                        /* Mantém o cursor de clique */
+  background: none;                       /* Remove fundo padrão */
+  display: block;                         /* Exibe como elemento em bloco */
+  box-sizing: border-box;                 /* Cálculo seguro */
 }
 
-/* Ajuste para o campo de ajuda */
+/* Ajuste específico para o campo de texto de ajuda centralizado */
 .field-help.text-center {
-  display: block;
-  text-align: center;
-  margin-top: 0.25rem;
-  font-size: 0.75rem;
-  color: var(--text-light);
+  display: block;                         /* Comportamento de bloco para quebra de linha correta */
+  text-align: center;                     /* Centraliza o texto de ajuda horizontalmente */
+  margin-top: 0.25rem;                    /* Pequeno espaçamento superior */
+  font-size: 0.75rem;                     /* Tamanho de fonte bem pequeno e discreto para legendas */
+  color: var(--text-light);               /* Atribui cor de texto clara/suave baseada no tema */
+  width: 100%;                            /* Ocupa largura total */
+  box-sizing: border-box;                 /* Cálculo seguro */
+  overflow: hidden;                       /* Oculta excessos */
+  text-overflow: ellipsis;                /* Adiciona reticências se necessário */
+  white-space: nowrap;                    /* Evita quebras de linha */
+}
+
+/* ==========================================================================
+   === RESPONSIVIDADE PARA DIFERENTES DISPOSITIVOS E ORIENTAÇÕES ===
+   ========================================================================== */
+
+/* Ajustes para tablets e telas médias (largura máxima de 768px) */
+@media (max-width: 768px) {
+  .painel-preview-texto {
+    padding: 1.25rem !important;          /* Reduz levemente o espaçamento interno do painel em tablets */
+  }
+}
+
+/* Ajustes para smartphones e telas compactas (largura máxima de 520px) */
+@media (max-width: 520px) {
+  .escala-tonal-barra {
+    height: 40px;                         /* Ajusta discretamente a altura da barra em telas muito pequenas */
+  }
+
+  .painel-preview-texto {
+    padding: 1rem !important;             /* Compacta ainda mais o padding para economizar espaço horizontal/vertical */
+    gap: 0.75rem;                         /* Reduz o espaço entre os blocos de texto de teste */
+  }
+
+  .texto-teste {
+    font-size: 0.95rem;                   /* Reduz ligeiramente o tamanho da fonte para evitar estouro em mobile */
+  }
 }
