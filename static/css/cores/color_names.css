@@ -2,66 +2,122 @@
    === 07. CORES - 05. Nomes de Cores CSS (Color Names) ===
    ========================================================================== */
 
+/* 
+ * 1. WORKSPACE DE NOMES DE CORES
+ * Ajusta o container principal para ocupar o espaço ideal e garante respiro interno confortável.
+ */
 .workspace-nomes-cores {
-  max-width: 100% !important;
-  padding: 1rem 2rem !important;
+  max-width: 100% !important;             /* Permite largura fluida total para exibir a galeria de cores */
+  width: 100% !important;                 /* Ocupa 100% da largura disponível */
+  padding: 1rem 2rem !important;          /* Respiro interno equilibrado para a galeria */
+  box-sizing: border-box;                 /* Garante cálculo correto de dimensões */
+  min-width: 0;                           /* Previne overflow em containers flex/grid */
 }
 
+/* 
+ * 2. GRID DE CONTAINER DE CORES
+ * Grade responsiva e automatizada que organiza os cards de cores uniformemente na tela.
+ */
 .grid-cores-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 1rem;
-  width: 100%;
-  box-sizing: border-box;
+  display: grid;                          /* Ativa o modelo de grade */
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Cria colunas flexíveis de tamanho mínimo adaptável */
+  gap: 1rem;                              /* Espaçamento uniforme entre os cards */
+  width: 100%;                            /* Ocupa a largura total */
+  box-sizing: border-box;                 /* Inclui paddings e bordas no cálculo */
+  min-width: 0;                           /* Previne estouro horizontal */
 }
 
-/* Estilo do Retângulo/Card de Cor */
+/* 
+ * 3. CARD INDIVIDUAL DE NOME DE COR
+ * Bloco interativo que representa uma cor específica do catálogo com suporte a hover.
+ */
 .card-nome-cor {
-  background-color: var(--bg-main);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+  background-color: var(--bg-main);       /* Fundo adaptado ao tema atual */
+  border: 1px solid var(--border-color);  /* Borda sutil padronizada pelo sistema */
+  border-radius: var(--radius);           /* Arredondamento padrão */
+  overflow: hidden;                       /* Garante que o conteúdo interno respeite as bordas arredondadas */
+  display: flex;                          /* Organiza os elementos internos em coluna */
+  flex-direction: column;                 /* Direção vertical para preview e textos */
+  cursor: pointer;                        /* Cursor de clique para indicar interatividade */
+  transition: transform 0.2s ease, box-shadow 0.2s ease; /* Transição fluida para os efeitos visuais */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.02); /* Sombra inicial leve para profundidade sutil */
+  box-sizing: border-box;                 /* Cálculo consistente de caixa */
+  min-width: 0;                           /* Previne overflow */
 }
 
+/* Feedback visual ao passar o mouse sobre o card de cor */
 .card-nome-cor:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  transform: translateY(-3px);            /* Efeito elegante de levitação do card */
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);/* Acentua a sombra para dar sensação de destaque */
 }
 
-/* Área visual do preenchimento da cor */
+/* 
+ * 4. ÁREA VISUAL DE PREVIEW DA COR
+ * Faixa superior do card dedicada a exibir a cor real preenchida.
+ */
 .card-cor-preview {
-  width: 100%;
-  height: 80px;
-  border-bottom: 1px solid var(--border-color);
-  transition: opacity 0.15s ease;
+  width: 100%;                            /* Preenche toda a largura do card */
+  height: 80px;                           /* Altura fixa otimizada para visualização da cor */
+  border-bottom: 1px solid var(--border-color); /* Linha divisoria sutil entre a cor e as informações */
+  transition: opacity 0.15s ease;         /* Transição suave de opacidade */
+  box-sizing: border-box;                 /* Cálculo correto de dimensões */
+  min-width: 0;                           /* Previne overflow */
 }
 
-/* Informações de texto internas */
+/* 
+ * 5. INFORMAÇÕES DE TEXTO INTERNAS
+ * Bloco inferior do card que agrupa o nome da cor e seu respectivo código hexadecimal.
+ */
 .card-cor-info {
-  padding: 0.6rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  text-align: left;
+  padding: 0.6rem;                        /* Respiro interno confortável para os textos */
+  display: flex;                          /* Organiza os textos em coluna */
+  flex-direction: column;                 /* Direção vertical */
+  gap: 0.2rem;                            /* Espaçamento compacto entre o nome e o código */
+  text-align: left;                       /* Alinhamento base à esquerda */
+  box-sizing: border-box;                 /* Cálculo seguro de caixa */
+  min-width: 0;                           /* Previne overflow */
 }
 
+/* 
+ * 6. TÍTULO DO NOME DA COR
+ * Nome descritivo da cor CSS com truncamento para evitar quebras de layout.
+ */
+.card-nome-cor-titulo,
 .card-cor-titulo {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--text-main);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 0.9rem;                      /* Tamanho de fonte legível e compacto */
+  font-weight: 700;                       /* Negrito forte para destacar o nome da cor */
+  color: var(--text-main);                /* Cor principal adaptada ao tema */
+  white-space: nowrap;                    /* Impede quebra de linha indesejada */
+  overflow: hidden;                       /* Oculta excesso de texto */
+  text-overflow: ellipsis;                /* Adiciona reticências caso o nome seja muito longo */
+  min-width: 0;                           /* Previne overflow */
 }
 
+/* 
+ * 7. CÓDIGO HEXADECIMAL DA COR
+ * Exibição tipográfica em fonte monoespaciada do código HEX da cor.
+ */
 .card-cor-hex {
-  font-family: monospace;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--primary-color);
+  font-family: monospace;                 /* Usa fonte monoespaciada para exatidão numérica */
+  font-size: 0.8rem;                      /* Tamanho menor e discreto para o código */
+  font-weight: 600;                       /* Semi-negrito para boa legibilidade */
+  color: var(--primary-color);            /* Cor primária/destaque do tema */
+  white-space: nowrap;                    /* Evita quebras no código */
+  overflow: hidden;                       /* Oculta excesso */
+  text-overflow: ellipsis;                /* Reticências se exceder o espaço */
+  min-width: 0;                           /* Previne overflow */
+}
+
+/* Responsividade (Tablets e telas médias): Ajusta o padding para melhor aproveitamento */
+@media (max-width: 768px) {
+  .workspace-nomes-cores {
+    padding: 1rem !important;             /* Reduz o padding lateral em telas intermediárias */
+  }
+}
+
+/* Responsividade (Smartphones): Ajusta o minmax automático via grid e padding compacto */
+@media (max-width: 520px) {
+  .grid-cores-container {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* Reduz o tamanho mínimo do card para telas estreitas */
+  }
 }
