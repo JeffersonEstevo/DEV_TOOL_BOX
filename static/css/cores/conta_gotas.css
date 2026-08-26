@@ -2,213 +2,270 @@
    === 07. CORES - 02. Conta-Gotas de Imagens ===
    ========================================================================== */
 
+/* Workspace principal da ferramenta que define a largura máxima, espaçamento e centralização */
 .conta-gotas-workspace {
-    max-width: 600px !important;
-    width: 100% !important;
-    text-align: left !important;
-    padding: 2rem !important;
-    margin: 0 auto;
+  max-width: 600px !important;            /* Limita a largura máxima do painel para uma leitura confortável */
+  width: 100% !important;                 /* Garante que o painel ocupe toda a largura disponível até o limite */
+  text-align: left !important;            /* Alinha rigorosamente o texto base para a esquerda */
+  padding: 2rem !important;               /* Aplica um espaçamento interno confortável ao redor do painel */
+  margin: 0 auto;                         /* Centraliza horizontalmente o container na tela */
+  box-sizing: border-box;                 /* Inclui paddings e bordas no cálculo total de dimensões */
 }
 
-/* Upload e Botão */
+/* Seção do botão de upload centralizada com margem inferior para respiro */
 .upload-secao {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1.5rem;
+  display: flex;                          /* Ativa o modelo flexbox para organização interna */
+  justify-content: center;                /* Centraliza horizontalmente o botão de upload na tela */
+  margin-bottom: 1.5rem;                  /* Cria um espaço inferior para separar da área seguinte */
+  width: 100%;                            /* Ocupa largura total disponível */
+  box-sizing: border-box;                 /* Garante cálculo seguro de caixa */
 }
 
+/* Botão interativo para seleção de imagem */
 .btn-upload-foto {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    background-color: var(--primary-color, #4e73df);
-    color: #fff;
-    font-weight: 600;
-    border-radius: var(--radius, 6px);
-    cursor: pointer;
-    transition: background-color 0.2s ease, transform 0.1s ease;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  display: inline-flex;                   /* Utiliza flexbox inline para alinhar ícone e texto perfeitamente */
+  align-items: center;                    /* Alinha verticalmente ao centro os elementos internos do botão */
+  gap: 0.5rem;                            /* Define o espaçamento horizontal entre o ícone e o texto */
+  padding: 0.75rem 1.5rem;                /* Aplica espaçamento interno vertical e horizontal confortável */
+  background-color: var(--primary-color, #4e73df); /* Define a cor de fundo primária com fallback seguro */
+  color: #fff;                            /* Define a cor do texto como branco para contraste */
+  font-weight: 600;                       /* Aplica peso seminegrito para destaque adequado */
+  border-radius: var(--radius, 6px);      /* Arredonda as pontas utilizando a variável global do sistema */
+  cursor: pointer;                        /* Altera o cursor do mouse para indicador de clique */
+  transition: background-color 0.2s ease, transform 0.1s ease; /* Animações suaves para interatividade */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);   /* Adiciona uma sombra sutil de profundidade */
+  box-sizing: border-box;                 /* Cálculo seguro de dimensões */
 }
 
+/* Efeito de hover interativo no botão de upload */
 .btn-upload-foto:hover {
-    background-color: #3751a6;
-    transform: translateY(-1px);
+  background-color: #3751a6;              /* Escurece levemente a cor de fundo ao passar o mouse */
+  transform: translateY(-1px);            /* Desloca o botão discretamente para cima dando sensação de elevação */
 }
 
-/* Área da Imagem (Canvas) */
+/* Wrapper que agrupa o container do canvas e instruções associadas */
 .wrapper-canvas {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
+  display: flex;                          /* Ativa o modelo flexbox em coluna */
+  flex-direction: column;                 /* Empilha o canvas e as instruções verticalmente */
+  align-items: center;                    /* Centraliza os elementos filhos horizontalmente */
+  gap: 0.5rem;                            /* Define o espaço vertical entre o canvas e o texto de ajuda */
+  width: 100%;                            /* Ocupa largura total disponível */
+  box-sizing: border-box;                 /* Cálculo seguro de caixa */
 }
 
-/*
+/* Container responsivo que abriga o canvas da imagem */
 .canvas-container {
-    width: 100%;
-    max-height: 380px;
-    border: 2px dashed var(--border-color, #e3e6f0);
-    border-radius: var(--radius, 8px);
-    overflow: auto;
-    background-color: var(--bg-main, #f8f9fc);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}*/
-
-.canvas-container {
-    position: relative; /* Isso diz à lupa: "se posicione a partir dos meus limites" */
-    width: 100%;
-    height: 380px;
-    border: 2px dashed var(--border-color, #e3e6f0);
-    border-radius: var(--radius, 8px);
-    overflow: visible; /* Permite que a lupa saia um pouco das bordas se necessário */
-    background-color: var(--bg-main, #f8f9fc);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: relative;                     /* Define contexto de posicionamento relativo para a lupa flutuante absoluta */
+  width: 100%;                            /* Ocupa 100% da largura do container pai */
+  height: 380px;                          /* Define uma altura fixa padrão para a área de visualização da foto */
+  border: 2px dashed var(--border-color, #e3e6f0); /* Aplica uma borda tracejada elegante com variável e fallback */
+  border-radius: var(--radius, 8px);      /* Arredonda as pontas do container da imagem */
+  overflow: visible;                      /* Permite que elementos filhos absolutos (lupa) ultrapassem as bordas se necessário */
+  background-color: var(--bg-main, #f8f9fc); /* Define cor de fundo adaptável ao tema com fallback */
+  display: flex;                          /* Ativa flexbox para centralização da imagem interna */
+  justify-content: center;                /* Centraliza horizontalmente a imagem no container */
+  align-items: center;                    /* Centraliza verticalmente a imagem no container */
+  box-sizing: border-box;                 /* Garante cálculo consistente de dimensões */
 }
 
-/*
+/* Elemento canvas onde a imagem interativa é renderizada */
 #canvas-foto {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    cursor: crosshair; /* Mira de precisão 
-}*/
-
-#canvas-foto {
-    max-width: 100%;
-    max-height: 100%; /* Impede que a foto estoure a altura do container */
-    object-fit: contain; /* Mantém a proporção da imagem */
-    display: block;
-    cursor: crosshair;
+  max-width: 100%;                        /* Garante que a imagem nunca ultrapasse a largura do container */
+  max-height: 100%;                       /* Impede que a foto estoure a altura máxima permitida do container */
+  object-fit: contain;                    /* Mantém a proporção original da imagem sem distorções */
+  display: block;                         /* Remove espaços indesejados abaixo do elemento de bloco */
+  cursor: crosshair;                      /* Altera o cursor para mira de precisão milimétrica ao interagir */
 }
 
+/* Texto de instrução ou ajuda exibido próximo à área de imagem */
 .ajuda-instrucao {
-    font-size: 0.8rem;
-    color: var(--text-muted, #858796);
-    text-align: center;
+  font-size: 0.8rem;                      /* Define um tamanho de fonte compacto para a instrução */
+  color: var(--text-muted, #858796);      /* Atribui cor de texto secundária/suave com fallback */
+  text-align: center;                     /* Centraliza o texto de ajuda */
+  width: 100%;                            /* Ocupa largura total */
+  box-sizing: border-box;                 /* Cálculo seguro */
 }
 
+/* Divisor horizontal para separação visual entre seções da ferramenta */
 .divisor-ferramenta {
-    border: 0;
-    border-top: 1px solid var(--border-color, #e3e6f0);
-    margin: 1.5rem 0;
+  border: 0;                              /* Remove a borda padrão do elemento hr */
+  border-top: 1px solid var(--border-color, #e3e6f0); /* Aplica uma linha divisória superior sutil com fallback */
+  margin: 1.5rem 0;                       /* Define margens verticais para respiro adequado */
+  width: 100%;                            /* Ocupa largura total */
+  box-sizing: border-box;                 /* Cálculo seguro */
 }
 
-/* Exibição de Resultados */
+/* Seção principal que exibe o resultado da cor capturada */
 .visualizador-principal {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+  display: flex;                          /* Ativa o flexbox para alinhar a amostra de cor e os textos lado a lado */
+  align-items: center;                    /* Alinha verticalmente ao centro os elementos internos */
+  gap: 1rem;                              /* Define o espaçamento horizontal entre a caixa de cor e os textos */
+  margin-bottom: 1.5rem;                  /* Cria um espaço inferior para separar dos inputs de códigos */
+  width: 100%;                            /* Ocupa largura total */
+  box-sizing: border-box;                 /* Cálculo seguro */
 }
 
+/* Amostra visual estendida da cor atualmente selecionada */
 .caixa-cor-atual {
-    width: 60px;
-    height: 60px;
-    border-radius: var(--radius, 6px);
-    border: 2px solid var(--border-color, #e3e6f0);
-    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    background-color: #3498DB;
-    transition: background-color 0.15s ease;
+  width: 60px;                            /* Define a largura fixa para a amostra visual */
+  height: 60px;                           /* Define a altura fixa para a amostra visual */
+  border-radius: var(--radius, 6px);      /* Arredonda as pontas da amostra com variável e fallback */
+  border: 2px solid var(--border-color, #e3e6f0); /* Adiciona uma borda sutil de contorno com fallback */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);   /* Adiciona sombra leve para dar destaque à caixa de cor */
+  background-color: #3498DB;              /* Define uma cor de fundo inicial padrão */
+  transition: background-color 0.15s ease;/* Animação suave na alteração de cor */
+  flex-shrink: 0;                         /* Impede que o bloco seja comprimido em telas estreitas */
+  box-sizing: border-box;                 /* Cálculo seguro */
 }
 
+/* Bloco que agrupa os textos informativos da cor selecionada */
 .info-texto {
-    display: flex;
-    flex-direction: column;
+  display: flex;                          /* Ativa o flexbox em coluna */
+  flex-direction: column;                 /* Empilha a etiqueta e o código principal verticalmente */
+  overflow: hidden;                       /* Oculta excessos para manter o layout limpo */
+  box-sizing: border-box;                 /* Cálculo seguro */
+  min-width: 0;                           /* Previne overflow em containers flex */
 }
 
+/* Rótulo descritivo da cor */
 .label-cor {
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text-muted, #858796);
-    text-transform: uppercase;
+  font-size: 0.8rem;                      /* Define um tamanho compacto para o rótulo */
+  font-weight: 600;                       /* Aplica peso seminegrito para legibilidade */
+  color: var(--text-muted, #858796);      /* Atribui cor de texto secundária/suave com fallback */
+  text-transform: uppercase;              /* Transforma o texto em letras maiúsculas */
+  white-space: nowrap;                    /* Evita quebras de linha indesejadas */
+  overflow: hidden;                       /* Oculta excessos */
+  text-overflow: ellipsis;                /* Adiciona reticências se o texto exceder o espaço */
 }
 
+/* Código em destaque da cor atual */
 .codigo-destaque {
-    font-size: 1.4rem;
-    font-weight: 800;
-    font-family: monospace;
-    color: var(--text-main, #2e59d9);
+  font-size: 1.4rem;                      /* Define um tamanho de fonte grande e destacado para o código */
+  font-weight: 800;                       /* Aplica peso extra negrito para forte impacto visual */
+  font-family: monospace;                 /* Utiliza fonte monoespaciada para exatidão numérica exata */
+  color: var(--text-main, #2e59d9);       /* Atribui cor principal com fallback */
+  white-space: nowrap;                    /* Impede quebra de linha no código */
+  overflow: hidden;                       /* Oculta excessos laterais */
+  text-overflow: ellipsis;                /* Adiciona reticências se necessário */
 }
 
-/* Grid de Inputs */
+/* Grade empilhada que organiza os campos de valores textuais (HEX, RGB, etc.) */
 .valores-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  display: flex;                          /* Ativa flexbox em coluna */
+  flex-direction: column;                 /* Empilha os campos de inputs verticalmente */
+  gap: 1rem;                              /* Define espaçamento uniforme entre os campos */
+  width: 100%;                            /* Ocupa largura total */
+  box-sizing: border-box;                 /* Cálculo seguro */
 }
 
+/* Bloco individual de cada campo de valor */
 .campo-valor {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
+  display: flex;                          /* Ativa flexbox em coluna para o label e o input */
+  flex-direction: column;                 /* Empilha o rótulo acima do input correspondente */
+  gap: 0.35rem;                           /* Espaço reduzido entre o rótulo e o campo de texto */
+  width: 100%;                            /* Ocupa largura total */
+  box-sizing: border-box;                 /* Cálculo seguro */
 }
 
+/* Rótulo descritivo de cada campo de valor individual */
 .campo-valor label {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--text-main, #4e73df);
+  font-size: 0.8rem;                      /* Tamanho compacto para o rótulo do input */
+  font-weight: 700;                       /* Peso negrito para boa legibilidade */
+  color: var(--text-main, #4e73df);       /* Cor principal baseada no tema com fallback */
+  white-space: nowrap;                    /* Evita quebra de linha */
+  overflow: hidden;                       /* Oculta excessos */
+  text-overflow: ellipsis;                /* Reticências se necessário */
 }
 
+/* Campo de entrada de texto que exibe os códigos das cores copiadas */
 .campo-valor input[type="text"] {
-    width: 100%;
-    padding: 0.6rem;
-    font-size: 1rem;
-    font-weight: 700;
-    font-family: monospace;
-    background-color: var(--bg-main, #f8f9fc);
-    border: 1px solid var(--border-color, #e3e6f0);
-    color: var(--text-main, #5a5c69);
-    border-radius: var(--radius, 6px);
-    box-sizing: border-box;
-    outline: none;
+  width: 100%;                            /* Ocupa 100% da largura do container pai */
+  padding: 0.6rem;                        /* Respiro interno confortável para digitação/leitura */
+  font-size: 1rem;                        /* Tamanho de fonte padrão legível */
+  font-weight: 700;                       /* Peso em negrito para destacar os códigos */
+  font-family: monospace;                 /* Fonte monoespaciada para exatidão dos caracteres */
+  background-color: var(--bg-main, #f8f9fc); /* Fundo adaptado ao tema com fallback */
+  border: 1px solid var(--border-color, #e3e6f0); /* Borda sutil de contorno com fallback */
+  color: var(--text-main, #5a5c69);       /* Cor do texto principal com fallback */
+  border-radius: var(--radius, 6px);      /* Arredondamento padrão nas pontas */
+  box-sizing: border-box;                 /* Inclui padding e bordas no cálculo total de dimensões */
+  outline: none;                          /* Remove o contorno padrão agressivo do navegador */
 }
 
-
-
-
-
-
-
-/* Container da Lupa Flutuante */
+/* Container flutuante da lupa de zoom para precisão no conta-gotas */
 .lupa-zoom-container {
-    position: absolute;
-    width: 120px;
-    height: 120px;
-    border: 3px solid #ffffff;
-    border-radius: 50%; /* Lupa redonda clássica */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-    overflow: hidden;
-    pointer-events: none; /* Ignora eventos do mouse para não atrapalhar o cursor no canvas principal */
-    z-index: 1000;
-    background-color: #000000;
+  position: absolute;                     /* Posicionamento absoluto ancorado no .canvas-container */
+  width: 120px;                           /* Largura fixa da lupa circular */
+  height: 120px;                          /* Altura fixa da lupa circular */
+  border: 3px solid #ffffff;              /* Borda branca grossa para contraste visual marcante */
+  border-radius: 50%;                     /* Formato perfeitamente redondo (circular clássico) */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4); /* Sombra acentuada para destacar a lupa sobre a imagem */
+  overflow: hidden;                       /* Oculta qualquer conteúdo que escape dos limites circulares */
+  pointer-events: none;                   /* Desativa eventos de mouse na lupa para não interferir no canvas principal */
+  z-index: 1000;                          /* Garante que a lupa flutue sempre acima de todos os elementos da tela */
+  background-color: #000000;              /* Fundo preto de segurança para áreas sem imagem */
+  box-sizing: border-box;                 /* Cálculo seguro de caixa */
 }
 
-/* Canvas interno da Lupa que renderiza os quadradinhos de pixel */
+/* Canvas interno da lupa que renderiza os pixels ampliados */
 #canvas-lupa {
-    width: 100%;
-    height: 100%;
-    display: block;
-    image-rendering: pixelated; /* Crucial para mostrar os pixels quadradinhos e nítidos, sem desfoque */
-    image-rendering: crisp-edges;
+  width: 100%;                            /* Ocupa largura total do container da lupa */
+  height: 100%;                           /* Ocupa altura total do container da lupa */
+  display: block;                         /* Remove espaços vazios em bloco */
+  image-rendering: pixelated;             /* Crucial para exibir pixels nítidos e quadrados, sem desfoque */
+  image-rendering: crisp-edges;           /* Garante nitidez em navegadores alternativos */
 }
 
-/* Mira centralizada para precisão milimétrica */
+/* Mira centralizada dentro da lupa para precisão milimétrica na escolha do pixel */
 .lupa-mira-central {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 8px;
-    height: 8px;
-    transform: translate(-50%, -50%);
-    border: 2px solid #ffffff;
-    box-sizing: border-box;
-    pointer-events: none;
-    box-shadow: 0 0 4px rgba(0,0,0,0.8);
-    background-color: transparent;
+  position: absolute;                     /* Posicionamento absoluto centralizado na lupa */
+  top: 50%;                               /* Posiciona exatamente a 50% do topo */
+  left: 50%;                              /* Posiciona exatamente a 50% da esquerda */
+  width: 8px;                             /* Largura fixa pequena para a mira */
+  height: 8px;                            /* Altura fixa pequena para a mira */
+  transform: translate(-50%, -50%);       /* Centraliza perfeitamente no eixo X e Y exato */
+  border: 2px solid #ffffff;              /* Borda branca destacada para a mira */
+  box-sizing: border-box;                 /* Inclui bordas no cálculo de dimensões */
+  pointer-events: none;                   /* Ignora interações de mouse na mira */
+  box-shadow: 0 0 4px rgba(0,0,0,0.8);    /* Sombra escura ao redor da mira para contraste supremo */
+  background-color: transparent;          /* Fundo transparente no centro da mira */
+}
+
+/* ==========================================================================
+   === RESPONSIVIDADE PARA DIFERENTES DISPOSITIVOS E ORIENTAÇÕES ===
+   ========================================================================== */
+
+/* Ajustes para telas intermediárias e tablets (largura máxima de 768px) */
+@media (max-width: 768px) {
+  .conta-gotas-workspace {
+    padding: 1.25rem !important;          /* Reduz levemente o espaçamento interno do workspace */
+  }
+  
+  .canvas-container {
+    height: 300px;                        /* Reduz proporcionalmente a altura do canvas em tablets */
+  }
+}
+
+/* Ajustes para smartphones e telas compactas (largura máxima de 520px) */
+@media (max-width: 520px) {
+  .conta-gotas-workspace {
+    padding: 1rem !important;             /* Compacta ainda mais o padding para telas pequenas */
+  }
+
+  .canvas-container {
+    height: 240px;                        /* Ajusta a altura da área da imagem para melhor visualização em mobile */
+  }
+
+  .visualizador-principal {
+    gap: 0.75rem;                         /* Reduz o espaçamento entre a caixa de cor e os textos */
+  }
+
+  .caixa-cor-atual {
+    width: 50px;                          /* Reduz discretamente a amostra de cor para economizar espaço horizontal */
+    height: 50px;
+  }
+
+  .codigo-destaque {
+    font-size: 1.1rem;                    /* Ajusta o tamanho da fonte principal para evitar quebra em telas estreitas */
+  }
 }
