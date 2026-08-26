@@ -1,75 +1,203 @@
+/* Container que agrupa toda a seção de busca de trechos personalizados */
+.custom-terms-section {
+  margin-top: 1rem;                           /* Espaçamento superior para separar dos blocos acima */
+  background-color: var(--bg-sidebar);        /* Fundo alinhado ao padrão de cards globais */
+  border: 1px solid var(--border-color);      /* Borda sutil padronizada do sistema */
+  padding: 0.85rem;                           /* Respiro interno confortável */
+  border-radius: var(--radius);               /* Arredondamento padrão do sistema */
+  box-sizing: border-box;                     /* Garante integridade nas dimensões */
+}
+
+/* Rótulo descritivo da seção de termos personalizados */
+.custom-terms-label {
+  display: block;                             /* Faz o label ocupar sua própria linha */
+  font-size: 0.85rem;                         /* Tamanho de fonte compacto e legível */
+  font-weight: 600;                           /* Semi-negrito para destaque visual */
+  color: var(--text-main);                    /* Cor de texto principal do tema */
+  margin-bottom: 0.5rem;                      /* Espaço inferior entre o rótulo e o input */
+}
+
+/* Linha que alinha o input de texto e o botão de adicionar perfeitamente lado a lado */
+.custom-input-group {
+  display: flex;                              /* Organiza o input e o botão em linha */
+  gap: 0.5rem;                                /* Espaçamento compacto e constante entre eles */
+  width: 100%;                                /* Ocupa 100% da largura disponível */
+  box-sizing: border-box;                     /* Inclui bordas e paddings no cálculo de largura */
+}
+
+/* Input de texto para digitar o termo ou trecho customizado */
+.custom-input-group input[type="text"] {
+  background-color: var(--bg-main);           /* Fundo adaptável ao tema (claro/escuro) */
+  border: 1px solid var(--border-color);      /* Borda sutil padrão */
+  border-radius: var(--radius);               /* Arredondamento padrão das bordas */
+  padding: 0 0.75rem;                         /* Respiro interno horizontal */
+  height: 38px;                               /* Altura fixa padronizada para campos de ação */
+  font-size: 0.9rem;                          /* Tamanho de fonte legível para digitação */
+  color: var(--text-main);                    /* Cor do texto digitado */
+  flex: 1;                                    /* Faz o input expandir ocupando o espaço remanescente */
+  margin: 0 !important;                       /* Remove margens indesejadas herdadas */
+  box-sizing: border-box;                     /* Mantém a consistência do box model */
+}
+
+/* Botão de adicionar acoplado ao lado do input */
+.custom-input-group button {
+  height: 38px;                               /* Mesma altura exata do input para alinhamento perfeito */
+  padding: 0 1rem;                            /* Respiro horizontal adequado para o botão */
+  flex-shrink: 0;                             /* Impede que o botão diminua de tamanho */
+  margin: 0 !important;                       /* Remove margens indesejadas */
+}
+
+/* Container flexível que abriga as tags/pílulas dos termos já adicionados */
+.custom-tags-container {
+  display: flex;                              /* Organiza as tags em linha flexível */
+  flex-wrap: wrap;                            /* Quebra para a linha de baixo automaticamente se houver muitas tags */
+  gap: 0.4rem;                                /* Espaçamento compacto entre as tags */
+  margin-top: 0.75rem;                        /* Respiro superior separando do input */
+}
+
+/* Estilo visual individual de cada tag (pílula) de termo personalizado */
+.custom-tag-item {
+  background-color: var(--accent-light);      /* Fundo suave baseado na cor de destaque */
+  border: 1px solid var(--border-color);      /* Borda sutil de contorno */
+  color: var(--primary-color);                /* Cor do texto principal da tag */
+  padding: 0.25rem 0.5rem;                    /* Respiro interno compacto */
+  border-radius: var(--radius);               /* Arredondamento padrão */
+  font-size: 0.85rem;                         /* Fonte menor adequada para pílulas */
+  display: inline-flex;                       /* Alinhamento flexível inline */
+  align-items: center;                        /* Centraliza os itens verticalmente na tag */
+  gap: 0.4rem;                                /* Espaço entre o texto e o botão de fechar */
+  box-sizing: border-box;
+}
+
+/* Botão de remoção (×) localizado dentro de cada tag */
+.custom-tag-item button {
+  background: none;                           /* Remove o fundo padrão do botão */
+  border: none;                               /* Remove bordas */
+  cursor: pointer;                            /* Altera o cursor para o formato de clique */
+  font-weight: bold;                          /* Deixa o símbolo '×' em negrito */
+  color: var(--primary-color);                /* Cor padronizada herdada */
+  padding: 0;                                 /* Remove paddings internos */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;                /* Transição suave de cor */
+}
+
+/* Efeito de hover no botão de exclusão da tag */
+.custom-tag-item button:hover {
+  color: #e53e3e;                             /* Altera para vermelho de alerta ao passar o mouse */
+}
+
 /* ==========================================================================
-   === 01. TEXTO - 08. Frequência de Palavras ===
+   === LISTA DE RESULTADOS DE FREQUÊNCIA ===
    ========================================================================== */
 
-/* Container principal da lista de frequência com rolagem suave interna */
+/* Container principal com rolagem suave e fundo escurecido para as palavras repetidas */
 .freq-words-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  max-height: 400px;
-  overflow-y: auto;
-  min-width: 0;
-  scroll-behavior: smooth;
-  will-change: scroll-position;
-}
-
-/* Linha individual para cada palavra e sua contagem */
-.freq-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 0.75rem;
-  background-color: var(--bg-main);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  font-size: 0.9rem;
+  display: flex;                              /* Organiza os itens em estrutura flexível */
+  flex-direction: column;                     /* Direção vertical em coluna */
+  gap: 0.35rem;                               /* Espaçamento mínimo e consistente entre uma palavra e outra */
+  background-color: var(--bg-sidebar);        /* Fundo ligeiramente mais escuro para destacar o bloco */
+  border: 1px solid var(--border-color);      /* Borda sutil de delimitação */
+  border-radius: var(--radius);               /* Arredondamento padrão */
+  padding: 0.75rem;                           /* Respiro interno ao redor da listagem */
+  max-height: 400px;                          /* Altura máxima para ativar o scroll vertical */
+  overflow-y: auto;                           /* Rolagem automática vertical */
+  min-width: 0;                               /* Previne estouros de layout */
+  scroll-behavior: smooth;                    /* Comportamento de rolagem suave */
   box-sizing: border-box;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
+/* Linha individual que abriga cada palavra e sua contagem correspondente */
+.freq-row {
+  display: flex;                              /* Alinha o nome e o badge em linha */
+  justify-content: space-between;             /* Joga o nome para a esquerda e o badge para a direita */
+  align-items: center;                        /* Centraliza verticalmente */
+  padding: 0.45rem 0.65rem;                   /* Respiro interno compacto da linha */
+  background-color: var(--bg-main);           /* Fundo da linha contrastando com o fundo do container */
+  border: 1px solid var(--border-color);      /* Borda sutil delimitadora */
+  border-radius: var(--radius);               /* Arredondamento padrão */
+  font-size: 0.9rem;                          /* Tamanho de fonte legível */
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;         /* Transição suave para o efeito de hover */
+}
+
+/* Efeito de destaque na linha ao passar o mouse */
 .freq-row:hover {
-  border-color: var(--accent);
+  border-color: var(--accent);                /* Altera a cor da borda para o destaque global */
 }
 
-/* Nome da palavra: gerencia quebras corretas em palavras longas */
+/* Nome da palavra exibida na listagem */
 .freq-word-name {
-  font-weight: 600;
-  color: var(--text-main);
-  word-break: break-word;
-  overflow-wrap: break-word;
-  padding-right: 0.5rem;
+  font-weight: 600;                           /* Semi-negrito para destaque */
+  color: var(--text-main);                    /* Cor principal do texto */
+  word-break: break-word;                     /* Quebra palavras longas corretamente */
+  overflow-wrap: break-word;                  /* Compatibilidade extra para quebra de texto */
+  padding-right: 0.5rem;                      /* Espaço entre o nome e o badge numérico */
   min-width: 0;
-  flex: 1;
+  flex: 1;                                    /* Ocupa o espaço remanescente */
 }
 
-/* Badge (etiqueta) de contagem numérica */
+/* Badge (pílula) numérica que mostra quantas vezes a palavra se repete */
 .freq-badge {
-  background-color: var(--accent-light);
-  color: var(--accent);
-  font-weight: 700;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-  font-size: 0.8rem;
-  white-space: nowrap;
-  flex-shrink: 0;
+  background-color: var(--accent-light);      /* Fundo translúcido baseado no tema de destaque */
+  color: var(--accent);                       /* Cor em destaque (tom roxo/primário) */
+  font-weight: 700;                           /* Número em forte negrito */
+  padding: 0.2rem 0.5rem;                     /* Respiro interno do selo */
+  border-radius: 4px;                         /* Arredondamento sutil do badge */
+  font-size: 0.8rem;                          /* Fonte menor para equilibrar */
+  white-space: nowrap;                        /* Impede que o número quebre de linha */
+  flex-shrink: 0;                             /* Impede o encolhimento da pílula */
 }
 
-/* Estado vazio quando nenhuma palavra foi processada */
+/* Mensagem de estado vazio (quando o campo de texto está limpo) */
 .empty-state {
-  color: var(--text-muted);
-  font-size: 0.9rem;
-  font-style: italic;
-  text-align: center;
-  padding: 1rem 0;
+  color: var(--text-muted);                   /* Cor de texto atenuada/suave */
+  font-size: 0.9rem;                          /* Tamanho padrão de leitura */
+  font-style: italic;                         /* Estilo itálico para diferenciar mensagens */
+  text-align: center;                         /* Centralizado no bloco */
+  padding: 1rem 0;                            /* Espaçamento vertical interno */
+  margin: 0;
 }
 
-/* Ajustes finos de responsividade para smartphones compactos */
-@media (max-width: 480px) {
+/* Divisor opcional entre seções (caso utilize separação de trechos e palavras) */
+.freq-divider {
+  margin: 12px 0;
+  border: none;
+  border-top: 1px solid var(--border-color);
+}
+
+/* Títulos internos para separar seções de resultados */
+.freq-section-title {
+  font-weight: 700;
+  margin-bottom: 8px;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   === RESPONSIVIDADE (PADRÃO GLOBAL) ===
+   ========================================================================== */
+
+/* Ajustes automáticos para telas estreitas (smartphones) */
+@media (max-width: 520px) {
+  /* Reduz a altura máxima da caixa de resultados no mobile */
   .freq-words-container {
     max-height: 280px;
+    padding: 0.5rem;
+  }
+  
+  /* Empilha o input de termo personalizado e o botão verticalmente em telas muito apertadas */
+  .custom-input-group {
+    flex-direction: column;
   }
 
+  /* Faz o botão ocupar 100% da largura quando empilhado no mobile */
+  .custom-input-group button {
+    width: 100%;
+  }
+
+  /* Compacta as linhas de resultado para otimizar espaço */
   .freq-row {
     padding: 0.4rem 0.6rem;
     font-size: 0.85rem;
@@ -78,5 +206,12 @@
   .freq-badge {
     font-size: 0.75rem;
     padding: 0.15rem 0.4rem;
+  }
+}
+
+/* Ajustes finos para telas horizontais curtas (ex: celulares na horizontal) */
+@media (max-height: 600px) and (orientation: landscape) {
+  .freq-words-container {
+    max-height: 160px;
   }
 }

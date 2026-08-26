@@ -4,10 +4,27 @@
         <p>Identifique quais palavras aparecem mais vezes no seu texto em tempo real.</p>
     </header>
 
-    <div class="tool-grid grid-counter">
+    <div class="tool-grid">
         <div class="field-group">
-            <label for="original-text ">Texto:</label>
+            <label for="original-text">Texto:</label>
             <textarea id="original-text" rows="12" placeholder="Digite ou cole seu texto aqui para analisar a frequência..."></textarea>
+            
+            <!-- Bloco de termos personalizados -->
+            <div class="custom-terms-card">
+                <label for="custom-term-input" class="custom-terms-label">Buscar trechos específicos:</label>
+                <div class="custom-input-group">
+                    <input type="text" id="custom-term-input" placeholder="Ex: termo específico">
+                    <button id="add-term-btn" type="button" class="btn btn-primary">Adicionar</button>
+                </div>
+                
+                <!-- Checkbox para considerar maiúsculas e minúsculas -->
+                <div class="custom-checkbox-group">
+                    <input type="checkbox" id="match-case-checkbox">
+                    <label for="match-case-checkbox">Considerar maiúsculas/minúsculas (Case-sensitive)</label>
+                </div>
+
+                <div id="custom-tags-container" class="custom-tags-container"></div>
+            </div>
         </div>
 
         <div class="result-card metrics-card">

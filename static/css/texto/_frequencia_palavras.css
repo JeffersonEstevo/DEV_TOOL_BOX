@@ -1,0 +1,82 @@
+/* ==========================================================================
+   === 01. TEXTO - 08. Frequência de Palavras ===
+   ========================================================================== */
+
+/* Container principal da lista de frequência com rolagem suave interna */
+.freq-words-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 400px;
+  overflow-y: auto;
+  min-width: 0;
+  scroll-behavior: smooth;
+  will-change: scroll-position;
+}
+
+/* Linha individual para cada palavra e sua contagem */
+.freq-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  background-color: var(--bg-main);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  box-sizing: border-box;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.freq-row:hover {
+  border-color: var(--accent);
+}
+
+/* Nome da palavra: gerencia quebras corretas em palavras longas */
+.freq-word-name {
+  font-weight: 600;
+  color: var(--text-main);
+  word-break: break-word;
+  overflow-wrap: break-word;
+  padding-right: 0.5rem;
+  min-width: 0;
+  flex: 1;
+}
+
+/* Badge (etiqueta) de contagem numérica */
+.freq-badge {
+  background-color: var(--accent-light);
+  color: var(--accent);
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Estado vazio quando nenhuma palavra foi processada */
+.empty-state {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-style: italic;
+  text-align: center;
+  padding: 1rem 0;
+}
+
+/* Ajustes finos de responsividade para smartphones compactos */
+@media (max-width: 480px) {
+  .freq-words-container {
+    max-height: 280px;
+  }
+
+  .freq-row {
+    padding: 0.4rem 0.6rem;
+    font-size: 0.85rem;
+  }
+
+  .freq-badge {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.4rem;
+  }
+}
