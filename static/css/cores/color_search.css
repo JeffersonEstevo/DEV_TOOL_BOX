@@ -2,164 +2,250 @@
    === 07. CORES - 06. Pesquisa de Cores (Color Search) ===
    ========================================================================== */
 
+/* Workspace específico da ferramenta */
 .tool-container .search-workspace {
-  max-width: 700px !important;
-  width: 100% !important;
-  text-align: left !important;
-  padding: 2rem !important;
-  margin: 0 auto;
+  max-width: 700px !important;            /* Limita a largura máxima do painel principal para manter a legibilidade */
+  width: 100% !important;                 /* Garante que o painel ocupe toda a largura disponível até o limite */
+  text-align: left !important;            /* Força o alinhamento base do conteúdo interno para a esquerda */
+  padding: 2rem !important;               /* Define um espaçamento interno confortável ao redor do painel */
+  margin: 0 auto;                         /* Centraliza horizontalmente o painel dentro do container pai */
+  box-sizing: border-box;                 /* Inclui padding e bordas no cálculo de dimensões */
 }
 
-/* Input de Pesquisa */
+/* Alinha perfeitamente o input de texto e o seletor visual nativo na mesma linha */
 .search-bar-container {
-  margin-bottom: 1.5rem;
+  display: flex;                          /* Ativa o modelo flexbox para alinhar os elementos filhos em linha */
+  align-items: center;                    /* Alinha verticalmente ao centro todos os itens da barra */
+  gap: 10px;                              /* Define o espaçamento horizontal uniforme entre o input e o seletor */
+  margin-bottom: 1.5rem;                  /* Cria um respiro na parte inferior para separar da área de detalhes */
+  width: 100%;                            /* Ocupa largura total disponível */
+  box-sizing: border-box;                 /* Cálculo consistente de caixa */
 }
 
+/* Wrapper do input de busca preenchendo o espaço disponível */
 .search-input-wrapper {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    width: 100%;
+  position: relative;                     /* Estabelece um contexto de posicionamento para o ícone absoluto interno */
+  display: inline-flex;                   /* Utiliza flexbox inline para o comportamento do wrapper */
+  align-items: center;                    /* Alinha verticalmente ao centro o conteúdo interno do wrapper */
+  flex: 1;                                /* Permite que o wrapper cresça ocupando todo o espaço restante ao lado do seletor */
+  width: 100%;                            /* Garante largura total de base para o wrapper */
+  box-sizing: border-box;                 /* Cálculo seguro de dimensões */
 }
 
+/* Ícone de lupa posicionado dentro do input */
 .search-input-wrapper i {
-    position: absolute;
-    left: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-muted, #6c757d);
-    font-size: 1rem;
-    pointer-events: none;
-    line-height: 1;
+  position: absolute;                     /* Posiciona o ícone de forma absoluta em relação ao wrapper */
+  left: 14px;                             /* Distância fixa a partir da borda esquerda do input */
+  top: 50%;                               /* Posiciona o ícone exatamente na metade da altura do container */
+  transform: translateY(-50%);            /* Desloca o ícone 50% para cima, garantindo centralização vertical perfeita */
+  color: var(--text-muted, #6c757d);      /* Define a cor do ícone usando variável de tema com fallback seguro */
+  font-size: 1rem;                        /* Define o tamanho padrão da fonte do ícone */
+  pointer-events: none;                   /* Ignora eventos de mouse no ícone para permitir o clique direto no input */
 }
 
+/* Input de texto da busca (altura exata de 45px alinhada perfeitamente ao seletor nativo) */
 .search-input-wrapper input {
-    width: 100%;
-    height: 42px;
-    padding: 0 14px 0 40px;
-    margin: 0;
-    font-size: 0.95rem;
-    background-color: var(--bg-main);
-    border: 1px solid var(--border-color);
-    color: var(--text-main);
-    border-radius: var(--radius);
-    box-sizing: border-box;
-    outline: none;
+  width: 100%;                            /* Faz o campo de texto ocupar 100% da largura do seu wrapper */
+  height: 45px;                           /* Define uma altura fixa de 45px, igualando-se exatamente ao seletor visual */
+  padding: 0 14px 0 40px;                 /* Aplica padding interno (espaço à esquerda maior para acomodar o ícone) */
+  margin: 0;                              /* Remove quaisquer margens predefinidas pelo navegador */
+  font-size: 0.95rem;                     /* Define o tamanho da fonte para a digitação do usuário */
+  background-color: var(--bg-main);       /* Define a cor de fundo utilizando a variável global do tema atual */
+  border: 1px solid var(--border-color);  /* Aplica a borda sutil padrão definida pelo sistema global */
+  color: var(--text-main);                /* Define a cor do texto digitado baseada no tema */
+  border-radius: var(--radius);           /* Aplica o raio de arredondamento padrão do projeto */
+  box-sizing: border-box;                 /* Inclui paddings e bordas no cálculo total de largura e altura */
+  outline: none;                          /* Remove o contorno padrão agressivo dos navegadores */
 }
 
+/* Feedback visual de foco no input de busca */
 .search-input-wrapper input:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.15);
+  border-color: var(--primary-color);     /* Altera a cor da borda para o tom primário/destaque ao focar */
+  box-shadow: 0 0 0 3px rgba(78, 115, 223, 0.15); /* Adiciona um anel de brilho suave ao redor do input focado */
 }
 
-/* Card de Detalhe da Cor Selecionada */
+/* Seletor visual nativo integrado (mantido no tamanho padrão original do navegador) */
+#picker-busca-nativo {
+  border: 1px solid var(--border-color) !important; /* Aplica a borda sutil padrão do sistema */
+  border-radius: var(--radius) !important;/* Arredondamento padrão do projeto nas pontas */
+  cursor: pointer;                        /* Altera o cursor para o formato de clique indicando interatividade */
+  background: var(--bg-main) !important;  /* Define o fundo adaptado ao tema atual */
+  padding: 2px !important;                /* Respiro interno padrão do seletor */
+  margin: 0 !important;                   /* Remove margens indesejadas */
+  box-sizing: border-box !important;      /* Garante cálculo de caixa consistente */
+  flex-shrink: 0;                         /* Impede que o seletor seja comprimido pelo flexbox */
+}
+
+/* Feedback visual ao focar ou passar o mouse no seletor nativo */
+#picker-busca-nativo:hover,
+#picker-busca-nativo:focus {
+  border-color: var(--primary-color) !important; /* Destaca a borda com a cor primária */
+  outline: none;                                 /* Remove o contorno padrão do navegador */
+}
+
+/* Card de detalhes da cor selecionada */
 .detalhe-cor-card {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-  padding: 1rem;
-  background-color: var(--bg-sidebar, #f8f9fc);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  margin-bottom: 1.5rem;
+  display: flex;                          /* Ativa o layout flexbox para alinhar a amostra de cor e os textos */
+  align-items: center;                    /* Alinha verticalmente ao centro os elementos internos do card */
+  gap: 1.2rem;                            /* Define o espaçamento entre a caixa de preview e o bloco de texto */
+  padding: 1rem;                          /* Aplica um respiro interno confortável ao redor do card */
+  background-color: var(--bg-sidebar, #f8f9fc); /* Define o fundo adaptado ao painel lateral com fallback */
+  border: 1px solid var(--border-color);  /* Aplica a borda sutil padrão do sistema */
+  border-radius: var(--radius);           /* Arredonda as pontas do card com o raio padrão */
+  margin-bottom: 1.5rem;                  /* Cria um espaçamento inferior para separar da grade de resultados */
+  box-sizing: border-box;                 /* Cálculo seguro de caixa */
 }
 
+/* Caixa de preview da cor nos detalhes */
 .preview-busca-caixa {
-  width: 60px;
-  height: 60px;
-  border-radius: var(--radius);
-  border: 2px solid var(--border-color);
-  flex-shrink: 0;
+  width: 60px;                            /* Define a largura fixa para a amostra visual de detalhes */
+  height: 60px;                           /* Define a altura fixa para a amostra visual de detalhes */
+  border-radius: var(--radius);           /* Aplica o arredondamento padrão nas bordas do preview */
+  border: 2px solid var(--border-color);  /* Adiciona uma borda visível de contorno */
+  flex-shrink: 0;                         /* Impede que o bloco de preview seja comprimido pelo flexbox */
+  box-sizing: border-box;                 /* Cálculo seguro de caixa */
 }
 
+/* Bloco de informações textuais do card de detalhes */
 .detalhe-cor-info {
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
+  display: flex;                          /* Organiza as informações internas em layout flexível */
+  flex-direction: column;                 /* Define a direção empilhada em coluna para os textos */
+  gap: 0.3rem;                            /* Espaçamento vertical compacto entre o título e os badges */
+  box-sizing: border-box;                 /* Cálculo seguro */
+  min-width: 0;                           /* Previne estouro horizontal */
 }
 
+/* Título de nome da cor */
 .detalhe-cor-info h3 {
-  margin: 0;
-  font-size: 1.1rem;
-  color: var(--text-main);
+  margin: 0;                              /* Remove as margens padrão do cabeçalho h3 */
+  font-size: 1.1rem;                      /* Define um tamanho de fonte destacado para o nome da cor */
+  color: var(--text-main);                /* Atribui a cor principal do texto baseada no tema */
+  white-space: nowrap;                    /* Evita quebras indesejadas */
+  overflow: hidden;                       /* Oculta excesso */
+  text-overflow: ellipsis;                /* Reticências se exceder o espaço */
 }
 
+/* Badge indicadora de códigos */
 .codigo-badge {
-  font-size: 0.85rem;
-  font-family: monospace;
-  background: var(--bg-main);
-  padding: 0.1rem 0.4rem;
-  border-radius: 4px;
-  border: 1px solid var(--border-color);
-  display: inline-block;
-  width: fit-content;
+  font-size: 0.85rem;                     /* Define um tamanho menor e compacto para o texto do código */
+  font-family: monospace;                 /* Utiliza fonte monoespaciada para legibilidade exata dos códigos */
+  background: var(--bg-main);             /* Define o fundo do badge usando a cor principal da aplicação */
+  padding: 0.1rem 0.4rem;                 /* Aplica um respiro interno reduzido ao redor do texto */
+  border-radius: 4px;                     /* Arredondamento sutil para o elemento de badge */
+  border: 1px solid var(--border-color);  /* Adiciona uma borda discreta de contorno */
+  display: inline-block;                  /* Define o comportamento em linha adaptável ao conteúdo */
+  width: fit-content;                     /* Ajusta a largura estritamente ao tamanho do texto interno */
+  box-sizing: border-box;                 /* Cálculo seguro */
+  white-space: nowrap;                    /* Impede quebra de linha */
+  overflow: hidden;                       /* Oculta excesso */
+  text-overflow: ellipsis;                /* Reticências se necessário */
 }
 
-/* Seção de Resultados / Grade */
+/* Seção contendo a grade de resultados */
 .resultados-busca-section {
-  display: flex;
-  flex-direction: column;
-  gap: 0.8rem;
+  display: flex;                          /* Organiza os elementos internos em modelo flexbox */
+  flex-direction: column;                 /* Empilha o cabeçalho dos resultados e a grade verticalmente */
+  gap: 0.8rem;                            /* Define o espaço entre o cabeçalho descritivo e a grade de cores */
+  width: 100%;                            /* Ocupa largura total */
+  box-sizing: border-box;                 /* Cálculo seguro de caixa */
 }
 
+/* Cabeçalho da seção de resultados */
 .resultados-header {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-muted, #6c757d);
+  font-size: 0.85rem;                     /* Define um tamanho de fonte compacto para a legenda */
+  font-weight: 600;                       /* Aplica peso seminegrito para destacar o rótulo do cabeçalho */
+  color: var(--text-muted, #6c757d);      /* Atribui a cor de texto secundária/suave com fallback */
+  white-space: nowrap;                    /* Evita quebras de linha */
+  overflow: hidden;                       /* Oculta excesso */
+  text-overflow: ellipsis;                /* Reticências se necessário */
+  box-sizing: border-box;                 /* Cálculo seguro */
 }
 
+/* Grade responsiva de cores encontradas */
 .resultados-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-  gap: 12px;
-  max-height: 400px;
-  overflow-y: auto;
-  padding: 4px;
+  display: grid;                          /* Ativa o layout em grade (grid) para organizar os cards de cores */
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); /* Cria colunas flexíveis automáticas de tamanho mínimo */
+  gap: 12px;                              /* Define o espaçamento uniforme entre os cards da grade */
+  max-height: 400px;                      /* Limita a altura máxima da grade para evitar poluição visual */
+  overflow-y: auto;                       /* Ativa a rolagem vertical caso o número de resultados exceda a altura */
+  padding: 4px;                           /* Aplica um pequeno respiro interno para evitar corte de sombras */
+  width: 100%;                            /* Ocupa largura total */
+  box-sizing: border-box;                 /* Cálculo consistente de caixa */
 }
 
+/* Card individual dentro da grade de resultados */
 .cor-resultado-card {
-  background-color: var(--bg-sidebar, #f8f9fc);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  padding: 8px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  background-color: var(--bg-sidebar, #f8f9fc); /* Define o fundo do card com base na barra lateral/tema com fallback */
+  border: 1px solid var(--border-color);  /* Adiciona uma borda sutil de contorno padrão */
+  border-radius: var(--radius);           /* Aplica o arredondamento padrão do projeto nas pontas do card */
+  padding: 8px;                           /* Define o respiro interno compacto do card de resultado */
+  cursor: pointer;                        /* Altera o cursor para o formato de clique indicando interatividade */
+  display: flex;                          /* Ativa o flexbox para organizar a amostra de cor e o texto em coluna */
+  flex-direction: column;                 /* Empilha a amostra de cor sobre o bloco de texto interno */
+  gap: 6px;                               /* Define o espaçamento entre o bloco visual de cor e os textos */
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease; /* Animações suaves */
+  box-sizing: border-box;                 /* Cálculo seguro de dimensões */
+  min-width: 0;                           /* Previne overflow */
 }
 
+/* Efeito de hover no card de resultado */
 .cor-resultado-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  border-color: var(--primary-color);
+  transform: translateY(-2px);            /* Desloca o card levemente para cima dando sensação de elevação */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08); /* Adiciona uma sombra suave para destacar o card selecionado */
+  border-color: var(--primary-color);     /* Altera a cor da borda para o tom primário de destaque */
 }
 
+/* Amostra visual de cor (swatch) do card */
 .cor-resultado-swatch {
-  width: 100%;
-  height: 35px;
-  border-radius: 4px;
-  border: 1px solid rgba(0,0,0,0.1);
+  width: 100%;                            /* Faz a amostra preencher 100% da largura do card pai */
+  height: 35px;                           /* Define uma altura fixa otimizada para o card de resultado */
+  border-radius: 4px;                     /* Aplica arredondamento leve nas bordas da amostra */
+  border: 1px solid rgba(0,0,0,0.1);      /* Adiciona uma borda discreta para contraste em cores claras */
+  box-sizing: border-box;                 /* Cálculo seguro de caixa */
 }
 
+/* Bloco de texto do card de resultado */
 .cor-resultado-texto {
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
+  display: flex;                          /* Organiza os textos do card em formato flexível */
+  flex-direction: column;                 /* Empilha o nome da cor e o código hexadecimal em coluna */
+  overflow: hidden;                       /* Oculta qualquer conteúdo que ultrapasse os limites laterais */
+  box-sizing: border-box;                 /* Cálculo seguro */
 }
 
+/* Nome da cor no resultado */
 .cor-resultado-nome {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-main);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 0.8rem;                      /* Define um tamanho de fonte compacto para o nome da cor */
+  font-weight: 600;                       /* Aplica peso seminegrito para legibilidade adequada */
+  color: var(--text-main);                /* Atribui a cor de texto principal baseada no tema */
+  white-space: nowrap;                    /* Impede que o nome da cor quebre em várias linhas */
+  overflow: hidden;                       /* Oculta excessos caso o texto seja maior que o card */
+  text-overflow: ellipsis;                /* Adiciona reticências (...) caso o texto seja cortado */
 }
 
+/* Código HEX no resultado */
 .cor-resultado-hex {
-  font-size: 0.75rem;
-  font-family: monospace;
-  color: var(--text-muted, #6c757d);
+  font-size: 0.75rem;                     /* Define um tamanho de fonte menor e discreto para o código */
+  font-family: monospace;                 /* Utiliza fonte monoespaciada para exatidão numérica do código */
+  color: var(--text-muted, #6c757d);      /* Atribui a cor de texto secundária/suave com fallback */
+  white-space: nowrap;                    /* Impede quebra de linha no código */
+  overflow: hidden;                       /* Oculta excessos laterais */
+  text-overflow: ellipsis;                /* Adiciona reticências caso o código exceda o espaço */
+}
+
+/* ==========================================================================
+   === RESPONSIVIDADE PARA DIFERENTES DISPOSITIVOS ===
+   ========================================================================== */
+
+/* Ajustes para tablets e telas médias (máximo de 768px de largura) */
+@media (max-width: 768px) {
+  .tool-container .search-workspace {
+    padding: 1.25rem !important;          /* Reduz levemente o espaçamento interno do workspace principal */
+  }
+}
+
+/* Ajustes para smartphones e telas compactas (máximo de 520px de largura) */
+@media (max-width: 520px) {
+  .resultados-grid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); /* Reduz o tamanho mínimo das colunas dos cards para caber melhor em telas estreitas */
+  }
 }
