@@ -2,90 +2,150 @@
    === 07. CORES - 01. Seletor de Cores ===
    ========================================================================== */
 
+/* 
+ * 1. CONTAINER PRINCIPAL (WORKSPACE)
+ * Limita a largura do workspace do seletor de cores para uma leitura e uso confortáveis.
+ */
 .tool-container .cores-workspace {
-  max-width: 550px !important;
-  width: 100% !important;
-  text-align: left !important;
-  padding: 2rem !important;
-  margin: 0 auto;
+  max-width: 550px !important;            /* Define a largura máxima otimizada para o seletor */
+  width: 100% !important;                 /* Ocupa a largura total disponível */
+  text-align: left !important;            /* Alinhamento base dos elementos à esquerda */
+  padding: 2rem !important;               /* Respiro interno confortável para o card */
+  margin: 0 auto;                         /* Centraliza horizontalmente na tela */
+  box-sizing: border-box;                 /* Inclui o padding no cálculo das dimensões */
+  min-width: 0;                           /* Previne overflow em containers flex */
 }
 
-/* Container do Visualizador */
+/* 
+ * 2. CONTAINER DO VISUALIZADOR DE COR
+ * Organiza verticalmente e centraliza a caixa de visualização e preview da cor selecionada.
+ */
 .picker-topo-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 2rem;
+  display: flex;                          /* Ativa o modelo flexbox */
+  flex-direction: column;                 /* Direção vertical para os itens */
+  align-items: center;                    /* Centraliza horizontalmente os elementos */
+  justify-content: center;                /* Centraliza verticalmente */
+  margin-bottom: 2rem;                    /* Espaço inferior para separar o preview dos campos de texto */
+  width: 100%;                            /* Ocupa largura total */
+  box-sizing: border-box;                 /* Cálculo consistente de caixa */
+  min-width: 0;                           /* Previne estouro horizontal */
 }
 
+/* 
+ * 3. CAIXA DE PREVIEW DA COR
+ * Bloco visual interativo que exibe a cor selecionada com bordas arredondadas e sombra suave.
+ */
 .preview-caixa {
-  width: 120px;
-  height: 120px;
-  border-radius: var(--radius);
-  border: 3px solid var(--border-color);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.2s ease;
+  width: 120px;                           /* Largura fixa da amostra visual */
+  height: 120px;                          /* Altura fixa da amostra visual */
+  border-radius: var(--radius);           /* Arredondamento padrão do sistema */
+  border: 3px solid var(--border-color);  /* Borda destacada de contorno */
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Sombra elegante para dar efeito de profundidade */
+  position: relative;                     /* Posicionamento relativo para aninhar o input nativo */
+  overflow: hidden;                       /* Oculta excessos que ultrapassem os limites da borda */
+  transition: transform 0.2s ease;        /* Transição suave para efeitos de hover */
+  box-sizing: border-box;                 /* Cálculo seguro de dimensões */
+  flex-shrink: 0;                         /* Impede que o preview seja comprimido */
 }
 
+/* Feedback visual de ampliação ao passar o mouse sobre o preview */
 .preview-caixa:hover {
-  transform: scale(1.03);
+  transform: scale(1.03);                 /* Leve zoom para indicar interatividade */
 }
 
-/* Esconde o botão feio nativo do input e expande ele por toda a caixa */
+/* 
+ * 4. INPUT DE COR NATIVO OCULTO/EXPANDIDO
+ * Oculta o botão padrão do navegador expandindo-o por toda a área da caixa de preview para clique direto.
+ */
 #picker-nativo {
-  position: absolute;
-  top: -10px;
-  left: -10px;
-  width: 140px;
-  height: 140px;
-  border: none;
-  background: none;
-  cursor: pointer;
-  padding: 0;
+  position: absolute;                     /* Posicionamento absoluto sobrepondo a caixa */
+  top: -10px;                             /* Posicionamento estendido além das bordas para cobrir a área */
+  left: -10px;                            /* Posicionamento estendido à esquerda */
+  width: 140px;                           /* Largura expandida para abranger toda a área clicável */
+  height: 140px;                          /* Altura expandida para abranger toda a área clicável */
+  border: none;                           /* Remove bordas nativas */
+  background: none;                       /* Remove fundo padrão */
+  cursor: pointer;                        /* Cursor de clique ativo em toda a extensão */
+  padding: 0;                             /* Remove espaçamentos internos */
+  margin: 0;                              /* Remove margens */
 }
 
-/* Grid de Inputs de Códigos */
+/* 
+ * 5. GRID DE INPUTS DE CÓDIGOS DE CORES
+ * Organiza os campos de texto dos diferentes padrões de cores (HEX, RGB, HSL) em coluna única espaçada.
+ */
 .cores-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
+  display: flex;                          /* Organiza os campos em pilha vertical */
+  flex-direction: column;                 /* Direção vertical */
+  gap: 1.2rem;                            /* Espaçamento uniforme entre os campos de códigos */
+  width: 100%;                            /* Ocupa a largura total */
+  box-sizing: border-box;                 /* Cálculo consistente de caixa */
+  min-width: 0;                           /* Previne overflow */
 }
 
+/* 
+ * 6. BLOCO DE CAMPO INDIVIDUAL
+ * Agrupa o rótulo descritivo e o input de texto correspondente.
+ */
 .cores-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+  display: flex;                          /* Organiza label e input em coluna */
+  flex-direction: column;                 /* Direção vertical */
+  gap: 0.4rem;                            /* Espaçamento compacto entre o rótulo e o campo */
+  width: 100%;                            /* Ocupa largura total */
+  box-sizing: border-box;                 /* Cálculo seguro de caixa */
+  min-width: 0;                           /* Previne overflow */
 }
 
+/* Rótulo descritivo do campo de código de cor */
 .cores-field label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-main);
+  font-size: 0.85rem;                     /* Tamanho compacto e legível para legendas */
+  font-weight: 600;                       /* Semi-negrito para destaque adequado */
+  color: var(--text-main);                /* Cor do texto principal adaptada ao tema */
+  white-space: nowrap;                    /* Impede quebra de linha no rótulo */
+  overflow: hidden;                       /* Oculta excesso */
+  text-overflow: ellipsis;                /* Adiciona reticências caso o texto exceda o espaço */
+  min-width: 0;                           /* Previne overflow */
 }
 
+/* 
+ * 7. CAMPOS DE TEXTO DOS CÓDIGOS
+ * Estiliza os inputs de texto onde os códigos das cores são exibidos ou digitados.
+ */
 .cores-field input[type="text"] {
-  width: 100%;
-  padding: 0.65rem;
-  font-size: 1.1rem;
-  font-weight: 700;
-  font-family: monospace;
-  background-color: var(--bg-main);
-  border: 1px solid var(--border-color);
-  color: var(--primary-color);
-  border-radius: var(--radius);
-  box-sizing: border-box;
+  width: 100% !important;                 /* Ocupa a largura total do campo pai */
+  padding: 0.65rem;                       /* Respiro interno confortável para digitação/toque */
+  font-size: 1.1rem;                      /* Tamanho de fonte destacado para os códigos */
+  font-weight: 700;                       /* Negrito forte para nitidez dos valores */
+  font-family: monospace;                 /* Fonte monoespaciada essencial para códigos exatos */
+  background-color: var(--bg-main);       /* Fundo adaptado ao tema atual */
+  border: 1px solid var(--border-color);  /* Borda sutil padronizada pelo sistema */
+  color: var(--primary-color);            /* Cor primária/destaque para os códigos de texto */
+  border-radius: var(--radius);           /* Arredondamento padrão */
+  box-sizing: border-box;                 /* Garante cálculo correto de dimensões incluindo padding */
+  min-width: 0;                           /* Previne estouro horizontal */
 }
 
+/* Feedback visual ao focar no campo de texto de código */
 .cores-field input[type="text"]:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  background-color: var(--bg-sidebar);
+  outline: none;                          /* Remove contorno padrão forte do navegador */
+  border-color: var(--primary-color);     /* Altera a borda para a cor principal/destaque */
+  background-color: var(--bg-sidebar);    /* Muda sutilmente o fundo para indicar foco ativo */
 }
 
+/* 
+ * 8. CLASSE UTILITÁRIA DE CENTRALIZAÇÃO
+ * Alinha elementos ao centro e adiciona margem superior de espaçamento.
+ */
 .text-center {
-  text-align: center;
-  margin-top: 0.5rem;
+  text-align: center;                     /* Centraliza o texto no elemento */
+  margin-top: 0.5rem;                     /* Margem superior sutil para respiro */
+  box-sizing: border-box;                 /* Cálculo consistente de caixa */
+  min-width: 0;                           /* Previne overflow */
+}
+
+/* Responsividade (Smartphones): Ajusta o padding do workspace para telas estreitas */
+@media (max-width: 520px) {
+  .tool-container .cores-workspace {
+    padding: 1.25rem !important;          /* Reduz o padding interno em dispositivos móveis */
+  }
 }
