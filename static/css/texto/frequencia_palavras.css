@@ -1,11 +1,14 @@
+/* ==========================================================================
+   === 01. TEXTO - 08. Frequência de Palavras ===
+   ========================================================================== */
+
 /* Container que agrupa toda a seção de busca de trechos personalizados */
-.custom-terms-section {
-  margin-top: 1rem;                           /* Espaçamento superior para separar dos blocos acima */
+.custom-terms-card {
+  margin-top: 1rem;                         /* Espaçamento superior para separar dos blocos acima */
   background-color: var(--bg-sidebar);        /* Fundo alinhado ao padrão de cards globais */
   border: 1px solid var(--border-color);      /* Borda sutil padronizada do sistema */
-  padding: 0.85rem;                           /* Respiro interno confortável */
+  padding: 0.85rem;                         /* Respiro interno confortável */
   border-radius: var(--radius);               /* Arredondamento padrão do sistema */
-  box-sizing: border-box;                     /* Garante integridade nas dimensões */
 }
 
 /* Rótulo descritivo da seção de termos personalizados */
@@ -21,8 +24,6 @@
 .custom-input-group {
   display: flex;                              /* Organiza o input e o botão em linha */
   gap: 0.5rem;                                /* Espaçamento compacto e constante entre eles */
-  width: 100%;                                /* Ocupa 100% da largura disponível */
-  box-sizing: border-box;                     /* Inclui bordas e paddings no cálculo de largura */
 }
 
 /* Input de texto para digitar o termo ou trecho customizado */
@@ -34,16 +35,17 @@
   height: 38px;                               /* Altura fixa padronizada para campos de ação */
   font-size: 0.9rem;                          /* Tamanho de fonte legível para digitação */
   color: var(--text-main);                    /* Cor do texto digitado */
-  flex: 1;                                    /* Faz o input expandir ocupando o espaço remanescente */
-  margin: 0 !important;                       /* Remove margens indesejadas herdadas */
-  box-sizing: border-box;                     /* Mantém a consistência do box model */
+  flex: 1;                                    /* Faz o input esticar e ocupar o espaço sobrando ao lado do botão */
+  margin: 0 !important;                       /* Cancela margens herdadas para manter o alinhamento */
+  box-sizing: border-box;                     /* Garante que padding e borda fiquem contidos na altura total */
+  -webkit-appearance: none;                   /* Remove o estilo padrão nativo aplicado por navegadores mobile */
 }
 
 /* Botão de adicionar acoplado ao lado do input */
 .custom-input-group button {
   height: 38px;                               /* Mesma altura exata do input para alinhamento perfeito */
   padding: 0 1rem;                            /* Respiro horizontal adequado para o botão */
-  flex-shrink: 0;                             /* Impede que o botão diminua de tamanho */
+  flex-shrink: 0;                             /* Impede que o botão encolha quando o input tenta ocupar espaço */
   margin: 0 !important;                       /* Remove margens indesejadas */
 }
 
@@ -66,7 +68,6 @@
   display: inline-flex;                       /* Alinhamento flexível inline */
   align-items: center;                        /* Centraliza os itens verticalmente na tag */
   gap: 0.4rem;                                /* Espaço entre o texto e o botão de fechar */
-  box-sizing: border-box;
 }
 
 /* Botão de remoção (×) localizado dentro de cada tag */
@@ -77,15 +78,15 @@
   font-weight: bold;                          /* Deixa o símbolo '×' em negrito */
   color: var(--primary-color);                /* Cor padronizada herdada */
   padding: 0;                                 /* Remove paddings internos */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-flex;                       /* Centraliza o símbolo × dentro do botão */
+  align-items: center;                        /* Alinhamento vertical centralizado */
+  justify-content: center;                    /* Alinhamento horizontal centralizado */
   transition: color 0.2s ease;                /* Transição suave de cor */
 }
 
 /* Efeito de hover no botão de exclusão da tag */
 .custom-tag-item button:hover {
-  color: #e53e3e;                             /* Altera para vermelho de alerta ao passar o mouse */
+  color: #e53e3e;                             /* Vermelho de alerta para ação destrutiva */
 }
 
 /* ==========================================================================
@@ -103,9 +104,8 @@
   padding: 0.75rem;                           /* Respiro interno ao redor da listagem */
   max-height: 400px;                          /* Altura máxima para ativar o scroll vertical */
   overflow-y: auto;                           /* Rolagem automática vertical */
-  min-width: 0;                               /* Previne estouros de layout */
+  min-width: 0;                               /* Garante contenção correta em layouts flex */
   scroll-behavior: smooth;                    /* Comportamento de rolagem suave */
-  box-sizing: border-box;
 }
 
 /* Linha individual que abriga cada palavra e sua contagem correspondente */
@@ -118,7 +118,6 @@
   border: 1px solid var(--border-color);      /* Borda sutil delimitadora */
   border-radius: var(--radius);               /* Arredondamento padrão */
   font-size: 0.9rem;                          /* Tamanho de fonte legível */
-  box-sizing: border-box;
   transition: border-color 0.2s ease;         /* Transição suave para o efeito de hover */
 }
 
@@ -134,8 +133,8 @@
   word-break: break-word;                     /* Quebra palavras longas corretamente */
   overflow-wrap: break-word;                  /* Compatibilidade extra para quebra de texto */
   padding-right: 0.5rem;                      /* Espaço entre o nome e o badge numérico */
-  min-width: 0;
-  flex: 1;                                    /* Ocupa o espaço remanescente */
+  min-width: 0;                               /* Impede que o texto estoure o container flex */
+  flex: 1;                                    /* Ocupa o espaço remanescente ao lado do badge */
 }
 
 /* Badge (pílula) numérica que mostra quantas vezes a palavra se repete */
@@ -157,22 +156,22 @@
   font-style: italic;                         /* Estilo itálico para diferenciar mensagens */
   text-align: center;                         /* Centralizado no bloco */
   padding: 1rem 0;                            /* Espaçamento vertical interno */
-  margin: 0;
+  margin: 0;                                  /* Remove margens padrão para evitar desalinhamento */
 }
 
-/* Divisor opcional entre seções (caso utilize separação de trechos e palavras) */
+/* Divisor opcional entre seções */
 .freq-divider {
-  margin: 12px 0;
-  border: none;
-  border-top: 1px solid var(--border-color);
+  margin: 12px 0;                             /* Espaço vertical acima/abaixo do divisor */
+  border: none;                               /* Remove a borda padrão do <hr> */
+  border-top: 1px solid var(--border-color);  /* Recria só a linha superior com a cor do tema */
 }
 
 /* Títulos internos para separar seções de resultados */
 .freq-section-title {
-  font-weight: 700;
-  margin-bottom: 8px;
-  font-size: 13px;
-  color: var(--text-muted);
+  font-weight: 700;                           /* Negrito para destacar o título da subseção */
+  margin-bottom: 8px;                         /* Espaço abaixo do título */
+  font-size: 13px;                            /* Tamanho compacto, hierarquia secundária */
+  color: var(--text-muted);                   /* Cor atenuada de rótulo secundário */
 }
 
 /* ==========================================================================
@@ -183,35 +182,46 @@
 @media (max-width: 520px) {
   /* Reduz a altura máxima da caixa de resultados no mobile */
   .freq-words-container {
-    max-height: 280px;
-    padding: 0.5rem;
-  }
-  
-  /* Empilha o input de termo personalizado e o botão verticalmente em telas muito apertadas */
-  .custom-input-group {
-    flex-direction: column;
+    max-height: 280px;                        /* Otimiza o espaço vertical em telas pequenas */
+    padding: 0.5rem;                          /* Padding reduzido para ganho de área útil */
   }
 
-  /* Faz o botão ocupar 100% da largura quando empilhado no mobile */
+  /* Empilha o input de termo personalizado e o botão verticalmente */
+  .custom-input-group {
+    flex-direction: column;                   /* Transforma o alinhamento de linha para coluna */
+  }
+
+  /* Força a largura total e trava a altura correta do input no mobile */
+  .custom-input-group input[type="text"] {
+    width: 100%;                              /* Preenche todo o espaço horizontal disponível */
+    height: 38px;                             /* Mantém a altura padrão fixa garantida */
+    min-height: 38px;                         /* Impede que o motor flexbox reduza a altura */
+    flex: none;                               /* Remove o comportamento flex vertical */
+  }
+
+  /* Mantém o botão com seu tamanho natural/padrão (sem width: 100%) */
   .custom-input-group button {
-    width: 100%;
+    width: auto;                              /* Retorna ao tamanho padrão baseado no conteúdo */
+    align-self: flex-start;                   /* Alinha o botão à esquerda de forma natural */
   }
 
   /* Compacta as linhas de resultado para otimizar espaço */
   .freq-row {
-    padding: 0.4rem 0.6rem;
-    font-size: 0.85rem;
+    padding: 0.4rem 0.6rem;                   /* Padding reduzido nas linhas de resultado */
+    font-size: 0.85rem;                       /* Fonte ligeiramente menor no mobile */
   }
 
+  /* Reduz o tamanho do badge numérico no mobile */
   .freq-badge {
-    font-size: 0.75rem;
-    padding: 0.15rem 0.4rem;
+    font-size: 0.75rem;                       /* Fonte compacta para o selo */
+    padding: 0.15rem 0.4rem;                  /* Padding interno reduzido do badge */
   }
 }
 
-/* Ajustes finos para telas horizontais curtas (ex: celulares na horizontal) */
+/* Ajustes finos para telas horizontais curtas (ex: celulares em modo paisagem) */
 @media (max-height: 600px) and (orientation: landscape) {
+  /* Reduz drasticamente a altura máxima para evitar overflow vertical */
   .freq-words-container {
-    max-height: 160px;
+    max-height: 160px;                        /* Mantém a lista navegável sem empurrar o layout para fora da tela */
   }
 }
