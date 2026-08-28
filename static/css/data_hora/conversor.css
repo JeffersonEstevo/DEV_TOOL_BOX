@@ -2,140 +2,218 @@
    === 06. DATA/HORA - 04. Conversor Data / Decimal ===
    ========================================================================== */
 
+/* 
+ * 1. CONTAINER PRINCIPAL (WORKSPACE)
+ * Alarga o painel para organizar os campos confortavelmente na tela.
+ * O 'max-width: 650px' impede que o conteúdo fique excessivamente largo.
+ * O 'margin: 0 auto' centraliza o bloco na horizontal.
+ */
 .tool-container .dh-workspace {
-  max-width: 650px !important;
-  width: 100% !important;
-  text-align: left !important;
-  padding: 2rem !important;
-  margin: 0 auto;
+  max-width: 650px !important;           /* Limita a largura máxima do workspace */
+  width: 100% !important;                /* Ocupa largura total disponível */
+  text-align: left !important;           /* Alinhamento base à esquerda */
+  padding: 2rem !important;              /* Respiro interno generoso */
+  margin: 0 auto;                        /* Centraliza horizontalmente */
+  box-sizing: border-box;                /* Inclui padding e bordas no cálculo */
 }
 
-/* Controle de visibilidade das Abas */
-.tab-content {
-  display: none !important;
-}
-.tab-content.active {
-  display: block !important;
-}
-
-/* Estilização dos botões das abas (Seguindo o padrão rede-tabs) */
-.data-hora-tabs {
-  display: flex;
-  gap: 0.5rem;
-  border-bottom: 2px solid var(--border-color);
-  margin-bottom: 1rem;
-  padding: 0 1rem;
+/* 
+ * 2. CONTROLE DE VISIBILIDADE DAS ABAS (ESPECÍFICO)
+ * Oculta por padrão os conteúdos das abas específicas do conversor de datas/horas.
+ */
+.tool-container #aba-hora-decimal,
+.tool-container #aba-data-decimal {
+  display: none !important;              /* Oculta os painéis inativos */
 }
 
-.data-hora-tabs .tab-btn {
-  background: none;
-  border: none;
-  padding: 0.75rem 1.2rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text-main);
-  opacity: 0.7;
-  cursor: pointer;
-  border-bottom: 3px solid transparent;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+/* Exibe apenas o painel da aba ativa correspondente com layout fluido */
+.tool-container #aba-hora-decimal.active,
+.tool-container #aba-data-decimal.active {
+  display: block !important;             /* Exibe o painel ativo */
+  width: 100% !important;                /* Garante largura total no container */
+  box-sizing: border-box;                /* Cálculo de caixa seguro */
+  min-width: 0;                          /* Previne estouro horizontal */
 }
 
-.data-hora-tabs .tab-btn:hover {
-  opacity: 1;
-  color: var(--primary-color);
+/* 
+ * 3. BARRA SUPERIOR DE ABAS (.data-hora-tabs)
+ * Centraliza e estrutura os botões de navegação por abas com alinhamento flexível.
+ */
+.tool-container .data-hora-tabs {
+  display: flex;                         /* Ativa layout flexível em linha */
+  flex-wrap: wrap;                       /* Quebra linha se necessário em telas menores */
+  justify-content: center;               /* Centraliza os botões das abas no meio */
+  gap: 0.5rem;                           /* Espaçamento compacto entre os botões */
+  border-bottom: 2px solid var(--border-color); /* Linha divisória inferior da barra de abas */
+  margin-bottom: 1.5rem;                 /* Espaço abaixo da barra separando do conteúdo */
+  padding: 0 1rem;                       /* Respiro lateral interno */
+  max-width: 650px;                      /* Largura máxima alinhada ao workspace */
+  width: 100% !important;                /* Ocupa largura total disponível */
+  box-sizing: border-box;                /* Cálculo correto de caixa */
+  min-width: 0;                          /* Previne overflow */
+  margin-left: auto;                     /* Centralização horizontal automática à esquerda */
+  margin-right: auto;                    /* Centralização horizontal automática à direita */
 }
 
-.data-hora-tabs .tab-btn.active {
-  opacity: 1;
-  color: var(--primary-color);
-  border-bottom-color: var(--primary-color);
+/* 
+ * 4. BOTÃO INDIVIDUAL DE ABA (.tab-btn)
+ * Estilização interativa para cada botão de navegação de aba.
+ */
+.tool-container .data-hora-tabs .tab-btn {
+  background: none;                      /* Remove fundo padrão */
+  border: none;                          /* Remove bordas nativas */
+  padding: 0.75rem 1.2rem;               /* Respiro interno confortável para toque */
+  font-size: 0.95rem;                    /* Tamanho de fonte legível */
+  font-weight: 600;                      /* Semi-negrito para destaque */
+  color: var(--text-main);               /* Cor de texto principal */
+  opacity: 0.7;                          /* Transparência para abas inativas */
+  cursor: pointer;                       /* Cursor de ponteiro */
+  border-bottom: 3px solid transparent;  /* Linha indicadora inferior invisível por padrão */
+  transition: all 0.2s ease;             /* Transição suave de estados */
+  display: flex;                         /* Ativa layout flexível para ícones e textos */
+  align-items: center;                   /* Alinha verticalmente ao centro */
+  gap: 0.5rem;                           /* Espaçamento entre ícone e texto */
+  border-radius: 0;                      /* Remove arredondamentos laterais */
+  box-sizing: border-box;                /* Dimensões consistentes */
 }
 
-/* Grids e Campos */
+/* Feedback visual (Hover): Destaca a aba ao passar o mouse */
+.tool-container .data-hora-tabs .tab-btn:hover {
+  opacity: 1;                            /* Remove a transparência */
+  color: var(--primary-color);           /* Aplica a cor primária de destaque */
+  background: none;                      /* Mantém ausência de fundo */
+}
+
+/* Estado ativo da aba selecionada */
+.tool-container .data-hora-tabs .tab-btn.active {
+  opacity: 1;                            /* Opacidade total */
+  background: none;                      /* Sem fundo */
+  color: var(--primary-color);           /* Texto na cor primária */
+  border-bottom-color: var(--primary-color); /* Pinta a linha indicadora inferior */
+}
+
+/* 
+ * 5. GRID DE DUAS COLUNAS (.dh-grid)
+ * Organiza os campos de entrada lado a lado em telas médias e grandes.
+ */
 .dh-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
+  display: grid;                         /* Ativa layout em grade */
+  grid-template-columns: repeat(2, 1fr); /* Cria duas colunas de tamanhos iguais */
+  gap: 1.5rem;                           /* Espaçamento entre as colunas e linhas */
 }
 
+/* 
+ * 6. GRID VERTICAL DE CAMPOS (.dh-grid-vertical)
+ * Organiza os elementos secundários em uma pilha vertical flexível.
+ */
 .dh-grid-vertical {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
+  display: flex;                         /* Ativa layout flexível */
+  flex-direction: column;                /* Direção vertical empilhada */
+  gap: 1.2rem;                           /* Espaçamento uniforme entre os elementos */
 }
 
+/* Responsividade (Smartphones): Empilha o grid de duas colunas em uma única coluna abaixo de 480px */
 @media (max-width: 480px) {
   .dh-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;          /* Reduz para 1 coluna */
   }
 }
 
+/* 
+ * 7. CAMPO DE ENTRADA INDIVIDUAL (.dh-field)
+ * Agrupa o rótulo descritivo e o input correspondente.
+ */
 .dh-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+  display: flex;                         /* Ativa layout flexível */
+  flex-direction: column;                /* Direção vertical */
+  gap: 0.4rem;                           /* Espaço entre o label e o input */
 }
 
+/* 
+ * 8. RÓTULO DO CAMPO (.dh-field label)
+ * Legenda descritiva exibida acima de cada input.
+ */
 .dh-field label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-main);
+  font-size: 0.85rem;                    /* Tamanho compacto de legenda */
+  font-weight: 600;                      /* Semi-negrito para destaque */
+  color: var(--text-main);               /* Cor do texto principal */
 }
 
+/* 
+ * 9. INPUTS GERAIS DO CONVERSOR
+ * Estilização customizada para os campos de texto/número/decimal.
+ */
 .dh-field input {
-  width: 100%;
-  padding: 0.65rem;
-  font-size: 1.15rem;
-  font-weight: 700;
-  font-family: monospace;
-  background-color: var(--bg-main);
-  border: 1px solid var(--border-color);
-  color: var(--primary-color);
-  border-radius: var(--radius);
-  box-sizing: border-box;
+  width: 100%;                           /* Preenche toda a largura disponível */
+  padding: 0.65rem;                      /* Respiro interno confortável */
+  font-size: 1.15rem;                    /* Tamanho de fonte destacado para valores */
+  font-weight: 700;                      /* Negrito para facilitar leitura dos dados */
+  font-family: monospace;                /* Fonte monoespaçada para valores numéricos/decimais */
+  background-color: var(--bg-main);      /* Fundo adaptável ao tema principal */
+  border: 1px solid var(--border-color); /* Borda sutil padrão do sistema */
+  color: var(--primary-color);           /* Texto na cor primária de destaque */
+  border-radius: var(--radius);          /* Arredondamento padrão */
+  box-sizing: border-box;                /* Inclui padding e bordas no cálculo de tamanho */
 }
 
+/* Feedback visual de foco nos inputs */
 .dh-field input:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  background-color: var(--bg-sidebar);
+  outline: none;                         /* Remove contorno padrão do navegador */
+  border-color: var(--primary-color);    /* Pinta a borda com a cor primária */
+  background-color: var(--bg-sidebar);   /* Muda sutilmente o fundo para indicar foco ativo */
 }
 
+/* 
+ * 10. EXCEÇÃO DE FONTE PARA DATAS LOCAIS
+ * Restaura a fonte padrão do sistema nos inputs de data/hora para garantir legibilidade nativa.
+ */
 .dh-field input[type="datetime-local"] {
-  font-family: inherit;
+  font-family: inherit;                  /* Herda a fonte padrão sem usar monoespaçamento */
 }
 
+/* 
+ * 11. TEXTO DE AJUDA (.field-help)
+ * Legendas secundárias discretas abaixo dos campos para orientar o usuário.
+ */
 .field-help {
-  font-size: 0.75rem;
-  color: var(--text-main);
-  opacity: 0.6;
+  font-size: 0.75rem;                    /* Tamanho de fonte pequeno */
+  color: var(--text-main);               /* Cor do texto principal */
+  opacity: 0.6;                          /* Transparência acentuada para menor destaque */
 }
 
-/* Caixa de informações adicionais */
+/* 
+ * 12. CAIXA DE INFORMAÇÕES ADICIONAIS (.dh-info-box)
+ * Painel lateral em destaque com borda primária à esquerda para avisos ou instruções.
+ */
 .dh-info-box {
-  background-color: var(--bg-sidebar);
-  border-left: 4px solid var(--primary-color);
-  padding: 1rem;
-  border-radius: 0 var(--radius) var(--radius) 0;
+  background-color: var(--bg-sidebar);   /* Fundo adaptável ao tema do painel */
+  border-left: 4px solid var(--primary-color); /* Barra lateral marcante na cor primária */
+  padding: 1rem;                         /* Respiro interno confortável */
+  border-radius: 0 var(--radius) var(--radius) 0; /* Arredondamento apenas nas pontas direitas */
 }
 
+/* 
+ * 13. TÍTULO DA CAIXA DE INFORMAÇÕES
+ * Cabeçalho interno do painel de aviso.
+ */
 .dh-info-box h5 {
-  margin: 0 0 0.4rem 0;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--text-main);
-  display: flex;
-  align-items: center;
-  gap: 0.4rem;
+  margin: 0 0 0.4rem 0;                  /* Zera margens laterais e superiores, com espaço inferior */
+  font-size: 0.95rem;                    /* Tamanho compacto e legível */
+  font-weight: 700;                      /* Negrito forte */
+  color: var(--text-main);               /* Cor de texto principal */
+  display: flex;                         /* Ativa layout flexível para ícones */
+  align-items: center;                   /* Alinha verticalmente ao centro */
+  gap: 0.4rem;                           /* Espaço entre ícone e texto */
 }
 
+/* 
+ * 14. PARÁGRAFO DA CAIXA DE INFORMAÇÕES
+ * Texto descritivo explicativo dentro do painel de aviso.
+ */
 .dh-info-box p {
-  margin: 0;
-  font-size: 0.85rem;
-  color: var(--text-main);
-  opacity: 0.8;
-  line-height: 1.4;
+  margin: 0;                             /* Remove margens padrão */
+  font-size: 0.85rem;                    /* Tamanho de legenda */
+  color: var(--text-main);               /* Cor do texto principal */
+  opacity: 0.8;                          /* Transparência sutil para leitura confortável */
+  line-height: 1.4;                      /* Altura de linha ajustada para melhor legibilidade */
 }
