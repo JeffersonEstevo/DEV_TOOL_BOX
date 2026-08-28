@@ -2,94 +2,148 @@
    === 06. DATA/HORA - 01. Calculadora de Horas ===
    ========================================================================== */
 
+/* 
+ * 1. CONTAINER PRINCIPAL (WORKSPACE)
+ * Alarga o painel para organizar os campos confortavelmente na tela.
+ * O 'max-width: 500px' impede que os inputs fiquem esticados demais.
+ * O 'margin-inline: auto' centraliza perfeitamente o container na tela.
+ * O 'box-sizing: border-box' inclui padding no cálculo de largura total.
+ */
 .tool-container .horas-workspace {
-  max-width: 500px !important;
-  width: 100% !important;
-  text-align: left !important;
-  padding: 1.5rem !important;
-  margin: 0 auto;
+  max-width: 500px;                      /* Limita a largura máxima do workspace */
+  width: 100%;                           /* Ocupa largura total disponível */
+  margin-inline: auto;                   /* Centraliza horizontalmente */
+  box-sizing: border-box;                /* Inclui padding no cálculo de largura */
 }
 
-/* Painel superior de exibição do resultado */
+/* 
+ * 2. PAINEL DE RESULTADO ACUMULADO
+ * Bloco superior com borda tracejada que exibe o somatório total de horas e minutos.
+ * Usa fundo lateral adaptado ao tema e centraliza o texto.
+ */
 .horas-resultado-container {
-  background-color: var(--bg-sidebar);
-  border: 1px dashed var(--border-color);
-  border-radius: var(--radius);
-  padding: 1.2rem;
-  text-align: center;
-  margin-bottom: 1.5rem;
+  background-color: var(--bg-sidebar);   /* Fundo adaptado ao tema (Dark/Light) */
+  border: 1px dashed var(--border-color);/* Borda tracejada sutil */
+  border-radius: var(--radius);          /* Arredondamento padrão do sistema */
+  padding: 1.2rem;                       /* Respiro interno confortável */
+  text-align: center;                    /* Centraliza o conteúdo */
+  margin-bottom: 1.5rem;                 /* Espaçamento inferior separando do grid */
 }
 
+/* 
+ * 3. RÓTULO DO RESULTADO
+ * Pequeno cabeçalho descritivo acima do display de horas totais.
+ * Texto em maiúsculas com espaçamento ajustado entre letras.
+ */
 .resultado-label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-main);
-  opacity: 0.8;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-size: 0.85rem;                    /* Tamanho compacto */
+  font-weight: 600;                      /* Semi-negrito para destaque */
+  color: var(--text-main);               /* Cor de texto principal do sistema */
+  opacity: 0.8;                          /* Transparência sutil */
+  text-transform: uppercase;             /* Converte letras para maiúsculas */
+  letter-spacing: 0.5px;                 /* Espaçamento sutil entre as letras */
 }
 
+/* 
+ * 4. DISPLAY NUMÉRICO DO RESULTADO
+ * Valor grande em destaque que mostra o total calculado (ex: 12:45).
+ * Usa fonte monoespaçada e a cor primária de destaque da aplicação.
+ */
 .resultado-display {
-  font-size: 2.5rem;
-  font-weight: 800;
-  color: var(--primary-color);
-  font-family: monospace;
-  margin: 0.3rem 0;
+  font-size: 2.5rem;                     /* Fonte grande e destacada */
+  font-weight: 800;                      /* Peso forte para leitura rápida */
+  color: var(--primary-color);           /* Cor primária/destaque do tema */
+  font-family: monospace;                /* Fonte monoespaçada para alinhamento */
+  margin: 0.3rem 0;                      /* Margem vertical compacta */
 }
 
-/* Alinhamento dos inputs */
+/* 
+ * 5. GRID DE LINHAS DE HORAS
+ * Organiza verticalmente a lista de inputs de horas e minutos em formato de pilha.
+ */
 .horas-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  display: flex;                         /* Ativa layout flexível */
+  flex-direction: column;                /* Direção vertical (empilhado) */
+  gap: 0.75rem;                          /* Espaçamento uniforme entre as linhas */
 }
 
+/* 
+ * 6. LINHA UNITÁRIA DE ENTRADA
+ * Agrupa o índice da linha (#1, #2...) junto com os campos de horas e minutos lado a lado.
+ */
 .horas-linha {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
+  display: flex;                         /* Ativa layout flexível em linha */
+  align-items: center;                   /* Alinha os itens verticalmente ao centro */
+  gap: 0.8rem;                           /* Espaçamento entre o índice e os campos */
 }
 
+/* 
+ * 7. ÍNDICE DA LINHA
+ * Identificador numérico lateral discreto (ex: 1#, 2#).
+ */
 .linha-index {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--text-main);
-  opacity: 0.4;
-  width: 25px;
-  text-align: right;
+  font-size: 0.85rem;                    /* Tamanho de legenda */
+  font-weight: 700;                      /* Negrito adequado */
+  color: var(--text-main);               /* Cor do texto principal */
+  opacity: 0.4;                          /* Bem discreto para não poluir visualmente */
+  width: 25px;                           /* Largura fixa para manter alinhamento */
+  text-align: right;                     /* Alinhado à direita */
+  flex-shrink: 0;                        /* Impede que o marcador encolha */
 }
 
+/* 
+ * 8. WRAPPER DO CAMPO INDIVIDUAL
+ * Contêiner flexível para os inputs de número.
+ * O 'min-width: 0' evita estouros de layout em containers flex.
+ */
 .horas-field {
-  flex: 1;
+  flex: 1;                               /* Ocupa espaço proporcional disponível */
+  min-width: 0;                          /* Previne overflow horizontal */
 }
 
+/* 
+ * 9. CAMPOS DE ENTRADA (INPUT NUMBER)
+ * Estiliza os inputs numéricos de horas e minutos com fonte monoespaçada e alinhamento central.
+ */
 .horas-field input[type="number"] {
-  width: 100%;
-  padding: 0.6rem;
-  font-size: 1.05rem;
-  font-weight: 600;
-  font-family: monospace;
-  background-color: var(--bg-main);
-  border: 1px solid var(--border-color);
-  color: var(--text-main);
-  border-radius: var(--radius);
-  box-sizing: border-box;
-  text-align: center;
+  width: 100%;                           /* Preenche largura total do wrapper */
+  padding: 0.6rem;                       /* Respiro interno confortável para toque */
+  font-size: 1.05rem;                    /* Tamanho de fonte destacado */
+  font-weight: 600;                      /* Semi-negrito nos números digitados */
+  font-family: monospace;                /* Fonte monoespaçada para os dígitos */
+  background-color: var(--bg-main);      /* Fundo adaptável ao tema principal */
+  border: 1px solid var(--border-color); /* Borda sutil padrão do sistema */
+  color: var(--text-main);               /* Cor do texto principal */
+  border-radius: var(--radius);          /* Arredondamento padrão */
+  box-sizing: border-box;                /* Inclui padding e borda no cálculo */
+  text-align: center;                    /* Centraliza o número digitado */
 }
 
-/* Remove as setas padrões de input do tipo number para um visual mais limpo */
+/* 
+ * 10. OCULTAR SPINNERS (WEBKIT)
+ * Remove setas nativas de incremento/decremento em navegadores Chrome, Safari e Edge.
+ */
 .horas-field input[type="number"]::-webkit-inner-spin-button,
 .horas-field input[type="number"]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-.horas-field input[type="number"] {
-  -moz-appearance: textfield;
+  -webkit-appearance: none;              /* Oculta os botões nativos */
+  margin: 0;                             /* Zera margens */
 }
 
+/* 
+ * 11. OCULTAR SPINNERS (FIREFOX)
+ * Remove setas nativas de incremento/decremento no Firefox.
+ */
+.horas-field input[type="number"] {
+  -moz-appearance: textfield;            /* Padroniza remoção de spinners no Firefox */
+}
+
+/* 
+ * 12. FEEDBACK VISUAL DE FOCO
+ * Altera a cor da borda e o fundo sutilmente quando o input é selecionado para digitação.
+ */
 .horas-field input[type="number"]:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  color: var(--primary-color);
-  background-color: var(--bg-sidebar);
+  outline: none;                         /* Remove contorno padrão do navegador */
+  border-color: var(--primary-color);    /* Pinta a borda com a cor primária do tema */
+  color: var(--primary-color);           /* Destaca o número com a cor primária */
+  background-color: var(--bg-sidebar);   /* Muda sutilmente o fundo para indicar foco ativo */
 }
