@@ -2,166 +2,205 @@
    === 06. DATA/HORA - 05. Cronômetro ===
    ========================================================================== */
 
-/* Workspace específico do Cronômetro: limita a largura máxima centralizada no container principal */
-.dh-workspace {
-    max-width: 550px;
-    margin-inline: auto;
+/* 
+ * 1. WORKSPACE ESPECÍFICO DO CRONÔMETRO
+ * Limita a largura máxima e centraliza horizontalmente no container principal.
+ */
+.tool-container .dh-workspace {
+  max-width: 550px !important;           /* Limita a largura máxima do workspace */
+  width: 100% !important;                /* Ocupa largura total disponível */
+  text-align: left !important;           /* Alinhamento base à esquerda */
+  padding: 2rem !important;              /* Respiro interno generoso */
+  margin: 0 auto !important;             /* Centraliza horizontalmente */
+  box-sizing: border-box;                /* Inclui padding e bordas no cálculo */
 }
 
-/* Visor do Cronômetro: moldura que envolve e centraliza os números do tempo */
+/* 
+ * 2. VISOR DO CRONÔMETRO (.chrono-display-wrapper)
+ * Moldura que envolve e centraliza os números do tempo.
+ */
 .chrono-display-wrapper {
-    background-color: var(--bg-main); /* Fundo dinâmico conforme o tema atual */
-    border: 2px solid var(--border-color); /* Borda padrão do sistema */
-    border-radius: var(--radius); /* Arredondamento padrão global (8px) */
-    padding: 1.25rem 1rem; /* Espaçamento interno confortável */
-    margin-bottom: 1.25rem; /* Distância inferior para o bloco de botões */
-    text-align: center; /* Centraliza o texto do visor */
-    overflow: hidden; /* Evita vazamento visual de conteúdo */
+  background-color: var(--bg-main);      /* Fundo dinâmico conforme o tema atual */
+  border: 2px solid var(--border-color); /* Borda padrão do sistema */
+  border-radius: var(--radius);          /* Arredondamento padrão global */
+  padding: 1.25rem 1rem;                 /* Espaçamento interno confortável */
+  margin-bottom: 1.25rem;                /* Distância inferior para o bloco de botões */
+  text-align: center;                    /* Centraliza o texto do visor */
+  overflow: hidden;                      /* Evita vazamento visual de conteúdo */
+  box-sizing: border-box;                /* Cálculo seguro de dimensões */
 }
 
-/* Números principais do cronômetro */
+/* 
+ * 3. NÚMEROS PRINCIPAIS DO CRONÔMETRO (.chrono-time)
+ * Exibição fluida e destacada do tempo decorrido.
+ */
 .chrono-time {
-    font-size: clamp(2.2rem, 8vw, 3rem); /* Tamanho fluido: encolhe em telas estreitas para evitar scroll horizontal */
-    font-weight: 800; /* Texto bem destacado e negrito */
-    font-family: monospace; /* Fonte monoespaciada para os números não ficarem saltando */
-    color: var(--primary-color); /* Cor principal/destaque do tema */
-    letter-spacing: 1px; /* Pequeno espaçamento entre os dígitos */
-    word-break: break-all; /* Garante quebra de caracteres caso o espaço seja extremo */
+  font-size: clamp(2.2rem, 8vw, 3rem);   /* Tamanho fluido: encolhe em telas estreitas */
+  font-weight: 800;                      /* Texto bem destacado e negrito */
+  font-family: monospace;                /* Fonte monoespaçada para estabilidade dos dígitos */
+  color: var(--primary-color);           /* Cor principal/destaque do tema */
+  letter-spacing: 1px;                   /* Pequeno espaçamento entre os dígitos */
+  word-break: break-all;                 /* Garante quebra de caracteres se necessário */
 }
 
-/* Milissegundos menores dentro do visor */
+/* 
+ * 4. MILISSEGUNDOS MENORES (.chrono-time small)
+ * Ajuste proporcional dentro do visor principal.
+ */
 .chrono-time small {
-    font-size: clamp(1.1rem, 4vw, 1.5rem); /* Redimensionamento proporcional ao display principal */
-    opacity: 0.7; /* Suaviza a opacidade para dar hierarquia visual */
+  font-size: clamp(1.1rem, 4vw, 1.5rem); /* Redimensionamento proporcional ao display principal */
+  opacity: 0.7;                          /* Suaviza a opacidade para dar hierarquia visual */
 }
 
-/* Container de botões de ação (Iniciar, Volta, Zerar) */
+/* 
+ * 5. CONTAINER DE BOTÕES DE AÇÃO (.chrono-actions)
+ * Alinha os botões de comando (Iniciar, Volta, Zerar).
+ */
 .chrono-actions {
-    display: flex; /* Alinha os botões lado a lado por padrão */
-    flex-wrap: wrap; /* Permite quebrar linha caso ultrapassem a largura da tela */
-    gap: 0.75rem; /* Espaçamento uniforme entre os botões */
-    justify-content: center; /* Centraliza os botões no container */
-    margin-bottom: 1.25rem; /* Espaço para o painel de voltas abaixo */
+  display: flex;                         /* Alinha os botões lado a lado por padrão */
+  flex-wrap: wrap;                       /* Permite quebrar linha caso ultrapassem a largura */
+  gap: 0.75rem;                          /* Espaçamento uniforme entre os botões */
+  justify-content: center;               /* Centraliza os botões no container */
+  margin-bottom: 1.25rem;                /* Espaço para o painel de voltas abaixo */
+  box-sizing: border-box;                /* Consistência dimensional */
 }
 
-/* Estilo base para todos os botões do cronômetro */
+/* 
+ * 6. ESTILO BASE DOS BOTÕES (.chrono-btn)
+ * Configuração visual e interativa dos botões de controle.
+ */
 .chrono-btn {
-    padding: 0.6rem 1.2rem; /* Altura e largura interna confortáveis para clique */
-    font-size: 0.9rem; /* Tamanho da fonte legível */
-    font-weight: 600; /* Semi-negrito para destaque moderado */
-    border-radius: var(--radius); /* Arredondamento padrão */
-    border: none; /* Remove bordas nativas */
-    cursor: pointer; /* Cursor de clique */
-    display: inline-flex; /* Alinha ícone e texto perfeitamente */
-    align-items: center; /* Centraliza verticalmente o ícone */
-    justify-content: center; /* Centraliza horizontalmente o conteúdo */
-    gap: 0.4rem; /* Espaço entre o ícone e o texto */
-    transition: var(--transition); /* Transição suave global (0.2s) */
+  padding: 0.6rem 1.2rem;                /* Altura e largura interna confortáveis */
+  font-size: 0.9rem;                     /* Tamanho da fonte legível */
+  font-weight: 600;                      /* Semi-negrito para destaque moderado */
+  border-radius: var(--radius);          /* Arredondamento padrão */
+  border: none;                          /* Remove bordas nativas */
+  cursor: pointer;                       /* Cursor de clique */
+  display: inline-flex;                  /* Alinha ícone e texto perfeitamente */
+  align-items: center;                   /* Centraliza verticalmente o ícone */
+  justify-content: center;               /* Centraliza horizontalmente o conteúdo */
+  gap: 0.4rem;                           /* Espaço entre o ícone e o texto */
+  transition: var(--transition);         /* Transição suave global */
+  box-sizing: border-box;                /* Cálculo de caixa seguro */
 }
 
 /* Efeito de clique (pressionado) para dar feedback tátil */
 .chrono-btn:active:not(:disabled) {
-    transform: scale(0.97);
+  transform: scale(0.97);                /* Reduz levemente ao pressionar */
 }
 
 /* Estado desativado dos botões */
 .chrono-btn:disabled {
-    opacity: 0.4; /* Deixa translúcido indicando inatividade */
-    cursor: not-allowed; /* Altera o cursor para bloqueado */
+  opacity: 0.4;                          /* Deixa translúcido indicando inatividade */
+  cursor: not-allowed;                   /* Altera o cursor para bloqueado */
 }
 
-/* Botão de Iniciar (Ação primária) */
+/* 
+ * 7. VARIAÇÕES DE BOTÕES DE AÇÃO
+ * Cores específicas para cada comando do cronômetro.
+ */
 .btn-start {
-    background-color: var(--primary-color);
-    color: #fff;
+  background-color: var(--primary-color);/* Cor primária para iniciar */
+  color: #fff;
 }
 
-/* Botão de Pausar (Alerta/Atenção) */
 .btn-pause {
-    background-color: #f59e0b; 
-    color: #fff;
+  background-color: #f59e0b;             /* Amarelo/Laranja de atenção para pausar */
+  color: #fff;
 }
 
-/* Botão de Registrar Volta (Ação secundária/neutra) */
 .btn-lap {
-    background-color: var(--bg-sidebar);
-    color: var(--text-main);
-    border: 1px solid var(--border-color);
+  background-color: var(--bg-sidebar);   /* Fundo neutro do tema para voltas */
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
 }
 
-/* Botão de Zerar (Ação destrutiva/reset) */
 .btn-reset {
-    background-color: #ef4444; 
-    color: #fff;
+  background-color: #ef4444;             /* Vermelho de ação destrutiva/reset */
+  color: #fff;
 }
 
-/* Container que lista o histórico de voltas */
+/* 
+ * 8. HISTÓRICO DE VOLTAS (.chrono-laps-container)
+ * Painel que lista os registros de tempo parciais.
+ */
 .chrono-laps-container {
-    background-color: var(--bg-sidebar); /* Fundo de painel lateral/card */
-    border: 1px solid var(--border-color); /* Borda padrão */
-    border-radius: var(--radius); /* Arredondamento padrão */
-    padding: 1rem; /* Espaçamento interno */
-    text-align: left; /* Alinha o título e os itens à esquerda */
+  background-color: var(--bg-sidebar);   /* Fundo de painel lateral/card */
+  border: 1px solid var(--border-color); /* Borda padrão */
+  border-radius: var(--radius);          /* Arredondamento padrão */
+  padding: 1rem;                         /* Espaçamento interno */
+  text-align: left;                      /* Alinha o título e os itens à esquerda */
+  box-sizing: border-box;                /* Dimensões consistentes */
 }
 
 /* Título da seção de histórico de voltas */
 .chrono-laps-container h5 {
-    margin: 0 0 0.75rem 0; /* Remove margens extras e dá espaçamento inferior */
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--text-main);
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
+  margin: 0 0 0.75rem 0;                 /* Remove margens extras e dá espaçamento inferior */
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
 }
 
-/* Lista interna com scroll para as voltas */
+/* 
+ * 9. LISTA INTERNA COM SCROLL (.chrono-laps-list)
+ * Gerencia a rolagem do histórico de voltas.
+ */
 .chrono-laps-list {
-    max-height: 150px; /* Altura máxima para não esticar a página */
-    overflow-y: auto; /* Adiciona scroll vertical apenas se passar de 150px */
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem; /* Espaçamento entre cada item da lista */
+  max-height: 150px;                     /* Altura máxima para não esticar a página */
+  overflow-y: auto;                      /* Adiciona scroll vertical se passar de 150px */
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;                           /* Espaçamento entre cada item da lista */
 }
 
 /* Texto exibido quando não há nenhuma volta registrada */
 .chrono-empty-laps {
-    font-size: 0.8rem;
-    color: var(--text-muted); /* Texto secundário/suave */
-    text-align: center;
-    padding: 0.5rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);              /* Texto secundário/suave */
+  text-align: center;
+  padding: 0.5rem;
 }
 
-/* Item individual de cada volta registrada */
+/* 
+ * 10. ITEM INDIVIDUAL DA VOLTA (.chrono-lap-item)
+ * Linha que exibe a contagem e o tempo parcial registrado.
+ */
 .chrono-lap-item {
-    display: flex;
-    justify-content: space-between; /* Separa o número da volta e o tempo nas extremidades */
-    padding: 0.4rem 0.75rem;
-    background-color: var(--bg-main); /* Fundo interno contrastante com o container */
-    border: 1px solid var(--border-color);
-    border-radius: calc(var(--radius) - 2px); /* Ligeiramente menor que o raio principal */
-    font-size: 0.85rem;
-    font-family: monospace; /* Fonte monoespaçada para alinhar os tempos */
+  display: flex;
+  justify-content: space-between;        /* Separa número da volta e tempo nas extremidades */
+  padding: 0.4rem 0.75rem;
+  background-color: var(--bg-main);      /* Fundo interno contrastante */
+  border: 1px solid var(--border-color);
+  border-radius: calc(var(--radius) - 2px); /* Ligeiramente menor que o raio principal */
+  font-size: 0.85rem;
+  font-family: monospace;                /* Fonte monoespaçada para alinhar os tempos */
+  box-sizing: border-box;
 }
 
-/* Texto descritivo dentro do item da volta */
+/* Rótulo de texto dentro do item da volta */
 .chrono-lap-item span {
-    color: var(--text-muted);
+  color: var(--text-muted);
 }
 
 /* Destaque para o tempo da volta */
 .chrono-lap-item strong {
-    color: var(--primary-color);
+  color: var(--primary-color);
 }
 
-/* Breakpoint padrão para dispositivos móveis (telas menores que 520px) */
+/* 
+ * 11. RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS
+ * Ajusta os botões para empilhamento vertical em telas menores que 520px.
+ */
 @media (max-width: 520px) {
-    .chrono-actions {
-        flex-direction: column; /* Empilha os botões verticalmente no celular */
-        width: 100%;
-    }
-    
-    .chrono-btn {
-        width: 100%; /* Faz cada botão ocupar 100% da largura útil para facilitar o toque */
-    }
+  .chrono-actions {
+    flex-direction: column;              /* Empilha os botões verticalmente no celular */
+    width: 100%;
+  }
+  
+  .chrono-btn {
+    width: 100%;                         /* Faz cada botão ocupar 100% da largura útil */
+  }
 }
