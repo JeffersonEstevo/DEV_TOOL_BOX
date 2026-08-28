@@ -2,156 +2,192 @@
    === 06. DATA/HORA - 03. Subtração de Datas ===
    ========================================================================== */
 
+/* 
+ * 1. WORKSPACE DE SUBTRAÇÃO DE DATAS
+ * Limita a largura máxima do container principal e o centraliza na tela.
+ */
 .tool-container .sub-datas-workspace {
-  max-width: 650px !important;
-  width: 100% !important;
-  text-align: left !important;
-  padding: 1.5rem !important;
-  margin: 0 auto;
+  max-width: 650px !important;           /* Limita a largura máxima do workspace */
+  width: 100% !important;                /* Ocupa largura total disponível */
+  text-align: left !important;           /* Alinhamento base à esquerda */
+  padding: 1.5rem !important;            /* Respiro interno gerado */
+  margin: 0 auto !important;             /* Centraliza horizontalmente */
+  box-sizing: border-box;                /* Inclui padding e bordas no cálculo */
 }
 
-/* Painel de Resultados */
+/* 
+ * 2. PAINEL DE RESULTADOS (.sub-datas-resultado-container)
+ * Caixa de destaque estilizada para exibir a diferença calculada entre as datas.
+ */
 .sub-datas-resultado-container {
-  background-color: var(--bg-sidebar);
-  border: 1px dashed var(--border-color);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
+  background-color: var(--bg-sidebar);   /* Fundo adaptável ao tema do sistema */
+  border: 1px dashed var(--border-color);/* Borda tracejada sutil */
+  border-radius: var(--radius);          /* Arredondamento padrão */
+  padding: 1.5rem;                       /* Espaçamento interno confortável */
+  margin-bottom: 1.5rem;                 /* Espaço inferior separando dos inputs */
+  box-sizing: border-box;                /* Cálculo de caixa seguro */
 }
 
+/* Bloco do resultado principal centralizado */
 .resultado-principal {
-  text-align: center;
-  margin-bottom: 1.2rem;
+  text-align: center;                    /* Centraliza o texto do resultado principal */
+  margin-bottom: 1.2rem;                 /* Margem inferior */
 }
 
+/* Rótulo descritivo do resultado */
 .sub-datas-resultado-container .resultado-label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-main);
-  opacity: 0.7;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  display: block;
+  font-size: 0.8rem;                     /* Tamanho compacto de legenda */
+  font-weight: 600;                      /* Semi-negrito */
+  color: var(--text-main);               /* Cor de texto principal */
+  opacity: 0.7;                          /* Suaviza a opacidade */
+  text-transform: uppercase;             /* Texto em letras maiúsculas */
+  letter-spacing: 0.5px;                 /* Espaçamento sutil entre as letras */
+  display: block;                        /* Ocupa linha inteira */
 }
 
+/* Texto estendido do resultado principal */
 .sub-datas-resultado-container .resultado-extenso {
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--primary-color);
-  margin-top: 0.4rem;
+  font-size: 1.4rem;                     /* Fonte grande destacada */
+  font-weight: 800;                      /* Negrito forte */
+  color: var(--primary-color);           /* Cor primária de destaque */
+  margin-top: 0.4rem;                    /* Espaço superior separando do rótulo */
 }
 
+/* Linha divisória interna do painel de resultados */
 .sub-datas-resultado-container .resultado-divisor {
-  height: 1px;
-  background-color: var(--border-color);
-  width: 100%;
-  margin: 1rem 0;
+  height: 1px;                           /* Altura da linha */
+  background-color: var(--border-color); /* Cor padrão da borda */
+  width: 100%;                           /* Largura total */
+  margin: 1rem 0;                        /* Margens superior e inferior */
 }
 
-/* Grid de Totais Absolutos */
+/* 
+ * 3. GRID DE TOTAIS ABSOLUTOS (.totais-grid)
+ * Organiza os cards de totalização em 4 colunas em telas amplas.
+ */
 .totais-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.75rem;
+  display: grid;                         /* Ativa layout em grade */
+  grid-template-columns: repeat(4, 1fr); /* 4 colunas proporcionais */
+  gap: 0.75rem;                          /* Espaçamento uniforme entre os cards */
 }
 
+/* Responsividade: Reduz para 2 colunas em telas de até 560px */
 @media (max-width: 560px) {
   .totais-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, 1fr); /* 2 colunas */
   }
 }
 
+/* Card individual de total absoluto */
 .total-card {
-  background-color: var(--bg-main);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  padding: 0.75rem;
-  text-align: center;
+  background-color: var(--bg-main);      /* Fundo base adaptável */
+  border: 1px solid var(--border-color); /* Borda sutil padrão */
+  border-radius: var(--radius);          /* Arredondamento padrão */
+  padding: 0.75rem;                      /* Espaçamento interno */
+  text-align: center;                    /* Centraliza o conteúdo */
+  box-sizing: border-box;                /* Dimensões consistentes */
 }
 
+/* Rótulo do card de total */
 .total-card-label {
-  font-size: 0.75rem;
-  color: var(--text-main);
-  opacity: 0.6;
-  font-weight: 600;
-  display: block;
-  margin-bottom: 0.25rem;
+  font-size: 0.75rem;                    /* Tamanho pequeno de legenda */
+  color: var(--text-main);               /* Cor principal */
+  opacity: 0.6;                          /* Transparência acentuada */
+  font-weight: 600;                      /* Semi-negrito */
+  display: block;                        /* Ocupa linha inteira */
+  margin-bottom: 0.25rem;                /* Espaço inferior */
 }
 
+/* Valor numérico dentro do card de total */
 .total-card-valor {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--text-main);
-  font-family: monospace;
+  font-size: 1.25rem;                    /* Tamanho destacado */
+  font-weight: 700;                      /* Negrito */
+  color: var(--text-main);               /* Cor do texto principal */
+  font-family: monospace;                /* Fonte monoespaçada para estabilidade numérica */
 }
 
-/* Inputs e Checkbox */
+/* 
+ * 4. FORMULÁRIO DE ENTRADA (.sub-datas-form)
+ */
 .sub-datas-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
+  display: flex;                         /* Ativa layout flexível */
+  flex-direction: column;                /* Direção vertical empilhada */
+  gap: 1.2rem;                           /* Espaçamento entre os blocos */
 }
 
+/* Grid de inputs de datas (Data Inicial / Data Final) */
 .sub-datas-grid-inputs {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.2rem;
+  display: grid;                         /* Ativa layout em grade */
+  grid-template-columns: repeat(2, 1fr); /* 2 colunas iguais */
+  gap: 1.2rem;                           /* Espaçamento entre as colunas */
 }
 
+/* Responsividade: Empilha em 1 coluna em telas de até 480px */
 @media (max-width: 480px) {
   .sub-datas-grid-inputs {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;          /* Coluna única */
   }
 }
 
+/* 
+ * 5. CAMPO INDIVIDUAL DE DATA (.sub-datas-field)
+ */
 .sub-datas-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+  display: flex;                         /* Ativa layout flexível */
+  flex-direction: column;                /* Direção vertical */
+  gap: 0.4rem;                           /* Espaço entre label e input */
 }
 
+/* Rótulo do campo de data */
 .sub-datas-field label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-main);
+  font-size: 0.85rem;                    /* Tamanho de legenda */
+  font-weight: 600;                      /* Semi-negrito */
+  color: var(--text-main);               /* Cor principal */
 }
 
+/* Input do tipo data */
 .sub-datas-field input[type="date"] {
-  width: 100%;
-  padding: 0.65rem;
-  font-size: 1.05rem;
-  font-weight: 600;
-  background-color: var(--bg-main);
-  border: 1px solid var(--border-color);
-  color: var(--text-main);
-  border-radius: var(--radius);
-  box-sizing: border-box;
+  width: 100%;                           /* Preenche largura total */
+  padding: 0.65rem;                      /* Espaçamento interno confortável */
+  font-size: 1.05rem;                    /* Tamanho de fonte legível */
+  font-weight: 600;                      /* Semi-negrito */
+  background-color: var(--bg-main);      /* Fundo adaptável */
+  border: 1px solid var(--border-color); /* Borda padrão */
+  color: var(--text-main);               /* Cor do texto */
+  border-radius: var(--radius);          /* Arredondamento padrão */
+  box-sizing: border-box;                /* Cálculo seguro de caixa */
 }
 
+/* Feedback visual de foco no input de data */
 .sub-datas-field input[type="date"]:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  background-color: var(--bg-sidebar);
+  outline: none;                         /* Remove contorno padrão do navegador */
+  border-color: var(--primary-color);    /* Pinta a borda com a cor primária */
+  background-color: var(--bg-sidebar);   /* Muda sutilmente o fundo */
 }
 
+/* 
+ * 6. CAMPO DE CHECKBOX (.sub-datas-checkbox-field)
+ */
 .sub-datas-checkbox-field {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.3rem;
-  cursor: pointer;
+  display: flex;                         /* Alinha checkbox e texto em linha */
+  align-items: center;                   /* Centraliza verticalmente */
+  gap: 0.5rem;                           /* Espaçamento entre os elementos */
+  margin-top: 0.3rem;                    /* Margem superior sutil */
+  cursor: pointer;                       /* Cursor interativo */
 }
 
+/* Input do tipo checkbox customizado */
 .sub-datas-checkbox-field input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  accent-color: var(--primary-color);
-  cursor: pointer;
+  width: 16px;                           /* Largura fixa */
+  height: 16px;                          /* Altura fixa */
+  accent-color: var(--primary-color);    /* Cor de destaque do checkbox ativo */
+  cursor: pointer;                       /* Cursor interativo */
 }
 
+/* Rótulo associado ao checkbox */
 .sub-datas-checkbox-field label {
-  font-size: 0.9rem;
-  color: var(--text-main);
-  user-select: none;
-  cursor: pointer;
+  font-size: 0.9rem;                     /* Tamanho de fonte padrão */
+  color: var(--text-main);               /* Cor principal */
+  user-select: none;                     /* Impede seleção acidental do texto ao clicar */
+  cursor: pointer;                       /* Cursor interativo */
 }
