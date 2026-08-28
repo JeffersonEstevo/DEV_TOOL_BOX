@@ -2,132 +2,195 @@
    === 06. DATA/HORA - 02. Contador de Dias ===
    ========================================================================== */
 
+/* 
+ * 1. CONTAINER PRINCIPAL (WORKSPACE)
+ * Alarga o painel para organizar os campos e resultados confortavelmente na tela.
+ * O 'max-width: 600px' impede que o conteúdo fique excessivamente largo.
+ * O 'margin: 0 auto' centraliza o bloco na horizontal.
+ */
 .tool-container .dias-workspace {
-  max-width: 600px !important;
-  width: 100% !important;
-  text-align: left !important;
-  padding: 1.5rem !important;
-  margin: 0 auto;
+  max-width: 600px !important;           /* Limita a largura máxima do workspace */
+  width: 100% !important;                /* Ocupa largura total disponível */
+  text-align: left !important;           /* Alinhamento base à esquerda */
+  padding: 1.5rem !important;            /* Respiro interno confortável */
+  margin: 0 auto;                        /* Centraliza horizontalmente */
+  box-sizing: border-box;                /* Inclui padding e bordas no cálculo de tamanho */
 }
 
-/* Painel de Resultados */
+/* 
+ * 2. PAINEL DE RESULTADOS
+ * Bloco com borda tracejada que abriga as métricas calculadas entre as datas.
+ * Organizado em coluna, com fundo adaptado ao tema e centralização dos dados.
+ */
 .dias-resultado-container {
-  background-color: var(--bg-sidebar);
-  border: 1px dashed var(--border-color);
-  border-radius: var(--radius);
-  padding: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-  text-align: center;
+  background-color: var(--bg-sidebar);   /* Fundo adaptável ao tema (Dark/Light) */
+  border: 1px dashed var(--border-color);/* Borda tracejada sutil baseada no sistema */
+  border-radius: var(--radius);          /* Arredondamento padrão */
+  padding: 1.5rem;                       /* Respiro interno generoso */
+  display: flex;                         /* Ativa layout flexível */
+  flex-direction: column;                /* Direção vertical para empilhar os blocos */
+  gap: 1.0rem;                           /* Espaçamento uniforme entre as seções internas */
+  margin-bottom: 1.5rem;                 /* Espaço inferior separando do formulário */
+  text-align: center;                    /* Centraliza todo o texto do resultado */
 }
 
+/* 
+ * 3. BLOCO DE RESULTADO INDIVIDUAL
+ * Cada subdivisão que contém um rótulo e um número de dias calculado.
+ */
 .resultado-bloco {
-  flex: 1;
+  flex: 1;                               /* Ocupa espaço proporcional disponível */
 }
 
+/* 
+ * 4. DIVISOR DE RESULTADOS
+ * Linha sutil centralizada para separar visualmente diferentes métricas de tempo.
+ */
 .resultado-divisor {
-  height: 1px;
-  background-color: var(--border-color);
-  width: 80%;
-  margin: 0 auto;
+  height: 1px;                           /* Altura de uma linha fina */
+  background-color: var(--border-color); /* Cor da borda padronizada do sistema */
+  width: 80% !important;                 /* Ocupa 80% da largura do painel pai */
+  margin: 0 auto;                        /* Centraliza a linha horizontalmente */
 }
 
+/* 
+ * 5. RÓTULO DO RESULTADO
+ * Legenda descritiva exibida acima de cada display numérico de dias.
+ */
 .dias-resultado-container .resultado-label {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-main);
-  opacity: 0.7;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  display: block;
-  margin-bottom: 0.2rem;
+  font-size: 0.8rem;                     /* Tamanho compacto de legenda */
+  font-weight: 600;                      /* Semi-negrito para destaque adequado */
+  color: var(--text-main);               /* Cor de texto principal */
+  opacity: 0.7;                          /* Transparência sutil para menor peso visual */
+  text-transform: uppercase;             /* Converte texto para letras maiúsculas */
+  letter-spacing: 0.5px;                 /* Espaçamento sutil entre as letras */
+  display: block;                        /* Garante que ocupe a linha inteira */
+  margin-bottom: 0.2rem;                 /* Margem inferior mínima */
 }
 
+/* 
+ * 6. DISPLAY NUMÉRICO DO RESULTADO
+ * Valor grande em destaque que mostra a contagem principal de dias.
+ */
 .dias-resultado-container .resultado-display {
-  font-size: 2.2rem;
-  font-weight: 800;
-  color: var(--primary-color);
-  font-family: monospace;
+  font-size: 2.2rem;                     /* Fonte grande e destacada */
+  font-weight: 800;                      /* Peso forte para leitura rápida */
+  color: var(--primary-color);           /* Cor primária/destaque do tema */
+  font-family: monospace;                /* Fonte monoespaçada para os dígitos */
 }
 
+/* 
+ * 7. TEXTO EXTENSO DO RESULTADO
+ * Exibe variações secundárias formatadas (ex: meses/anos equivalentes).
+ */
 .dias-resultado-container .resultado-extenso {
-  font-size: 1.15rem;
-  font-weight: 700;
-  color: var(--text-main);
-  margin-top: 0.3rem;
+  font-size: 1.15rem;                    /* Tamanho intermediário legível */
+  font-weight: 700;                      /* Negrito para reforçar o dado */
+  color: var(--text-main);               /* Cor do texto principal */
+  margin-top: 0.3rem;                    /* Pequeno respiro superior */
 }
 
-/* Inputs e Checkbox */
+/* 
+ * 8. FORMULÁRIO DE ENTRADA
+ * Estrutura vertical que agrupa os campos de data e as opções adicionais.
+ */
 .dias-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
+  display: flex;                         /* Ativa layout flexível */
+  flex-direction: column;                /* Direção vertical empilhada */
+  gap: 1.2rem;                           /* Espaçamento entre os elementos do form */
 }
 
+/* 
+ * 9. GRID DE INPUTS DE DATA
+ * Organiza os campos de data inicial e final lado a lado.
+ */
 .dias-grid-inputs {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.2rem;
+  display: grid;                         /* Ativa layout em grade */
+  grid-template-columns: repeat(2, 1fr); /* Cria duas colunas de tamanhos iguais */
+  gap: 1.2rem;                           /* Espaçamento entre as colunas */
 }
 
+/* Responsividade (Smartphones): Empilha os campos de data em uma única coluna abaixo de 480px */
 @media (max-width: 480px) {
   .dias-grid-inputs {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;          /* Reduz para 1 coluna */
   }
 }
 
+/* 
+ * 10. CAMPO DE DATA INDIVIDUAL
+ * Agrupa o rótulo e o input de tipo data.
+ */
 .dias-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+  display: flex;                         /* Ativa layout flexível */
+  flex-direction: column;                /* Direção vertical */
+  gap: 0.4rem;                           /* Espaço entre o label e o input */
 }
 
+/* 
+ * 11. RÓTULO DO CAMPO DE DATA
+ * Título descritivo de cada seletor de data.
+ */
 .dias-field label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-main);
+  font-size: 0.85rem;                    /* Tamanho compacto */
+  font-weight: 600;                      /* Semi-negrito */
+  color: var(--text-main);               /* Cor do texto principal */
 }
 
+/* 
+ * 12. INPUT DE DATA (TYPE="DATE")
+ * Estilização do seletor nativo de data adaptado ao tema da aplicação.
+ */
 .dias-field input[type="date"] {
-  width: 100%;
-  padding: 0.65rem;
-  font-size: 1.05rem;
-  font-weight: 600;
-  font-family: inherit;
-  background-color: var(--bg-main);
-  border: 1px solid var(--border-color);
-  color: var(--text-main);
-  border-radius: var(--radius);
-  box-sizing: border-box;
+  width: 100%;                           /* Preenche toda a largura disponível */
+  padding: 0.65rem;                      /* Respiro interno confortável para toque */
+  font-size: 1.05rem;                    /* Tamanho de fonte legível */
+  font-weight: 600;                      /* Semi-negrito para a data exibida */
+  font-family: inherit;                  /* Herda a fonte padrão do sistema */
+  background-color: var(--bg-main);      /* Fundo adaptável ao tema principal */
+  border: 1px solid var(--border-color); /* Borda sutil padrão */
+  color: var(--text-main);               /* Cor do texto principal */
+  border-radius: var(--radius);          /* Arredondamento padrão */
+  box-sizing: border-box;                /* Inclui padding e bordas no cálculo de tamanho */
 }
 
+/* Feedback visual (Focus): Destaca o input de data quando selecionado */
 .dias-field input[type="date"]:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  background-color: var(--bg-sidebar);
+  outline: none;                         /* Remove contorno padrão do navegador */
+  border-color: var(--primary-color);    /* Pinta a borda com a cor primária */
+  background-color: var(--bg-sidebar);   /* Muda sutilmente o fundo para indicar foco ativo */
 }
 
-/* Checkbox estilizado minimalista */
+/* 
+ * 13. CAMPO DE CHECKBOX MINIMALISTA
+ * Agrupa o seletor de múltipla escolha e seu rótulo horizontalmente.
+ */
 .dias-checkbox-field {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-top: 0.3rem;
-  cursor: pointer;
+  display: flex;                         /* Ativa layout flexível em linha */
+  align-items: center;                   /* Alinha verticalmente ao centro */
+  gap: 0.5rem;                           /* Espaço entre a caixa e o texto */
+  margin-top: 0.3rem;                    /* Pequeno respiro superior */
+  cursor: pointer;                       /* Indica interatividade ao passar o mouse */
 }
 
+/* 
+ * 14. INPUT DE CHECKBOX
+ * Caixa de marcação que utiliza a cor primária do tema automaticamente.
+ */
 .dias-checkbox-field input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  accent-color: var(--primary-color);
-  cursor: pointer;
+  width: 16px;                           /* Largura fixa */
+  height: 16px;                          /* Altura fixa */
+  accent-color: var(--primary-color);    /* Aplica a cor primária de destaque global */
+  cursor: pointer;                       /* Cursor de ponteiro */
 }
 
+/* 
+ * 15. RÓTULO DO CHECKBOX
+ * Texto explicativo ao lado da caixa de marcação.
+ */
 .dias-checkbox-field label {
-  font-size: 0.9rem;
-  color: var(--text-main);
-  user-select: none;
-  cursor: pointer;
+  font-size: 0.9rem;                     /* Tamanho padrão de texto auxiliar */
+  color: var(--text-main);               /* Cor do texto principal */
+  user-select: none;                     /* Impede seleção acidental de texto ao clicar */
+  cursor: pointer;                       /* Cursor de ponteiro */
 }
