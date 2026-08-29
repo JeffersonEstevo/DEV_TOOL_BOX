@@ -2,193 +2,215 @@
    === 03. GERADORES - 04. Cartão de Crédito ====
    ========================================================================== */
 
-/* Container principal da ferramenta */
-.tool-container {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  overflow-x: hidden;
-  padding: 1rem;
-}
-
-/* Área de trabalho dos cards */
+/* 
+ * 1. WORKSPACE PRINCIPAL DA FERRAMENTA
+ * Limita a largura ideal do painel de cartões e centraliza o bloco na tela.
+ */
 .tool-container .generator-workspace {
-  background-color: var(--bg-sidebar);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  padding: 2rem;
-  max-width: 450px;
-  margin: 0 auto 1.5rem auto;
-  text-align: center;
-  box-sizing: border-box;
+  background-color: var(--bg-sidebar);    /* Fundo adaptável ao tema claro ou escuro */
+  border: 1px solid var(--border-color);  /* Borda sutil padronizada do sistema */
+  border-radius: var(--radius);           /* Arredondamento padrão da aplicação (8px) */
+  padding: 2rem;                          /* Respiro interno generoso para os elementos do cartão */
+  max-width: 450px;                       /* Limita a largura máxima do painel para melhor proporção */
+  margin: 0 auto 1.5rem auto;             /* Centraliza horizontalmente e adiciona margem inferior */
+  text-align: center;                     /* Centraliza textos e componentes internos */
+  box-sizing: border-box;                 /* Inclui paddings no cálculo total de largura */
+  min-width: 0;                           /* Previne overflow em containers flex */
 }
 
+/* 
+ * 2. COMPORTAMENTO DAS ABAS (TABS)
+ * Oculta por padrão os conteúdos inativos e exibe apenas a aba ativa.
+ */
 .tool-container .tab-content {
-  display: none !important;
+  display: none !important;               /* Oculta conteúdos que não estão selecionados */
 }
 
 .tool-container .tab-content.active {
-  display: block !important;
+  display: block !important;              /* Exibe o conteúdo correspondente à aba ativa */
 }
 
+/* 
+ * 3. OPÇÕES E CAMPOS DE ENTRADA
+ * Organiza e estiliza os blocos de opções e inputs de texto/números do cartão.
+ */
 .tool-container .generator-options {
-  margin-bottom: 1.5rem;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  box-sizing: border-box;
+  margin-bottom: 1.5rem;                  /* Espaço inferior antes do campo de resultado */
+  display: flex;                          /* Organiza elementos em linha por padrão */
+  justify-content: center;                /* Centraliza os controles horizontalmente */
+  width: 100%;                            /* Preenche 100% da largura disponível */
+  box-sizing: border-box;                 /* Mantém dimensões consistentes */
 }
 
 .tool-container .checkbox-container {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.95rem;
-  color: var(--text-main);
-  cursor: pointer;
-  user-select: none;
+  display: flex;                          /* Alinha checkbox e texto em linha */
+  align-items: center;                    /* Centraliza verticalmente os itens */
+  gap: 0.5rem;                            /* Espaçamento ideal entre o controle e o rótulo */
+  font-size: 0.95rem;                     /* Tamanho de fonte legível para seleções */
+  color: var(--text-main);                /* Cor do texto sincronizada com o tema */
+  cursor: pointer;                        /* Altera o cursor para indicar interatividade */
+  user-select: none;                      /* Impede a seleção acidental do texto do label */
 }
 
-/* Inputs de texto no padrão original do sistema (removendo forçamentos que tiravam o foco nativo) */
 .tool-container .generator-output-box input[type="text"] {
-  width: 100% !important;
-  padding: 0.75rem;
-  font-size: 1.35rem; 
-  font-weight: 700;
-  text-align: center;
-  letter-spacing: 1px;
-  background-color: var(--bg-main);
-  border: 1px solid var(--border-color);
-  color: var(--primary-color);
-  border-radius: var(--radius);
-  box-sizing: border-box;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  width: 100% !important;                 /* Ocupa toda a largura do container pai */
+  padding: 0.75rem;                       /* Respiro interno confortável para digitação/leitura */
+  font-size: 1.35rem;                     /* Fonte ampliada para dar destaque ao número do cartão */
+  font-weight: 700;                       /* Negrito para melhor legibilidade dos dígitos */
+  text-align: center;                     /* Centraliza o número do cartão no campo */
+  letter-spacing: 1px;                    /* Espaçamento sutil entre caracteres */
+  background-color: var(--bg-main);       /* Fundo adaptado ao tema atual */
+  border: 1px solid var(--border-color);  /* Borda padrão do sistema */
+  color: var(--primary-color);            /* Texto na cor primária de destaque global */
+  border-radius: var(--radius);           /* Raio de arredondamento padrão */
+  box-sizing: border-box;                 /* Previne distorções no dimensionamento */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Transição suave em interações */
 }
 
-/* Feedbacks de Validação */
+/* 
+ * 4. FEEDBACKS DE VALIDAÇÃO
+ * Estiliza mensagens visuais de status (válido, inválido ou neutro).
+ */
 .tool-container .validation-feedback {
-  padding: 0.5rem;
-  border-radius: var(--radius);
-  text-align: center;
-  transition: all 0.2s ease;
-  box-sizing: border-box;
+  padding: 0.5rem;                        /* Respiro interno para o bloco de texto */
+  border-radius: var(--radius);           /* Arredondamento consistente */
+  text-align: center;                     /* Centraliza o aviso de status */
+  transition: all 0.2s ease;              /* Transição suave para mudanças de estado */
+  box-sizing: border-box;                 /* Consistência nas dimensões */
 }
 
 .tool-container .validation-feedback.neutral {
-  background-color: transparent;
-  color: var(--text-main);
-  opacity: 0.6;
+  background-color: transparent;          /* Sem fundo para estados neutros */
+  color: var(--text-main);                /* Cor de texto principal padrão */
+  opacity: 0.6;                           /* Transparência sutil */
 }
 
 .tool-container .validation-feedback.valid {
-  background-color: rgba(40, 167, 69, 0.1);
-  color: #28a745;
+  background-color: rgba(40, 167, 69, 0.1); /* Fundo verde translúcido para sucesso */
+  color: #28a745;                         /* Texto verde de validação */
 }
 
 .tool-container .validation-feedback.invalid {
-  background-color: rgba(220, 53, 69, 0.1);
-  color: #dc3545;
+  background-color: rgba(220, 53, 69, 0.1); /* Fundo vermelho translúcido para erro */
+  color: #dc3545;                         /* Texto vermelho de erro */
 }
 
-/* ==========================================================================
-   === AJUSTE DE ABAS NO PADRÃO SUPERIOR (CARTÃO) ===
-   ========================================================================== */
+/* 
+ * 5. BARRA DE ABAS SUPERIOR (REDE-TABS)
+ * Alinha e estiliza as abas de navegação da ferramenta de cartões.
+ */
 .tool-container .rede-tabs {
-  display: flex;
-  gap: 0.5rem;
-  border-bottom: 2px solid var(--border-color);
-  margin-bottom: 1.5rem;
-  padding: 0 1rem;
-  max-width: 450px;
-  margin-left: auto;
-  margin-right: auto;
-  box-sizing: border-box;
+  display: flex;                          /* Distribui as abas em linha */
+  gap: 0.5rem;                            /* Espaçamento entre as abas */
+  border-bottom: 2px solid var(--border-color); /* Linha divisória inferior padrão */
+  margin-bottom: 1.5rem;                  /* Espaço inferior antes do workspace */
+  padding: 0 1rem;                        /* Respiro horizontal interno */
+  max-width: 450px;                       /* Alinha a largura máxima com o workspace do cartão */
+  margin-left: auto;                      /* Centraliza horizontalmente à esquerda */
+  margin-right: auto;                     /* Centraliza horizontalmente à direita */
+  box-sizing: border-box;                 /* Cálculo seguro de caixa */
 }
 
 .tool-container .rede-tabs .tab-btn {
-  background: none !important;
-  border: none !important;
-  padding: 0.75rem 1.2rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text-main);
-  opacity: 0.7;
-  cursor: pointer;
-  border-bottom: 3px solid transparent !important;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  border-radius: 0 !important;
+  background: none !important;            /* Remove fundos nativos */
+  border: none !important;                /* Remove bordas padrão */
+  padding: 0.75rem 1.2rem;                /* Respiro confortável para toque e cliques */
+  font-size: 0.95rem;                     /* Tamanho de texto equilibrado */
+  font-weight: 600;                       /* Semi-negrito para destaque das abas */
+  color: var(--text-main);                /* Cor do texto vinculada ao tema */
+  opacity: 0.7;                           /* Opacidade reduzida em abas inativas */
+  cursor: pointer;                        /* Aponta interatividade */
+  border-bottom: 3px solid transparent !important; /* Reserva espaço para borda ativa */
+  transition: all 0.2s ease;              /* Transição suave em hover/active */
+  display: flex;                          /* Permite alinhar ícones e textos internos */
+  align-items: center;                    /* Centraliza verticalmente ícone e texto */
+  gap: 0.5rem;                            /* Espaçamento entre ícone e rótulo */
+  border-radius: 0 !important;            /* Remove border-radius para o formato de aba padrão */
 }
 
 .tool-container .rede-tabs .tab-btn:hover {
-  opacity: 1;
-  color: var(--primary-color);
+  opacity: 1;                             /* Destaca a aba ao passar o mouse */
+  color: var(--primary-color);            /* Altera para a cor primária global no hover */
 }
 
 .tool-container .rede-tabs .tab-btn.active {
-  opacity: 1;
-  color: var(--primary-color);
-  border-bottom-color: var(--primary-color) !important;
+  opacity: 1;                             /* Opacidade total na aba ativa */
+  color: var(--primary-color);            /* Cor primária em evidência */
+  border-bottom-color: var(--primary-color) !important; /* Destaca a linha inferior da aba ativa */
 }
 
-/* ==========================================================================
-   === BARRA DE AÇÕES E TOAST DE CÓPIA (CARTÃO) - PADRONIZADO ===
-   ========================================================================== */
+/* 
+ * 6. BARRA DE AÇÕES E TOAST DE CÓPIA
+ * Posiciona e organiza os botões de ação e alertas de feedback flutuantes.
+ */
 .tool-container .action-bar {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  gap: 0.75rem !important;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 1rem 0 !important;
-  position: relative !important;
+  display: flex !important;               /* Organiza os botões em linha */
+  justify-content: center !important;     /* Centraliza os botões horizontalmente */
+  align-items: center !important;         /* Centraliza verticalmente */
+  gap: 0.75rem !important;                /* Espaçamento uniforme entre elementos */
+  width: 100%;                            /* Ocupa largura total */
+  box-sizing: border-box;                 /* Dimensões consistentes */
+  padding: 1rem 0 !important;             /* Respiro vertical interno */
+  position: relative !important;          /* Referência segura de posicionamento */
 }
 
 .tool-container .action-bar .grupo-acoes {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  justify-content: center;
+  display: flex;                          /* Alinha botões do grupo em linha */
+  gap: 0.5rem;                            /* Espaço entre os botões agrupados */
+  align-items: center;                    /* Centralização vertical */
+  justify-content: center;                /* Centralização horizontal */
 }
 
 .tool-container .toast-alert {
-  position: static !important;
-  transform: none !important;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.85rem;
-  margin-left: 0;
-  white-space: nowrap;
+  position: static !important;            /* Mantém o alerta no fluxo normal do layout */
+  transform: none !important;             /* Remove transformações absolutas */
+  display: inline-flex;                   /* Alinha ícone e texto do alerta */
+  align-items: center;                    /* Centralização vertical do aviso */
+  gap: 0.4rem;                            /* Espaço entre o ícone e a mensagem */
+  font-size: 0.85rem;                     /* Tamanho compacto para o texto de aviso */
+  margin-left: 0;                         /* Zera margens laterais */
+  white-space: nowrap;                    /* Evita quebras de linha indesejadas no aviso */
 }
 
 #cartao-generator-alert.hidden {
-  display: none !important;
+  display: none !important;               /* Oculta o alerta quando a classe hidden está presente */
 }
 
 #cartao-generator-alert:not(.hidden) {
-  display: inline-flex !important;
+  display: inline-flex !important;        /* Exibe o alerta corretamente quando ativo */
 }
 
-/* ==========================================================================
-   === RESPONSIVIDADE (MEDIA QUERIES) ===
-   ========================================================================== */
+/* 
+ * 7. RESPONSIVIDADE (TABLETS E SMARTPHONES)
+ * Ajusta o layout para garantir usabilidade perfeita em dispositivos móveis.
+ */
 @media (max-width: 768px) {
   .tool-container .generator-workspace,
   .tool-container .rede-tabs {
-    max-width: 100% !important;
+    max-width: 100% !important;           /* Ocupa largura total em telas menores de tablet */
+  }
+}
+
+@media (max-width: 520px) {
+  .tool-container .action-bar {
+    flex-direction: column !important;    /* Empilha os elementos da barra de ação verticalmente */
+    gap: 1rem !important;                 /* Espaçamento seguro para evitar que botões fiquem colados */
+    width: 100% !important;               /* Preenche toda a largura da tela mobile */
   }
 
-  .tool-container .action-bar {
-    flex-direction: column;
-    gap: 0.75rem;
+  .tool-container .action-bar .grupo-acoes {
+    flex-direction: column !important;    /* Empilha os botões internos um abaixo do outro */
+    width: 100% !important;               /* Garante que o grupo ocupe toda a largura */
+    gap: 0.75rem !important;              /* Espaçamento vertical adequado entre botões empilhados */
+  }
+
+  .tool-container .action-bar .grupo-acoes .btn {
+    width: 100% !important;               /* Estica o botão para largura completa no celular */
+    justify-content: center !important;   /* Centraliza ícone e texto no botão expandido */
   }
 
   .tool-container .toast-alert {
-    position: static !important;
-    margin-left: 0;
+    position: static !important;          /* Mantém o toast no fluxo padrão */
+    margin-left: 0;                       /* Sem deslocamento lateral */
   }
 }
