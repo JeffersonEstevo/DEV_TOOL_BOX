@@ -2,160 +2,108 @@
    === 03. GERADORES - 08. Gerador de Arrays e Colecoes ====
    ========================================================================== */
 
-/* Container principal garantindo largura e espaçamento fluido */
-.tool-container {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  overflow-x: hidden; /* Esconde scroll horizontal desnecessário */
-  padding: 1rem; /* Espaçamento interno do container */
-}
-
-/* Área de trabalho (Workspace) centralizada */
+/* 
+ * 1. WORKSPACE PRINCIPAL DA FERRAMENTA
+ * Alarga o painel para organizar os campos confortavelmente na tela.
+ * O 'max-width: 700px' impede que os inputs fiquem esticados demais.
+ * O 'margin: 0 auto' centraliza perfeitamente o container na tela.
+ * O 'padding: 1.5rem' cria um respiro interno em volta de todo o gerador.
+ */
 .tool-container .array-workspace {
-  background-color: var(--bg-sidebar); /* Fundo da área de trabalho, que no tema claro é branco e no escuro é mais escuro */
-  border: 1px solid var(--border-color); /* Borda sutil que muda conforme o tema */
-  border-radius: var(--radius); /* Arredondamento padrão da aplicação (8px) */
-  padding: 1.5rem; /* Espaçamento interno confortável */
-  margin: 0 auto 1.5rem auto; /* Centraliza horizontalmente e adiciona margem inferior */
-  box-sizing: border-box;
+  max-width: 700px !important;            /* Limita a largura máxima do workspace */
+  width: 100% !important;                 /* Ocupa largura total disponível */
+  margin: 0 auto !important;              /* Centraliza horizontalmente */
+  text-align: left !important;            /* Alinhamento base à esquerda */
+  padding: 1.5rem !important;             /* Respiro interno confortável */
+  box-sizing: border-box;                 /* Inclui padding no cálculo de largura */
+  min-width: 0;                           /* Previne overflow em containers flex */
 }
 
-/* Grid de opções interno do HTML (2 colunas perfeitamente distribuídas) */
-.tool-container .generator-options {
-  display: grid !important; /* Força o uso de grid para layout em colunas */
-  grid-template-columns: repeat(2, 1fr) !important; /* Cria 2 colunas com largura igual (1fr cada) */
-  gap: 1.5rem !important; /* Espaçamento entre as colunas */
-  text-align: left; /* Alinha o texto à esquerda */
-  margin-bottom: 1.5rem; /* Espaço inferior antes da próxima seção */
-  width: 100%;
-  box-sizing: border-box;
+/* 
+ * 2. SISTEMA DE GRADE (GRADE EM 2 COLUNAS)
+ * Organiza as opções em colunas fluidas usando minmax(0, 1fr) para evitar overflow.
+ */
+.tool-container .array-workspace .generator-options {
+  display: grid !important;               /* Ativa o layout em grade */
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important; /* Cria 2 colunas seguras contra estouro */
+  gap: 1.25rem !important;                /* Espaçamento uniforme entre colunas e linhas */
+  width: 100% !important;                 /* Ocupa largura total */
+  box-sizing: border-box;                 /* Dimensões consistentes */
+  min-width: 0;                           /* Previne overflow */
+  margin-bottom: 1.5rem;                  /* Respiro inferior antes da caixa de texto */
 }
 
-/* Organização interna de cada coluna do grid de opções */
-.tool-container .generator-options > div {
-  display: flex;
-  flex-direction: column; /* Empilha os elementos verticalmente dentro de cada coluna */
-  gap: 0.75rem; /* Espaçamento entre os elementos dentro da coluna */
-  width: 100%;
-  box-sizing: border-box;
+/* 
+ * 3. CAIXA DE SAÍDA (TEXTAREA)
+ * Estiliza o campo onde o código gerado é exibido, aplicando fonte monoespaçada e limites de altura.
+ */
+.tool-container .array-workspace .generator-output-box textarea {
+  width: 100% !important;                 /* Preenche a largura total do container pai */
+  max-width: 100% !important;             /* Limita ao tamanho máximo disponível */
+  min-height: 180px !important;           /* Altura mínima ideal para inspeção rápida */
+  max-height: 320px !important;           /* Limita a expansão vertical exagerada */
+  background-color: var(--bg-main) !important; /* Fundo adaptável ao tema claro/escuro */
+  border: 1px solid var(--border-color) !important; /* Borda sutil padrão do sistema */
+  outline: none !important;               /* Remove outline padrão do navegador */
+  font-family: monospace;                 /* Fonte monoespaçada ideal para exibição de dados */
+  font-size: 0.85rem !important;          /* Tamanho de fonte otimizado para blocos de código */
+  color: var(--primary-color) !important; /* Cor primária de destaque para o texto gerado */
+  padding: 1rem !important;               /* Respiro interno confortável para leitura */
+  border-radius: var(--radius) !important; /* Arredondamento padrão do sistema */
+  box-sizing: border-box;                 /* Garante que padding e border não quebrem o width */
+  margin: 0 !important;                   /* Remove margens padrão */
+  min-width: 0;                           /* Previne overflow horizontal */
+  white-space: pre-wrap;                  /* Mantém quebras de linha e espaços consistentes */
+  word-break: break-word;                 /* Evita vazamento de palavras longas */
+  resize: vertical;                       /* Permite redimensionar apenas na vertical */
 }
 
-/* Padronização dos selects e inputs mantendo a herança de foco nativa */
-.tool-container .form-select,
-.tool-container input[type="number"] {
-  width: 100% !important; /* Ocupa toda a largura do container */
-  padding: 0.45rem !important; /* Espaçamento interno adequado */
-  background-color: var(--bg-main) !important; /* Fundo que se adapta ao tema (claro/escuro) */
-  color: var(--text-main) !important; /* Cor do texto que se adapta ao tema */
-  border: 1px solid var(--border-color); /* Borda sutil que muda conforme o tema */
-  border-radius: var(--radius) !important; /* Arredondamento padrão */
-  font-size: 0.9rem; /* Tamanho do texto ligeiramente menor */
-  box-sizing: border-box;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Transição suave para interações */
+/* Feedback visual (Focus) ao interagir com o textarea de saída */
+.tool-container .array-workspace .generator-output-box textarea:focus {
+  outline: none !important;               /* Remove contorno padrão forte */
+  border-color: var(--primary-color) !important; /* Pinta a borda com a cor principal */
+  background-color: var(--bg-sidebar) !important; /* Muda sutilmente o fundo para indicar foco ativo */
 }
 
-/* Caixa de texto de saída (textarea) adaptada ao padrão */
-.tool-container .generator-output-box textarea {
-  width: 100% !important; /* Ocupa toda largura disponível */
-  min-height: 200px; /* Altura mínima para visualização do código gerado */
-  max-height: 350px; /* Limite máximo para não ocupar muito espaço */
-  overflow-y: auto; /* Adiciona scroll vertical se o conteúdo ultrapassar o máximo */
-  background-color: var(--bg-main) !important; /* Fundo adaptável ao tema */
-  color: var(--primary-color) !important; /* Texto na cor de destaque (roxo/índigo) */
-  border: 1px solid var(--border-color); /* Borda adaptável ao tema */
-  border-radius: var(--radius) !important; /* Arredondamento padrão */
-  padding: 1rem !important; /* Espaçamento interno generoso */
-  font-family: monospace; /* Fonte monoespaçada para código */
-  font-size: 0.9rem;
-  white-space: pre-wrap; /* Mantém espaços e quebras de linha */
-  word-break: break-word; /* Quebra palavras longas para evitar overflow */
-  resize: vertical; /* Permite redimensionar apenas verticalmente */
-  box-sizing: border-box;
-  text-align: left; /* Alinhamento à esquerda para código */
-  transition: border-color 0.2s ease, box-shadow 0.2s ease; /* Efeito suave ao focar */
-}
-
-/* Container de checkboxes */
-.tool-container .checkbox-container {
-  display: flex;
-  align-items: center; /* Centraliza verticalmente checkbox e texto */
-  gap: 0.5rem; /* Espaço entre o checkbox e o texto */
-  font-size: 0.9rem; /* Tamanho do texto */
-  color: var(--text-main); /* Cor do texto adaptável ao tema */
-  cursor: pointer; /* Muda cursor para indicar que é clicável */
-  user-select: none; /* Previne seleção acidental do texto */
-  margin-top: 0.25rem; /* Pequeno espaçamento superior */
-  box-sizing: border-box;
-}
-
-/* ==========================================================================
-   === BARRA DE AÇÕES E TOAST DE CÓPIA (ARRAY) - PADRÃO CEP/CPF ===
-   ========================================================================== */
-.tool-container .action-bar {
-  display: flex !important; /* Layout flexível para alinhar os botões */
-  justify-content: center !important; /* Centraliza os elementos horizontalmente */
-  align-items: center !important; /* Centraliza verticalmente */
-  gap: 0.75rem !important; /* Espaçamento entre os elementos */
-  width: 100%;
-  box-sizing: border-box;
-  padding: 1rem 0 !important; /* Espaçamento vertical interno */
-  position: relative !important; /* Referência para posicionamento de elementos filhos */
-}
-
-.tool-container .action-bar .grupo-acoes {
-  display: flex;
-  gap: 0.5rem; /* Espaçamento entre os botões dentro do grupo */
-  align-items: center;
-  justify-content: center;
-}
-
-.tool-container .toast-alert {
-  position: static !important; /* Remove posicionamento absoluto, fica no fluxo normal */
-  transform: none !important; /* Remove transformações */
-  display: inline-flex; /* Alinha ícone e texto horizontalmente */
-  align-items: center;
-  gap: 0.4rem; /* Espaço entre ícone e mensagem */
-  font-size: 0.85rem; /* Texto um pouco menor que o padrão */
-  margin-left: 0; /* Remove margem esquerda */
-  white-space: nowrap; /* Impede quebra de linha no toast */
-}
-
-#array-generator-alert.hidden {
-  display: none !important; /* Esconde o toast quando tem a classe hidden */
-}
-
-#array-generator-alert:not(.hidden) {
-  display: inline-flex !important; /* Mostra como flex quando NÃO tem a classe hidden */
-}
-
-/* ==========================================================================
-   === RESPONSIVIDADE (MEDIA QUERIES) ===
-   ========================================================================== */
+/* 
+ * 4. RESPONSIVIDADE (TABLETS E TELAS MÉDIAS)
+ * Reduz as colunas do grid para melhor adaptação em telas intermediárias.
+ */
 @media (max-width: 768px) {
-  /* Ajustes para dispositivos móveis (tablets e celulares) */
-  .tool-container .generator-workspace,
-  .tool-container .array-workspace {
-    max-width: 100% !important; /* Ocupa toda largura disponível */
-    padding: 1.25rem 1rem !important; /* Reduz o padding em telas menores */
+  .tool-container .array-workspace .generator-options {
+    grid-template-columns: minmax(0, 1fr) !important; /* Colapsa o grid para uma única coluna */
+  }
+}
+
+/* 
+ * 5. RESPONSIVIDADE (SMARTPHONES)
+ * Ajusta o layout para telas compactas, garantindo que os botões empilhados 
+ * tenham espaçamento adequado (gap) e não fiquem colados uns nos outros.
+ */
+@media (max-width: 520px) {
+  .tool-container .array-workspace .generator-options {
+    grid-template-columns: minmax(0, 1fr) !important; /* Garante coluna única no grid */
   }
 
-  .tool-container .rede-tabs {
-    flex-wrap: wrap; /* Só quebra em telas pequenas */
-    justify-content: center; /* Centraliza quando quebra */
-  }
-
-  .tool-container .generator-options {
-    grid-template-columns: 1fr !important; /* Muda de 2 colunas para 1 coluna (empilha) */
-  }
-
+  /* Garante espaçamento vertical robusto na barra de ações global da ferramenta */
   .tool-container .action-bar {
-    flex-direction: column; /* Empilha os botões verticalmente */
-    gap: 0.75rem;
+    flex-direction: column !important;    /* Força o empilhamento vertical dos elementos da barra */
+    gap: 1rem !important;                 /* Espaçamento seguro entre blocos e botões */
+    width: 100% !important;               /* Ocupa largura total disponível */
   }
 
-  .tool-container .toast-alert {
-    position: static !important; /* Mantém no fluxo normal */
-    margin-left: 0; /* Remove margem em telas pequenas */
+  /* Garante respiro entre os botões individuais dentro do grupo de ações no mobile */
+  .tool-container .action-bar .grupo-acoes {
+    display: flex !important;             /* Mantém o comportamento flexível */
+    flex-direction: column !important;    /* Empilha cada botão um abaixo do outro */
+    width: 100% !important;               /* Faz o grupo preencher a largura */
+    gap: 0.75rem !important;              /* Espaçamento vertical entre os botões para não colarem */
+  }
+
+  /* Padroniza os botões individuais para largura total e toque confortável no celular */
+  .tool-container .action-bar .grupo-acoes .btn {
+    width: 100% !important;               /* Expande o botão preenchendo toda a linha */
+    justify-content: center !important;   /* Centraliza o ícone e o texto do botão */
+    margin: 0 !important;                 /* Remove margens extras que possam interferir */
   }
 }
