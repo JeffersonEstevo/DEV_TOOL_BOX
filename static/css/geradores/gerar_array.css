@@ -66,44 +66,100 @@
 }
 
 /* 
- * 4. RESPONSIVIDADE (TABLETS E TELAS MÉDIAS)
- * Reduz as colunas do grid para melhor adaptação em telas intermediárias.
+ * 4. BARRA DE AÇÕES E COMPORTAMENTO INTELIGENTE DO TOAST
+ * Ajusta a barra de ações para aceitar múltiplas linhas de forma fluida (flex-wrap),
+ * garantindo que quando o toast aparecer e faltar espaço, ele desça suavemente
+ * para a linha de baixo sem espremer ou empurrar os botões lateralmente.
+ */
+.tool-container .action-bar {
+  display: flex !important;               /* Organiza os itens da barra de ações */
+  flex-wrap: wrap !important;             /* Permite que elementos quebrem de linha se não couberem */
+  justify-content: center !important;     /* Centraliza os itens no eixo horizontal */
+  align-items: center !important;         /* Alinha verticalmente os itens no centro */
+  gap: 0.75rem !important;                /* Espaçamento uniforme entre botões e alertas */
+  width: 100% !important;                 /* Ocupa largura total disponível */
+  box-sizing: border-box;                 /* Consistência nas dimensões */
+  padding: 1rem 0 !important;             /* Respiro interno vertical */
+  position: relative !important;          /* Referência segura de posicionamento */
+}
+
+.tool-container .action-bar .grupo-acoes {
+  display: flex !important;               /* Alinha os botões internos em linha */
+  gap: 0.5rem !important;                 /* Espaçamento entre os botões do grupo */
+  align-items: center !important;         /* Alinhamento vertical centralizado */
+  justify-content: center !important;     /* Centralização horizontal */
+  width: auto;                            /* Largura flexível baseada no conteúdo */
+}
+
+.tool-container .toast-alert {
+  position: static !important;            /* Mantém o alerta no fluxo natural do layout */
+  transform: none !important;             /* Remove transformações absolutas */
+  display: inline-flex !important;        /* Alinha ícone e texto do alerta lado a lado */
+  align-items: center !important;         /* Centralização vertical do aviso */
+  gap: 0.4rem !important;                 /* Espaço interno entre ícone e mensagem */
+  font-size: 0.85rem !important;          /* Tamanho compacto e legível para o aviso */
+  margin-left: 0 !important;              /* Zera margens laterais forçadas */
+  white-space: nowrap !important;         /* Mantém o texto coeso na mesma linha */
+}
+
+/* Oculta o toast quando a classe hidden está ativa */
+#array-generator-alert.hidden {
+  display: none !important;
+}
+
+/* Exibe o toast corretamente como flex inline quando ativo */
+#array-generator-alert:not(.hidden) {
+  display: inline-flex !important;
+}
+
+/* 
+ * 5. RESPONSIVIDADE (TABLETS E TELAS INTERMEDIÁRIAS)
+ * Reduz as colunas do grid para coluna única e otimiza o espaço da barra de ações.
  */
 @media (max-width: 768px) {
   .tool-container .array-workspace .generator-options {
     grid-template-columns: minmax(0, 1fr) !important; /* Colapsa o grid para uma única coluna */
   }
+
+  /* Em tablets onde o espaço é intermediário, permite que a barra de ações 
+     centralize e quebre linhas de forma fluida se o toast estiver visível */
+  .tool-container .action-bar {
+    justify-content: center !important;
+  }
 }
 
 /* 
- * 5. RESPONSIVIDADE (SMARTPHONES)
- * Ajusta o layout para telas compactas, garantindo que os botões empilhados 
- * tenham espaçamento adequado (gap) e não fiquem colados uns nos outros.
+ * 6. RESPONSIVIDADE (SMARTPHONES)
+ * Ajusta o layout para telas compactas, empilhando botões e garantindo 
+ * que o toast ocupe sua própria linha centralizada quando ativo.
  */
 @media (max-width: 520px) {
   .tool-container .array-workspace .generator-options {
     grid-template-columns: minmax(0, 1fr) !important; /* Garante coluna única no grid */
   }
 
-  /* Garante espaçamento vertical robusto na barra de ações global da ferramenta */
   .tool-container .action-bar {
     flex-direction: column !important;    /* Força o empilhamento vertical dos elementos da barra */
     gap: 1rem !important;                 /* Espaçamento seguro entre blocos e botões */
     width: 100% !important;               /* Ocupa largura total disponível */
   }
 
-  /* Garante respiro entre os botões individuais dentro do grupo de ações no mobile */
   .tool-container .action-bar .grupo-acoes {
     display: flex !important;             /* Mantém o comportamento flexível */
     flex-direction: column !important;    /* Empilha cada botão um abaixo do outro */
     width: 100% !important;               /* Faz o grupo preencher a largura */
-    gap: 0.75rem !important;              /* Espaçamento vertical entre os botões para não colarem */
+    gap: 0.75rem !important;              /* Espaçamento vertical entre os botões */
   }
 
-  /* Padroniza os botões individuais para largura total e toque confortável no celular */
   .tool-container .action-bar .grupo-acoes .btn {
     width: 100% !important;               /* Expande o botão preenchendo toda a linha */
     justify-content: center !important;   /* Centraliza o ícone e o texto do botão */
-    margin: 0 !important;                 /* Remove margens extras que possam interferir */
+    margin: 0 !important;                 /* Remove margens extras */
+  }
+
+  .tool-container .toast-alert {
+    width: 100% !important;               /* Ocupa largura total centralizada no mobile */
+    justify-content: center !important;   /* Centraliza o conteúdo do alerta */
+    margin-top: 0.25rem !important;       /* Respiro superior leve */
   }
 }
