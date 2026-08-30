@@ -81,6 +81,7 @@
   box-sizing: border-box;                 /* Consistência nas dimensões */
   padding: 1rem 0 !important;             /* Respiro interno vertical */
   position: relative !important;          /* Referência segura de posicionamento */
+  min-width: 0;                           /* Impede estouro horizontal em containers flex */
 }
 
 .tool-container .action-bar .grupo-acoes {
@@ -89,6 +90,7 @@
   align-items: center !important;         /* Alinhamento vertical centralizado */
   justify-content: center !important;     /* Centralização horizontal */
   width: auto;                            /* Largura flexível baseada no conteúdo */
+  min-width: 0;                           /* Previne overflow */
 }
 
 .tool-container .toast-alert {
@@ -100,66 +102,91 @@
   font-size: 0.85rem !important;          /* Tamanho compacto e legível para o aviso */
   margin-left: 0 !important;              /* Zera margens laterais forçadas */
   white-space: nowrap !important;         /* Mantém o texto coeso na mesma linha */
+  max-width: 100% !important;             /* Evita extrapolar limites da tela */
+  box-sizing: border-box;                 /* Consistência de caixa */
 }
 
 /* Oculta o toast quando a classe hidden está ativa */
 #array-generator-alert.hidden {
-  display: none !important;
+  display: none !important;               /* Esconde completamente o elemento */
 }
 
 /* Exibe o toast corretamente como flex inline quando ativo */
 #array-generator-alert:not(.hidden) {
-  display: inline-flex !important;
+  display: inline-flex !important;        /* Restaura a exibição em bloco flexível */
 }
 
 /* 
- * 5. RESPONSIVIDADE (TABLETS E TELAS INTERMEDIÁRIAS)
- * Reduz as colunas do grid para coluna única e otimiza o espaço da barra de ações.
+ * 5. RESPONSIVIDADE (TABLETS E TELAS INTERMEDIÁRIAS - ATÉ 768px)
+ * Ajustes de segurança para eliminar completamente qualquer scroll horizontal em tablets.
  */
 @media (max-width: 768px) {
-  .tool-container .array-workspace .generator-options {
-    grid-template-columns: minmax(0, 1fr) !important; /* Colapsa o grid para uma única coluna */
+  .tool-container .array-workspace {
+    padding: 1rem !important;             /* Reduz o padding lateral para ganhar área útil */
+    max-width: 100% !important;           /* Garante que nunca extrapole a largura da tela */
+    box-sizing: border-box;               /* Inclui padding no cálculo de tamanho */
   }
 
-  /* Em tablets onde o espaço é intermediário, permite que a barra de ações 
-     centralize e quebre linhas de forma fluida se o toast estiver visível */
+  .tool-container .array-workspace .generator-options {
+    grid-template-columns: minmax(0, 1fr) !important; /* Colapsa o grid para uma única coluna */
+    gap: 1rem !important;                 /* Espaçamento interno mais compacto */
+    width: 100% !important;               /* Ocupa largura total */
+    box-sizing: border-box;               /* Consistência de caixa */
+  }
+
   .tool-container .action-bar {
-    justify-content: center !important;
+    justify-content: center !important;   /* Centraliza todos os elementos na barra */
+    width: 100% !important;               /* Ocupa largura total */
+    box-sizing: border-box;               /* Consistência de caixa */
   }
 }
 
 /* 
- * 6. RESPONSIVIDADE (SMARTPHONES)
- * Ajusta o layout para telas compactas, empilhando botões e garantindo 
- * que o toast ocupe sua própria linha centralizada quando ativo.
+ * 6. RESPONSIVIDADE (SMARTPHONES - ATÉ 520px)
+ * UX/UI Mobile: Botões empilhados em largura total para garantir excelente 
+ * área de toque e leitura, com o toast ocupando seu espaço de forma organizada.
  */
 @media (max-width: 520px) {
+  .tool-container .array-workspace {
+    padding: 0.75rem !important;          /* Padding otimizado para telas muito estreitas */
+    width: 100% !important;               /* Largura total garantida */
+    box-sizing: border-box;               /* Caixa segura */
+  }
+
   .tool-container .array-workspace .generator-options {
     grid-template-columns: minmax(0, 1fr) !important; /* Garante coluna única no grid */
+    width: 100% !important;               /* Largura total */
+    box-sizing: border-box;               /* Caixa segura */
   }
 
   .tool-container .action-bar {
-    flex-direction: column !important;    /* Força o empilhamento vertical dos elementos da barra */
-    gap: 1rem !important;                 /* Espaçamento seguro entre blocos e botões */
+    flex-direction: column !important;    /* Força o empilhamento vertical na barra de ações */
+    gap: 0.75rem !important;              /* Espaçamento seguro entre os blocos */
     width: 100% !important;               /* Ocupa largura total disponível */
+    box-sizing: border-box;               /* Caixa segura */
   }
 
   .tool-container .action-bar .grupo-acoes {
     display: flex !important;             /* Mantém o comportamento flexível */
     flex-direction: column !important;    /* Empilha cada botão um abaixo do outro */
-    width: 100% !important;               /* Faz o grupo preencher a largura */
-    gap: 0.75rem !important;              /* Espaçamento vertical entre os botões */
+    width: 100% !important;               /* Faz o grupo de botões preencher 100% da largura */
+    gap: 0.50rem !important;              /* Espaçamento vertical confortável entre os botões */
+    box-sizing: border-box;               /* Caixa segura */
   }
 
   .tool-container .action-bar .grupo-acoes .btn {
-    width: 100% !important;               /* Expande o botão preenchendo toda a linha */
-    justify-content: center !important;   /* Centraliza o ícone e o texto do botão */
+    width: 100% !important;               /* Botão estica para largura total (ótimo para toque mobile) */
+    justify-content: center !important;   /* Centraliza perfeitamente o ícone e o texto */
     margin: 0 !important;                 /* Remove margens extras */
+    box-sizing: border-box;               /* Garante dimensionamento correto de caixa */
   }
 
   .tool-container .toast-alert {
     width: 100% !important;               /* Ocupa largura total centralizada no mobile */
-    justify-content: center !important;   /* Centraliza o conteúdo do alerta */
-    margin-top: 0.25rem !important;       /* Respiro superior leve */
+    justify-content: center !important;   /* Centraliza o conteúdo (ícone e texto) do aviso */
+    margin-top: 0.25rem !important;       /* Respiro superior leve em relação aos botões */
+    white-space: normal !important;       /* Permite quebra natural de linha se a mensagem for longa */
+    text-align: center;                   /* Centraliza o texto do aviso */
+    box-sizing: border-box;               /* Consistência de caixa */
   }
 }
