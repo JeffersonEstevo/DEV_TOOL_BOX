@@ -67,12 +67,15 @@ function carregarConteudo(hash) {
         if (!areaPrincipal) return;
         const parser = new DOMParser();
         const doc = parser.parseFromString(htmlPuro, "text/html");
+        
         // 1. Isola e remove as tags script para tratamento manual
         const scriptsNoHtml = doc.querySelectorAll("script");
         scriptsNoHtml.forEach(s => s.remove());
+        
         // 2. Injeta o HTML renderizado na área principal
         areaPrincipal.innerHTML = doc.body.innerHTML;
         console.log("%c[Roteador] HTML injetado com sucesso no DOM!", "color: #166534;");
+        
         // 3. Injeta os scripts de forma assíncrona controlada
         scriptsNoHtml.forEach(scriptOrigem => {
             const novoScript = document.createElement("script");
@@ -90,6 +93,13 @@ function carregarConteudo(hash) {
                     if (srcLimpo.includes("html_to_pdf.js") && typeof HtmlToPdfConverter === "function") {
                         window.htmlToPdfConverter = new HtmlToPdfConverter();
                     }
+                    
+                    // Tratamento exclusivo para o Gerador de Pessoas carregar dados na primeira abertura
+                    if (srcLimpo.includes("gerar_pessoa.js") && typeof dispararGeracaoPessoa === "function") {
+                        setTimeout(() => {
+                            dispararGeracaoPessoa();
+                        }, 50);
+                    }
                 };
                 document.body.appendChild(novoScript);
             } else {
@@ -102,12 +112,12 @@ function carregarConteudo(hash) {
         const areaPrincipal = document.querySelector("#content-area");
         if (areaPrincipal) {
             areaPrincipal.innerHTML = `
-                    <div style="padding: 2rem; border: 1px dashed #fca5a5; background: #fef2f2; color: #991b1b; border-radius: 8px;">
-                        <h3>Erro ao carregar a ferramenta</h3>
-                        <p>O arquivo <strong>"${caminhoArquivo}"</strong> não foi encontrado nas suas pastas locais.</p>
-                        <small>Verifique se o nome está correto ou se o link na sidebar possui letras maiúsculas/plural incorretos.</small>
-                    </div>
-                `;
+                <div style="padding: 2rem; border: 1px dashed #fca5a5; background: #fef2f2; color: #991b1b; border-radius: 8px;">
+                    <h3>Erro ao carregar a ferramenta</h3>
+                    <p>O arquivo <strong>"${caminhoArquivo}"</strong> não foi encontrado nas suas pastas locais.</p>
+                    <small>Verifique se o nome está correto ou se o link na sidebar possui letras maiúsculas/plural incorretos.</small>
+                </div>
+            `;
         }
     });
 }
