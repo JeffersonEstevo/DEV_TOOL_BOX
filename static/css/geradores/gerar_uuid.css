@@ -4,203 +4,235 @@
 
 /* Container principal da ferramenta */
 .tool-container {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  overflow-x: hidden;
-  padding: 1rem;
+  width: 100%;                                /* Ocupa 100% da largura disponível */
+  max-width: 100%;                            /* Limita a largura máxima a 100% */
+  box-sizing: border-box;                     /* Inclui paddings e bordas no cálculo total de largura/altura */
+  overflow-x: hidden;                         /* Esconde qualquer scroll horizontal indesejado */
+  padding: 1rem;                              /* Espaçamento interno padrão ao redor do container */
 }
 
 /* Área de trabalho centralizada com largura específica para o UUID */
 .tool-container .generator-workspace {
-  background-color: var(--bg-sidebar);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  padding: 2rem;
-  margin: 0 auto 1.5rem auto;
-  text-align: center;
-  width: 100% !important;
-  max-width: 540px !important;
-  box-sizing: border-box;
+  background-color: var(--bg-sidebar);        /* Cor de fundo da área de trabalho adaptável ao tema (claro/escuro) */
+  border: 1px solid var(--border-color);      /* Borda sutil com cor padrão do tema */
+  border-radius: var(--radius);               /* Arredondamento padrão dos cantos (variável global) */
+  padding: 2rem;                              /* Espaçamento interno generoso para respiro do conteúdo */
+  margin: 0 auto 1.5rem auto;                 /* Centraliza horizontalmente e adiciona margem inferior */
+  text-align: center;                         /* Centraliza todo o texto interno por padrão */
+  width: 100% !important;                     /* Força largura total para adaptação */
+  max-width: 540px !important;                /* Limita a largura máxima para preservar a legibilidade */
+  box-sizing: border-box;                     /* Inclui paddings e bordas nas dimensões */
 }
 
+/* Esconde por padrão o conteúdo das abas inativas */
 .tool-container .tab-content {
-  display: none !important;
+  display: none !important;                   /* Oculta os elementos sem a classe active */
 }
 
+/* Exibe o conteúdo da aba que estiver ativa no momento */
 .tool-container .tab-content.active {
-  display: block !important;
+  display: block !important;                  /* Mostra o container da aba selecionada */
 }
 
+/* Seção de opções dentro do workspace */
 .tool-container .generator-options {
-  margin-bottom: 1.5rem;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  box-sizing: border-box;
+  margin-bottom: 1.5rem;                      /* Espaço inferior separando das próximas seções */
+  display: flex;                              /* Ativa o modelo flexbox */
+  justify-content: center;                    /* Centraliza os elementos filhos horizontalmente */
+  width: 100%;                                /* Ocupa largura total */
+  box-sizing: border-box;                     /* Gerenciamento correto de caixa */
 }
 
+/* Container de cada opção de checkbox */
 .tool-container .checkbox-container {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.95rem;
-  color: var(--text-main);
-  cursor: pointer;
-  user-select: none;
+  display: flex;                              /* Alinha itens lado a lado (checkbox e texto) */
+  align-items: center;                        /* Centraliza verticalmente os itens */
+  gap: 0.5rem;                                /* Espaço entre o checkbox e o texto descritivo */
+  font-size: 0.95rem;                         /* Tamanho da fonte legível */
+  color: var(--text-main);                    /* Cor do texto adaptável ao tema */
+  cursor: pointer;                            /* Transforma o cursor em ponteiro indicando interatividade */
+  user-select: none;                          /* Evita a seleção acidental do texto ao clicar */
 }
 
 /* Inputs de texto do UUID formatados para fonte monoespaçada e tamanho adequado */
 .tool-container #uuid-resultado,
 .tool-container #uuid-input-validar {
-  width: 100% !important;
-  padding: 0.75rem 0.5rem !important;
-  background-color: var(--bg-main);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  text-align: center;
-  font-size: 1.05rem !important;    
-  font-weight: 700 !important;
-  letter-spacing: 0px !important;  
-  font-family: monospace !important; 
-  color: var(--primary-color);
-  box-sizing: border-box;
-  transition: color 0.2s ease;
+  width: 100% !important;                     /* Ocupa toda a largura do container pai */
+  padding: 0.75rem 0.5rem !important;         /* Espaçamento interno confortável para o texto */
+  background-color: var(--bg-main);           /* Cor de fundo interna adaptável ao tema */
+  border: 1px solid var(--border-color);      /* Borda sutil com cor padrão do tema */
+  border-radius: var(--radius);               /* Arredondamento padrão dos cantos */
+  text-align: center;                         /* Centraliza o UUID gerado ou inserido */
+  font-size: 1.05rem !important;              /* Tamanho de fonte ideal para visualização do UUID */
+  font-weight: 700 !important;                /* Deixa o texto em negrito para destaque */
+  letter-spacing: 0px !important;             /* Espaçamento padrão entre caracteres */
+  font-family: monospace !important;          /* Usa fonte monoespaçada para padronizar caracteres do UUID */
+  color: var(--primary-color);                /* Cor do texto primária (destaque do sistema) */
+  box-sizing: border-box;                     /* Inclui paddings e bordas no tamanho total */
+  transition: color 0.2s ease;                /* Transição suave ao alterar a cor */
 }
 
-/* Feedbacks de Validação */
+/* Bloco de feedback visual para validação de UUID */
 .tool-container .validation-feedback {
-  padding: 0.5rem;
-  border-radius: var(--radius);
-  text-align: center;
-  transition: all 0.2s ease;
-  box-sizing: border-box;
+  padding: 0.5rem;                            /* Espaçamento interno da caixa de feedback */
+  border-radius: var(--radius);               /* Arredondamento padrão */
+  text-align: center;                         /* Centraliza o texto do feedback */
+  transition: all 0.2s ease;                  /* Transição suave para mudanças de estado */
+  box-sizing: border-box;                     /* Gerenciamento de caixa */
 }
 
+/* Estado neutro do feedback de validação */
 .tool-container .validation-feedback.neutral {
-  background-color: transparent;
-  color: var(--text-main);
-  opacity: 0.6;
+  background-color: transparent;              /* Sem cor de fundo no estado neutro */
+  color: var(--text-main);                    /* Cor de texto padrão do tema */
+  opacity: 0.6;                               /* Opacidade reduzida indicando estado inativo */
 }
 
+/* Estado de UUID válido */
 .tool-container .validation-feedback.valid {
-  background-color: rgba(40, 167, 69, 0.1);
-  color: #28a745;
+  background-color: rgba(40, 167, 69, 0.1);   /* Fundo verde translúcido */
+  color: #28a745;                             /* Texto verde indicando sucesso */
 }
 
+/* Estado de UUID inválido */
 .tool-container .validation-feedback.invalid {
-  background-color: rgba(220, 53, 69, 0.1);
-  color: #dc3545;
+  background-color: rgba(220, 53, 69, 0.1);  /* Fundo vermelho translúcido */
+  color: #dc3545;                             /* Texto vermelho indicando erro */
 }
 
 /* ==========================================================================
    === AJUSTE DE ABAS NO PADRÃO SUPERIOR (UUID) ===
    ========================================================================== */
 .tool-container .rede-tabs {
-  display: flex;
-  gap: 0.5rem;
-  border-bottom: 2px solid var(--border-color);
-  margin-bottom: 1.5rem;
-  padding: 0 1rem;
-  max-width: 540px;
-  margin-left: auto;
-  margin-right: auto;
-  box-sizing: border-box;
+  display: flex;                              /* Organiza os botões das abas em linha */
+  gap: 0.5rem;                                /* Espaço entre cada botão de aba */
+  border-bottom: 2px solid var(--border-color);/* Linha divisória inferior na barra de abas */
+  margin-bottom: 1.5rem;                      /* Margem inferior separando do conteúdo */
+  padding: 0 1rem;                            /* Preenchimento horizontal interno */
+  max-width: 540px;                           /* Limita a largura máxima da barra de abas */
+  margin-left: auto;                          /* Centraliza à esquerda */
+  margin-right: auto;                         /* Centraliza à direita (junto com left auto = centralizado) */
+  box-sizing: border-box;                     /* Gerenciamento de tamanho */
 }
 
+/* Estilização base para os botões de navegação das abas */
 .tool-container .rede-tabs .tab-btn {
-  background: none !important;
-  border: none !important;
-  padding: 0.75rem 1.2rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text-main);
-  opacity: 0.7;
-  cursor: pointer;
-  border-bottom: 3px solid transparent !important;
-  transition: all 0.2s ease;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  border-radius: 0 !important;
+  background: none !important;                /* Remove fundo padrão */
+  border: none !important;                    /* Remove bordas padrão */
+  padding: 0.75rem 1.2rem;                    /* Espaçamento interno dos botões de aba */
+  font-size: 0.95rem;                         /* Tamanho da fonte legível */
+  font-weight: 600;                           /* Peso semi-negrito para o texto */
+  color: var(--text-main);                    /* Cor do texto baseada no tema */
+  opacity: 0.7;                               /* Opacidade padrão para abas inativas */
+  cursor: pointer;                            /* Mostra ponteiro ao passar o mouse */
+  border-bottom: 3px solid transparent !important; /* Prepara linha inferior para estado ativo */
+  transition: all 0.2s ease;                  /* Transição suave em interações */
+  display: flex;                              /* Alinha ícone e texto */
+  align-items: center;                        /* Centraliza verticalmente ícone e texto */
+  gap: 0.5rem;                                /* Espaço entre ícone e texto */
+  border-radius: 0 !important;                /* Remove arredondamento dos botões de aba */
 }
 
+/* Efeito ao passar o mouse nas abas inativas */
 .tool-container .rede-tabs .tab-btn:hover {
-  opacity: 1;
-  color: var(--primary-color);
+  opacity: 1;                                 /* Restaura opacidade total */
+  color: var(--primary-color);                /* Altera cor para a cor primária de destaque */
 }
 
+/* Estilo aplicado exclusivamente à aba ativa no momento */
 .tool-container .rede-tabs .tab-btn.active {
-  opacity: 1;
-  color: var(--primary-color);
-  border-bottom-color: var(--primary-color) !important;
+  opacity: 1;                                 /* Opacidade total */
+  color: var(--primary-color);                /* Destaca com a cor primária */
+  border-bottom-color: var(--primary-color) !important; /* Cria a linha indicadora na parte inferior */
 }
 
 /* ==========================================================================
    === BARRA DE AÇÕES E TOAST DE CÓPIA (UUID) - PADRONIZADO ===
    ========================================================================== */
 .tool-container .action-bar {
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  gap: 0.75rem !important;
-  width: 100%;
-  box-sizing: border-box;
-  padding: 1rem 0 !important;
-  position: relative !important;
+  display: flex !important;                   /* Layout flexível para alinhar botões e alertas */
+  flex-wrap: wrap !important;                 /* PERMITE QUEBRA DE LINHA:joga o toast para baixo se não couber no espaço horizontal */
+  justify-content: center !important;         /* Centraliza os elementos na horizontal */
+  align-items: center !important;             /* Centraliza os elementos na vertical */
+  gap: 0.75rem !important;                    /* Espaçamento uniforme entre os elementos */
+  width: 100%;                                /* Ocupa largura total disponível */
+  box-sizing: border-box;                     /* Gerenciamento correto de caixas */
+  padding: 1rem 0 !important;                 /* Espaçamento vertical interno */
+  position: relative !important;              /* Define contexto de posicionamento para filhos */
 }
 
+/* Grupo que engloba os botões de ação principal */
 .tool-container .action-bar .grupo-acoes {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  justify-content: center;
+  display: flex;                              /* Exibe os botões em linha */
+  gap: 0.5rem;                                /* Espaço entre os botões do grupo */
+  align-items: center;                        /* Alinhamento vertical central */
+  justify-content: center;                    /* Alinhamento horizontal central */
+  flex-shrink: 0;                             /* Impede que os botões principais encolham à força */
 }
 
+/* Mensagem flutuante (toast) de sucesso de cópia */
 .tool-container .toast-alert {
-  position: static !important;
-  transform: none !important;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  font-size: 0.85rem;
-  margin-left: 0;
-  white-space: nowrap;
+  position: static !important;                /* Mantém no fluxo normal do documento */
+  transform: none !important;                 /* Remove deslocamentos por transform */
+  display: inline-flex;                       /* Alinha ícone e texto do alerta lado a lado */
+  align-items: center;                        /* Alinhamento vertical interno */
+  gap: 0.4rem;                                /* Espaço entre o ícone e o texto do toast */
+  font-size: 0.85rem;                         /* Tamanho de texto compacto */
+  margin-left: 0;                             /* Sem margem à esquerda */
+  white-space: nowrap;                        /* Impede que o texto do alerta quebre palavras internamente */
 }
 
+/* Oculta o toast de alerta de UUID quando possui a classe hidden */
 #uuid-generator-alert.hidden {
-  display: none !important;
+  display: none !important;                   /* Força ocultação total */
 }
 
+/* Exibe o toast de alerta quando ele não tem a classe hidden */
 #uuid-generator-alert:not(.hidden) {
-  display: inline-flex !important;
+  display: inline-flex !important;            /* Força exibição correta em flex */
 }
 
 /* ==========================================================================
    === RESPONSIVIDADE (MEDIA QUERIES) ===
    ========================================================================== */
+
+/* Ajustes para telas médias (Tablets e dispositivos até 768px) */
 @media (max-width: 768px) {
+  /* Workspace e abas ocupam largura total com padding reduzido */
   .tool-container .generator-workspace,
   .tool-container .rede-tabs {
     max-width: 100% !important;
     padding: 1.25rem 1rem !important;
   }
 
-  /* Reduz levemente o tamanho da fonte do UUID em telas muito pequenas para caber por completo */
+  /* Reduz levemente a fonte e ajustes de espaçamento para caber perfeitamente no tablet */
   .tool-container #uuid-resultado,
   .tool-container #uuid-input-validar {
-    font-size: 0.88rem !important;
-    padding: 0.6rem 0.3rem !important;
-    letter-spacing: -0.5px !important;
+    font-size: 0.95rem !important;
+    padding: 0.65rem 0.4rem !important;
+    letter-spacing: -0.3px !important;
   }
 
+  /* Empilha os itens da barra de ação verticalmente em telas menores */
   .tool-container .action-bar {
     flex-direction: column;
     gap: 0.75rem;
   }
 
+  /* Reseta margens do toast de alerta em dispositivos móveis */
   .tool-container .toast-alert {
     position: static !important;
     margin-left: 0;
+  }
+}
+
+/* Ajustes específicos para celulares compactos (telas até 420px) */
+@media (max-width: 420px) {
+  /* Reduz ainda mais o tamanho da fonte e o espaçamento para evitar qualquer corte no celular */
+  .tool-container #uuid-resultado,
+  .tool-container #uuid-input-validar {
+    font-size: 0.82rem !important;
+    padding: 0.6rem 0.2rem !important;
+    letter-spacing: -0.6px !important;
   }
 }
