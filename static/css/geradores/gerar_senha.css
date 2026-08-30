@@ -42,8 +42,11 @@
   user-select: none; /* Previne seleção acidental */
 }
 
-.tool-container .generator-output-box input[type="text"] {
+/* Caixa de resultado convertida para textarea para suportar quebra de linha e scroll */
+.tool-container .generator-output-box textarea {
   width: 100%; /* Ocupa toda largura disponível */
+  min-height: 65px; /* Altura inicial compacta */
+  max-height: 130px; /* Altura máxima antes de ativar scroll vertical */
   padding: 0.75rem; /* Espaçamento interno confortável */
   font-size: 1.35rem; /* Texto grande para fácil leitura da senha */
   font-weight: 700; /* Negrito para destacar a senha gerada */
@@ -55,6 +58,9 @@
   border-radius: var(--radius); /* Arredondamento padrão */
   font-family: monospace !important; /* Fonte monoespaçada para senhas */
   box-sizing: border-box;
+  resize: none; /* Evita que o usuário redimensione manualmente */
+  word-break: break-all; /* Quebra senhas longas sem espaços perfeitamente */
+  overflow-y: auto; /* Adiciona scroll vertical automático quando exceder o limite */
 }
 
 /* Customização dos Campos de Exibição dos Hashes */
@@ -84,7 +90,7 @@
   font-family: monospace; /* Fonte para exibir hashes */
   color: var(--text-main); /* Cor adaptável ao tema */
   box-sizing: border-box;
-  height: 38px; /* ADICIONE - Altura fixa para alinhar com o botão */
+  height: 38px; /* Altura fixa para alinhar com o botão */
 }
 
 .tool-container .btn-mini-copy {
@@ -157,8 +163,10 @@
     max-width: 100% !important; /* Ocupa toda largura em telas pequenas */
     padding: 1.25rem 1rem !important; /* Reduz o padding */
   }
-  /* .rede-tabs não precisa mais de ajuste aqui: o empilhamento em telas
-     pequenas (@media max-width:520px) já é padrão global (styles.css, seção 15) */
+
+  .tool-container .generator-output-box textarea {
+    font-size: 1.2rem; /* Ajuste suave para tablets */
+  }
 
   .tool-container .action-bar {
     flex-direction: column; /* Empilha botões verticalmente em telas pequenas */
@@ -168,5 +176,12 @@
   .tool-container .toast-alert {
     position: static !important; /* Mantém no fluxo normal */
     margin-left: 0; /* Remove margem em telas pequenas */
+  }
+}
+
+@media (max-width: 520px) {
+  .tool-container .generator-output-box textarea {
+    font-size: 1.1rem; /* Ajuste ideal para celulares */
+    min-height: 60px;
   }
 }
