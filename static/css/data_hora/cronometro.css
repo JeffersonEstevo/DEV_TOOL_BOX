@@ -28,6 +28,7 @@
   text-align: center;                    /* Centraliza o texto do visor */
   overflow: hidden;                      /* Evita vazamento visual de conteúdo */
   box-sizing: border-box;                /* Cálculo seguro de dimensões */
+  white-space: nowrap;                   /* IMPEDE QUEBRA DE LINHA: Mantém todo o conteúdo obrigatoriamente na mesma linha */
 }
 
 /* 
@@ -35,12 +36,13 @@
  * Exibição fluida e destacada do tempo decorrido.
  */
 .chrono-time {
-  font-size: clamp(2.2rem, 8vw, 3rem);   /* Tamanho fluido: encolhe em telas estreitas */
+  font-size: clamp(1.7rem, 7.5vw, 3rem); /* Tamanho fluido ajustado: o mínimo agora é 1.7rem para caber em telas muito estreitas */
   font-weight: 800;                      /* Texto bem destacado e negrito */
   font-family: monospace;                /* Fonte monoespaçada para estabilidade dos dígitos */
   color: var(--primary-color);           /* Cor principal/destaque do tema */
-  letter-spacing: 1px;                   /* Pequeno espaçamento entre os dígitos */
-  word-break: break-all;                 /* Garante quebra de caracteres se necessário */
+  letter-spacing: 0.5px;                 /* Espaçamento levemente reduzido entre dígitos para poupar espaço horizontal */
+  word-break: normal;                    /* Desativa quebras forçadas para preservar o formato do cronômetro */
+  display: inline-block;                 /* Garante que o span se comporte de forma estável dentro do wrapper */
 }
 
 /* 
@@ -48,7 +50,7 @@
  * Ajuste proporcional dentro do visor principal.
  */
 .chrono-time small {
-  font-size: clamp(1.1rem, 4vw, 1.5rem); /* Redimensionamento proporcional ao display principal */
+  font-size: clamp(0.9rem, 3.5vw, 1.5rem); /* Redimensionamento proporcional ajustado para telas compactas */
   opacity: 0.7;                          /* Suaviza a opacidade para dar hierarquia visual */
 }
 
