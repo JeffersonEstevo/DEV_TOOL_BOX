@@ -1,67 +1,89 @@
 /* ==========================================================================
-   === 01. TEXTO - 11. Contador de Caracteres & Métricas ===
-   ========================================================================== */
+=== 01. TEXTO - 11. Contador de Caracteres & Métricas ===
+========================================================================== */
 
-/* Contador discreto posicionado abaixo de cada textarea para contagem rápida */
+/* 
+ * 1. CONTADOR DE TEXTO
+ * Contador discreto posicionado abaixo de cada textarea para contagem rápida e legível.
+ */
 .text-counter {
-  font-size: 0.85rem;
-  color: var(--text-muted);
-  text-align: right;
-  margin-top: 0.25rem;
-  font-weight: 500;
+  font-size: 0.85rem;                   /* Tamanho de fonte compacto e adequado */
+  color: var(--text-muted);             /* Cor secundária adaptada dinamicamente ao tema */
+  text-align: right;                    /* Alinhado à direita para ficar próximo à borda do campo */
+  margin-top: 0.25rem;                  /* Pequeno respiro superior para afastar do input */
+  font-weight: 500;                     /* Peso semi-negrito para melhor destaque visual */
 }
 
-/* Grid específico do contador: 2 partes para o texto, 1 parte para as métricas */
+/* 
+ * 2. GRID DO CONTADOR
+ * Divide o layout assimetricamente: 2 partes para a área de texto, 1 parte para o painel de métricas.
+ */
 .grid-counter {
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-  gap: 1.5rem;
-  width: 100%;
+  display: grid;                        /* Ativa o modelo de layout em grade */
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); /* Colunas fluidas e seguras contra estouro */
+  gap: 1.5rem;                          /* Espaçamento uniforme entre as colunas do grid */
+  width: 100%;                          /* Garante que o grid ocupe toda a largura disponível */
 }
 
-/* Mantém o card de métricas alinhado no topo em telas grandes */
+/* 
+ * 3. CARD DE MÉTRICAS
+ * Garante que o painel lateral de estatísticas se alinhe corretamente ao topo em telas grandes.
+ */
 .metrics-card {
-  align-self: start;
-  width: 100%;
-  box-sizing: border-box;
-  min-width: 0;
+  align-self: start;                    /* Alinha o card no topo do grid, evitando esticar verticalmente */
+  width: 100%;                          /* Ocupa largura total da coluna designada */
+  box-sizing: border-box;               /* Inclui padding e bordas no cálculo de dimensões */
+  min-width: 0;                         /* Previne overflow em containers flex ou grid */
 }
 
-/* Organiza a lista de métricas em uma coluna flexível e espaçada */
+/* 
+ * 4. LISTA DE MÉTRICAS
+ * Organiza verticalmente cada indicador estatístico dentro do card com espaçamento confortável.
+ */
 .metrics-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
+  display: flex;                        /* Ativa layout flexível em coluna */
+  flex-direction: column;               /* Empilha os itens estatísticos de cima para baixo */
+  gap: 1rem;                            /* Espaçamento uniforme entre as linhas de métrica */
+  padding: 1rem;                        /* Respiro interno adequado ao redor da lista */
 }
 
-/* Cada linha de métrica individual (rótulo + valor numérico) */
+/* 
+ * 5. ITEM DE MÉTRICA INDIVIDUAL
+ * Alinha o rótulo descritivo à esquerda e o valor numérico correspondente à direita.
+ */
 .metric-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid var(--border-color);
-  font-size: 0.95rem;
-  color: var(--text-main);
-  gap: 0.5rem;
+  display: flex;                        /* Ativa layout flexível em linha */
+  justify-content: space-between;       /* Separa o rótulo e o valor nas extremidades opostas */
+  align-items: center;                  /* Alinha verticalmente os elementos no centro */
+  padding-bottom: 0.75rem;              /* Respiro inferior para distanciar da borda divisória */
+  border-bottom: 1px solid var(--border-color); /* Linha divisória sutil entre as métricas */
+  font-size: 0.95rem;                   /* Tamanho de fonte legível para os rótulos */
+  color: var(--text-main);              /* Herda a cor do texto principal do tema global */
+  gap: 0.5rem;                          /* Espaçamento mínimo de segurança entre rótulo e valor */
 }
 
+/* Remove a linha divisória e o padding inferior do último item da lista */
 .metric-item:last-child {
-  border-bottom: none;
-  padding-bottom: 0;
+  border-bottom: none;                  /* Retira a borda inferior do último elemento */
+  padding-bottom: 0;                    /* Zera o padding inferior excedente */
 }
 
-/* Estilização monoespaçada para os números das métricas */
+/* 
+ * 6. TEXTO DE CONTAGEM (NÚMEROS DAS MÉTRICAS)
+ * Estilização monoespaçada e em destaque para os valores numéricos calculados.
+ */
 .count-text {
-  font-weight: 700;
-  font-size: 1.25rem;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  word-break: break-all;
+  font-weight: 700;                     /* Deixa os números em negrito forte para facilitar a leitura */
+  font-size: 1.25rem;                   /* Tamanho de fonte ampliado para dar destaque às estatísticas */
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; /* Fonte monoespaçada padrão do sistema */
+  word-break: break-all;                /* Força a quebra de números longos se necessário */
 }
 
-/* Cores padronizadas para estados e métricas */
-.metric-primary { color: var(--accent); }
-.metric-success { color: #166534; }
-.metric-danger  { color: #991b1b; }
-.metric-warning { color: #b45309; }
+/* 
+ * 7. CORES PADRONIZADAS PARA ESTADOS E MÉTRICAS
+ * Atribui tons semânticos específicos para diferentes tipos de indicadores estatísticos.
+ */
+.metric-primary { color: var(--accent); }     /* Cor primária/destaque do tema global */
+.metric-success { color: #166534; }           /* Tom verde escuro para métricas de sucesso/positivo */
+.metric-danger  { color: #991b1b; }           /* Tom vermelho escuro para alertas ou erros */
+.metric-warning { color: #b45309; }           /* Tom âmbar/laranja para avisos ou atenção */
