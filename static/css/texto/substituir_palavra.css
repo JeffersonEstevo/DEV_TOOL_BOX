@@ -2,36 +2,36 @@
    === 01. TEXTO - 12. Substituir Palavras ===
    ========================================================================== */
 
-/* Layout de 2 colunas para campos de "Localizar" e "Substituir" */
+/* Define um layout em grid de duas colunas iguais para os campos de localizar e substituir */
 .form-row-2col {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); /* Garantindo responsividade de grid */
-  gap: 1rem;
+  display: grid; /* Ativa o modelo de layout em grade */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); /* Cria duas colunas flexíveis protegidas contra estouro */
+  gap: 1rem; /* Define o espaçamento uniforme entre as colunas */
 }
 
-/* Card interno para opções extras de configuração */
+/* Cria um bloco interno com fundo diferenciado para agrupar opções avançadas */
 .card-inner-options {
-  background-color: var(--bg-sidebar); /* Alinhado ao padrão de cards globais */
-  border: 1px solid var(--border-color);
-  padding: 1rem;
-  border-radius: var(--radius);
+  background-color: var(--bg-sidebar); /* Aplica a cor de fundo padrão de painéis e barras laterais */
+  border: 1px solid var(--border-color); /* Adiciona uma borda sutil utilizando a variável global */
+  padding: 1rem; /* Insere um respiro interno confortável */
+  border-radius: var(--radius); /* Arredonda as pontas seguindo o padrão global do sistema */
 }
 
-/* Checkbox alinhado com rótulo */
+/* Organiza o elemento de seleção e seu texto descritivo lado a lado */
 .checkbox-group {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
+  display: flex; /* Converte o container em um modelo flexível */
+  align-items: center; /* Alinha verticalmente o checkbox e o texto ao centro */
+  gap: 0.5rem; /* Insere um espaço lateral adequado entre o controle e o rótulo */
 }
 
-/* Espaçamento superior para o campo que entra abaixo do checkbox */
+/* Adiciona espaçamento vertical quando um grupo de campos sucede uma seleção */
 .checkbox-group + .field-group {
-  margin-top: 0.75rem;
+  margin-top: 0.75rem; /* Afasta o elemento seguinte para evitar aglomeração visual */
 }
 
-/* Ajustes responsivos: mantendo apenas os breakpoints globais necessários */
+/* Ponto de interrupção para telas de tablets, ajustando a estrutura de colunas */
 @media (max-width: 768px) {
   .form-row-2col {
-    grid-template-columns: 1fr; /* Colapsa para coluna única no tablet */
+    grid-template-columns: minmax(0, 1fr); /* Reduz o layout para uma única coluna adaptável */
   }
 }
