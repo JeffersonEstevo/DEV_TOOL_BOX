@@ -4,43 +4,43 @@
 
 /* Restringe a largura máxima do container principal para manter a área centralizada e organizada */
 .tool-container {
-    max-width: 950px;               /* Limita a largura global do card da ferramenta na tela para evitar que fique ultra largo */
+    max-width: 950px;                 /* Limita a largura global do card da ferramenta na tela para evitar que fique ultra largo */
 }
 
 /* Controla a proporção das colunas do grid (editor HTML à esquerda, pré-visualização à direita) */
 .tool-container .tool-grid {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); /* Divide o espaço em duas colunas idênticas e flexíveis sem estouro */
-    gap: 1.5rem;                    /* Define o espaçamento horizontal e vertical entre as colunas do grid */
-    width: 100%;                    /* Garante que o grid ocupe toda a largura disponível do container */
-    box-sizing: border-box;         /* Inclui padding e bordas no cálculo total de largura */
+    gap: 1.5rem;                      /* Define o espaçamento horizontal e vertical entre as colunas do grid */
+    width: 100%;                      /* Garante que o grid ocupe toda a largura disponível do container */
+    box-sizing: border-box;           /* Inclui padding e bordas no cálculo total de largura */
 }
 
 /* Garante que os grupos de campos ocupem o espaço adequado sem estouros de largura */
 .field-group {
-    display: flex;                  /* Transforma o grupo de campos em um container flexível */
-    flex-direction: column;         /* Organiza os elementos filhos (rótulos e inputs) em pilha vertical */
-    min-width: 0;                   /* Impede que itens flex estourem o limite horizontal do container */
-    width: 100%;                    /* Faz o grupo preencher 100% da largura da coluna do grid */
-    box-sizing: border-box;         /* Mantém o comportamento consistente de tamanho e bordas */
+    display: flex;                    /* Transforma o grupo de campos em um container flexível */
+    flex-direction: column;           /* Organiza os elementos filhos (rótulos e inputs) em pilha vertical */
+    min-width: 0;                     /* Impede que itens flex estourem o limite horizontal do container */
+    width: 100%;                      /* Faz o grupo preencher 100% da largura da coluna do grid */
+    box-sizing: border-box;           /* Mantém o comportamento consistente de tamanho e bordas */
 }
 
 /* Área de entrada do código HTML bruto com fonte monoespaçada e redimensionamento travado */
 .pdf-textarea {
-    width: 100%;                    /* Ocupa toda a largura da coluna de entrada */
-    max-width: 100%;                /* Trava a largura máxima para prevenir overflow horizontal */
-    height: 520px;                  /* Define uma altura fixa confortável para edição de código */
-    padding: 1rem;                  /* Espaçamento interno ao redor do texto digitado */
+    width: 100%;                      /* Ocupa toda a largura da coluna de entrada */
+    max-width: 100%;                  /* Trava a largura máxima para prevenir overflow horizontal */
+    height: 520px;                    /* Define uma altura fixa confortável para edição de código */
+    padding: 1rem;                    /* Espaçamento interno ao redor do texto digitado */
     border: 1px solid var(--border-color); /* Borda sutil utilizando a cor padrão do tema */
-    border-radius: var(--radius);   /* Arredondamento padrão dos cantos do campo */
+    border-radius: var(--radius);     /* Arredondamento padrão dos cantos do campo */
     background-color: var(--bg-main); /* Cor de fundo principal do campo de texto */
-    color: var(--text-main);        /* Cor do texto principal de acordo com o tema ativo */
+    color: var(--text-main);          /* Cor do texto principal de acordo com o tema ativo */
     font-family: var(--font-mono, monospace); /* Aplica fonte monoespaçada ideal para edição de código */
-    font-size: 0.9rem;              /* Tamanho de fonte legível para blocos de código */
-    line-height: 1.5;               /* Espaçamento entrelinhas adequado para leitura de código */
-    resize: none;                   /* Desativa o redimensionamento manual pelo usuário via mouse */
-    outline: none;                  /* Remove o contorno padrão nativo do navegador ao focar */
+    font-size: 0.9rem;                /* Tamanho de fonte legível para blocos de código */
+    line-height: 1.5;                 /* Espaçamento entrelinhas adequado para leitura de código */
+    resize: none;                     /* Desativa o redimensionamento manual pelo usuário via mouse */
+    outline: none;                    /* Remove o contorno padrão nativo do navegador ao focar */
     transition: border-color 0.2s ease; /* Transição suave na mudança de cor da borda */
-    box-sizing: border-box;         /* Inclui margens internas e bordas no cálculo da largura/altura */
+    box-sizing: border-box;           /* Inclui margens internas e bordas no cálculo da largura/altura */
 }
 
 /* Efeito sutil de foco na borda do campo de texto usando a cor de destaque do tema */
@@ -50,118 +50,118 @@
 
 /* Container de visualização (preview) com barras de rolagem independentes e alinhamento inicial */
 .pdf-preview-container {
-    width: 100%;                    /* Ocupa 100% da largura da coluna correspondente */
-    max-width: 100%;                /* Evita qualquer expansão indesejada além da coluna */
-    height: 520px;                  /* Altura igualada à do textarea para manter simetria visual */
-    overflow-y: auto;               /* Ativa barra de rolagem vertical caso o preview seja longo */
-    overflow-x: auto;               /* Ativa barra de rolagem horizontal para documentos largos */
+    width: 100%;                      /* Ocupa 100% da largura da coluna correspondente */
+    max-width: 100%;                  /* Evita qualquer expansão indesejada além da coluna */
+    height: 520px;                    /* Altura igualada à do textarea para manter simetria visual */
+    overflow-y: auto;                 /* Ativa barra de rolagem vertical caso o preview seja longo */
+    overflow-x: auto;                 /* Ativa barra de rolagem horizontal para documentos largos */
     border: 1px solid var(--border-color); /* Delimita a caixa de preview com a borda padrão */
-    border-radius: var(--radius);   /* Aplica o raio de arredondamento padrão do sistema */
-    padding: 1.5rem;                /* Respiro interno ao redor da página simulada */
+    border-radius: var(--radius);     /* Aplica o raio de arredondamento padrão do sistema */
+    padding: 1.5rem;                  /* Respiro interno ao redor da página simulada */
     background-color: var(--bg-sidebar); /* Fundo de destaque sutil para a área externa do preview */
-    display: flex;                  /* Utiliza layout flexbox para alinhar a folha de papel simulada */
-    justify-content: flex-start;    /* Alinha o conteúdo simulado à esquerda horizontalmente */
-    align-items: flex-start;        /* Alinha o conteúdo simulado ao topo verticalmente */
-    box-sizing: border-box;         /* Garante o cálculo correto das dimensões totais */
+    display: flex;                    /* Utiliza layout flexbox para alinhar a folha de papel simulada */
+    justify-content: flex-start;      /* Alinha o conteúdo simulado à esquerda horizontalmente */
+    align-items: flex-start;          /* Alinha o conteúdo simulado ao topo verticalmente */
+    box-sizing: border-box;           /* Garante o cálculo correto das dimensões totais */
 }
 
 /* Estado vazio exibido na pré-visualização quando não há código HTML informado */
 .preview-empty-state {
-    display: flex;                  /* Organiza o conteúdo do estado vazio em flexbox */
-    flex-direction: column;         /* Empilha ícone e mensagem de orientação verticalmente */
-    align-items: center;            /* Centraliza os itens horizontalmente */
-    justify-content: center;        /* Centraliza os itens verticalmente no container */
-    height: 100%;                   /* Ocupa toda a altura disponível da área de preview */
-    width: 100%;                    /* Ocupa toda a largura disponível da área de preview */
-    text-align: center;             /* Centraliza o texto informativo de orientações */
+    display: flex;                    /* Organiza o conteúdo do estado vazio em flexbox */
+    flex-direction: column;           /* Empilha ícone e mensagem de orientação verticalmente */
+    align-items: center;              /* Centraliza os itens horizontalmente */
+    justify-content: center;          /* Centraliza os itens verticalmente no container */
+    height: 100%;                     /* Ocupa toda a altura disponível da área de preview */
+    width: 100%;                      /* Ocupa toda a largura disponível da área de preview */
+    text-align: center;               /* Centraliza o texto informativo de orientações */
 }
 
 /* --------------------------------------------------------------------------
    PRÉ-VISUALIZAÇÃO EM TELA (Simulação de Página A4)
-   -------------------------------------------------------------------------- */
+  -------------------------------------------------------------------------- */
 
 /* Simula a folha de papel com fundo branco fixo, sombras e fontes legíveis */
 .pdf-page-preview {
-    width: 100%;                    /* Expande para ocupar o espaço base do container */
-    min-width: 650px;               /* Largura mínima para garantir estabilidade de tabelas e textos */
-    min-height: 100%;               /* Garante que cubra a altura mínima da folha simulada */
-    background-color: #ffffff;      /* Fundo branco fixo simulando uma folha de papel real */
-    color: #1e293b;                 /* Cor de texto escura padrão para alta legibilidade em impressões */
-    padding: 40px;                  /* Margens internas generosas simulando bordas de página A4 */
-    border-radius: 4px;             /* Leve arredondamento estético nas pontas da "folha" */
+    width: 100%;                      /* Expande para ocupar o espaço base do container */
+    min-width: 650px;                 /* Largura mínima para garantir estabilidade de tabelas e textos */
+    min-height: 100%;                 /* Garante que cubra a altura mínima da folha simulada */
+    background-color: #ffffff;        /* Fundo branco fixo simulando uma folha de papel real */
+    color: #1e293b;                   /* Cor de texto escura padrão para alta legibilidade em impressões */
+    padding: 40px;                    /* Margens internas generosas simulando bordas de página A4 */
+    border-radius: 4px;               /* Leve arredondamento estético nas pontas da "folha" */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Sombra suave para dar efeito de profundidade/papel */
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; /* Fonte padrão corporativa limpa */
-    font-size: 0.95rem;             /* Tamanho de corpo de texto ideal para documentos */
-    line-height: 1.6;               /* Espaçamento entrelinhas confortável para leitura de relatórios */
-    box-sizing: border-box;         /* Padroniza o modelo de caixa incluindo paddings */
-    word-wrap: break-word;          /* Quebra palavras longas para evitar estouro horizontal */
-    overflow-wrap: break-word;      /* Compatibilidade moderna para quebra de palavras complexas */
+    font-size: 0.95rem;               /* Tamanho de corpo de texto ideal para documentos */
+    line-height: 1.6;                 /* Espaçamento entrelinhas confortável para leitura de relatórios */
+    box-sizing: border-box;           /* Padroniza o modelo de caixa incluindo paddings */
+    word-wrap: break-word;            /* Quebra palavras longas para evitar estouro horizontal */
+    overflow-wrap: break-word;        /* Compatibilidade moderna para quebra de palavras complexas */
 }
 
 /* Estilização de títulos principais (H1) com linha de destaque inferior */
 .pdf-page-preview h1 {
-    font-size: 2rem;                /* Tamanho de destaque grande para o título principal */
-    color: #0f172a;                 /* Tom de texto escuro profundo para títulos */
-    font-weight: 700;               /* Peso de fonte em negrito forte */
-    margin-top: 0;                  /* Remove margem superior padrão do elemento */
-    margin-bottom: 1rem;            /* Espaço inferior separando o título do próximo elemento */
+    font-size: 2rem;                  /* Tamanho de destaque grande para o título principal */
+    color: #0f172a;                   /* Tom de texto escuro profundo para títulos */
+    font-weight: 700;                 /* Peso de fonte em negrito forte */
+    margin-top: 0;                    /* Remove margem superior padrão do elemento */
+    margin-bottom: 1rem;              /* Espaço inferior separando o título do próximo elemento */
     border-bottom: 2px solid #e2e8f0; /* Linha divisória estética abaixo do título */
-    padding-bottom: 0.5rem;         /* Respiro entre o texto do título e a linha inferior */
-    word-wrap: break-word;          /* Garante que títulos longos quebrem corretamente */
-    overflow-wrap: break-word;      /* Suporte adicional para quebra segura de títulos */
+    padding-bottom: 0.5rem;           /* Respiro entre o texto do título e a linha inferior */
+    word-wrap: break-word;            /* Garante que títulos longos quebrem corretamente */
+    overflow-wrap: break-word;        /* Suporte adicional para quebra segura de títulos */
 }
 
 /* Estilização de subtítulos (H2) dentro da pré-visualização */
 .pdf-page-preview h2 {
-    font-size: 1.5rem;              /* Tamanho intermediário de destaque para seções */
-    color: #1e293b;                 /* Cor escura corporativa para subtítulos */
-    font-weight: 600;               /* Peso semi-negrito para hierarquia visual */
-    margin-top: 1.5rem;             /* Margem superior para separar das seções anteriores */
-    margin-bottom: 0.75rem;         /* Margem inferior para afastar do conteúdo subsequente */
+    font-size: 1.5rem;                /* Tamanho intermediário de destaque para seções */
+    color: #1e293b;                   /* Cor escura corporativa para subtítulos */
+    font-weight: 600;                 /* Peso semi-negrito para hierarquia visual */
+    margin-top: 1.5rem;               /* Margem superior para separar das seções anteriores */
+    margin-bottom: 0.75rem;           /* Margem inferior para afastar do conteúdo subsequente */
 }
 
 /* Estilização de subtítulos menores (H3) dentro da pré-visualização */
 .pdf-page-preview h3 {
-    font-size: 1.2rem;              /* Tamanho menor para divisões terciárias de texto */
-    color: #334155;                 /* Tom acinzentado escuro para H3 */
-    font-weight: 600;               /* Peso semi-negrito para manter a hierarquia */
-    margin-top: 1.25rem;            /* Margem superior para respiro visual */
-    margin-bottom: 0.5rem;          /* Margem inferior ajustada */
+    font-size: 1.2rem;                /* Tamanho menor para divisões terciárias de texto */
+    color: #334155;                   /* Tom acinzentado escuro para H3 */
+    font-weight: 600;                 /* Peso semi-negrito para manter a hierarquia */
+    margin-top: 1.25rem;              /* Margem superior para respiro visual */
+    margin-bottom: 0.5rem;            /* Margem inferior ajustada */
 }
 
 /* Tabelas adaptadas com largura fixa para preservar a proporção no documento simulado */
 .pdf-page-preview table {
-    width: 100% !important;         /* Força a tabela a preencher toda a largura da folha */
-    max-width: 100% !important;     /* Trava a largura máxima para evitar vazamentos */
-    table-layout: fixed;            /* Força distribuição estática de colunas baseada no conteúdo */
-    border-collapse: collapse;      /* Junta as bordas adjacentes da tabela */
-    margin: 1.5rem 0;               /* Espaçamento vertical acima e abaixo da tabela */
-    font-size: 0.85rem;             /* Tamanho de fonte compacto adequado para dados tabulares */
-    box-sizing: border-box;         /* Inclui bordas no dimensionamento interno */
+    width: 100% !important;           /* Força a tabela a preencher toda a largura da folha */
+    max-width: 100% !important;       /* Trava a largura máxima para evitar vazamentos */
+    table-layout: fixed;              /* Força distribuição estática de colunas baseada no conteúdo */
+    border-collapse: collapse;        /* Junta as bordas adjacentes da tabela */
+    margin: 1.5rem 0;                 /* Espaçamento vertical acima e abaixo da tabela */
+    font-size: 0.85rem;               /* Tamanho de fonte compacto adequado para dados tabulares */
+    box-sizing: border-box;           /* Inclui bordas no dimensionamento interno */
 }
 
 /* Células e cabeçalhos de tabelas no preview */
 .pdf-page-preview th,
 .pdf-page-preview td {
-    border: 1px solid #cbd5e1;      /* Borda cinza clara delimitando cada célula */
-    padding: 10px 12px;             /* Espaçamento interno confortável nas células */
-    text-align: left;               /* Alinhamento padrão do texto à esquerda */
-    vertical-align: top;            /* Alinhamento vertical superior do conteúdo da célula */
-    word-wrap: break-word;          /* Quebra palavras longas dentro das colunas */
-    overflow-wrap: anywhere;        /* Permite quebras flexíveis em qualquer caractere se necessário */
-    white-space: normal;            /* Permite quebra de linha natural em textos longos */
+    border: 1px solid #cbd5e1;        /* Borda cinza clara delimitando cada célula */
+    padding: 10px 12px;               /* Espaçamento interno confortável nas células */
+    text-align: left;                 /* Alinhamento padrão do texto à esquerda */
+    vertical-align: top;              /* Alinhamento vertical superior do conteúdo da célula */
+    word-wrap: break-word;            /* Quebra palavras longas dentro das colunas */
+    overflow-wrap: anywhere;          /* Permite quebras flexíveis em qualquer caractere se necessário */
+    white-space: normal;              /* Permite quebra de linha natural em textos longos */
 }
 
 /* Cabeçalho da tabela com fundo destacado e texto em negrito */
 .pdf-page-preview th {
-    background-color: #f1f5f9;      /* Fundo sutil acinzentado para diferenciar o cabeçalho */
-    color: #0f172a;                 /* Cor de texto escura para forte contraste no header */
-    font-weight: 600;               /* Deixa o texto do cabeçalho em semi-negrito */
+    background-color: #f1f5f9;        /* Fundo sutil acinzentado para diferenciar o cabeçalho */
+    color: #0f172a;                   /* Cor de texto escura para forte contraste no header */
+    font-weight: 600;                 /* Deixa o texto do cabeçalho em semi-negrito */
 }
 
 /* Efeito zebrado nas linhas pares da tabela para melhor leitura */
 .pdf-page-preview tr:nth-child(even) {
-    background-color: #f8fafc;      /* Fundo levemente alternado nas linhas pares */
+    background-color: #f8fafc;        /* Fundo levemente alternado nas linhas pares */
 }
 
 /* Classes utilitárias de alinhamento de texto na pré-visualização */
@@ -172,91 +172,91 @@
 /* Listas ordenadas e não ordenadas no documento simulado */
 .pdf-page-preview ul,
 .pdf-page-preview ol {
-    padding-left: 1.5rem;           /* Recuo lateral esquerdo adequado para marcadores e números */
-    margin-bottom: 1.2rem;          /* Espaço inferior separando a lista dos blocos seguintes */
+    padding-left: 1.5rem;             /* Recuo lateral esquerdo adequado para marcadores e números */
+    margin-bottom: 1.2rem;            /* Espaço inferior separando a lista dos blocos seguintes */
 }
 
 /* Itens individuais de listas */
 .pdf-page-preview li {
-    margin-bottom: 0.4rem;          /* Pequeno espaço vertical entre cada item de lista */
+    margin-bottom: 0.4rem;            /* Pequeno espaço vertical entre cada item de lista */
 }
 
 /* Citações em bloco (blockquotes) com barra lateral colorida */
 .pdf-page-preview blockquote {
     border-left: 4px solid #6366f1; /* Barra lateral grossa colorida em destaque */
-    background-color: #f8fafc;      /* Fundo suave em tom neutro para a citação */
-    padding: 0.75rem 1.25rem;       /* Espaçamento interno da caixa de citação */
-    margin: 1.5rem 0;               /* Margem superior e inferior de separação */
-    color: #475569;                 /* Cor de texto secundária/suavizada para citações */
-    font-style: italic;             /* Estilo itálico tradicional para citações em bloco */
-    border-radius: 0 4px 4px 0;     /* Arredondamento apenas nas pontas direitas da caixa */
+    background-color: #f8fafc;        /* Fundo suave em tom neutro para a citação */
+    padding: 0.75rem 1.25rem;         /* Espaçamento interno da caixa de citação */
+    margin: 1.5rem 0;                 /* Margem superior e inferior de separação */
+    color: #475569;                   /* Cor de texto secundária/suavizada para citações */
+    font-style: italic;               /* Estilo itálico tradicional para citações em bloco */
+    border-radius: 0 4px 4px 0;       /* Arredondamento apenas nas pontas direitas da caixa */
 }
 
 /* Trechos de código inline aplicados no conteúdo HTML */
 .pdf-page-preview code {
-    background-color: #f1f5f9;      /* Fundo destacado claro para identificar código em linha */
-    color: #e11d48;                 /* Cor de texto avermelhada para destacar comandos/código */
-    padding: 2px 5px;               /* Pequeno respiro interno horizontal e vertical */
-    border-radius: 4px;             /* Cantos arredondados na tag de código */
+    background-color: #f1f5f9;        /* Fundo destacado claro para identificar código em linha */
+    color: #e11d48;                   /* Cor de texto avermelhada para destacar comandos/código */
+    padding: 2px 5px;                 /* Pequeno respiro interno horizontal e vertical */
+    border-radius: 4px;               /* Cantos arredondados na tag de código */
     font-family: Consolas, Monaco, monospace; /* Fonte monoespaçada para trechos de código */
-    font-size: 0.85em;              /* Leve redução proporcional no tamanho da fonte */
-    word-break: break-all;          /* Força a quebra de strings longas se necessário */
+    font-size: 0.85em;                /* Leve redução proporcional no tamanho da fonte */
+    word-break: break-all;            /* Força a quebra de strings longas se necessário */
 }
 
 /* Blocos de código extensos com fundo escuro e scroll horizontal interno */
 .pdf-page-preview pre {
-    background-color: #0f172a;      /* Fundo escuro padrão para blocos de código formatados */
-    color: #f8fafc;                 /* Texto claro de alta visibilidade sobre fundo escuro */
-    padding: 1rem;                  /* Espaçamento interno generoso no bloco */
-    border-radius: 6px;             /* Cantos arredondados para acabamento moderno */
-    overflow-x: auto;               /* Ativa barra de rolagem horizontal para códigos longos */
-    max-width: 100%;                /* Limita a largura máxima ao container pai */
-    margin: 1.2rem 0;               /* Espaçamento vertical de respiro */
-    box-sizing: border-box;         /* Padroniza o cálculo de dimensões */
+    background-color: #0f172a;        /* Fundo escuro padrão para blocos de código formatados */
+    color: #f8fafc;                   /* Texto claro de alta visibilidade sobre fundo escuro */
+    padding: 1rem;                    /* Espaçamento interno generoso no bloco */
+    border-radius: 6px;               /* Cantos arredondados para acabamento moderno */
+    overflow-x: auto;                 /* Ativa barra de rolagem horizontal para códigos longos */
+    max-width: 100%;                  /* Limita a largura máxima ao container pai */
+    margin: 1.2rem 0;                 /* Espaçamento vertical de respiro */
+    box-sizing: border-box;           /* Padroniza o cálculo de dimensões */
 }
 
 /* Formatação interna dos códigos dentro de blocos pré-formatados */
 .pdf-page-preview pre code {
-    background-color: transparent;  /* Remove o fundo padrão herdado do code inline */
-    color: inherit;                 /* Herda a cor clara definida no elemento pai pre */
-    padding: 0;                     /* Remove o padding interno redundante */
-    font-size: 0.9em;               /* Tamanho de fonte consistente para blocos extensos */
-    white-space: pre;               /* Preserva espaços em branco e quebras de linha literais */
+    background-color: transparent;    /* Remove o fundo padrão herdado do code inline */
+    color: inherit;                   /* Herda a cor clara definida no elemento pai pre */
+    padding: 0;                       /* Remove o padding interno redundante */
+    font-size: 0.9em;                 /* Tamanho de fonte consistente para blocos extensos */
+    white-space: pre;                 /* Preserva espaços em branco e quebras de linha literais */
 }
 
 /* Blocos de destaque estruturados (callouts) */
 .pdf-page-preview .callout {
-    background-color: #eff6ff;      /* Fundo azulado claro indicativo de informação */
-    border: 1px solid #bfdbfe;      /* Borda fina em tom azul complementar */
+    background-color: #eff6ff;        /* Fundo azulado claro indicativo de informação */
+    border: 1px solid #bfdbfe;        /* Borda fina em tom azul complementar */
     border-left: 4px solid #3b82f6; /* Barra lateral azul forte indicando alerta/destaque */
-    padding: 1rem;                  /* Espaçamento interno do callout */
-    border-radius: 4px;             /* Cantos arredondados leves */
-    margin: 1.2rem 0;               /* Margens superior e inferior de separação */
+    padding: 1rem;                    /* Espaçamento interno do callout */
+    border-radius: 4px;               /* Cantos arredondados leves */
+    margin: 1.2rem 0;                 /* Margens superior e inferior de separação */
 }
 
 /* --------------------------------------------------------------------------
    INTERFACES E EFEITOS DE CARREGAMENTO (UI)
-   -------------------------------------------------------------------------- */
+  -------------------------------------------------------------------------- */
 
 /* Oculta elementos completamente do fluxo visual e de acessibilidade */
 .hidden {
-    display: none !important;       /* Força a ocultação total de elementos marcados */
+    display: none !important;         /* Força a ocultação total de elementos marcados */
 }
 
 /* Alinha os elementos internos de botões que estão em estado de ação/carregamento */
 .btn-loading {
-    display: inline-flex;           /* Exibe em linha mantendo capacidades flexbox internas */
-    align-items: center;            /* Centraliza verticalmente ícone/spinner e texto */
-    gap: 0.5rem;                    /* Espaço horizontal entre o spinner e o texto explicativo */
+    display: inline-flex;             /* Exibe em linha mantendo capacidades flexbox internas */
+    align-items: center;              /* Centraliza verticalmente ícone/spinner e texto */
+    gap: 0.5rem;                      /* Espaço horizontal entre o spinner e o texto explicativo */
 }
 
 /* Indicador visual de carregamento animado (spinner circular) */
 .spinner {
-    width: 14px;                    /* Largura fixa reduzida para o ícone de load */
-    height: 14px;                   /* Altura fixa proporcional à largura */
+    width: 14px;                      /* Largura fixa reduzida para o ícone de load */
+    height: 14px;                     /* Altura fixa proporcional à largura */
     border: 2px solid rgba(255, 255, 255, 0.3); /* Borda translúcida de fundo */
-    border-top-color: #ffffff;      /* Borda superior sólida para gerar o efeito de rotação */
-    border-radius: 50%;             /* Torna o elemento um círculo perfeito */
+    border-top-color: #ffffff;        /* Borda superior sólida para gerar o efeito de rotação */
+    border-radius: 50%;               /* Torna o elemento um círculo perfeito */
     animation: spin-anim 0.8s linear infinite; /* Ativa a animação contínua de giro */
 }
 
@@ -273,7 +273,7 @@
     /* Reduz a altura dos textareas e previews em telas intermediárias/tablets */
     .pdf-textarea,
     .pdf-preview-container {
-        height: 400px;              /* Diminui a altura útil para economizar espaço vertical em tablets */
+        height: 400px;                /* Diminui a altura útil para economizar espaço vertical em tablets */
     }
 }
 
@@ -281,13 +281,13 @@
     /* Ajusta ainda mais a altura em smartphones para caber na tela sem forçar scroll excessivo */
     .pdf-textarea,
     .pdf-preview-container {
-        height: 320px;              /* Altura compacta otimizada para telas de celulares */
-        padding: 0.75rem;           /* Reduz o padding interno proporcionalmente */
+        height: 320px;                /* Altura compacta otimizada para telas de celulares */
+        padding: 0.75rem;             /* Reduz o padding interno proporcionalmente */
     }
 
     /* Em telas menores, reduz o espaçamento interno da página simulada para otimizar o conteúdo */
     .pdf-page-preview {
-        padding: 20px;              /* Margens internas reduzidas na folha simulada */
-        min-width: 500px;           /* Mantém estabilidade visual horizontal sem quebras abruptas */
+        padding: 20px;                /* Margens internas reduzidas na folha simulada */
+        min-width: 500px;             /* Mantém estabilidade visual horizontal sem quebras abruptas */
     }
 }
