@@ -2,48 +2,70 @@
 === 01. TEXTO - 11. Comparação de Textos ===
 ========================================================================== */
 
-/* Caixa de diff otimizada com rolagem interna */
+/* 
+ * 1. WORKSPACE LARGO
+ * Alarga o container padrão da ferramenta para equiparar a largura visual à de comparação de listas.
+ */
+.tool-container.workspace-largo {
+  width: 100%;                          /* Ocupa a largura total disponível */
+  max-width: 100%;                      /* Sem limite restrito de largura máxima */
+  box-sizing: border-box;               /* Inclui padding e bordas no cálculo de dimensões */
+  overflow-x: hidden;                   /* Previne qualquer vazamento horizontal indesejado */
+  padding: 1rem;                        /* Respiro interno básico ao redor de todo o conteúdo */
+}
+
+/* 
+ * 2. CAIXA DE DIFF (RESULTADO)
+ * Área monoespaçada com rolagem interna para exibição segura de divergências entre textos.
+ */
 .diff-box {
-  width: 100% !important;
-  min-height: 200px;
-  max-height: 400px;
-  overflow-y: auto;
-  padding: 1rem;
-  background-color: var(--bg-sidebar, #f8f9fa);
-  font-family: monospace;
-  white-space: pre-wrap;
-  word-break: break-word;
-  box-sizing: border-box;
+  width: 100% !important;               /* Garante que ocupe a largura total do container pai */
+  min-height: 200px;                    /* Altura mínima confortável para inspeção de blocos de texto */
+  max-height: 400px;                    /* Limita a expansão vertical ativando rolagem se necessário */
+  overflow-y: auto;                     /* Ativa rolagem vertical interna quando o conteúdo excede o limite */
+  padding: 1rem;                        /* Respiro interno adequado para leitura dos dados */
+  background-color: var(--bg-main);     /* Fundo adaptável dinamicamente aos temas claro ou escuro */
+  font-family: monospace;               /* Fonte monoespaçada ideal para comparação exata de caracteres */
+  white-space: pre-wrap;                /* Preserva espaços e quebras de linha originais do texto */
+  word-break: break-word;               /* Força quebra de palavras muito longas para evitar estouro horizontal */
+  box-sizing: border-box;               /* Inclui padding e bordas no cálculo de dimensões */
 }
 
-/* Painel que envolve os resultados gerados após a ação de comparar */
+/* 
+ * 3. PAINEL DE RESULTADOS
+ * Container responsável por estruturar e distanciar a seção de comparação gerada.
+ */
 #result-panel {
-  width: 100%;
-  margin-top: 2rem;
-  box-sizing: border-box;
+  width: 100%;                          /* Ocupa a largura total disponível */
+  margin-top: 2rem;                     /* Afasta o painel de resultados dos elementos superiores */
+  box-sizing: border-box;               /* Padroniza o cálculo de modelo de caixa */
 }
 
+/* Título principal interno do painel de resultados */
 #result-panel h3 {
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
-  color: var(--text-main);
+  margin-bottom: 1rem;                  /* Espaço inferior separando o título do conteúdo do painel */
+  font-size: 1.2rem;                    /* Tamanho de fonte destacado e proporcional */
+  color: var(--text-main);              /* Herda a cor do texto principal do tema global */
 }
 
-/* Cores específicas dos cards de diff (Remoções vs Adições) */
+/* 
+ * 4. VARIAÇÕES DE CARDS DE DIFF (DANGER E SUCCESS)
+ * Estilização de bordas superiores e cabeçalhos para diferenciar remoções e adições de texto.
+ */
 .card-danger {
-  border-top: 4px solid var(--danger-color, #dc3545);
+  border-top: 4px solid #dc3545;        /* Borda superior vermelha indicando trechos removidos */
 }
 .card-danger .card-header {
-  background-color: rgba(220, 53, 69, 0.1);
-  color: var(--danger-color, #dc3545);
-  font-weight: bold;
+  background-color: rgba(220, 53, 69, 0.1); /* Fundo vermelho translúcido sutil para o cabeçalho */
+  color: #dc3545;                       /* Texto do cabeçalho em tom avermelhado */
+  font-weight: bold;                    /* Destaca o título do card de remoção */
 }
 
 .card-success {
-  border-top: 4px solid var(--success-color, #28a745);
+  border-top: 4px solid #28a745;        /* Borda superior verde indicando trechos adicionados */
 }
 .card-success .card-header {
-  background-color: rgba(40, 167, 69, 0.1);
-  color: var(--success-color, #28a745);
-  font-weight: bold;
+  background-color: rgba(40, 167, 69, 0.1); /* Fundo verde translúcido sutil para o cabeçalho */
+  color: #28a745;                       /* Texto do cabeçalho em tom esverdeado */
+  font-weight: bold;                    /* Destaca o título do card de adição */
 }
