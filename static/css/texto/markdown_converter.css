@@ -4,96 +4,96 @@
 
 /* Layout em grid responsivo com min-width: 0 para evitar estouros nas colunas */
 .tool-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
-    width: 100%;
-    box-sizing: border-box;
+    display: grid;                    /* Define um layout em grid para o container */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Cria colunas flexíveis que se adaptam automaticamente ao espaço */
+    gap: 1.5rem;                      /* Define o espaçamento entre as colunas e linhas do grid */
+    width: 100%;                      /* Garante que o grid ocupe toda a largura disponível */
+    box-sizing: border-box;           /* Inclui bordas e paddings no cálculo total de dimensões */
 }
 
 /* Garante que os grupos de campos respeitem o limite do grid, previnem estouros 
    e mantenham a fluidez correta com min-width: 0 */
 .field-group {
-    display: flex;
-    flex-direction: column;
-    min-width: 0;
-    width: 100%;
-    box-sizing: border-box;
+    display: flex;                    /* Organiza os elementos do grupo em um container flexível */
+    flex-direction: column;           /* Empilha os elementos filhos verticalmente */
+    min-width: 0;                     /* Evita que itens flex estourem o limite horizontal do container */
+    width: 100%;                      /* Faz o grupo preencher toda a largura disponível */
+    box-sizing: border-box;           /* Padroniza o modelo de cálculo de caixa */
 }
 
 /* Caixa de entrada do código Markdown com altura fixa, fonte monoespaçada e sem redimensionamento */
 .markdown-textarea {
-    width: 100%;
-    max-width: 100%;
-    height: 520px; 
-    padding: 1rem;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius);
-    background-color: var(--bg-main);
-    color: var(--text-main);
-    font-family: var(--font-mono, monospace);
-    font-size: 0.95rem;
-    line-height: 1.5;
-    resize: none;
-    outline: none;
-    box-sizing: border-box;
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    transition: border-color 0.15s, box-shadow 0.15s;
+    width: 100%;                      /* Ocupa toda a largura do container pai */
+    max-width: 100%;                  /* Trava a largura máxima para evitar overflow horizontal */
+    height: 520px;                    /* Define uma altura fixa para a área de digitação */
+    padding: 1rem;                    /* Adiciona espaçamento interno ao redor do texto */
+    border: 1px solid var(--border-color); /* Aplica uma borda sutil utilizando a cor do tema */
+    border-radius: var(--radius);     /* Arredonda os cantos do campo conforme o padrão do sistema */
+    background-color: var(--bg-main); /* Define a cor de fundo principal do campo */
+    color: var(--text-main);          /* Aplica a cor de texto padrão de acordo com o tema */
+    font-family: var(--font-mono, monospace); /* Utiliza fonte monoespaçada ideal para edição de código */
+    font-size: 0.95rem;               /* Define um tamanho de fonte legível para o editor */
+    line-height: 1.5;                 /* Ajusta o espaçamento entrelinhas para facilitar a leitura */
+    resize: none;                     /* Desativa o redimensionamento manual pelo usuário via mouse */
+    outline: none;                    /* Remove o contorno padrão nativo do navegador ao focar */
+    box-sizing: border-box;           /* Inclui paddings e bordas no cálculo de dimensões */
+    white-space: pre-wrap;            /* Preserva espaços em branco e quebras de linha literais */
+    word-wrap: break-word;            /* Força a quebra de palavras muito longas */
+    overflow-wrap: break-word;        /* Suporte moderno para quebra segura de palavras extensas */
+    transition: border-color 0.15s, box-shadow 0.15s; /* Adiciona transição suave para interações de foco */
 }
 
 /* Efeito visual de foco padronizado com borda destacada e halo translúcido */
 .markdown-textarea:focus {
-    border-color: #3b82f6; 
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    border-color: #3b82f6;            /* Altera a cor da borda para um tom azulado em destaque ao focar */
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); /* Adiciona um halo translúcido ao redor do campo em foco */
 }
 
 /* Container do bloco de saída do código HTML gerado, com rolagem vertical automática 
    e min-width: 0 para total segurança em grids */
 .markdown-output-container {
-    width: 100%;
-    max-width: 100%;
-    height: 520px;
-    overflow-y: auto;
-    overflow-x: hidden;
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius);
-    padding: 1rem;
-    background-color: var(--bg-main);
-    box-sizing: border-box;
-    min-width: 0;
+    width: 100%;                      /* Ocupa 100% da largura disponível */
+    max-width: 100%;                  /* Limita a largura máxima para prevenir estouros */
+    height: 520px;                    /* Iguala a altura da caixa de entrada para manter simetria */
+    overflow-y: auto;                 /* Ativa a barra de rolagem vertical caso o conteúdo exceda a altura */
+    overflow-x: hidden;               /* Oculta qualquer barra de rolagem horizontal indesejada */
+    border: 1px solid var(--border-color); /* Aplica a borda padrão do tema */
+    border-radius: var(--radius);     /* Arredonda os cantos da caixa de saída */
+    padding: 1rem;                    /* Adiciona espaçamento interno ao redor do código gerado */
+    background-color: var(--bg-main); /* Aplica a cor de fundo principal */
+    box-sizing: border-box;           /* Inclui paddings e bordas no cálculo de tamanho */
+    min-width: 0;                     /* Evita estouros horizontais em elementos flex ou grid */
 }
 
 /* Área interna formatada para exibição do código HTML com quebras automáticas seguras */
 .markdown-text-area {
-    margin: 0;
-    font-family: var(--font-mono, monospace);
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: var(--text-main);
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    margin: 0;                        /* Remove margens padrão indesejadas */
+    font-family: var(--font-mono, monospace); /* Aplica fonte monoespaçada para exibição de código */
+    font-size: 0.9rem;                /* Define um tamanho de fonte compacto para o código HTML */
+    line-height: 1.5;                 /* Espaçamento entrelinhas adequado para visualização */
+    color: var(--text-main);          /* Aplica a cor de texto padrão do sistema */
+    white-space: pre-wrap;            /* Preserva espaços em branco e quebras de linha */
+    word-wrap: break-word;            /* Quebra palavras longas para evitar vazamento horizontal */
+    overflow-wrap: break-word;        /* Suporte moderno para quebra de palavras extensas */
 }
 
 /* Oculta completamente o alerta/toast quando inativo */
 .toast-alert.hidden {
-    display: none !important;
+    display: none !important;         /* Força a ocultação total do elemento de alerta */
 }
 
 /* Exibe o alerta/toast com alinhamento flexível e animação de surgimento suave */
 .toast-alert.visible {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    animation: fadeIn 0.3s ease;
+    display: inline-flex;             /* Exibe o alerta mantendo capacidades flexbox */
+    align-items: center;              /* Centraliza verticalmente o ícone e o texto do alerta */
+    gap: 0.5rem;                      /* Espaço horizontal entre os elementos internos do alerta */
+    animation: fadeIn 0.3s ease;      /* Aplica a animação de fade-in ao exibir */
 }
 
 /* Animação de fade-in para transições suaves de elementos na tela */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(4px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; transform: translateY(4px); } /* Inicia invisível e ligeiramente deslocado para baixo */
+    to { opacity: 1; transform: translateY(0); }     /* Termina totalmente visível na posição original */
 }
 
 /* ==========================================================================
@@ -104,7 +104,7 @@
 @media (max-width: 480px) {
     .markdown-textarea,
     .markdown-output-container {
-        height: 380px;
-        padding: 0.875rem;
+        height: 380px;                /* Reduz a altura dos campos para melhor visualização em telas pequenas */
+        padding: 0.875rem;            /* Diminui levemente o espaçamento interno proporcionalmente */
     }
 }
