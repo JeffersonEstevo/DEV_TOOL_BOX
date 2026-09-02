@@ -93,11 +93,9 @@ function executarCalculoDeFracao() {
         dens.push(den);
     }
 
-    // Coleta as operações sequenciais
     let ops = [];
     opSelects.forEach(sel => ops.push(sel.value));
 
-    // Função auxiliar para aplicar a operação entre duas frações (n1/d1 e n2/d2)
     const operar = (n1, d1, n2, d2, op) => {
         let rNum, rDen;
         switch (op) {
@@ -122,18 +120,34 @@ function executarCalculoDeFracao() {
         return { num: rNum, den: rDen };
     };
 
-    // Executa o cálculo sequencialmente (ex: (F1 op1 F2) op2 F3 ...)
-    let currentNum = nums[0];
-    let currentDen = dens[0];
-
     try {
-        for (let i = 0; i < ops.length; i++) {
-            const nextNum = nums[i + 1];
-            const nextDen = dens[i + 1];
-            const res = operar(currentNum, currentDen, nextNum, nextDen, ops[i]);
-            currentNum = res.num;
-            currentDen = res.den;
+        // Criamos cópias para manipular os arrays aplicando a precedência
+        let fList = nums.map((n, i) => ({ num: n, den: dens[i] }));
+        let oList = [...ops];
+
+        // FASE 1: Prioridade para Multiplicação e Divisão
+        let i = 0;
+        while (i < oList.length) {
+            if (oList[i] === "multiply" || oList[i] === "divide") {
+                const res = operar(fList[i].num, fList[i].den, fList[i + 1].num, fList[i + 1].den, oList[i]);
+                // Substitui a fração atual e a próxima pelo resultado da operação prioritária
+                fList.splice(i, 2, res);
+                // Remove o operador já processado
+                oList.splice(i, 1);
+            } else {
+                i++;
+            }
         }
+
+        // FASE 2: Soma e Subtração (da esquerda para a direita)
+        let current = fList[0];
+        for (let j = 0; j < oList.length; j++) {
+            current = operar(current.num, current.den, fList[j + 1].num, fList[j + 1].den, oList[j]);
+        }
+
+        var currentNum = current.num;
+        var currentDen = current.den;
+
     } catch (e) {
         alert("Não é possível realizar uma divisão por zero.");
         return;
