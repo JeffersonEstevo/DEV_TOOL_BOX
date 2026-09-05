@@ -11,14 +11,14 @@
  * o overflow-x e crescer para acomodar o conteúdo interno.
  */
 .tool-container .subredes-workspace {
-  max-width: 800px !important;
-  width: 100% !important;
-  text-align: left !important;
-  padding: 2rem !important;
-  margin-inline: auto;
-  box-sizing: border-box !important;
-  overflow-x: hidden;
-  min-width: 0;
+  max-width: 800px !important;                 /* Limita a largura máxima do card */
+  width: 100% !important;                       /* Ocupa largura total disponível */
+  text-align: left !important;                  /* Alinhamento base do texto à esquerda */
+  padding: 2rem !important;                     /* Respiro interno confortável */
+  margin-inline: auto;                          /* Centraliza o container horizontalmente */
+  box-sizing: border-box !important;            /* Inclui padding no cálculo de largura */
+  overflow-x: hidden;                           /* Evita vazamento de conteúdo lateral */
+  min-width: 0;                                 /* Previne overflow em contextos flex/grid */
 }
 
 /* 
@@ -26,8 +26,8 @@
  * Mantém a mesma proporção de 800px do workspace principal.
  */
 .tool-container .rede-tabs {
-  max-width: 800px;
-  margin-inline: auto;
+  max-width: 800px;                             /* Alinha a largura máxima com o workspace */
+  margin-inline: auto;                          /* Centraliza as abas horizontalmente */
 }
 
 /* 
@@ -35,16 +35,16 @@
  * Uso de minmax(0, ...) para evitar estouros nas colunas do grid.
  */
 .subredes-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-  gap: 1.5rem;
+  display: grid;                                /* Ativa layout de grade de duas colunas */
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); /* Coluna principal maior e lateral proporcional segura */
+  gap: 1.5rem;                                  /* Espaçamento uniforme entre os campos */
 }
 
 .subredes-grid-tres {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.5rem;
-  width: 100%;
+  display: grid;                                /* Ativa layout de grade de três colunas */
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* Três colunas iguais e seguras contra estouro */
+  gap: 1.5rem;                                  /* Espaçamento uniforme entre as colunas */
+  width: 100%;                                  /* Ocupa largura total disponível */
 }
 
 /* 
@@ -52,35 +52,35 @@
  * Padroniza inputs e selects com dimensionamento seguro (box-sizing).
  */
 .subredes-field {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+  display: flex;                                /* Organiza o rótulo e o campo em coluna */
+  flex-direction: column;                       /* Empilha label e input verticalmente */
+  gap: 0.4rem;                                  /* Espaçamento curto entre o rótulo e o campo */
 }
 
 .subredes-field label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-main);
+  font-size: 0.85rem;                           /* Tamanho compacto e legível para o rótulo */
+  font-weight: 600;                             /* Deixa o texto do rótulo semi-negrito */
+  color: var(--text-main);                      /* Cor principal do texto baseada no tema */
 }
 
 .subredes-field input[type="text"],
 .subredes-field select {
-  width: 100%;
-  padding: 0.5rem 0.75rem;
-  font-size: 0.85rem;
-  font-weight: 500;
-  font-family: monospace;
-  background-color: var(--bg-main);
-  border: 1px solid var(--border-color);
-  color: var(--primary-color);
-  border-radius: var(--radius);
-  box-sizing: border-box;
-  height: 38px;
+  width: 100%;                                  /* Ocupa toda a largura do campo container */
+  padding: 0.5rem 0.75rem;                      /* Respiro interno equilibrado */
+  font-size: 0.85rem;                           /* Tamanho de fonte padronizado */
+  font-weight: 500;                             /* Peso médio para melhor legibilidade */
+  font-family: monospace;                       /* Fonte monoespaçada para dados numéricos/redes */
+  background-color: var(--bg-main);             /* Fundo adaptável ao tema claro/escuro */
+  border: 1px solid var(--border-color);        /* Borda sutil padrão do sistema */
+  color: var(--primary-color);                  /* Cor de destaque para o texto inserido */
+  border-radius: var(--radius);                 /* Arredondamento padrão do sistema */
+  box-sizing: border-box;                       /* Inclui padding e borda no tamanho total */
+  height: 38px;                                 /* Altura fixa uniforme para inputs e selects */
 }
 
 .subredes-field input[type="text"]:focus,
 .subredes-field select:focus {
-  background-color: var(--bg-sidebar);
+  background-color: var(--bg-sidebar);          /* Altera levemente o fundo ao focar no campo */
 }
 
 /* 
@@ -89,54 +89,54 @@
  * de conteúdo e não precisa de scroll próprio.
  */
 #subredes-resultados {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  width: 100%;
-  box-sizing: border-box;
+  overflow-x: auto;                             /* Permite rolagem horizontal se necessário */
+  -webkit-overflow-scrolling: touch;            /* Rolagem suave otimizada para dispositivos touch */
+  width: 100%;                                  /* Ocupa largura total */
+  box-sizing: border-box;                       /* Consistência nas dimensões da caixa */
 }
 
 .subredes-table {
-  width: 100%;
-  table-layout: fixed;
-  border-collapse: collapse;
-  margin-top: 1rem;
-  background-color: var(--bg-sidebar);
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 1px solid var(--border-color);
+  width: 100%;                                  /* Ocupa largura total do container */
+  table-layout: fixed;                          /* Força colunas de tamanho fixo previsível */
+  border-collapse: collapse;                    /* Une as bordas da tabela de forma limpa */
+  margin-top: 1rem;                             /* Respiro superior em relação aos campos */
+  background-color: var(--bg-sidebar);          /* Fundo adaptado ao tema da barra lateral/cards */
+  border-radius: var(--radius);                 /* Arredondamento padrão nos cantos da tabela */
+  overflow: hidden;                             /* Esconde excessos para respeitar o border-radius */
+  border: 1px solid var(--border-color);        /* Borda externa padrão do sistema */
 }
 
 .subredes-table th {
-  background-color: var(--primary-color);
-  color: #fff;
-  padding: 0.75rem 1rem;
-  font-weight: 700;
-  text-align: left;
-  word-break: break-word;
+  background-color: var(--primary-color);       /* Fundo com a cor primária/destaque do tema */
+  color: #fff;                                  /* Texto do cabeçalho em branco para alto contraste */
+  padding: 0.75rem 1rem;                        /* Respiro interno confortável no cabeçalho */
+  font-weight: 700;                             /* Negrito forte para destacar os títulos */
+  text-align: left;                             /* Alinhamento do texto à esquerda */
+  word-break: break-word;                       /* Quebra palavras longas para evitar estouro */
 }
 
 .subredes-table td {
-  padding: 0.65rem 1rem;
-  border-bottom: 1px solid var(--border-color);
-  font-size: 0.9rem;
-  color: var(--text-main);
-  word-break: break-word;
-  overflow-wrap: break-word;
+  padding: 0.65rem 1rem;                        /* Respiro interno das células de dados */
+  border-bottom: 1px solid var(--border-color); /* Linha divisória sutil entre as linhas */
+  font-size: 0.9rem;                            /* Tamanho de fonte legível para os dados */
+  color: var(--text-main);                      /* Cor principal do texto nas células */
+  word-break: break-word;                       /* Quebra palavras longas com segurança */
+  overflow-wrap: break-word;                    /* Garante que o texto longo respeite os limites */
 }
 
 .subredes-table tr:last-child td {
-  border-bottom: none;
+  border-bottom: none;                          /* Remove a linha da última linha da tabela */
 }
 
 .mono-text {
-  font-family: monospace;
-  font-size: 0.85rem;
-  color: var(--primary-color);
+  font-family: monospace;                       /* Aplica fonte monoespaçada */
+  font-size: 0.85rem;                           /* Tamanho ligeiramente reduzido */
+  color: var(--primary-color);                  /* Destaca o texto monoespaçado com a cor primária */
 }
 
 /* Destaque visual para o IP local na Aba 2 */
 .linha-local {
-  border-left: 4px solid #28a745;
+  border-left: 4px solid #28a745;               /* Borda verde à esquerda destacando a linha local */
 }
 
 /* 
@@ -148,45 +148,44 @@
  *
  * As duas propriedades que evitam o vazamento pra página inteira:
  * - min-width: 0    → desativa o comportamento padrão de containers
- *                      flex/grid de nunca encolher abaixo do conteúdo filho
+ *                     flex/grid de nunca encolher abaixo do conteúdo filho
  * - contain: layout inline-size → isola completamente a largura da tabela;
- *                      nenhum ancestral (mesmo fora do nosso controle,
- *                      como um wrapper do tema) é influenciado pelo
- *                      conteúdo interno deste container
+ *                     nenhum ancestral (mesmo fora do nosso controle,
+ *                     como um wrapper do tema) é influenciado pelo
+ *                     conteúdo interno deste container
  */
 .part-tabela-container {
-  max-height: 400px;
-  overflow-x: auto;
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
-  width: 100%;
-  min-width: 0;
-  contain: layout inline-size;
-  box-sizing: border-box;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
+  max-height: 400px;                            /* Altura máxima com barra de rolagem vertical interna */
+  overflow-x: auto;                             /* Ativa scroll horizontal isolado */
+  overflow-y: auto;                             /* Ativa scroll vertical isolado */
+  -webkit-overflow-scrolling: touch;            /* Rolagem suave em dispositivos touch */
+  width: 100%;                                  /* Ocupa largura total disponível */
+  min-width: 0;                                 /* Previne expansão indesejada em flex/grid */
+  contain: layout inline-size;                  /* Isola o cálculo de layout e largura do container */
+  box-sizing: border-box;                       /* Consistência nas dimensões de caixa */
+  border: 1px solid var(--border-color);        /* Borda padrão do sistema */
+  border-radius: var(--radius);                 /* Arredondamento padrão */
 }
 
 #part-resultados .subredes-table {
-  table-layout: auto;    /* libera as colunas para o tamanho natural do conteúdo */
-  min-width: 640px;      /* espaço suficiente para IPs/faixas não comprimirem */
-  width: max-content;    /* a tabela cresce conforme necessário; o excesso
-                             é absorvido pelo scroll do container acima */
+  table-layout: auto;                           /* Libera as colunas para o tamanho natural do conteúdo */
+  min-width: 640px;                             /* Espaço mínimo suficiente para IPs/faixas não comprimirem */
+  width: max-content;                           /* A tabela cresce conforme necessário; o excesso é absorvido pelo container */
 }
 
 #part-resultados .subredes-table th,
 #part-resultados .subredes-table td {
-  white-space: nowrap;   /* impede quebra no meio do IP/faixa */
-  word-break: normal;
-  overflow-wrap: normal;
+  white-space: nowrap;                          /* Impede quebra de linha no meio de IPs ou faixas */
+  word-break: normal;                           /* Mantém o comportamento padrão de quebra */
+  overflow-wrap: normal;                        /* Evita quebras automáticas de texto nas células */
 }
 
 /* A coluna "Comunicação" tem texto curto (ex: "Local (L2)") e pode
    continuar quebrando normalmente sem prejudicar a leitura */
 #part-resultados .subredes-table td:last-child,
 #part-resultados .subredes-table th:last-child {
-  white-space: normal;
-  word-break: break-word;
+  white-space: normal;                          /* Permite quebra normal de linha na última coluna */
+  word-break: break-word;                       /* Quebra palavras longas se necessário */
 }
 
 /* 
@@ -194,18 +193,18 @@
  */
 @media (max-width: 768px) {
   .subredes-grid-tres {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr)); /* Reduz o grid de 3 para 2 colunas em tablets */
   }
 }
 
 @media (max-width: 520px) {
   .subredes-table th,
   .subredes-table td {
-    font-size: 0.75rem;
+    font-size: 0.75rem;                         /* Reduz o tamanho da fonte das tabelas em celulares */
   }
 
   #part-resultados .subredes-table {
-    min-width: 560px;
+    min-width: 560px;                           /* Ajusta a largura mínima da tabela para telas compactas */
   }
 
   /* NOVO: empilha os campos em coluna única no mobile, garantindo que
@@ -214,7 +213,7 @@
      o campo deixa de dividir espaço com os vizinhos. */
   .subredes-grid,
   .subredes-grid-tres {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr;                 /* Colapsa todos os grids para coluna única */
   }
 
   /* Reduz levemente a fonte dos selects/inputs nessa largura, dando
@@ -222,6 +221,6 @@
      que incluem quantidade de sub-redes e IPs por sub-rede) */
   .subredes-field input[type="text"],
   .subredes-field select {
-    font-size: 0.8rem;
+    font-size: 0.8rem;                          /* Fonte otimizada para caber textos longos nos selects mobile */
   }
 }
