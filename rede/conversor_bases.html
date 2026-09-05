@@ -1,7 +1,7 @@
 <div class="tool-container">
     <header class="tool-header">
-        <h2>Conversor de Bases Numéricas</h2>
-        <p>Insira um valor em qualquer uma das bases computacionais para convertê-lo instantaneamente em tempo real entre os sistemas Decimal, Binário, Octal e Hexadecimal.</p>
+        <h2>Conversor Avançado de Bases Numéricas & Bits</h2>
+        <p>Converta valores instantaneamente entre Decimal, Binário, Octal, Hexadecimal, Base 32, Base 64 e analise a representação binária de 8/16/32 bits.</p>
     </header>
 
     <div class="generator-workspace bases-workspace">
@@ -31,6 +31,28 @@
                 <small class="field-help">Caracteres permitidos: 0-9, A-F</small>
             </div>
 
+            <div class="bases-field">
+                <label for="base-base32">Base 32 (Crockford/Standard)</label>
+                <input type="text" id="base-base32" placeholder="Ex: 7F" autocomplete="off">
+                <small class="field-help">Utilizado em tokens e chaves 2FA</small>
+            </div>
+
+            <div class="bases-field">
+                <label for="base-base64">Base 64 (String / Payload)</label>
+                <input type="text" id="base-base64" placeholder="Ex: /w==" autocomplete="off">
+                <small class="field-help">Codificação binária segura para web</small>
+            </div>
+
+        </div>
+
+        <!-- Painel Auxiliar de Bits e Tamanho de Memória -->
+        <div class="bits-info-panel" style="margin-top: 1.5rem; padding: 1rem; background: var(--bg-sidebar); border: 1px solid var(--border-color); border-radius: var(--radius);">
+            <h4 style="margin-top: 0; margin-bottom: 0.75rem; font-size: 0.9rem; color: var(--text-main);">Análise de Memória & Bits (Preenchimento)</h4>
+            <div style="display: flex; flex-direction: column; gap: 0.5rem; font-family: monospace; font-size: 0.85rem;">
+                <div><strong>8-bit (Byte):</strong> <span id="bit-8">00000000</span></div>
+                <div><strong>16-bit (Word):</strong> <span id="bit-16">0000000000000000</span></div>
+                <div><strong>32-bit (DWord):</strong> <span id="bit-32">00000000000000000000000000000000</span></div>
+            </div>
         </div>
     </div>
 

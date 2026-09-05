@@ -8,7 +8,7 @@
  * na tela e aplica espaçamento interno confortável.
  */
 .tool-container .bases-workspace {
-  max-width: 750px !important;    /* Limita a largura máxima para manter o layout compacto e organizado */
+  max-width: 650px !important;    /* Limita a largura máxima para manter o layout compacto e organizado */
   width: 100% !important;         /* Garante comportamento fluido preenchendo o espaço disponível */
   margin: 0 auto !important;      /* Centraliza horizontalmente o container na tela */
   text-align: left !important;    /* Garante alinhamento à esquerda dos textos internos */
@@ -40,13 +40,6 @@
 @media (max-width: 360px) {
   .tool-container .bases-workspace {
     padding: 1rem !important;     
-  }
-}
-
-@media (max-width: 650px) {
-  .bases-grid {
-    grid-template-columns: 1fr; /* Empilha em telas menores */
-    gap: 1.15rem;
   }
 }
 
