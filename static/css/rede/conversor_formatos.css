@@ -1,103 +1,220 @@
 /* ==========================================================================
-   === REDE - Conversor JSON ⇄ YAML (Estilização Restaurada) ===
+   === REDE - Conversor JSON ⇄ YAML ===
    ========================================================================== */
 
-/* 1. LAYOUT PRINCIPAL: Caixas lado a lado em telas grandes, empilhadas em mobile */
+/* 
+ * 1. LAYOUT PRINCIPAL: Caixa de duas colunas
+ * Alinha a área de digitação e a de resultado lado a lado em telas grandes.
+ * O 'minmax(0, 1fr)' previne que colunas flexíveis/grid estorvem o layout.
+ */
 .tool-container > .tool-grid {
-  display: grid !important;
+  display: grid !important;                     /* Ativa o sistema de grade */
   grid-template-columns: repeat(2, minmax(0, 1fr)) !important; /* Duas colunas largas e proporcionais */
-  gap: 2rem !important; /* Espaçamento generoso entre as caixas */
-  width: 100% !important;
+  gap: 2rem !important;                         /* Espaçamento generoso entre as caixas */
+  width: 100% !important;                       /* Ocupa largura total disponível */
 }
 
-/* 2. ÁREA DE DIGITAÇÃO PRINCIPAL (FORMAT TEXTAREA) */
+/* 
+ * 2. ÁREA DE DIGITAÇÃO PRINCIPAL (FORMAT TEXTAREA)
+ * Campo onde o usuário insere o código de entrada com suporte a fonte monoespaçada.
+ */
 .format-textarea {
-  width: 100%;
-  max-width: 100%;
-  height: 480px;
-  padding: 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  background-color: var(--bg-main);
-  color: var(--text-main);
-  font-family: var(--font-mono, monospace);
-  font-size: 0.9rem;
-  line-height: 1.5;
-  resize: none;
-  outline: none;
-  box-sizing: border-box;
+  width: 100%;                                  /* Preenche a largura total do container */
+  max-width: 100%;                              /* Limita ao tamanho máximo disponível */
+  height: 480px;                                /* Altura padrão ideal para edição */
+  padding: 1rem;                                /* Respiro interno confortável */
+  border: 1px solid var(--border-color);        /* Borda sutil padrão do sistema */
+  border-radius: var(--radius);                 /* Arredondamento padrão */
+  background-color: var(--bg-main);             /* Fundo adaptável ao tema claro/escuro */
+  color: var(--text-main);                      /* Cor principal do texto */
+  font-family: var(--font-mono, monospace);     /* Fonte monoespaçada para código */
+  font-size: 0.9rem;                            /* Tamanho de fonte legível */
+  line-height: 1.5;                             /* Espaçamento entre linhas confortável */
+  resize: none;                                 /* Impede redimensionamento manual */
+  outline: none;                                /* Remove contorno padrão do navegador */
+  box-sizing: border-box;                       /* Inclui padding e border no cálculo de largura */
 }
 
+/* Feedback visual (Focus) ao interagir com o campo de texto */
 .format-textarea:focus {
-  border-color: var(--primary-color);
-  background-color: var(--bg-sidebar);
+  border-color: var(--primary-color);           /* Pinta a borda com a cor principal */
+  background-color: var(--bg-sidebar);          /* Muda sutilmente o fundo indicando foco ativo */
 }
 
-/* 3. JANELA DE RESULTADOS (FORMAT OUTPUT CONTAINER) - Estilização restaurada */
+/* 
+ * 3. JANELA DE RESULTADOS (FORMAT OUTPUT CONTAINER)
+ * Container de saída que abriga o código gerado, permitindo scroll automático.
+ */
 .format-output-container {
-  width: 100%;
-  max-width: 100%;
-  height: 480px;
-  max-height: 480px;
-  overflow: auto !important; /* Garante scroll vertical e horizontal automático */
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius);
-  padding: 1rem;
-  background-color: var(--bg-main);
-  box-sizing: border-box;
-  position: relative;
+  width: 100%;                                  /* Ocupa largura total */
+  max-width: 100%;                              /* Limite máximo seguro */
+  height: 480px;                                /* Altura fixa equivalente ao input */
+  max-height: 480px;                            /* Impede expansão vertical excessiva */
+  overflow: auto !important;                    /* Garante scroll vertical e horizontal automático */
+  border: 1px solid var(--border-color);        /* Borda padrão do sistema */
+  border-radius: var(--radius);                 /* Arredondamento padrão */
+  padding: 1rem;                                /* Respiro interno confortável */
+  background-color: var(--bg-main);             /* Fundo adaptável */
+  box-sizing: border-box;                       /* Consistência nas dimensões */
+  position: relative;                           /* Referência para posicionamento interno */
 }
 
-/* 4. TEXTO DE EXIBIÇÃO DE RESULTADO */
+/* 
+ * 4. TEXTO DE EXIBIÇÃO DE RESULTADO
+ * Estiliza o conteúdo bruto dentro da caixa de saída mantendo quebras de formato exatas.
+ */
 .format-text-area {
-  margin: 0;
-  font-family: var(--font-mono, monospace);
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: var(--text-main);
-  white-space: pre; /* Mantém o formato exato e ativa o scroll horizontal se a linha for muito longa */
-  word-wrap: normal;
-  word-break: normal;
+  margin: 0;                                    /* Remove margens indesejadas */
+  font-family: var(--font-mono, monospace);     /* Fonte monoespaçada para dados estruturados */
+  font-size: 0.9rem;                            /* Tamanho de fonte otimizado */
+  line-height: 1.5;                             /* Altura de linha proporcional */
+  color: var(--text-main);                      /* Cor principal do texto */
+  white-space: pre;                             /* Mantém o formato exato e ativa scroll horizontal se longo */
+  word-wrap: normal;                            /* Evita quebras de palavras automáticas indesejadas */
+  word-break: normal;                           /* Preserva formatação original dos dados */
 }
 
-/* 5. CAIXA DE ERROS DE SINTAXE/COMPILAÇÃO */
+/* 
+ * 5. CAIXA DE ERROS DE SINTAXE/COMPILAÇÃO
+ * Alerta visual destacado quando o código inserido possui problemas de estrutura.
+ */
 .format-error-box {
-  background-color: rgba(217, 56, 58, 0.08);
-  border: 1px solid #d9383a;
-  color: #d9383a;
-  border-radius: var(--radius);
-  padding: 0.75rem;
-  font-size: 0.85rem;
-  font-family: var(--font-mono, monospace);
-  margin-bottom: 0.75rem;
-  line-height: 1.4;
-  word-break: break-all;
-  width: 100%;
-  box-sizing: border-box;
+  background-color: rgba(217, 56, 58, 0.08);    /* Fundo avermelhado sutil e translúcido */
+  border: 1px solid #d9383a;                    /* Borda vermelha de alerta */
+  color: #d9383a;                               /* Cor do texto em destaque de erro */
+  border-radius: var(--radius);                 /* Arredondamento padrão */
+  padding: 0.75rem;                             /* Respiro interno compacto */
+  font-size: 0.85rem;                           /* Tamanho reduzido para mensagens técnicas */
+  font-family: var(--font-mono, monospace);     /* Fonte monoespaçada para rastros de erro */
+  margin-bottom: 0.75rem;                       /* Espaço inferior de separação */
+  line-height: 1.4;                             /* Linha compacta */
+  word-break: break-all;                        /* Quebra tokens longos para não vazar a caixa */
+  width: 100% !important;                       /* Ocupa largura total */
+  box-sizing: border-box;                       /* Consistência de caixa */
 }
 
+/* Oculta a caixa de erro quando a classe hidden está presente */
 .format-error-box.hidden {
   display: none !important;
 }
 
-/* 6. RESPONSIVIDADE E ADAPTAÇÃO PARA DISPOSITIVOS MÓVEIS */
+/* 
+ * 6. BARRA DE AÇÕES E COMPORTAMENTO INTELIGENTE DO TOAST
+ * Ajusta a barra de ações para aceitar múltiplas linhas de forma fluida (flex-wrap),
+ * garantindo que quando o toast aparecer e faltar espaço, ele desça suavemente
+ * para a linha de baixo sem espremer ou empurrar os botões lateralmente.
+ */
+.tool-container .action-bar {
+  display: flex !important;                     /* Organiza os itens da barra de ações */
+  flex-wrap: wrap !important;                   /* Permite que elementos quebrem de linha se não couberem */
+  justify-content: center !important;           /* Centraliza os itens no eixo horizontal */
+  align-items: center !important;               /* Alinha verticalmente os itens no centro */
+  gap: 0.75rem !important;                      /* Espaçamento uniforme entre botões e alertas */
+  width: 100% !important;                       /* Ocupa largura total disponível */
+  box-sizing: border-box;                       /* Consistência nas dimensões */
+  padding: 1rem 0 !important;                   /* Respiro interno vertical */
+  position: relative !important;                /* Referência segura de posicionamento */
+  min-width: 0;                                 /* Impede estouro horizontal em containers flex */
+}
+
+.tool-container .action-bar .grupo-acoes {
+  display: flex !important;                     /* Alinha os botões internos em linha */
+  gap: 0.5rem !important;                       /* Espaçamento entre os botões do grupo */
+  align-items: center !important;               /* Alinhamento vertical centralizado */
+  justify-content: center !important;           /* Centralização horizontal */
+  width: auto;                                  /* Largura flexível baseada no conteúdo */
+  min-width: 0;                                 /* Previne overflow */
+}
+
+.tool-container .toast-alert {
+  position: static !important;                  /* Mantém o alerta no fluxo natural do layout */
+  transform: none !important;                   /* Remove transformações absolutas */
+  display: inline-flex !important;              /* Alinha ícone e texto do alerta lado a lado */
+  align-items: center !important;               /* Centralização vertical do aviso */
+  gap: 0.4rem !important;                       /* Espaço interno entre ícone e mensagem */
+  font-size: 0.85rem !important;                /* Tamanho compacto e legível para o aviso */
+  margin-left: 0 !important;                    /* Zera margens laterais forçadas */
+  white-space: nowrap !important;               /* Mantém o texto coeso na mesma linha */
+  max-width: 100% !important;                   /* Evita extrapolar limites da tela */
+  box-sizing: border-box;                       /* Consistência de caixa */
+}
+
+/* Oculta o toast quando a classe hidden está ativa (padrão correto) */
+.tool-container .toast-alert.hidden {
+  display: none !important;                     /* Esconde completamente o elemento */
+}
+
+/* Exibe o toast corretamente como flex inline quando ativo */
+.tool-container .toast-alert:not(.hidden) {
+  display: inline-flex !important;              /* Restaura a exibição em bloco flexível */
+}
+
+/* 
+ * 7. RESPONSIVIDADE (TABLETS E TELAS INTERMEDIÁRIAS - ATÉ 1024px)
+ */
 @media (max-width: 1024px) {
-  /* Telas intermediárias / Notebooks menores */
   .tool-container > .tool-grid {
     gap: 1.5rem !important;
   }
 }
 
+/* 
+ * 8. RESPONSIVIDADE (TABLETS E TELAS INTERMEDIÁRIAS - ATÉ 768px)
+ * Ajustes de segurança para eliminar completamente qualquer scroll horizontal.
+ */
 @media (max-width: 768px) {
-  /* Tablets e Celulares: Empilha as caixas */
   .tool-container > .tool-grid {
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem !important;
+    grid-template-columns: 1fr !important;      /* Colapsa o grid para uma única coluna */
+    gap: 1.5rem !important;                     /* Espaçamento consistente */
   }
 
   .format-textarea,
   .format-output-container {
-    height: 350px;
+    height: 350px;                              /* Altura ajustada para telas intermediárias */
     max-height: 350px;
+  }
+
+  .tool-container .action-bar {
+    justify-content: center !important;         /* Centraliza todos os elementos na barra */
+    width: 100% !important;                     /* Ocupa largura total */
+    box-sizing: border-box;                     /* Consistência de caixa */
+  }
+}
+
+/* 
+ * 9. RESPONSIVIDADE (SMARTPHONES - ATÉ 520px)
+ * UX/UI Mobile: Botões empilhados em largura total para garantir excelente 
+ * área de toque e leitura, com o toast ocupando seu espaço de forma organizada.
+ */
+@media (max-width: 520px) {
+  .tool-container .action-bar {
+    flex-direction: column !important;          /* Força o empilhamento vertical na barra de ações */
+    gap: 0.75rem !important;                    /* Espaçamento seguro entre os blocos */
+    width: 100% !important;                     /* Ocupa largura total disponível */
+    box-sizing: border-box;                     /* Caixa segura */
+  }
+
+  .tool-container .action-bar .grupo-acoes {
+    display: flex !important;                   /* Mantém o comportamento flexível */
+    flex-direction: column !important;          /* Empilha cada botão um abaixo do outro */
+    width: 100% !important;                     /* Faz o grupo de botões preencher 100% da largura */
+    gap: 0.50rem !important;                    /* Espaçamento vertical confortável entre os botões */
+    box-sizing: border-box;                     /* Caixa segura */
+  }
+
+  .tool-container .action-bar .grupo-acoes .btn {
+    width: 100% !important;                     /* Botão estica para largura total (ótimo para toque mobile) */
+    justify-content: center !important;         /* Centraliza perfeitamente o ícone e o texto */
+    margin: 0 !important;                       /* Remove margens extras */
+    box-sizing: border-box;                     /* Garante dimensionamento correto de caixa */
+  }
+
+  .tool-container .toast-alert {
+    width: 100% !important;                     /* Ocupa largura total centralizada no mobile */
+    justify-content: center !important;         /* Centraliza o conteúdo (ícone e texto) do aviso */
+    margin-top: 0.25rem !important;             /* Respiro superior leve em relação aos botões */
+    white-space: normal !important;             /* Permite quebra natural de linha se a mensagem for longa */
+    text-align: center;                         /* Centraliza o texto do aviso */
+    box-sizing: border-box;                     /* Consistência de caixa */
   }
 }
