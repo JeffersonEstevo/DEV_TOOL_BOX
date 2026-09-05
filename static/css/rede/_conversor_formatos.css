@@ -38,14 +38,12 @@
   width: 100%;
   max-width: 100%;
   height: 480px;
-  max-height: 480px;
-  overflow: auto !important; /* Garante scroll vertical e horizontal automático */
+  overflow-y: auto;
   border: 1px solid var(--border-color);
   border-radius: var(--radius);
   padding: 1rem;
   background-color: var(--bg-main);
   box-sizing: border-box;
-  position: relative;
 }
 
 /* 4. TEXTO DE EXIBIÇÃO DE RESULTADO */
@@ -55,9 +53,8 @@
   font-size: 0.9rem;
   line-height: 1.5;
   color: var(--text-main);
-  white-space: pre; /* Mantém o formato exato e ativa o scroll horizontal se a linha for muito longa */
-  word-wrap: normal;
-  word-break: normal;
+  white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 /* 5. CAIXA DE ERROS DE SINTAXE/COMPILAÇÃO */
@@ -81,15 +78,8 @@
 }
 
 /* 6. RESPONSIVIDADE E ADAPTAÇÃO PARA DISPOSITIVOS MÓVEIS */
-@media (max-width: 1024px) {
-  /* Telas intermediárias / Notebooks menores */
-  .tool-container > .tool-grid {
-    gap: 1.5rem !important;
-  }
-}
-
 @media (max-width: 768px) {
-  /* Tablets e Celulares: Empilha as caixas */
+  /* Força coluna única em tablets e celulares */
   .tool-container > .tool-grid {
     grid-template-columns: 1fr !important;
     gap: 1.5rem !important;
@@ -97,7 +87,6 @@
 
   .format-textarea,
   .format-output-container {
-    height: 350px;
-    max-height: 350px;
+    height: 380px;
   }
 }

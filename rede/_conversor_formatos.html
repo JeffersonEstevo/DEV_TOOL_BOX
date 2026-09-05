@@ -1,28 +1,18 @@
 <div class="tool-container">
     <header class="tool-header">
-        <h2>Canivete Suíço Multiformatos (JSON, YAML, XML, CSV, TOML, Query)</h2>
-        <p>Converta, valide, minifique e detecte estruturas instantaneamente no seu fluxo de desenvolvimento.</p>
+        <h2>Conversor Multiformatos (JSON, YAML, XML)</h2>
+        <p>Converta arquivos de configuração entre os formatos JSON, YAML e XML instantaneamente com validação de sintaxe em tempo real.</p>
     </header>
-
-    <div class="action-bar-top" style="margin-bottom: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
-        <button id="btn-minify" class="btn btn-secondary btn-sm">Minificar JSON</button>
-        <button id="btn-beautify" class="btn btn-secondary btn-sm">Formatar / Indentar</button>
-    </div>
 
     <div class="tool-grid">
         <div class="field-group">
             <label for="format-input">Entrada (Digite ou cole aqui):</label>
             <div class="input-with-select">
                 <select id="format-direction" class="format-select">
-                    <option value="auto">✨ Detecção Automática (Smart)</option>
                     <option value="json2yaml">JSON para YAML</option>
                     <option value="json2xml">JSON para XML</option>
-                    <option value="json2csv">JSON para CSV</option>
-                    <option value="json2query">JSON para Query Params</option>
                     <option value="yaml2json">YAML para JSON</option>
                     <option value="xml2json">XML para JSON</option>
-                    <option value="csv2json">CSV para JSON</option>
-                    <option value="query2json">Query Params para JSON</option>
                 </select>
             </div>
             <textarea id="format-input" class="format-textarea" placeholder='{\n  "status": "sucesso",\n  "porta": 8080\n}' autocomplete="off" spellcheck="false"></textarea>
@@ -37,7 +27,7 @@
         </div>
     </div>
 
-    <div class="action-bar border-top-bar" style="justify-content: center; margin-top: 1rem;">
+    <div class="action-bar border-top-bar" style="justify-content: center;">
         <button id="clean-format-button" class="btn btn-secondary">Limpar Campos</button>
         <button id="copy-format-button" class="btn btn-success">
             <i class="bi bi-clipboard"></i> Copiar Resultado
@@ -48,6 +38,5 @@
     </div>
 </div>
 
-<!-- CDNs necessárias para YAML e TOML -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
 <script src="static/js/rede/conversor_formatos.js"></script>

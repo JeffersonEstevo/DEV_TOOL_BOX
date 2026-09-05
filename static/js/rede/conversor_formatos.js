@@ -1,18 +1,15 @@
-// Função auxiliar: Valida e limpa nomes de tags XML de acordo com as regras do W3C
-function sanitizarNomeTagXml(chave) {
-    // Substitui caracteres inválidos para tags XML por _
-    let tag = chave.replace(/[^a-zA-Z0-9_\-\.]/g, "_");
+/* ==========================================================================
+   === REDE - Canivete Suíço Multiformatos (Estável & Otimizado) ===
+   ========================================================================== */
 
-    // Se o primeiro caractere for um número, hífen ou ponto (inválidos no início), adiciona o prefixo "_"
+function sanitizarNomeTagXml(chave) {
+    let tag = chave.replace(/[^a-zA-Z0-9_\-\.]/g, "_");
     if (/^[0-9\-\.]/.test(tag)) {
         tag = `_${tag}`;
     }
-
-    // Se a chave ficar vazia após a limpeza, define um nome genérico válido
     return tag || "item";
 }
 
-// Função auxiliar: Converte Objeto JavaScript para String XML formatada
 function objetoParaXml(obj, rootName = "root") {
     const rootFormatado = sanitizarNomeTagXml(rootName);
     let xml = `<?xml version="1.0" encoding="UTF-8"?>\n<${rootFormatado}>\n`;
@@ -21,7 +18,6 @@ function objetoParaXml(obj, rootName = "root") {
         for (let chave in o) {
             if (o.hasOwnProperty(chave)) {
                 let valor = o[chave];
-                // Sanitiza a chave para garantir que não inicie com número nem contenha caracteres proibidos
                 let tagValida = sanitizarNomeTagXml(chave);
 
                 if (typeof valor === "object" && valor !== null) {
@@ -40,9 +36,8 @@ function objetoParaXml(obj, rootName = "root") {
     return xml;
 }
 
-// Função auxiliar: Converte documento XML para um Objeto JavaScript simples
 function xmlParaObjeto(xmlNode) {
-    if (xmlNode.nodeType === 3) return xmlNode.nodeValue.trim(); // Nó de texto
+    if (xmlNode.nodeType === 3) return xmlNode.nodeValue.trim();
     if (xmlNode.nodeType === 1 && xmlNode.childNodes.length === 0) return "";
 
     let obj = {};
@@ -52,7 +47,7 @@ function xmlParaObjeto(xmlNode) {
 
     for (let i = 0; i < xmlNode.childNodes.length; i++) {
         let item = xmlNode.childNodes[i];
-        if (item.nodeType === 1) { // Elemento normal
+        if (item.nodeType === 1) {
             let nomeNode = item.nodeName;
             let valorNode = xmlParaObjeto(item);
             
@@ -67,6 +62,100 @@ function xmlParaObjeto(xmlNode) {
         }
     }
     return obj;
+}
+
+function jsonParaCsv(data) {
+    let array = typeof data != 'object' ? JSON.parse(data) : data;
+    if (!Array.isArray(array)) {
+        array = [array];
+    }
+    if (array.length === 0) return "";
+
+    let colunas = Object.keys(array[0]);
+    let csv = colunas.join(",") + "\n";
+
+    array.forEach(linha => {
+        let linhaCsv = colunas.map(coluna => {
+            let valor = linha[coluna] !== undefined ? linha[coluna] : "";
+            let valorStr = String(valor);
+            if (valorStr.includes(",") || valorStr.includes("\n") || valorStr.includes('"')) {
+                valorStr = `"${valorStr.replace(/"/g, '""')}"`;
+            }
+            return valorStr;
+        }).join(",");
+        csv += linhaCsv + "\n";
+    });
+
+    return csv.trim();
+}
+
+function csvParaObjeto(csvText) {
+    let linhas = csvText.trim().split("\n");
+    if (linhas.length === 0) return [];
+
+    let cabecalho = linhas[0].split(",").map(item => item.trim().replace(/^"(.*)"$/, '$1'));
+    let resultado = [];
+
+    for (let i = 1; i < linhas.length; i++) {
+        let linhaAtual = linhas[i].split(",");
+        let obj = {};
+        for (let j = 0; j < cabecalho.length; j++) {
+            let val = linhaAtual[j] !== undefined ? linhaAtual[j].trim() : "";
+            val = val.replace(/^"(.*)"$/, '$1');
+            if (!isNaN(val) && val !== "") {
+                val = Number(val);
+            } else if (val.toLowerCase() === "true") {
+                val = true;
+            } else if (val.toLowerCase() === "false") {
+                val = false;
+            }
+            obj[cabecalho[j]] = val;
+        }
+        resultado.push(obj);
+    }
+    return resultado;
+}
+
+function jsonParaQuery(obj) {
+    let plano = {};
+    function achatar(o, prefixo = '') {
+        for (let k in o) {
+            if (o.hasOwnProperty(k)) {
+                let chaveCompleta = prefixo ? `${prefixo}[${k}]` : k;
+                if (typeof o[k] === 'object' && o[k] !== null && !Array.isArray(o[k])) {
+                    achatar(o[k], chaveCompleta);
+                } else {
+                    plano[chaveCompleta] = o[k];
+                }
+            }
+        }
+    }
+    achatar(obj);
+    const params = new URLSearchParams(plano);
+    return params.toString();
+}
+
+function queryParaObjeto(queryString) {
+    if (queryString.startsWith('?')) queryString = queryString.substring(1);
+    const params = new URLSearchParams(queryString);
+    let obj = {};
+    for (const [key, value] of params.entries()) {
+        obj[key] = !isNaN(value) && value !== "" ? Number(value) : value;
+    }
+    return obj;
+}
+
+function detectarFormato(texto) {
+    texto = texto.trim();
+    if (!texto) return 'vazio';
+
+    if ((texto.startsWith('{') && texto.endsWith('}')) || (texto.startsWith('[') && texto.endsWith(']'))) {
+        try { JSON.parse(texto); return 'json'; } catch(e) {}
+    }
+    if (texto.startsWith('<') && texto.endsWith('>')) return 'xml';
+    if (texto.includes('=') && !texto.includes(':') && !texto.includes('{')) return 'query';
+    if (texto.includes(',') && texto.split('\n').length > 1) return 'csv';
+    return 'yaml';
 }
 
 function processarConversaoFormatos() {
@@ -85,50 +174,60 @@ function processarConversaoFormatos() {
         return;
     }
 
-    if (typeof jsyaml === 'undefined') {
-        outputPre.innerText = "Erro: Biblioteca YAML não carregada.";
-        return;
-    }
+    localStorage.setItem("dev_conversor_input", textoEntrada);
 
     try {
         let resultado = "";
         const direcao = directionSelect.value;
+        let tipoDetectado = direcao;
 
-        if (direcao === "json2yaml") {
+        if (direcao === "auto") {
+            const detectado = detectarFormato(textoEntrada);
+            if (detectado === 'json') tipoDetectado = 'json2yaml';
+            else if (detectado === 'xml') tipoDetectado = 'xml2json';
+            else if (detectado === 'csv') tipoDetectado = 'csv2json';
+            else if (detectado === 'query') tipoDetectado = 'query2json';
+            else tipoDetectado = 'yaml2json';
+        }
+
+        if (tipoDetectado === "json2yaml") {
             const obj = JSON.parse(textoEntrada);
             resultado = jsyaml.dump(obj, { indent: 2, noRefs: true });
-
-        } else if (direcao === "json2xml") {
+        } else if (tipoDetectado === "json2xml") {
             const obj = JSON.parse(textoEntrada);
             resultado = objetoParaXml(obj);
-
-        } else if (direcao === "yaml2json") {
+        } else if (tipoDetectado === "json2csv") {
+            const obj = JSON.parse(textoEntrada);
+            resultado = jsonParaCsv(obj);
+        } else if (tipoDetectado === "json2query") {
+            const obj = JSON.parse(textoEntrada);
+            resultado = jsonParaQuery(obj);
+        } else if (tipoDetectado === "yaml2json") {
             const obj = jsyaml.load(textoEntrada);
             resultado = JSON.stringify(obj, null, 2);
-
-        } else if (direcao === "xml2json") {
+        } else if (tipoDetectado === "xml2json") {
             const parser = new DOMParser();
             const xmlDoc = parser.parseFromString(textoEntrada, "text/xml");
-            
-            // Verifica se o XML possui erro de parsing estrutural interno
-            const erroParser = xmlDoc.getElementsByTagName("parsererror");
-            if (erroParser.length > 0) {
+            if (xmlDoc.getElementsByTagName("parsererror").length > 0) {
                 throw new Error("Tags XML mal formatadas ou sem fechamento.");
             }
-            
             const obj = xmlParaObjeto(xmlDoc.documentElement);
-            // Cria um objeto envelopado com a tag raiz para manter a fidelidade
             const resultadoFinal = {};
             resultadoFinal[xmlDoc.documentElement.nodeName] = obj;
-            
             resultado = JSON.stringify(resultadoFinal, null, 2);
+        } else if (tipoDetectado === "csv2json") {
+            const obj = csvParaObjeto(textoEntrada);
+            resultado = JSON.stringify(obj, null, 2);
+        } else if (tipoDetectado === "query2json") {
+            const obj = queryParaObjeto(textoEntrada);
+            resultado = JSON.stringify(obj, null, 2);
         }
 
         errorBox.classList.add("hidden");
         outputPre.innerText = resultado;
 
     } catch (erro) {
-        errorBox.innerText = `Erro de Sintaxe: ${erro.message}`;
+        errorBox.innerText = `Erro de Sintaxe / Conversão: ${erro.message}`;
         errorBox.classList.remove("hidden");
         outputPre.innerText = "";
     }
@@ -145,6 +244,7 @@ function limparConversorFormatos() {
         errorBox.innerText = "";
         errorBox.classList.add("hidden");
     }
+    localStorage.removeItem("dev_conversor_input");
 }
 
 function copiarFormatoConvertido() {
@@ -163,37 +263,53 @@ function copiarFormatoConvertido() {
     }).catch(err => console.error("Erro ao copiar: ", err));
 }
 
-function inicializarConversorFormatos() {
+function minificarJsonInput() {
     const inputArea = document.getElementById("format-input");
-    const directionSelect = document.getElementById("format-direction");
-
-    if (inputArea) {
-        if (inputArea._handleInputFormat) {
-            inputArea.removeEventListener("input", inputArea._handleInputFormat);
-        }
-        inputArea._handleInputFormat = processarConversaoFormatos;
-        inputArea.addEventListener("input", inputArea._handleInputFormat);
-    }
-
-    if (directionSelect) {
-        if (directionSelect._handleChangeFormat) {
-            directionSelect.removeEventListener("change", directionSelect._handleChangeFormat);
-        }
-        directionSelect._handleChangeFormat = () => {
-            const direcao = directionSelect.value;
-            if (inputArea) {
-                if (direcao === "json2yaml" || direcao === "json2xml") {
-                    inputArea.placeholder = '{\n  "status": "sucesso",\n  "porta": 8080\n}';
-                } else if (direcao === "yaml2json") {
-                    inputArea.placeholder = 'status: "sucesso"\nporta: 8080';
-                } else if (direcao === "xml2json") {
-                    inputArea.placeholder = '<config>\n  <status>sucesso</status>\n  <porta>8080</porta>\n</config>';
-                }
-            }
-            processarConversaoFormatos();
-        };
-        directionSelect.addEventListener("change", directionSelect._handleChangeFormat);
+    if (!inputArea || !inputArea.value.trim()) return;
+    try {
+        const parsed = JSON.parse(inputArea.value);
+        inputArea.value = JSON.stringify(parsed);
+        processarConversaoFormatos();
+    } catch(e) {
+        alert("O conteúdo atual não é um JSON válido para minificar.");
     }
 }
 
-inicializarConversorFormatos();
+function beautifyJsonInput() {
+    const inputArea = document.getElementById("format-input");
+    if (!inputArea || !inputArea.value.trim()) return;
+    try {
+        const parsed = JSON.parse(inputArea.value);
+        inputArea.value = JSON.stringify(parsed, null, 2);
+        processarConversaoFormatos();
+    } catch(e) {
+        alert("O conteúdo atual não é um JSON válido para formatar.");
+    }
+}
+
+function inicializarConversorFormatos() {
+    const inputArea = document.getElementById("format-input");
+    const directionSelect = document.getElementById("format-direction");
+    const btnClean = document.getElementById("clean-format-button");
+    const btnCopy = document.getElementById("copy-format-button");
+    const btnMinify = document.getElementById("btn-minify");
+    const btnBeautify = document.getElementById("btn-beautify");
+
+    const rascunhoSalvo = localStorage.getItem("dev_conversor_input");
+    if (inputArea && rascunhoSalvo) {
+        inputArea.value = rascunhoSalvo;
+        setTimeout(processarConversaoFormatos, 100);
+    }
+
+    if (inputArea) inputArea.addEventListener("input", processarConversaoFormatos);
+    if (directionSelect) directionSelect.addEventListener("change", processarConversaoFormatos);
+    if (btnClean) btnClean.addEventListener("click", limparConversorFormatos);
+    if (btnCopy) btnCopy.addEventListener("click", copiarFormatoConvertido);
+    if (btnMinify) btnMinify.addEventListener("click", minificarJsonInput);
+    if (btnBeautify) btnBeautify.addEventListener("click", beautifyJsonInput);
+}
+
+document.addEventListener("DOMContentLoaded", inicializarConversorFormatos);
+if (document.readyState === "complete" || document.readyState === "interactive") {
+    inicializarConversorFormatos();
+}
