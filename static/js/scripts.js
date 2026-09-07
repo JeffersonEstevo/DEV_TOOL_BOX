@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const themeIcon = themeToggle ? themeToggle.querySelector("i") : null;
     const body = document.body;
     const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
+    if (savedTheme !== "light") {
         body.classList.add("dark-mode");
         if (themeIcon) themeIcon.className = "bi bi-sun";
     }

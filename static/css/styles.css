@@ -1298,3 +1298,9 @@ img, video, canvas, svg, table, pre, code {
     justify-content: center !important;
   }
 }
+
+/* Remover formatação no Link principal na LOGO */
+.brand-link {
+    text-decoration: none;
+    color: inherit;
+}
