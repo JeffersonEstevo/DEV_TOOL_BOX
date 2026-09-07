@@ -913,6 +913,26 @@ input[type="radio"] {
   color: #ffffff;
 }
 
+/* Correção e Padronização de Inputs Numéricos:
+   Remove as setas nativas (spinners) de incremento e decremento que os navegadores 
+   exibem automaticamente em campos do tipo 'number', garantindo um visual limpo, 
+   consistente e idêntico ao de um input de texto comum em todos os browsers. */
+
+/* WebKit: Chrome, Safari, Edge moderno, Opera e navegadores baseados no Chromium */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;   /* Desativa a renderização visual do motor WebKit */
+  appearance: none;           /* Garante a aplicação do padrão moderno da W3C */
+  margin: 0;                  /* Remove margens e espaçamentos fantasmas gerados pelas setas */
+}
+
+/* Gecko e Motores Antigos: Firefox, Internet Explorer e Edge legado */
+input[type="number"] {
+  -moz-appearance: textfield; /* Força o Firefox a renderizar o input como um campo de texto comum */
+  appearance: textfield;      /* Aplica a propriedade padrão para consistência entre os motores */
+}
+
+
 
 /* ==========================================================================
    10. ALINHAMENTO E ESTILIZAÇÃO DOS SELETORES DE COR (COLOR PICKERS)

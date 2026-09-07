@@ -1100,7 +1100,7 @@ var BANCO_COMPONENTES_UI = BANCO_COMPONENTES_UI || [
     </button>`,
         css: `/* Estilo do Botão Textual com Seta */
     .ui-btn-slide {
-        background: transparent; border: none; color: #0f172a; font-size: 0.9rem;
+        background: transparent; border: none; color: #708090; font-size: 0.9rem;
         font-weight: 700; cursor: pointer; display: inline-flex; align-items: center;
         gap: 0.5rem; font-family: system-ui, sans-serif; padding: 0.5rem 0;
         position: relative;
@@ -1109,7 +1109,7 @@ var BANCO_COMPONENTES_UI = BANCO_COMPONENTES_UI || [
     .ui-btn-slide:hover .ui-btn-arrow { transform: translateX(5px); }
     .ui-btn-slide::after {
         content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 2px;
-        background: #0f172a; transform: scaleX(0); transform-origin: right; transition: transform 0.25s ease;
+        background: #708090; transform: scaleX(0); transform-origin: right; transition: transform 0.25s ease;
     }
     .ui-btn-slide:hover::after { transform: scaleX(1); transform-origin: left; }`
     },
