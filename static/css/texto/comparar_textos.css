@@ -15,7 +15,19 @@
 }
 
 /* 
- * 2. CAIXA DE DIFF (RESULTADO)
+ * 2. GRID DE ENTRADA (INPUTS A E B)
+ * Organiza os campos de inserção de texto em duas colunas proporcionais para telas maiores.
+ */
+.tool-grid {
+  display: grid;                        /* Ativa o modelo de layout em grade */
+  grid-template-columns: repeat(2, minmax(0, 1fr)); /* Cria 2 colunas flexíveis e seguras contra estouro */
+  gap: 1rem;                            /* Espaçamento uniforme entre as colunas e linhas */
+  width: 100%;                          /* Garante que o grid ocupe toda a largura do pai */
+  box-sizing: border-box;               /* Garante consistência de caixa em redimensionamentos */
+}
+
+/* 
+ * 3. CAIXA DE DIFF (RESULTADO)
  * Área monoespaçada com rolagem interna para exibição segura de divergências entre textos.
  */
 .diff-box {
@@ -32,7 +44,7 @@
 }
 
 /* 
- * 3. PAINEL DE RESULTADOS
+ * 4. PAINEL DE RESULTADOS
  * Container responsável por estruturar e distanciar a seção de comparação gerada.
  */
 #result-panel {
@@ -49,7 +61,7 @@
 }
 
 /* 
- * 4. VARIAÇÕES DE CARDS DE DIFF (DANGER E SUCCESS)
+ * 5. VARIAÇÕES DE CARDS DE DIFF (DANGER E SUCCESS)
  * Estilização de bordas superiores e cabeçalhos para diferenciar remoções e adições de texto.
  */
 .card-danger {
@@ -59,6 +71,7 @@
   background-color: rgba(220, 53, 69, 0.1); /* Fundo vermelho translúcido sutil para o cabeçalho */
   color: #dc3545;                       /* Texto do cabeçalho em tom avermelhado */
   font-weight: bold;                    /* Destaca o título do card de remoção */
+  padding: 0.75rem;                     /* Respiro interno confortável no cabeçalho */
 }
 
 .card-success {
@@ -68,4 +81,36 @@
   background-color: rgba(40, 167, 69, 0.1); /* Fundo verde translúcido sutil para o cabeçalho */
   color: #28a745;                       /* Texto do cabeçalho em tom esverdeado */
   font-weight: bold;                    /* Destaca o título do card de adição */
+  padding: 0.75rem;                     /* Respiro interno confortável no cabeçalho */
 }
+
+/* ==========================================================================
+=== RESPONSIVIDADE (MEDIA QUERIES) ===
+========================================================================== */
+
+/* 
+ * 6. BREAKPOINT PARA TABLETS, DISPOSITIVOS MÓVEIS E TELAS HORIZONTAIS COMPACTAS (ATÉ 768px)
+ * Colapsa o grid duplo superior de entradas para coluna única em telas menores e otimiza o respiro.
+ */
+@media (max-width: 768px) {
+  .tool-container.workspace-largo {
+    padding: 0.5rem;                    /* Reduz levemente o padding em telas pequenas para otimizar o espaço útil */
+  }
+
+  .tool-grid {
+    grid-template-columns: minmax(0, 1fr) !important; /* Colapsa o grid de entradas para coluna única empilhada */
+    gap: 0.75rem;                       /* Reduz o espaçamento vertical entre os inputs */
+  }
+}
+
+/* 
+ * 7. BREAKPOINT PARA SMARTPHONES MUITO PEQUENOS (ATÉ 480px)
+ * Ajustes finos de fontes e paddings para telas verticais estreitas.
+ */
+@media (max-width: 480px) {
+  .diff-box {
+    min-height: 150px;                  /* Ajusta a altura mínima para não ocupar excessivamente a tela de celulares compactos */
+    padding: 0.75rem;                   /* Padding interno mais compacto */
+  }
+}
+
