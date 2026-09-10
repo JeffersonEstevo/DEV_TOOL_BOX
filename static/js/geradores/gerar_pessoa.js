@@ -48,31 +48,42 @@ function dispararGeracaoPessoa() {
     const peso = Math.floor(50 + Math.random() * 55) + " kg";
     const tipoSangue = sangues[Math.floor(Math.random() * sangues.length)];
 
-    document.getElementById("p-nome").value = nomeCompleto;
-    document.getElementById("p-cpf").value = cpf;
-    document.getElementById("p-telefone").value = telefone;
-    document.getElementById("p-nascimento").value = dataNascimento;
-    document.getElementById("p-idade-signo").value = `${idade} anos / ${signo}`;
-    document.getElementById("p-cep").value = cep;
-    document.getElementById("p-endereco").value = logradouros[Math.floor(Math.random() * logradouros.length)];
-    document.getElementById("p-cidade").value = cidades[localIdx];
-    document.getElementById("p-estado").value = estados[localIdx];
-    document.getElementById("p-email").value = email;
-    document.getElementById("p-usuario").value = usuario;
-    document.getElementById("p-senha").value = senha;
-    document.getElementById("p-cartao-bandeira").value = band;
-    document.getElementById("p-cartao-numero").value = numCartao;
-    document.getElementById("p-cartao-detalhe").value = `${expMes}/${expAno} - CVV: ${cvv}`;
-    document.getElementById("p-sexo").value = sexoFinal === 'F' ? "Feminino" : "Masculino";
-    document.getElementById("p-fisico").value = `${altura} / ${peso}`;
-    document.getElementById("p-sangue").value = tipoSangue;
-    document.getElementById("p-nacionalidade").value = "Brasileira";
+    const setVal = (id, val) => {
+        const el = document.getElementById(id);
+        if (el) el.value = val;
+    };
+
+    setVal("p-nome", nomeCompleto);
+    setVal("p-cpf", cpf);
+    setVal("p-telefone", telefone);
+    setVal("p-nascimento", dataNascimento);
+    setVal("p-idade-signo", `${idade} anos / ${signo}`);
+    setVal("p-cep", cep);
+    setVal("p-endereco", logradouros[Math.floor(Math.random() * logradouros.length)]);
+    setVal("p-cidade", cidades[localIdx]);
+    setVal("p-estado", estados[localIdx]);
+    setVal("p-email", email);
+    setVal("p-usuario", usuario);
+    setVal("p-senha", senha);
+    setVal("p-cartao-bandeira", band);
+    setVal("p-cartao-numero", numCartao);
+    setVal("p-cartao-detalhe", `${expMes}/${expAno} - CVV: ${cvv}`);
+    setVal("p-sexo", sexoFinal === 'F' ? "Feminino" : "Masculino");
+    setVal("p-fisico", `${altura} / ${peso}`);
+    setVal("p-sangue", tipoSangue);
+    setVal("p-nacionalidade", "Brasileira");
 }
 
-// Vincula o evento de forma segura sem usar const/let no escopo global
-const _btnGerarPessoa = document.getElementById("btn-gerar-pessoa");
-if (_btnGerarPessoa) {
-    _btnGerarPessoa.onclick = dispararGeracaoPessoa;
-}
-
-dispararGeracaoPessoa();
+// Vincula o evento de forma segura utilizando bloco anônimo ou verificação inline
+(function() {
+    const btnGerarPessoa = document.getElementById("btn-gerar-pessoa");
+    if (btnGerarPessoa && !btnGerarPessoa.dataset.listenerAttached) {
+        btnGerarPessoa.dataset.listenerAttached = "true";
+        btnGerarPessoa.addEventListener("click", dispararGeracaoPessoa);
+    }
+    
+    // Gera dados iniciais apenas se o campo existir na página atual
+    if (document.getElementById("p-nome")) {
+        dispararGeracaoPessoa();
+    }
+})();
