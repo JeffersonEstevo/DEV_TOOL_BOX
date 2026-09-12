@@ -222,6 +222,14 @@ details[open] summary::after {
   background-color: var(--accent-light); /* Aplica fundo translúcido suave */
 }
 
+#content-area {
+  opacity: 1;                 /* Define a opacidade inicial totalmente visível */
+  transition: opacity 0.15s ease-in-out; /* Suaviza a mudança de opacidade ao longo de 155 milissegundos com aceleração e desaceleração suaves */
+}
+
+#content-area.fade-out {
+  opacity: 0;                 /* Torna o elemento totalmente transparente ao aplicar esta classe */
+}
 
 /* ==========================================================================
    3. CONTEÚDO PRINCIPAL, WELCOME CARDS E RODAPÉ (Footer)

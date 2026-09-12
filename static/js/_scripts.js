@@ -52,113 +52,74 @@ window.copiarTextoDeElemento = function(idElemento, idAlerta) {
 // 2. CARREGADOR SPA COMPATÍVEL COM ROTAS LOCAIS E SERVIDOR
 // ==========================================================================
 function carregarConteudo(hash) {
-    // 1. Remove os caracteres iniciais da hash (como '#/' ou '#') para obter o caminho limpo do arquivo
     let caminhoArquivo = hash.replace(/^#\/?/, "");
-
-    // Se o caminho estiver vazio ou for apenas '#', interrompe a execução da função
     if (!caminhoArquivo || caminhoArquivo === "#" || caminhoArquivo === "") {
         return;
     }
-
-    // Exibe um log estilizado no console informando qual arquivo está sendo buscado
     console.log(`%c[Roteador] Buscando HTML em: ${caminhoArquivo}`, "color: #4f46e5; font-weight: bold;");
-
-    // Seleciona o elemento principal da página onde o conteúdo das ferramentas será injetado
-    const areaPrincipal = document.querySelector("#content-area");
-    if (!areaPrincipal) return; // Se a área principal não existir no DOM, interrompe
-
-    // 2. Adiciona a classe CSS 'fade-out' para iniciar a transição suave de desaparecimento da tela atual
-    areaPrincipal.classList.add("fade-out");
-
-    // Aguarda um pequeno intervalo (150ms) para que a animação de saída ocorra antes de buscar o novo conteúdo
-    setTimeout(() => {
-        // Faz uma requisição HTTP para buscar o arquivo HTML da ferramenta selecionada
-        fetch(caminhoArquivo)
-            .then(response => {
-                // Se a resposta falhar (ex: erro 404), dispara um erro customizado
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status} - Não foi possível encontrar o arquivo.`);
-                }
-                // Converte a resposta da requisição em texto puro (o HTML da ferramenta)
-                return response.text();
-            })
-            .then(htmlPuro => {
-                // Utiliza o DOMParser para converter a string de HTML puro em um documento DOM manipulável
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(htmlPuro, "text/html");
-                
-                // 3. Isola todas as tags <script> presentes no HTML carregado para tratá-las manualmente
-                const scriptsNoHtml = doc.querySelectorAll("script");
-                scriptsNoHtml.forEach(s => s.remove()); // Remove as tags script do documento parseado temporariamente
-                
-                // 4. Injeta apenas o corpo (body) do HTML carregado dentro da área principal da aplicação
-                areaPrincipal.innerHTML = doc.body.innerHTML;
-                console.log("%c[Roteador] HTML injetado com sucesso no DOM!", "color: #166534;");
-                
-                // 5. Percorre e reinsere cada script encontrado de forma controlada e assíncrona
-                scriptsNoHtml.forEach(scriptOrigem => {
-                    const novoScript = document.createElement("script");
-
-                    // Se o script possuir um atributo 'src' (arquivo externo)
-                    if (scriptOrigem.src) {
-                        // Limpa o caminho do script removendo pontos e barras desnecessárias do início
-                        let srcLimpo = scriptOrigem.getAttribute("src").replace(/^(\.\.\/|\.\/)/, "");
-                        if (srcLimpo.startsWith("/")) srcLimpo = srcLimpo.substring(1);
-                        
-                        // Remove instâncias anteriores do mesmo script no documento para evitar duplicações
-                        document.querySelectorAll(`script`).forEach(s => {
-                            if (s.src && s.src.includes(srcLimpo.split('?')[0])) {
-                                s.remove();
-                            }
-                        });
-                        
-                        // Atribui o novo caminho ao script adicionando um timestamp único para evitar cache agressivo do navegador
-                        novoScript.src = `${srcLimpo}?t=${Date.now()}`;
-                        novoScript.async = false; // Garante a execução síncrona/ordenada dos scripts
-
-                        // Define o que acontece assim que o script terminar de carregar
-                        novoScript.onload = () => {
-                            // Tratamento específico: inicializa a ferramenta de PDF se ela estiver presente
-                            if (srcLimpo.includes("html_to_pdf.js") && typeof HtmlToPdfConverter === "function") {
-                                window.htmlToPdfConverter = new HtmlToPdfConverter();
-                            }
-                            
-                            // Tratamento específico: dispara a geração de pessoas com um pequeno atraso se o script corresponder
-                            if (srcLimpo.includes("gerar_pessoa.js") && typeof dispararGeracaoPessoa === "function") {
-                                setTimeout(() => {
-                                    dispararGeracaoPessoa();
-                                }, 50);
-                            }
-                        };
-                        // Insere o novo script no corpo da página para executá-lo
-                        document.body.appendChild(novoScript);
-                    } else {
-                        // Caso o script seja inline (código escrito diretamente na tag), apenas copia o conteúdo e o injeta
-                        novoScript.textContent = scriptOrigem.textContent;
-                        document.body.appendChild(novoScript);
+    fetch(caminhoArquivo).then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status} - Não foi possível encontrar o arquivo.`);
+        }
+        return response.text();
+    }).then(htmlPuro => {
+        const areaPrincipal = document.querySelector("#content-area");
+        if (!areaPrincipal) return;
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(htmlPuro, "text/html");
+        
+        // 1. Isola e remove as tags script para tratamento manual
+        const scriptsNoHtml = doc.querySelectorAll("script");
+        scriptsNoHtml.forEach(s => s.remove());
+        
+        // 2. Injeta o HTML renderizado na área principal
+        areaPrincipal.innerHTML = doc.body.innerHTML;
+        console.log("%c[Roteador] HTML injetado com sucesso no DOM!", "color: #166534;");
+        
+        // 3. Injeta os scripts de forma assíncrona controlada
+        scriptsNoHtml.forEach(scriptOrigem => {
+            const novoScript = document.createElement("script");
+            if (scriptOrigem.src) {
+                let srcLimpo = scriptOrigem.getAttribute("src").replace(/^(\.\.\/|\.\/)/, "");
+                if (srcLimpo.startsWith("/")) srcLimpo = srcLimpo.substring(1);
+                document.querySelectorAll(`script`).forEach(s => {
+                    if (s.src && s.src.includes(srcLimpo.split('?')[0])) {
+                        s.remove();
                     }
                 });
-
-                // 6. Remove a classe 'fade-out' para reverter a opacidade e revelar a nova ferramenta suavemente (fade-in)
-                areaPrincipal.classList.remove("fade-out");
-            })
-            .catch(error => {
-                // Captura e exibe erros críticos caso a requisição ou o carregamento falhem
-                console.error("%c[Roteador Erro Crítico]", "color: #991b1b; font-weight: bold;", error.message);
-                
-                // Exibe uma mensagem amigável de erro diretamente na tela principal
-                areaPrincipal.innerHTML = `
-                    <div style="padding: 2rem; border: 1px dashed #fca5a5; background: #fef2f2; color: #991b1b; border-radius: 8px;">
-                        <h3>Erro ao carregar a ferramenta</h3>
-                        <p>O arquivo <strong>"${caminhoArquivo}"</strong> não foi encontrado nas suas pastas locais.</p>
-                        <small>Verifique se o nome está correto ou se o link na sidebar possui letras maiúsculas/plural incorretos.</small>
-                    </div>
-                `;
-                
-                // Restaura a opacidade da área principal mesmo se ocorrer um erro, evitando que a tela suma
-                areaPrincipal.classList.remove("fade-out");
-            });
-    }, 150); // O atraso de 150 milissegundos deve sincronizar com a duração da transição configurada no CSS
+                novoScript.src = `${srcLimpo}?t=${Date.now()}`;
+                novoScript.async = false;
+                novoScript.onload = () => {
+                    if (srcLimpo.includes("html_to_pdf.js") && typeof HtmlToPdfConverter === "function") {
+                        window.htmlToPdfConverter = new HtmlToPdfConverter();
+                    }
+                    
+                    // Tratamento exclusivo para o Gerador de Pessoas carregar dados na primeira abertura
+                    if (srcLimpo.includes("gerar_pessoa.js") && typeof dispararGeracaoPessoa === "function") {
+                        setTimeout(() => {
+                            dispararGeracaoPessoa();
+                        }, 50);
+                    }
+                };
+                document.body.appendChild(novoScript);
+            } else {
+                novoScript.textContent = scriptOrigem.textContent;
+                document.body.appendChild(novoScript);
+            }
+        });
+    }).catch(error => {
+        console.error("%c[Roteador Erro Crítico]", "color: #991b1b; font-weight: bold;", error.message);
+        const areaPrincipal = document.querySelector("#content-area");
+        if (areaPrincipal) {
+            areaPrincipal.innerHTML = `
+                <div style="padding: 2rem; border: 1px dashed #fca5a5; background: #fef2f2; color: #991b1b; border-radius: 8px;">
+                    <h3>Erro ao carregar a ferramenta</h3>
+                    <p>O arquivo <strong>"${caminhoArquivo}"</strong> não foi encontrado nas suas pastas locais.</p>
+                    <small>Verifique se o nome está correto ou se o link na sidebar possui letras maiúsculas/plural incorretos.</small>
+                </div>
+            `;
+        }
+    });
 }
 // ==========================================================================
 // 3. INICIALIZAÇÃO DE EVENTOS APÓS O CARREGAMENTO DOM
