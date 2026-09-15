@@ -2,42 +2,53 @@
    === 02. CALCULADORAS - 07. Rendimentos ===
    ========================================================================== */
 
+/* Linhas de grade horizontais e verticais do gráfico para orientação visual */
 #xyChart .grid-line {
-    stroke: var(--border-color);
-    stroke-dasharray: 4,4;
-    stroke-width: 1;
+    stroke: var(--border-color);    /* Usa a cor de borda padrão do tema para sutil contraste */
+    stroke-dasharray: 4,4;          /* Define o padrão tracejado das linhas de grade */
+    stroke-width: 1;                /* Espessura fina para não poluir a visualização */
 }
 
+/* Eixos principais do gráfico (X e Y) */
 #xyChart .axis {
-    stroke: var(--border-color);
-    stroke-width: 2;
+    stroke: var(--border-color);    /* Cor adaptável ao tema atual da SPA */
+    stroke-width: 2;                /* Espessura destacada para delimitar a área do gráfico */
 }
 
+/* Rótulos de texto dos eixos e valores numéricos */
 #xyChart .axis-text {
-    fill: var(--text-muted);
-    font-size: 11px;
-    font-family: inherit;
+    fill: var(--text-muted);        /* Cor de texto secundário/atenuado para as legendas */
+    font-size: 11px;                /* Tamanho compacto adequado para eixos numéricos */
+    font-family: inherit;           /* Herda a tipografia global da aplicação */
 }
 
+/* Linha de tendência principal que conecta os pontos de saldo no tempo */
 #xyChart .trend-line {
-    fill: none;
-    stroke: var(--primary-color);
-    stroke-width: 3;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+    fill: none;                     /* Remove o preenchimento interno, mantendo apenas o traço */
+    stroke: var(--primary-color);   /* Utiliza a cor de destaque (roxo/índigo) do tema global */
+    stroke-width: 3;                /* Traço encorpado para maior destaque visual da curva */
+    stroke-linecap: round;          /* Arredonda as extremidades do traço */
+    stroke-linejoin: round;         /* Suaviza as dobras e vértices da linha */
 }
 
+/* Preenchimento degradé na área abaixo da linha de tendência */
 #xyChart .area-fill {
-    fill: url(#gradient);
+    fill: url(#gradient);           /* Aplica o gradiente SVG definido no HTML */
 }
+
+/* ==========================================================================
+   === AJUSTES RESPONSIVOS PARA O GRÁFICO DE RENDIMENTOS ===
+   ========================================================================== */
 
 @media (max-width: 768px) {
+    /* Reduz a altura do gráfico em tablets para melhor aproveitamento de espaço */
     #xyChart {
         height: 280px;
     }
 }
 
 @media (max-width: 520px) {
+    /* Altura compacta otimizada para telas verticais de smartphones */
     #xyChart {
         height: 220px;
     }
