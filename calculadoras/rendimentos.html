@@ -1,0 +1,79 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>📈 Evolução do Patrimônio no Tempo</h2>
+        <p>Simule a evolução do seu patrimônio com juros compostos e aportes mensais regulares.</p>
+    </header>
+
+    <!-- Workspace com os parâmetros de entrada -->
+    <div class="generator-workspace" style="max-width: 900px; margin-inline: auto; width: 100%;">
+        <div class="tool-grid tool-grid--auto-compacto">
+            <div class="field-group">
+                <label for="initialValue">Valor Inicial (R$)</label>
+                <input type="number" id="initialValue" value="50000">
+            </div>
+            <div class="field-group">
+                <label for="monthlyValue">Aporte Fixo Mensal (R$)</label>
+                <input type="number" id="monthlyValue" value="500">
+            </div>
+            <div class="field-group">
+                <label for="incluirRendAporte">Reinvestir os Juros?</label>
+                <select id="incluirRendAporte">
+                    <option value="sim">Sim (Aporte Fixo + Rendimento)</option>
+                    <option value="nao">Não (Apenas Aporte Fixo)</option>
+                </select>
+            </div>
+            <div class="field-group" style="grid-column: span 2;">
+                <label for="interestRate">Taxa de Juros (% ao mês)</label>
+                <input type="number" id="interestRate" value="1.0" step="any">
+                <div class="preset-buttons mt-2" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="definirTaxa(0.85)">Selic ~10% a.a. (0.85%)</button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="definirTaxa(1.0)">Conservador (1.0%)</button>
+                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="definirTaxa(1.22)">Agressivo (1.22%)</button>
+                </div>
+            </div>
+            <div class="field-group">
+                <label for="months">Tempo (Meses)</label>
+                <input type="number" id="months" value="12">
+            </div>
+        </div>
+    </div>
+
+    <!-- Cards de Resultados -->
+    <div class="tool-grid mt-3" style="max-width: 900px; margin-inline: auto; width: 100%;">
+        <div class="result-card text-center-card">
+            <div class="card-header">Total Investido</div>
+            <div class="card-body" id="resInvestido">R$ 0,00</div>
+        </div>
+        <div class="result-card text-center-card">
+            <div class="card-header">Total em Juros</div>
+            <div class="card-body" id="resJuros" style="color: var(--success-color, #16a34a);">R$ 0,00</div>
+        </div>
+        <div class="result-card text-center-card">
+            <div class="card-header">Montante Final</div>
+            <div class="card-body" id="resTotal" style="font-weight: 700;">R$ 0,00</div>
+        </div>
+    </div>
+
+    <!-- Container do Gráfico SVG Responsivo -->
+    <div class="generator-workspace mt-3" style="max-width: 900px; margin-inline: auto; width: 100%; padding: 1.5rem;">
+        <div style="width: 100%; overflow-x: auto;">
+            <svg id="xyChart" style="width: 100%; height: 350px; display: block;">
+                <defs>
+                    <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="var(--primary-color)" />
+                        <stop offset="100%" stop-color="var(--primary-color)" stop-opacity="0" />
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Barra de Ações -->
+    <div class="action-bar text-center">
+        <button id="calc-rendimento-button" class="btn btn-primary">
+            <i class="bi bi-graph-up-arrow"></i> Simular Rendimento
+        </button>
+    </div>
+</div>
+
+<script src="static/js/calculadoras/rendimentos.js"></script>

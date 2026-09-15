@@ -586,6 +586,11 @@ document.addEventListener("click", function(event) {
         event.preventDefault();
         window.copiarTextoDeElemento('salario-liquido', 'labor-alert');
     }
+    // === 02. CALCULADORAS - 07. Rendimentos ===
+    if (event.target.closest('#calc-rendimento-button')) {
+        event.preventDefault();
+        if (typeof calcularRendimento === "function") calcularRendimento();
+    }
 
     // === 03. GERADORES - 01. Gerar/Validar CPF ===
     if (event.target.closest('#btn-gerar-cpf')) {
