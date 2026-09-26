@@ -11,6 +11,9 @@
         <button class="tab-btn" onclick="alternarAbaRede('aba-ipv6')">
             <i class="bi bi-globe"></i> Prefixos IPv6
         </button>
+        <button class="tab-btn" onclick="alternarAbaRede('aba-comunicacao')">
+            <i class="bi bi-arrow-left-right"></i> Comunicação entre IPs
+        </button>
     </div>
 
     <div id="aba-ipv4" class="generator-workspace rede-workspace tab-content active">
@@ -73,6 +76,112 @@
             <p>O IPv6 utiliza 128 bits organizados em blocos hexadecimais. Diferente do IPv4, a sub-rede padrão para uma única LAN doméstica ou corporativa é quase universalmente um prefixo <strong>/64</strong>, fornecendo 18 quintilhões de endereços IP livres, eliminando a necessidade histórica de NAT.</p>
         </div>
     </div>
+    
+    <div id="aba-comunicacao" class="generator-workspace rede-workspace tab-content">
+
+        <!-- Modo de cálculo -->
+        <div class="rede-field" style="margin-bottom: 1.25rem;">
+            <label for="com-modo">Modo de Verificação</label>
+            <select id="com-modo" class="com-select">
+                <option value="mesma-mascara">Mesma máscara para os dois IPs</option>
+                <option value="mascaras-distintas">Máscaras diferentes (por IP)</option>
+            </select>
+        </div>
+
+        <!-- IP A -->
+        <div class="rede-grid">
+            <div class="rede-field">
+                <label for="com-ip-a">IP de Origem (A)</label>
+                <input type="text" id="com-ip-a" placeholder="Ex: 192.168.1.10">
+            </div>
+            <div class="rede-field">
+                <label for="com-mask-a">Máscara / CIDR de A</label>
+                <div class="input-prefix-wrapper">
+                    <span class="input-prefix">/</span>
+                    <input type="number" id="com-mask-a" placeholder="Ex: 24" min="0" max="32" value="24">
+                </div>
+            </div>
+        </div>
+
+        <!-- IP B -->
+        <div class="rede-grid" style="margin-top: 0.75rem;">
+            <div class="rede-field">
+                <label for="com-ip-b">IP de Destino (B)</label>
+                <input type="text" id="com-ip-b" placeholder="Ex: 192.168.1.200">
+            </div>
+            <div class="rede-field">
+                <label for="com-mask-b">Máscara / CIDR de B</label>
+                <div class="input-prefix-wrapper">
+                    <span class="input-prefix">/</span>
+                    <input type="number" id="com-mask-b" placeholder="Ex: 24" min="0" max="32" value="24">
+                </div>
+            </div>
+        </div>
+
+        <!-- Veredito -->
+        <div class="rede-resultados" style="margin-top: 1.5rem;">
+            <div class="resultado-linha full-width">
+                <span class="res-label">Veredito</span>
+                <span id="com-veredito" class="res-valor com-veredito">-</span>
+            </div>
+            <div class="resultado-linha full-width">
+                <span class="res-label">Explicação</span>
+                <span id="com-explicacao" class="res-valor" style="font-weight: 500; font-size: 0.95rem;">-</span>
+            </div>
+        </div>
+
+        <!-- Detalhes de cada rede -->
+        <div class="rede-resultados" style="margin-top: 1rem;">
+            <div class="resultado-linha">
+                <span class="res-label">Rede de A</span>
+                <span id="com-rede-a" class="res-valor">-</span>
+            </div>
+            <div class="resultado-linha">
+                <span class="res-label">Rede de B</span>
+                <span id="com-rede-b" class="res-valor">-</span>
+            </div>
+            <div class="resultado-linha">
+                <span class="res-label">Broadcast de A</span>
+                <span id="com-bcast-a" class="res-valor">-</span>
+            </div>
+            <div class="resultado-linha">
+                <span class="res-label">Broadcast de B</span>
+                <span id="com-bcast-b" class="res-valor">-</span>
+            </div>
+            <div class="resultado-linha">
+                <span class="res-label">Hosts úteis de A</span>
+                <span id="com-host-a" class="res-valor" style="font-size: 0.95rem;">-</span>
+            </div>
+            <div class="resultado-linha">
+                <span class="res-label">Hosts úteis de B</span>
+                <span id="com-host-b" class="res-valor" style="font-size: 0.95rem;">-</span>
+            </div>
+            <div class="resultado-linha full-width">
+                <span class="res-label">Classificação</span>
+                <span id="com-classificacao" class="res-valor" style="font-size: 0.9rem;">-</span>
+            </div>
+            <div class="resultado-linha full-width">
+                <span class="res-label">Máscara aplicada (AND bit a bit)</span>
+                <code id="com-and-bin" class="res-code">-</code>
+            </div>
+        </div>
+
+        <div class="ipv6-info-box">
+            <h5><i class="bi bi-info-circle-fill"></i> Como a verificação funciona</h5>
+            <p>Dois hosts comunicam-se diretamente (na camada 2) <strong>se e somente se</strong> pertencem à mesma sub-rede. Isso é determinado aplicando-se a operação AND bit a bit entre o IP e a máscara de cada um — se os resultados forem idênticos, estão na mesma rede. Caso contrário, precisam de um roteador (gateway) para se comunicar.</p>
+        </div>
+
+        <!-- Ações -->
+        <div class="action-bar" style="justify-content: center; gap: 0.5rem; margin-top: 1rem;">
+            <button id="btn-inverter-ips" class="btn btn-success" type="button">
+                <i class="bi bi-arrow-left-right"></i> Inverter A ↔ B
+            </button>
+            <button id="btn-limpar-com" class="btn btn-success" type="button">
+                <i class="bi bi-trash3-fill"></i> Limpar
+            </button>
+        </div>
+    </div>
+
 
     <div class="action-bar border-top-bar" style="justify-content: center;">
         <button id="btn-limpar-rede" class="btn btn-success">

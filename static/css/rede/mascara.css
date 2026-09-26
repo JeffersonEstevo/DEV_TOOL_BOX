@@ -196,3 +196,39 @@
   margin: 0;                      /* Remove margens padrão indesejadas */
   opacity: 0.85;                  /* Suaviza levemente a opacidade do texto */
 }
+
+
+/* 05. REDE - Verificador de Comunicação (ABA 3)*/
+
+/* Select do modo (segue o mesmo padrão visual dos inputs .rede-field input) */
+.rede-field select.com-select {
+    width: 100%;
+    padding: 0.65rem;
+    font-size: 1rem;
+    font-weight: 600;
+    background-color: var(--bg-main);
+    border: 1px solid var(--border-color);
+    color: var(--primary-color);
+    border-radius: var(--radius);
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+/* Veredito principal (colorido dinamicamente por JS) */
+.com-veredito {
+    font-size: 1.25rem !important;
+    font-weight: 800 !important;
+    transition: color 0.2s ease;
+}
+.com-veredito.ok   { color: #22c55e; }   /* verde: comunicam */
+.com-veredito.fail { color: #ef4444; }   /* vermelho: não comunicam */
+.com-veredito.warn { color: #f59e0b; }   /* amarelo: inválido/incompleto */
+
+/* Quando o modo "máscaras distintas" está ativo, destaca o campo B */
+.rede-field.com-mask-b-hidden {
+    opacity: 0.45;
+}
+.rede-field.com-mask-b-hidden input {
+    pointer-events: none;   /* bloqueia só o input, não o wrapper */
+    cursor: not-allowed;
+}
