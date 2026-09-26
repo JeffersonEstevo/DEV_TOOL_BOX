@@ -521,7 +521,7 @@ const SENHAS_COMUNS = new Set([
 // 8. PALAVRAS MUITO COMUNS
 // ------------------------------------------------------------
 
-const PALAVRAS_COMUNS = [
+var PALAVRAS_COMUNS = [
 
   "password",
   "senha",
@@ -710,7 +710,7 @@ function calcularEntropiaEfetiva(
 // Cenário de hashes rápidos / cracking massivo.
 // ------------------------------------------------------------
 
-const CENARIOS_ATAQUE = {
+var CENARIOS_ATAQUE = {
 
   online: {
     nome: "Ataque online",
@@ -918,7 +918,7 @@ function analisarForcaSenha(senha) {
   // PADRÕES
   // --------------------------------------------------------
 
-  const analise = {
+  var analise = {
 
     comum: SENHAS_COMUNS.has(
       senha.toLowerCase()
