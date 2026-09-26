@@ -180,6 +180,99 @@ function atualizarProgressoSlider(slider) {
     slider.style.setProperty('--progress', percent + '%');
 }
 
+
+// Função para calcular força e estimativa realista de tempo de força bruta
+function analisarForcaSenha(senha) {
+    if (!senha) {
+        return { nivel: "Vazio", percent: 0, cor: "transparent", tempo: "-", feedback: "Digite uma senha para analisar." };
+    }
+
+    let tamanho = senha.length;
+    let variedade = 0;
+    
+    let temMinuscula = /[a-z]/.test(senha);
+    let temMaiuscula = /[A-Z]/.test(senha);
+    let temNumero = /[0-9]/.test(senha);
+    let temEspecial = /[^A-Za-z0-9]/.test(senha);
+
+    if (temMinuscula) variedade += 26;
+    if (temMaiuscula) variedade += 26;
+    if (temNumero) variedade += 10;
+    if (temEspecial) variedade += 32;
+
+    // Cálculo aproximado de combinações possíveis (espaço de chaves)
+    let combinacoes = Math.pow(variedade, tamanho);
+    
+    // Assumindo um poder de ataque moderno médio de teste offline rápido (ex: 10 bilhões de tentativas por segundo em GPU/ASIC)
+    let tentativasPorSegundo = 1e10; 
+    let segundosParaQuebrar = combinacoes / tentativasPorSegundo;
+
+    let tempoFormatado = formatarTempoEstimado(segundosParaQuebrar);
+
+    // Critérios de pontuação baseados em entropia e tamanho
+    if (tamanho < 6 || combinacoes < 1e4) {
+        return { nivel: "Muito Fraca", percent: 15, cor: "#dc3545", tempo: tempoFormatado, feedback: "Muito curta ou previsível. Vulnerável instantaneamente." };
+    } else if (tamanho < 8 || combinacoes < 1e8) {
+        return { nivel: "Fraca", percent: 40, cor: "#ffc107", tempo: tempoFormatado, feedback: "Adicione mais caracteres ou misture símbolos." };
+    } else if (tamanho < 12 || combinacoes < 1e12) {
+        return { nivel: "Moderada", percent: 70, cor: "#17a2b8", tempo: tempoFormatado, feedback: "Boa, mas evite palavras comuns de dicionário." };
+    } else {
+        return { nivel: "Forte", percent: 100, cor: "#28a745", tempo: tempoFormatado, feedback: "Excelente resistência contra ataques modernos." };
+    }
+}
+
+// Auxiliar para formatar segundos em unidades legíveis de tempo
+function formatarTempoEstimado(segundos) {
+    if (segundos < 1) return "Menos de 1 segundo";
+    if (segundos < 60) return "Alguns segundos";
+    let minutos = segundos / 60;
+    if (minutos < 60) return Math.ceil(minutos) + " minutos";
+    let horas = minutos / 60;
+    if (horas < 24) return Math.ceil(horas) + " horas";
+    let dias = horas / 24;
+    if (dias < 365) return Math.ceil(dias) + " dias";
+    let anos = dias / 365;
+    if (anos < 1e3) return Math.ceil(anos) + " anos";
+    if (anos < 1e6) return Math.ceil(anos / 1e3) + " mil anos";
+    if (anos < 1e9) return Math.ceil(anos / 1e6) + " milhões de anos";
+    return "Bilhões de anos (Impenetrável)";
+}
+
+// Atualize sua função existente "processarSenhaManual" para incluir a chamada da análise:
+async function processarSenhaManual() {
+    const texto = document.getElementById("verificar-senha-input")?.value || "";
+    const outMd5 = document.getElementById("manual-hash-md5");
+    const outSha256 = document.getElementById("manual-hash-sha256");
+    const outSha512 = document.getElementById("manual-hash-sha512");
+
+    // Elementos da análise de força
+    const lblNivel = document.getElementById("text-forca-nivel");
+    const lblTempo = document.getElementById("text-tempo-quebra");
+    const barFill = document.getElementById("strength-bar-fill");
+    const lblFeedback = document.getElementById("text-feedback-senha");
+
+    const resultadoForca = analisarForcaSenha(texto);
+
+    if (lblNivel) lblNivel.textContent = resultadoForca.nivel;
+    if (lblTempo) lblTempo.textContent = resultadoForca.tempo;
+    if (barFill) {
+        barFill.style.width = resultadoForca.percent + "%";
+        barFill.style.backgroundColor = resultadoForca.cor;
+    }
+    if (lblFeedback) lblFeedback.textContent = resultadoForca.feedback;
+
+    if (texto.length === 0) {
+        if (outMd5) outMd5.value = "";
+        if (outSha256) outSha256.value = "";
+        if (outSha512) outSha512.value = "";
+        return;
+    }
+
+    if (outMd5) outMd5.value = calcularMD5Leve(texto);
+    if (outSha256) outSha256.value = await calcularHashNativo(texto, 'SHA-256');
+    if (outSha512) outSha512.value = await calcularHashNativo(texto, 'SHA-512');
+}
+
 // Inicializadores automáticos
 autorizarEventosSenha();
 dispararGeracaoSenha();

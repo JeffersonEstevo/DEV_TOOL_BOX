@@ -84,7 +84,22 @@
                 <label class="hash-label" style="color: var(--primary-color);">Digite sua Senha ou Texto:</label>
                 <input type="text" id="verificar-senha-input" placeholder="Ex: admin" autocomplete="off" style="width: 100%; background-color: var(--bg-main); border: 1px solid var(--border-color); border-radius: var(--radius); padding: 0.5rem 0.75rem; color: var(--text-main); font-size: 0.95rem; font-weight: 600;">
             </div>
-            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 0.5rem 0;">
+
+            <!-- NOVO: Indicador de Força e Tempo de Quebra -->
+            <div class="password-strength-container" style="background: var(--bg-main); padding: 0.75rem; border-radius: var(--radius); border: 1px solid var(--border-color);">
+                <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 0.3rem;">
+                    <span style="font-weight: 700; color: var(--text-main);">Força: <span id="text-forca-nivel" style="color: var(--primary-color);">Aguardando...</span></span>
+                    <span style="color: var(--text-main); font-size: 0.8rem;">Tempo p/ quebrar: <strong id="text-tempo-quebra">-</strong></span>
+                </div>
+                <!-- Barra de Progresso da Força -->
+                <div class="strength-bar-bg" style="width: 100%; height: 6px; background: var(--border-color); border-radius: 3px; overflow: hidden;">
+                    <div id="strength-bar-fill" style="width: 0%; height: 100%; transition: width 0.3s ease, background-color 0.3s ease;"></div>
+                </div>
+                <p id="text-feedback-senha" style="font-size: 0.75rem; color: var(--text-main); margin-top: 0.4rem; opacity: 0.8; margin-bottom: 0;"></p>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 0.2rem 0;">
+            
             <div>
                 <label class="hash-label">MD5 Calculado</label>
                 <div class="hash-row">
