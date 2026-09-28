@@ -36,7 +36,7 @@ function alternarAbaTrabalhista(abaId) {
         return onclickAttr && onclickAttr.includes(abaId);
     });
     if (btnClicado) btnClicado.classList.add('active');
-    
+
     const conteudoAba = document.getElementById(abaId);
     if (conteudoAba) conteudoAba.classList.add('active');
 
@@ -99,6 +99,93 @@ function calcularIRRF(salarioBase) {
     return irrf;
 }
 
+// ==========================================================================
+// Proventos e Descontos Eventuais
+// ==========================================================================
+let extraEarningCounter = 0;
+let extraDiscountCounter = 0;
+
+function criarLinhaExtra(tipo, descricao = "", valor = "") {
+    const isEarning = tipo === "earning";
+    const lista = document.getElementById(isEarning ? "extra-earnings-list" : "extra-discounts-list");
+    if (!lista) return;
+
+    const vazio = lista.querySelector(".labor-extra-empty");
+    if (vazio) vazio.remove();
+
+    if (isEarning) extraEarningCounter++;
+    else extraDiscountCounter++;
+
+    const placeholderDesc = isEarning
+        ? "Descrição (ex: Horas extras)"
+        : "Descrição (ex: Vale-transporte)";
+
+    const row = document.createElement("div");
+    row.className = "extra-discount-row";
+    row.dataset.tipo = tipo;
+    row.innerHTML = `
+        <input type="text" class="extra-desc" placeholder="${placeholderDesc}" value="${descricao}">
+        <input type="number" class="extra-value" placeholder="R$ 0,00" step="0.01" min="0" value="${valor}">
+        <button type="button" class="btn-remove-extra" title="Remover">
+            <i class="bi bi-trash"></i>
+        </button>
+    `;
+
+    row.querySelectorAll("input").forEach(input => {
+        input.addEventListener("input", calcularTrabalhistaImediata);
+    });
+
+    row.querySelector(".btn-remove-extra").addEventListener("click", () => {
+        row.remove();
+        verificarListaVazia(tipo);
+        calcularTrabalhistaImediata();
+    });
+
+    lista.appendChild(row);
+}
+
+function verificarListaVazia(tipo) {
+    const isEarning = tipo === "earning";
+    const lista = document.getElementById(isEarning ? "extra-earnings-list" : "extra-discounts-list");
+    if (!lista) return;
+
+    if (lista.querySelectorAll(".extra-discount-row").length === 0) {
+        const msg = isEarning
+            ? `Nenhum provento adicional. Clique em "Adicionar" para incluir.`
+            : `Nenhum desconto adicional. Clique em "Adicionar" para incluir.`;
+        lista.innerHTML = `<div class="labor-extra-empty">${msg}</div>`;
+    }
+}
+
+function obterTotalProventosExtras() {
+    let total = 0;
+    document.querySelectorAll("#extra-earnings-list .extra-value").forEach(input => {
+        const v = parseFloat(input.value);
+        if (!isNaN(v) && v > 0) total += v;
+    });
+    return total;
+}
+
+function obterTotalDescontosExtras() {
+    let total = 0;
+    document.querySelectorAll("#extra-discounts-list .extra-value").forEach(input => {
+        const v = parseFloat(input.value);
+        if (!isNaN(v) && v > 0) total += v;
+    });
+    return total;
+}
+
+function limparExtras() {
+    const listaEarn = document.getElementById("extra-earnings-list");
+    const listaDisc = document.getElementById("extra-discounts-list");
+    if (listaEarn) listaEarn.innerHTML = "";
+    if (listaDisc) listaDisc.innerHTML = "";
+    extraEarningCounter = 0;
+    extraDiscountCounter = 0;
+    verificarListaVazia("earning");
+    verificarListaVazia("discount");
+}
+
 function calcularTrabalhistaImediata() {
     const brutoInput = document.getElementById("salario-bruto");
     const inssInput = document.getElementById("desconto-inss");
@@ -108,6 +195,7 @@ function calcularTrabalhistaImediata() {
     if (!brutoInput || !liquidoInput) return;
 
     const bruto = parseFloat(brutoInput.value);
+    const totalProventos = obterTotalProventosExtras();
 
     if (isNaN(bruto) || bruto <= 0) {
         if (inssInput) inssInput.value = "";
@@ -116,11 +204,14 @@ function calcularTrabalhistaImediata() {
         return;
     }
 
-    const valorInss = calcularINSS(bruto);
-    const baseIrrf = bruto - valorInss;
-    let valorIrrf = calcularIRRF(baseIrrf);
+    const baseBrutaTotal = bruto + totalProventos;
 
-    const liquido = bruto - valorInss - valorIrrf;
+    const valorInss = calcularINSS(baseBrutaTotal);
+    const baseIrrf = baseBrutaTotal - valorInss;
+    const valorIrrf = calcularIRRF(baseIrrf);
+    const totalDescontos = obterTotalDescontosExtras();
+
+    const liquido = baseBrutaTotal - valorInss - valorIrrf - totalDescontos;
 
     if (inssInput) inssInput.value = `R$ ${valorInss.toFixed(2).replace('.', ',')}`;
     if (irrfInput) irrfInput.value = `R$ ${valorIrrf.toFixed(2).replace('.', ',')}`;
@@ -133,6 +224,7 @@ function limparTrabalhista() {
         const el = document.getElementById(id);
         if (el) el.value = "";
     });
+    limparExtras();
 }
 
 // ==========================================================================
@@ -168,6 +260,27 @@ function inicializarTrabalhista() {
         brutoInput.dataset.listenerAttached = "true";
         brutoInput.addEventListener("input", calcularTrabalhistaImediata);
     }
+
+    const btnAddEarn = document.getElementById("add-extra-earning");
+    if (btnAddEarn && !btnAddEarn.dataset.listenerAttached) {
+        btnAddEarn.dataset.listenerAttached = "true";
+        btnAddEarn.addEventListener("click", () => {
+            criarLinhaExtra("earning");
+            calcularTrabalhistaImediata();
+        });
+    }
+
+    const btnAddDisc = document.getElementById("add-extra-discount");
+    if (btnAddDisc && !btnAddDisc.dataset.listenerAttached) {
+        btnAddDisc.dataset.listenerAttached = "true";
+        btnAddDisc.addEventListener("click", () => {
+            criarLinhaExtra("discount");
+            calcularTrabalhistaImediata();
+        });
+    }
+
+    verificarListaVazia("earning");
+    verificarListaVazia("discount");
     renderizarTabelasInformativas();
 }
 

@@ -15,9 +15,9 @@
     </div>
 
     <!-- Aba 1: Calculadora -->
-    <div id="aba-calculadora-trabalhista" class="generator-workspace rede-workspace tab-content active" style="max-width: 520px !important;">
+    <div id="aba-calculadora-trabalhista" class="generator-workspace rede-workspace tab-content active labor-workspace">
         <div class="rule-three-title" style="margin-top: 0;">Dados do Contrato</div>
-        
+
         <div class="labor-grid-vertical">
             <div class="rule-cell" style="width: 100%;">
                 <label for="salario-bruto">Salário Bruto (R$)</label>
@@ -33,6 +33,32 @@
                     <label for="desconto-irrf">(-) Desconto IRRF</label>
                     <input type="text" id="desconto-irrf" readonly placeholder="R$ 0,00">
                 </div>
+            </div>
+
+            <!-- NOVO: Proventos Eventuais -->
+            <div class="labor-extra-section labor-extra-provento">
+                <div class="labor-extra-header">
+                    <span class="labor-extra-title">
+                        <i class="bi bi-plus-circle"></i> Proventos Eventuais
+                    </span>
+                    <button type="button" id="add-extra-earning" class="btn-add-extra btn-add-earning" title="Adicionar provento">
+                        <i class="bi bi-plus-lg"></i> Adicionar
+                    </button>
+                </div>
+                <div id="extra-earnings-list" class="labor-extra-list"></div>
+            </div>
+
+            <!-- NOVO: Descontos Eventuais -->
+            <div class="labor-extra-section labor-extra-desconto">
+                <div class="labor-extra-header">
+                    <span class="labor-extra-title">
+                        <i class="bi bi-dash-circle"></i> Descontos Eventuais
+                    </span>
+                    <button type="button" id="add-extra-discount" class="btn-add-extra btn-add-discount" title="Adicionar desconto">
+                        <i class="bi bi-plus-lg"></i> Adicionar
+                    </button>
+                </div>
+                <div id="extra-discounts-list" class="labor-extra-list"></div>
             </div>
 
             <div class="rule-cell labor-input-liquid" style="width: 100%;">

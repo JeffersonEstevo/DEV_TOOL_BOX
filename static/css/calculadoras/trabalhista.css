@@ -188,3 +188,247 @@
   color: var(--primary-color);            /* Cor primária de destaque no texto */
   border-bottom-color: var(--primary-color); /* Aplica a cor primária na linha inferior indicadora */
 }
+
+/* ==========================================================================
+   === CENTRALIZAÇÃO E LARGURA DO WORKSPACE TRABALHISTA ===
+   ========================================================================== */
+
+/* Workspace centralizado — mesmo padrão da regra de três.
+   ⚠️ Não usar display aqui: as regras de aba (.active) controlam a exibição. */
+.tool-container #aba-calculadora-trabalhista.labor-workspace {
+    max-width: 480px !important;
+    width: 100% !important;
+    margin: 0 auto 1.5rem auto !important;
+    padding: 1.5rem 1rem;
+    box-sizing: border-box;
+}
+
+.tool-container #aba-tabelas-trabalhista {
+    max-width: 650px !important;
+    width: 100% !important;
+    margin: 0 auto 1.5rem auto !important;
+    box-sizing: border-box;
+}
+
+/* Centraliza títulos, labels e inputs do workspace trabalhista */
+.tool-container #aba-calculadora-trabalhista .rule-three-title,
+.tool-container #aba-calculadora-trabalhista .rule-cell label {
+    text-align: center !important;
+    width: 100% !important;
+}
+
+.tool-container #aba-calculadora-trabalhista .rule-cell input {
+    text-align: center !important;
+}
+
+/* ==========================================================================
+   === SEÇÕES DE PROVENTOS E DESCONTOS EVENTUAIS ===
+   ========================================================================== */
+
+.labor-extra-section {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px dashed var(--border-color);
+    border-radius: var(--radius);
+    padding: 0.85rem 0.75rem;
+    background-color: var(--bg-main);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.labor-extra-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.labor-extra-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+}
+
+.btn-add-extra {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    border-radius: var(--radius);
+    padding: 0.3rem 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-add-extra:active {
+    transform: scale(0.97);
+}
+
+.labor-extra-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    width: 100%;
+}
+
+/* Linha individual de provento/desconto eventual */
+.extra-discount-row {
+    display: grid;
+    grid-template-columns: 1fr 110px auto;
+    gap: 0.5rem;
+    align-items: center;
+    animation: fadeInExtra 0.25s ease;
+}
+
+@keyframes fadeInExtra {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Iguala altura de inputs e botão para alinhamento perfeito */
+.extra-discount-row input.extra-desc,
+.extra-discount-row input.extra-value,
+.extra-discount-row .btn-remove-extra {
+    height: 38px;
+    box-sizing: border-box;
+    margin: 0;
+    align-self: center;
+}
+
+.extra-discount-row input.extra-desc {
+    padding: 0 0.5rem;
+    font-size: 0.85rem;
+    width: 100%;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-sidebar);
+    color: var(--text-main);
+    min-width: 0;
+    text-align: center;
+}
+
+.extra-discount-row input.extra-value {
+    padding: 0 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 700;
+    width: 100%;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-sidebar);
+    color: #e11d48;
+    min-width: 0;
+    text-align: center;
+}
+
+.btn-remove-extra {
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    color: #e11d48;
+    padding: 0 0.6rem;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    line-height: 1;
+}
+
+.btn-remove-extra:hover {
+    background-color: #e11d48;
+    color: #fff;
+    border-color: #e11d48;
+}
+
+/* Texto informativo quando não há itens */
+.labor-extra-empty {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+    padding: 0.25rem 0;
+}
+
+/* ==========================================================================
+   === VARIAÇÕES DE CORES: PROVENTOS vs DESCONTOS ===
+   ========================================================================== */
+
+.labor-extra-provento {
+    border-color: rgba(16, 185, 129, 0.35) !important;
+}
+
+.labor-extra-desconto {
+    border-color: rgba(225, 29, 72, 0.35) !important;
+}
+
+.btn-add-earning {
+    color: var(--success-color, #10b981) !important;
+    border-color: var(--success-color, #10b981) !important;
+}
+
+.btn-add-earning:hover {
+    background-color: var(--success-color, #10b981) !important;
+    color: #fff !important;
+    border-color: var(--success-color, #10b981) !important;
+}
+
+.btn-add-discount {
+    color: #e11d48 !important;
+    border-color: #e11d48 !important;
+}
+
+.btn-add-discount:hover {
+    background-color: #e11d48 !important;
+    color: #fff !important;
+    border-color: #e11d48 !important;
+}
+
+.labor-extra-provento .labor-extra-title i {
+    color: var(--success-color, #10b981);
+}
+
+.labor-extra-desconto .labor-extra-title i {
+    color: #e11d48;
+}
+
+.labor-extra-provento .extra-discount-row input.extra-value {
+    color: var(--success-color, #10b981) !important;
+}
+
+.labor-extra-desconto .extra-discount-row input.extra-value {
+    color: #e11d48 !important;
+}
+
+.labor-extra-provento .btn-remove-extra {
+    color: var(--success-color, #10b981) !important;
+    border-color: rgba(16, 185, 129, 0.35) !important;
+}
+
+.labor-extra-provento .btn-remove-extra:hover {
+    background-color: var(--success-color, #10b981) !important;
+    border-color: var(--success-color, #10b981) !important;
+    color: #fff !important;
+}
+
+/* Responsividade */
+@media (max-width: 400px) {
+    .extra-discount-row {
+        grid-template-columns: 1fr 90px auto;
+        gap: 0.4rem;
+    }
+    .extra-discount-row input.extra-desc,
+    .extra-discount-row input.extra-value {
+        font-size: 0.8rem;
+    }
+}
