@@ -100,10 +100,14 @@ function calcularIRRF(salarioBase) {
 }
 
 // ==========================================================================
-// Proventos e Descontos Eventuais
+// Proventos e Descontos Eventuais (Protegidos contra re-declaração)
 // ==========================================================================
-let extraEarningCounter = 0;
-let extraDiscountCounter = 0;
+if (typeof extraEarningCounter === 'undefined') {
+    var extraEarningCounter = 0;
+}
+if (typeof extraDiscountCounter === 'undefined') {
+    var extraDiscountCounter = 0;
+}
 
 function criarLinhaExtra(tipo, descricao = "", valor = "") {
     const isEarning = tipo === "earning";
