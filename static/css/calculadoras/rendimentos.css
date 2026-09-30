@@ -40,16 +40,255 @@
    === AJUSTES RESPONSIVOS PARA O GRÁFICO DE RENDIMENTOS ===
    ========================================================================== */
 
-@media (max-width: 768px) {
-    /* Reduz a altura do gráfico em tablets para melhor aproveitamento de espaço */
-    #xyChart {
-        height: 280px;
+
+
+/* ==========================================================================
+   BOTÕES DE PRESET DE TAXA (NOVO)
+   ========================================================================== */
+
+.preset-buttons {
+    display: flex;
+    gap: 0.5rem;
+    width: 100%;
+    /* Por padrão (Desktop), tenta colocar todos na mesma linha */
+    flex-wrap: nowrap; 
+}
+
+.preset-buttons .btn {
+    flex: 1 1 0; /* Divide o espaço igualmente */
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.8rem;
+    padding: 0.5rem 0.2rem; /* Padding lateral pequeno */
+    text-align: center;
+}
+
+/* Tablet (iPad) - Aqui é onde estava o problema */
+@media (min-width: 521px) and (max-width: 850px) {
+    .preset-buttons {
+        flex-wrap: wrap; /* Permite quebrar linha se não couber */
+    }
+
+    .preset-buttons .btn {
+        /* No tablet, cada botão tenta pegar 1/3, mas se não couber, quebra */
+        flex: 1 1 auto; 
+        min-width: 30%; /* Garante que caibam pelo menos 3 na linha */
     }
 }
 
+/* Celular */
 @media (max-width: 520px) {
-    /* Altura compacta otimizada para telas verticais de smartphones */
-    #xyChart {
-        height: 220px;
+    .preset-buttons {
+        flex-direction: column; /* Empilha um embaixo do outro */
+        gap: 0.5rem;
     }
+
+    .preset-buttons .btn {
+        width: 100%;
+        flex: none;
+    }
+}
+
+/* ==========================================================================
+   RESUMO DOS RESULTADOS
+   ========================================================================== */
+
+.results-summary {
+    max-width: 900px;
+    width: 100%;
+    margin-inline: auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--card-bg, var(--background-color));
+    overflow: hidden;
+}
+
+.result-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    padding: 0.75rem 1rem;
+
+    min-height: 72px;
+
+    border-right: 1px solid var(--border-color);
+}
+
+.result-item:last-child {
+    border-right: none;
+}
+
+.result-label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 0.2rem;
+}
+
+.result-item strong {
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.result-item--total strong {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .results-summary {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .result-item {
+        padding: 0.65rem 0.75rem;
+    }
+
+    .result-item strong {
+        font-size: 0.95rem;
+    }
+
+    .result-item--total strong {
+        font-size: 1.05rem;
+    }
+}
+
+/* Celular */
+@media (max-width: 520px) {
+    .results-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .result-item {
+        min-height: auto;
+        padding: 0.65rem 0.85rem;
+
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .result-item:last-child {
+        border-bottom: none;
+    }
+
+    .result-item strong {
+        font-size: 1rem;
+    }
+
+    .result-item--total strong {
+        font-size: 1.15rem;
+    }
+}
+
+
+/* ==========================================================================
+   FORMULÁRIO (NOVO)
+   ========================================================================== */
+
+.generator-workspace .tool-grid--auto-compacto {
+    width: 100%;
+    display: grid;
+    gap: 1rem;
+}
+
+/* Desktop (Notebook) - 3 Colunas */
+@media (min-width: 851px) {
+    .generator-workspace .tool-grid--auto-compacto {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    /* Faz o campo "Reinvestir" ocupar 2 colunas no desktop */
+    .generator-workspace .tool-grid--auto-compacto
+    .field-group[style*="grid-column"] {
+        grid-column: span 2 !important;
+    }
+}
+
+/* Tablet (iPad) - 2 Colunas */
+@media (min-width: 521px) and (max-width: 850px) {
+    .generator-workspace .tool-grid--auto-compacto {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* No tablet, o campo "Reinvestir" ocupa a linha inteira (2 colunas) */
+    .generator-workspace .tool-grid--auto-compacto
+    .field-group[style*="grid-column"] {
+        grid-column: 1 / -1 !important;
+    }
+
+    /* Faz o campo Tempo ocupar a linha toda */
+    .generator-workspace .tool-grid--auto-compacto
+    .field-group:last-child {
+        grid-column: 1 / -1 !important;
+    }
+}
+
+/* Celular */
+@media (max-width: 520px) {
+    /* 1. Garante que o grid ocupe 100% e tenha apenas 1 coluna */
+    .generator-workspace .tool-grid--auto-compacto {
+        grid-template-columns: 1fr !important;
+        width: 100% !important;
+        gap: 1rem; /* Espaçamento entre os campos */
+    }
+
+    /* 2. Força os campos a ocuparem a linha inteira */
+    .generator-workspace .tool-grid--auto-compacto .field-group {
+        grid-column: auto !important;
+        width: 100% !important;
+        min-width: 0;
+    }
+
+    /* 3. Força inputs e selects a ocuparem 100% da largura */
+    .generator-workspace input,
+    .generator-workspace select {
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    /* 4. Ajuste dos Botões de Preset */
+    .preset-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100% !important;
+    }
+
+    .preset-buttons .btn {
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: 1 1 100% !important;
+        text-align: center;
+        white-space: normal; /* Permite quebrar o texto se for muito longo */
+        padding: 0.6rem 0.5rem;
+    }
+}
+
+/* Limita a largura máxima dos inputs e selects para não esticarem demais */
+.generator-workspace input,
+.generator-workspace select {
+    max-width: 100%; /* Garante que não ultrapassem o contêiner */
+}
+
+/* Especificamente para o campo de Taxa de Juros, se você tiver um ID ou classe */
+/* Se não tiver, pode usar um seletor genérico para inputs de texto curtos */
+.generator-workspace input[type="number"],
+.generator-workspace input[type="text"] {
+    /* Ajuste este valor conforme achar melhor (ex: 120px, 150px) */
+    max-width: 200px; 
+}
+
+
+.result-item--juros strong {
+    color: #22c55e; /* Verde vibrante (Tailwind green-500) */
+    /* Ou use uma variável do seu tema, se existir: var(--success-color) */
 }

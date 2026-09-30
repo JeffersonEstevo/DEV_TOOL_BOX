@@ -25,10 +25,18 @@
             <div class="field-group" style="grid-column: span 2;">
                 <label for="interestRate">Taxa de Juros (% ao mês)</label>
                 <input type="number" id="interestRate" value="1.0" step="any">
-                <div class="preset-buttons mt-2" style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="definirTaxa(0.85)">Selic ~10% a.a. (0.85%)</button>
-                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="definirTaxa(1.0)">Conservador (1.0%)</button>
-                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="definirTaxa(1.22)">Agressivo (1.22%)</button>
+                <div class="preset-buttons mt-2">
+                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="definirTaxa(0.85)">
+                        Selic ~10% a.a. (0.85%)
+                    </button>
+
+                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="definirTaxa(1.0)">
+                        Conservador (1.0%)
+                    </button>
+
+                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="definirTaxa(1.22)">
+                        Agressivo (1.22%)
+                    </button>
                 </div>
             </div>
             <div class="field-group">
@@ -39,19 +47,23 @@
     </div>
 
     <!-- Cards de Resultados -->
-    <div class="tool-grid mt-3" style="max-width: 900px; margin-inline: auto; width: 100%;">
-        <div class="result-card text-center-card">
-            <div class="card-header">Total Investido</div>
-            <div class="card-body" id="resInvestido">R$ 0,00</div>
+    <div class="results-summary mt-3">
+
+        <div class="result-item">
+            <span class="result-label">Total Investido</span>
+            <strong id="resInvestido">R$ 0,00</strong>
         </div>
-        <div class="result-card text-center-card">
-            <div class="card-header">Total em Juros</div>
-            <div class="card-body" id="resJuros" style="color: var(--success-color, #16a34a);">R$ 0,00</div>
+
+        <div class="result-item result-item--juros">
+            <span class="result-label">Total em Juros</span>
+            <strong>R$ 8.824,02</strong>
         </div>
-        <div class="result-card text-center-card">
-            <div class="card-header">Montante Final</div>
-            <div class="card-body" id="resTotal" style="font-weight: 700;">R$ 0,00</div>
+
+        <div class="result-item result-item--total">
+            <span class="result-label">Montante Final</span>
+            <strong id="resTotal">R$ 0,00</strong>
         </div>
+
     </div>
 
     <!-- Container do Gráfico SVG Responsivo -->
