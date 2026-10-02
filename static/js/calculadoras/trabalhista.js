@@ -12,11 +12,11 @@ if (typeof FAIXAS_INSS_2026 === 'undefined') {
 
 if (typeof FAIXAS_IRRF_2026 === 'undefined') {
     var FAIXAS_IRRF_2026 = [
-        { limite: 2428.80, aliquota: "Isento", deducao: "R$ 0,00", desc: "Até R$ 2.428,80" },
-        { limite: 2826.65, aliquota: "7,5%",   deducao: "R$ 182,16", desc: "De R$ 2.428,81 a R$ 2.826,65" },
-        { limite: 3751.05, aliquota: "15%",    deducao: "R$ 394,16", desc: "De R$ 2.826,66 a R$ 3.751,05" },
-        { limite: 4664.68, aliquota: "22,5%",  deducao: "R$ 675,49", desc: "De R$ 3.751,06 a R$ 4.664,68" },
-        { limite: Infinity,aliquota: "27,5%",  deducao: "R$ 908,73", desc: "Acima de R$ 4.664,68" }
+        { limite: 2428.80, aliquota: 0.0,   deducao: 0.00,    desc: "Até R$ 2.428,80" },
+        { limite: 2826.65, aliquota: 0.075, deducao: 182.16,  desc: "De R$ 2.428,81 a R$ 2.826,65" },
+        { limite: 3751.05, aliquota: 0.15,  deducao: 394.16,  desc: "De R$ 2.826,66 a R$ 3.751,05" },
+        { limite: 4664.68, aliquota: 0.225, deducao: 675.49,  desc: "De R$ 3.751,06 a R$ 4.664,68" },
+        { limite: Infinity,aliquota: 0.275, deducao: 908.73,  desc: "Acima de R$ 4.664,68" }
     ];
 }
 
@@ -25,7 +25,7 @@ if (typeof TETO_INSS === 'undefined') {
 }
 
 // ==========================================================================
-// Controle de Abas Internas (Com gatilho para carregar as tabelas)
+// Controle de Abas Internas
 // ==========================================================================
 function alternarAbaTrabalhista(abaId) {
     document.querySelectorAll('.tool-container .rede-tabs .tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -73,7 +73,8 @@ function calcularINSS(salario) {
 
 function calcularIRRF(salarioBase) {
     let irrf = 0;
-    
+
+    // Tabela progressiva tradicional
     if (salarioBase <= 2428.80) {
         irrf = 0;
     } else if (salarioBase <= 2826.65) {
@@ -88,19 +89,11 @@ function calcularIRRF(salarioBase) {
 
     if (irrf < 0) irrf = 0;
 
-    if (salarioBase <= 5000.00) {
-        irrf = 0; 
-    } else if (salarioBase > 5000.00 && salarioBase <= 7350.00) {
-        const redutor = 978.62 - (0.133145 * salarioBase);
-        irrf = irrf - redutor;
-        if (irrf < 0) irrf = 0;
-    }
-
     return irrf;
 }
 
 // ==========================================================================
-// Proventos e Descontos Eventuais (Protegidos contra re-declaração)
+// Proventos e Descontos Eventuais (COM CATEGORIAS)
 // ==========================================================================
 if (typeof extraEarningCounter === 'undefined') {
     var extraEarningCounter = 0;
@@ -109,7 +102,7 @@ if (typeof extraDiscountCounter === 'undefined') {
     var extraDiscountCounter = 0;
 }
 
-function criarLinhaExtra(tipo, descricao = "", valor = "") {
+function criarLinhaExtra(tipo, descricao = "", valor = "", categoria = "tributavel") {
     const isEarning = tipo === "earning";
     const lista = document.getElementById(isEarning ? "extra-earnings-list" : "extra-discounts-list");
     if (!lista) return;
@@ -127,16 +120,37 @@ function criarLinhaExtra(tipo, descricao = "", valor = "") {
     const row = document.createElement("div");
     row.className = "extra-discount-row";
     row.dataset.tipo = tipo;
+    row.dataset.categoria = categoria;
+
+    let selectCategoria = '';
+    if (isEarning) {
+        selectCategoria = `
+            <select class="extra-categoria">
+                <option value="tributavel" ${categoria === 'tributavel' ? 'selected' : ''}>Tributável (INSS/IRRF)</option>
+                <option value="nao_tributavel" ${categoria === 'nao_tributavel' ? 'selected' : ''}>Não Tributável</option>
+            </select>
+        `;
+    } else {
+        selectCategoria = `
+            <select class="extra-categoria">
+                <option value="nao_dedutivel" ${categoria === 'nao_dedutivel' ? 'selected' : ''}>Não Dedutível IRRF</option>
+                <option value="dedutivel_irrf" ${categoria === 'dedutivel_irrf' ? 'selected' : ''}>Dedutível IRRF</option>
+            </select>
+        `;
+    }
+
     row.innerHTML = `
         <input type="text" class="extra-desc" placeholder="${placeholderDesc}" value="${descricao}">
         <input type="number" class="extra-value" placeholder="R$ 0,00" step="0.01" min="0" value="${valor}">
+        ${selectCategoria}
         <button type="button" class="btn-remove-extra" title="Remover">
             <i class="bi bi-trash"></i>
         </button>
     `;
 
-    row.querySelectorAll("input").forEach(input => {
-        input.addEventListener("input", calcularTrabalhistaImediata);
+    row.querySelectorAll("input, select").forEach(el => {
+        el.addEventListener("input", calcularTrabalhistaImediata);
+        el.addEventListener("change", calcularTrabalhistaImediata);
     });
 
     row.querySelector(".btn-remove-extra").addEventListener("click", () => {
@@ -161,22 +175,33 @@ function verificarListaVazia(tipo) {
     }
 }
 
-function obterTotalProventosExtras() {
-    let total = 0;
-    document.querySelectorAll("#extra-earnings-list .extra-value").forEach(input => {
-        const v = parseFloat(input.value);
-        if (!isNaN(v) && v > 0) total += v;
-    });
-    return total;
-}
+function obterTotais() {
+    let proventosTributaveis = 0;
+    let proventosNaoTributaveis = 0;
+    let descontosDedutiveis = 0;
+    let descontosNaoDedutiveis = 0;
 
-function obterTotalDescontosExtras() {
-    let total = 0;
-    document.querySelectorAll("#extra-discounts-list .extra-value").forEach(input => {
-        const v = parseFloat(input.value);
-        if (!isNaN(v) && v > 0) total += v;
+    document.querySelectorAll("#extra-earnings-list .extra-discount-row").forEach(row => {
+        const valor = parseFloat(row.querySelector(".extra-value").value) || 0;
+        const categoria = row.querySelector(".extra-categoria").value;
+        if (categoria === "tributavel") {
+            proventosTributaveis += valor;
+        } else {
+            proventosNaoTributaveis += valor;
+        }
     });
-    return total;
+
+    document.querySelectorAll("#extra-discounts-list .extra-discount-row").forEach(row => {
+        const valor = parseFloat(row.querySelector(".extra-value").value) || 0;
+        const categoria = row.querySelector(".extra-categoria").value;
+        if (categoria === "dedutivel_irrf") {
+            descontosDedutiveis += valor;
+        } else {
+            descontosNaoDedutiveis += valor;
+        }
+    });
+
+    return { proventosTributaveis, proventosNaoTributaveis, descontosDedutiveis, descontosNaoDedutiveis };
 }
 
 function limparExtras() {
@@ -198,24 +223,44 @@ function calcularTrabalhistaImediata() {
 
     if (!brutoInput || !liquidoInput) return;
 
-    const bruto = parseFloat(brutoInput.value);
-    const totalProventos = obterTotalProventosExtras();
+    const bruto = parseFloat(brutoInput.value) || 0;
 
-    if (isNaN(bruto) || bruto <= 0) {
+    if (bruto <= 0) {
         if (inssInput) inssInput.value = "";
         if (irrfInput) irrfInput.value = "";
         if (liquidoInput) liquidoInput.value = "";
         return;
     }
 
-    const baseBrutaTotal = bruto + totalProventos;
+    const totais = obterTotais();
 
-    const valorInss = calcularINSS(baseBrutaTotal);
-    const baseIrrf = baseBrutaTotal - valorInss;
-    const valorIrrf = calcularIRRF(baseIrrf);
-    const totalDescontos = obterTotalDescontosExtras();
+    // Base de cálculo do INSS: Salário Bruto + Proventos Tributáveis
+    const baseINSS = bruto + totais.proventosTributaveis;
+    const valorInss = calcularINSS(baseINSS);
 
-    const liquido = baseBrutaTotal - valorInss - valorIrrf - totalDescontos;
+    // Base de cálculo do IRRF: (Salário Bruto + Proventos Tributáveis) - INSS - Descontos Dedutíveis
+    const baseIRRF = baseINSS - valorInss - totais.descontosDedutiveis;
+    let valorIrrf = calcularIRRF(baseIRRF);
+
+    // Aplicação do Redutor de 2026 (Lei 15.270/2025)
+    const rendimentoBrutoMensal = bruto + totais.proventosTributaveis;
+
+    if (rendimentoBrutoMensal <= 5000.00) {
+        // Isenção total: o redutor zera o imposto
+        valorIrrf = 0;
+    } else if (rendimentoBrutoMensal > 5000.00 && rendimentoBrutoMensal <= 7350.00) {
+        // Isenção parcial: o redutor diminui o imposto gradualmente
+        // Fórmula simplificada para o redutor (aproximação)
+        const redutor = 978.62 - (0.133145 * rendimentoBrutoMensal);
+        valorIrrf = valorIrrf - redutor;
+        if (valorIrrf < 0) valorIrrf = 0;
+    }
+    // Acima de 7350.00: sem redutor, IRRF normal
+
+    // Líquido: (Salário Bruto + Proventos Tributáveis + Proventos Não Tributáveis) - INSS - IRRF - Descontos Dedutíveis - Descontos Não Dedutíveis
+    const totalProventos = totais.proventosTributaveis + totais.proventosNaoTributaveis;
+    const totalDescontos = valorInss + valorIrrf + totais.descontosDedutiveis + totais.descontosNaoDedutiveis;
+    const liquido = bruto + totalProventos - totalDescontos;
 
     if (inssInput) inssInput.value = `R$ ${valorInss.toFixed(2).replace('.', ',')}`;
     if (irrfInput) irrfInput.value = `R$ ${valorIrrf.toFixed(2).replace('.', ',')}`;
@@ -251,8 +296,8 @@ function renderizarTabelasInformativas() {
         corpoIrrf.innerHTML = FAIXAS_IRRF_2026.map(f => `
             <tr>
                 <td>${f.desc}</td>
-                <td><strong>${f.aliquota}</strong></td>
-                <td>${f.deducao}</td>
+                <td><strong>${(f.aliquota * 100).toFixed(1).replace('.', ',')}%</strong></td>
+                <td>${f.deducao.toFixed(2).replace('.', ',')}</td>
             </tr>
         `).join('');
     }

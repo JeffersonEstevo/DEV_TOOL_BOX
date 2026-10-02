@@ -432,3 +432,37 @@
         font-size: 0.8rem;
     }
 }
+
+
+/* ==========================================================================
+   === CORREÇÃO DO CÁLCULO FINAL PROVENTOS/RECEITAS INCLUSOS ===
+   ========================================================================== */
+
+
+/* Exemplo de ajuste no CSS */
+.extra-discount-row {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.extra-discount-row .extra-desc {
+    flex: 2; /* Descrição ocupa mais espaço */
+}
+
+.extra-discount-row .extra-value {
+    flex: 1;
+}
+
+.extra-discount-row .extra-categoria {
+    flex: 1.5; /* Select ocupa um espaço médio */
+    padding: 0.25rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.extra-discount-row .btn-remove-extra {
+    flex: 0 0 auto;
+}
