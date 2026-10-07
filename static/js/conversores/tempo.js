@@ -102,5 +102,6 @@ function inicializarConversorTempo() {
     }
 }
 
+
 // Inicialização imediata
 inicializarConversorTempo();
