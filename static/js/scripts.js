@@ -789,7 +789,21 @@ document.addEventListener("click", function(event) {
     if (event.target.closest('#btn-limpar-potencia')) {
         event.preventDefault();
         if (typeof limparPotencia === "function") limparPotencia();
-    }    
+    }
+    // === 04. CONVERSORES - 11. Analisador Fasorial ===
+    if (event.target.closest('#btn-limpar-fasor')) {
+        event.preventDefault();
+        if (typeof limparFasor === "function") limparFasor();
+    }
+    const btnAbaFasor = event.target.closest('.eletrica-tabs .tab-btn');
+    if (btnAbaFasor) {
+        event.preventDefault();
+        const onclickAttr = btnAbaFasor.getAttribute('onclick');
+        if (onclickAttr && onclickAttr.includes('alternarAbaFasor')) {
+            const abaId = onclickAttr.match(/'([^']+)'/)[1];
+            if (typeof alternarAbaFasor === "function") alternarAbaFasor(abaId);
+        }
+    }  
     // === 05. REDE - 01. Máscara e CIDR ===
     if (event.target.closest('#btn-limpar-rede')) {
         event.preventDefault();

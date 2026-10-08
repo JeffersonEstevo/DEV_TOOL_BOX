@@ -1,0 +1,144 @@
+<div class="tool-container">
+    <header class="tool-header">
+        <h2>Analisador Fasorial Avançado (CA)</h2>
+        <p>Analise a relação vetorial entre Tensão, Corrente e Ângulos em sistemas Monofásicos e Trifásicos com círculo fasorial interativo.</p>
+    </header>
+
+    <div class="fasor-tabs">
+        <button class="tab-btn active" onclick="alternarAbaFasor('aba-monofasico')">
+            <i class="bi bi-activity"></i> Sistema Monofásico
+        </button>
+        <button class="tab-btn" onclick="alternarAbaFasor('aba-trifasico')">
+            <i class="bi bi-diagram-3"></i> Sistema Trifásico
+        </button>
+    </div>
+
+    <!-- ABA 1: MONOFÁSICO -->
+    <div id="aba-monofasico" class="generator-workspace fasor-workspace tab-content active">
+        <h3 class="secao-titulo">Parâmetros do Circuito Monofásico</h3>
+        <div class="fasor-grid">
+            <div class="fasor-field">
+                <label for="fasor-v-mag">Tensão (V) - Módulo</label>
+                <div class="input-unidade-wrapper">
+                    <input type="number" id="fasor-v-mag" value="220" placeholder="Ex: 220" step="any">
+                    <span class="input-unidade">V</span>
+                </div>
+            </div>
+            <div class="fasor-field">
+                <label for="fasor-v-ang">Tensão (V) - Ângulo</label>
+                <div class="input-unidade-wrapper">
+                    <input type="number" id="fasor-v-ang" value="0" placeholder="Ex: 0" step="any">
+                    <span class="input-unidade">°</span>
+                </div>
+            </div>
+            <div class="fasor-field">
+                <label for="fasor-i-mag">Corrente (I) - Módulo</label>
+                <div class="input-unidade-wrapper">
+                    <input type="number" id="fasor-i-mag" value="10" placeholder="Ex: 10" step="any">
+                    <span class="input-unidade">A</span>
+                </div>
+            </div>
+            <div class="fasor-field">
+                <label for="fasor-i-ang">Corrente (I) - Ângulo</label>
+                <div class="input-unidade-wrapper">
+                    <input type="number" id="fasor-i-ang" value="-30" placeholder="Ex: -30" step="any">
+                    <span class="input-unidade">°</span>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="secao-titulo" style="margin-top: 2rem;">Círculo Fasorial (Monofásico)</h3>
+        <div class="fasor-canvas-container">
+            <canvas id="canvas-fasor-mono" width="360" height="360"></canvas>
+            <div class="fasor-legenda">
+                <span class="legenda-item"><i class="dot" style="background: var(--primary-color);"></i> Tensão (V)</span>
+                <span class="legenda-item"><i class="dot" style="background: #e74c3c;"></i> Corrente (I)</span>
+            </div>
+        </div>
+
+        <h3 class="secao-titulo" style="margin-top: 2rem;">Relações Calculadas</h3>
+        <div class="fasor-info-box">
+            <div class="info-item">
+                <span class="info-label">Defasagem ($\theta$):</span>
+                <span id="res-mono-angulo" class="info-valor">0.00°</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Impedância ($Z$):</span>
+                <span id="res-mono-z" class="info-valor">0.00 $\Omega$</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Fator de Potência:</span>
+                <span id="res-mono-fp" class="info-valor">1.00</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABA 2: TRIFÁSICO -->
+    <div id="aba-trifasico" class="generator-workspace fasor-workspace tab-content">
+        <h3 class="secao-titulo">Parâmetros do Sistema Trifásico (Simétrico / Ajustável)</h3>
+        <div class="fasor-grid">
+            <div class="fasor-field">
+                <label for="tri-v-mag">Tensão de Fase (V_fase)</label>
+                <div class="input-unidade-wrapper">
+                    <input type="number" id="tri-v-mag" value="220" placeholder="Ex: 220" step="any">
+                    <span class="input-unidade">V</span>
+                </div>
+            </div>
+            <div class="fasor-field">
+                <label for="tri-i-mag">Corrente de Linha (I_linha)</label>
+                <div class="input-unidade-wrapper">
+                    <input type="number" id="tri-i-mag" value="15" placeholder="Ex: 15" step="any">
+                    <span class="input-unidade">A</span>
+                </div>
+            </div>
+            <div class="fasor-field">
+                <label for="tri-angulo-carga">Defasagem Carga ($\varphi$)</label>
+                <div class="input-unidade-wrapper">
+                    <input type="number" id="tri-angulo-carga" value="-25" placeholder="Ex: -25" step="any">
+                    <span class="input-unidade">°</span>
+                </div>
+            </div>
+            <div class="fasor-field">
+                <label for="tri-fp">Fator de Potência (cos φ)</label>
+                <div class="input-unidade-wrapper">
+                    <input type="number" id="tri-fp" value="0.90" readonly style="background-color: var(--bg-main); opacity: 0.7;">
+                    <span class="input-unidade">fp</span>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="secao-titulo" style="margin-top: 2rem;">Círculo Fasorial (Trifásico 3x)</h3>
+        <div class="fasor-canvas-container">
+            <canvas id="canvas-fasor-tri" width="360" height="360"></canvas>
+            <div class="fasor-legenda">
+                <span class="legenda-item"><i class="dot" style="background: #e74c3c;"></i> Fase A</span>
+                <span class="legenda-item"><i class="dot" style="background: #f1c40f;"></i> Fase B</span>
+                <span class="legenda-item"><i class="dot" style="background: #3498db;"></i> Fase C</span>
+            </div>
+        </div>
+
+        <h3 class="secao-titulo" style="margin-top: 2rem;">Potências Totais do Sistema</h3>
+        <div class="fasor-info-box-tri">
+            <div class="info-item">
+                <span class="info-label">Potência Ativa ($P_{tot}$):</span>
+                <span id="res-tri-p" class="info-valor">0.00 W</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Potência Reativa ($Q_{tot}$):</span>
+                <span id="res-tri-q" class="info-valor">0.00 VAr</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">Potência Aparente ($S_{tot}$):</span>
+                <span id="res-tri-s" class="info-valor">0.00 VA</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="action-bar border-top-bar" style="justify-content: center;">
+        <button id="btn-limpar-fasor" class="btn btn-success">
+            <i class="bi bi-trash3-fill"></i> Limpar Analisador
+        </button>
+    </div>
+</div>
+
+<script src="static/js/conversores/fasores.js"></script>
