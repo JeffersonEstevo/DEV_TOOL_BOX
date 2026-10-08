@@ -795,7 +795,7 @@ document.addEventListener("click", function(event) {
         event.preventDefault();
         if (typeof limparFasor === "function") limparFasor();
     }
-    const btnAbaFasor = event.target.closest('.eletrica-tabs .tab-btn');
+    const btnAbaFasor = event.target.closest('.fasor-tabs .tab-btn');
     if (btnAbaFasor) {
         event.preventDefault();
         const onclickAttr = btnAbaFasor.getAttribute('onclick');
