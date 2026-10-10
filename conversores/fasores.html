@@ -59,12 +59,14 @@
         <h3 class="secao-titulo" style="margin-top: 2rem;">Relações Calculadas</h3>
         <div class="fasor-info-box">
             <div class="info-item">
-                <span class="info-label">Defasagem ($\theta$):</span>
+                <!-- Substituído $\theta$ por &theta; -->
+                <span class="info-label">Defasagem (&theta;):</span>
                 <span id="res-mono-angulo" class="info-valor">0.00°</span>
             </div>
             <div class="info-item">
-                <span class="info-label">Impedância ($Z$):</span>
-                <span id="res-mono-z" class="info-valor">0.00 $\Omega$</span>
+                <!-- Substituído $Z$ por Z -->
+                <span class="info-label">Impedância (Z):</span>
+                <span id="res-mono-z" class="info-valor">0.00 &Omega;</span>
             </div>
             <div class="info-item">
                 <span class="info-label">Fator de Potência:</span>
@@ -78,28 +80,29 @@
         <h3 class="secao-titulo">Parâmetros do Sistema Trifásico (Simétrico / Ajustável)</h3>
         <div class="fasor-grid">
             <div class="fasor-field">
-                <label for="tri-v-mag">Tensão de Fase (V_fase)</label>
+                <label for="tri-v-mag">Tensão de Fase (V<sub>fase</sub>)</label>
                 <div class="input-unidade-wrapper">
                     <input type="number" id="tri-v-mag" value="220" placeholder="Ex: 220" step="any">
                     <span class="input-unidade">V</span>
                 </div>
             </div>
             <div class="fasor-field">
-                <label for="tri-i-mag">Corrente de Linha (I_linha)</label>
+                <label for="tri-i-mag">Corrente de Linha (I<sub>linha</sub>)</label>
                 <div class="input-unidade-wrapper">
                     <input type="number" id="tri-i-mag" value="15" placeholder="Ex: 15" step="any">
                     <span class="input-unidade">A</span>
                 </div>
             </div>
             <div class="fasor-field">
-                <label for="tri-angulo-carga">Defasagem Carga ($\varphi$)</label>
+                <!-- Substituído $\varphi$ por &varphi; -->
+                <label for="tri-angulo-carga">Defasagem Carga (&varphi;)</label>
                 <div class="input-unidade-wrapper">
                     <input type="number" id="tri-angulo-carga" value="-25" placeholder="Ex: -25" step="any">
                     <span class="input-unidade">°</span>
                 </div>
             </div>
             <div class="fasor-field">
-                <label for="tri-fp">Fator de Potência (cos φ)</label>
+                <label for="tri-fp">Fator de Potência (cos &varphi;)</label>
                 <div class="input-unidade-wrapper">
                     <input type="number" id="tri-fp" value="0.90" readonly style="background-color: var(--bg-main); opacity: 0.7;">
                     <span class="input-unidade">fp</span>
@@ -120,15 +123,16 @@
         <h3 class="secao-titulo" style="margin-top: 2rem;">Potências Totais do Sistema</h3>
         <div class="fasor-info-box-tri">
             <div class="info-item">
-                <span class="info-label">Potência Ativa ($P_{tot}$):</span>
+                <!-- Substituído $P_{tot}$ por P com subscrito tot -->
+                <span class="info-label">Potência Ativa (P<sub>tot</sub>):</span>
                 <span id="res-tri-p" class="info-valor">0.00 W</span>
             </div>
             <div class="info-item">
-                <span class="info-label">Potência Reativa ($Q_{tot}$):</span>
+                <span class="info-label">Potência Reativa (Q<sub>tot</sub>):</span>
                 <span id="res-tri-q" class="info-valor">0.00 VAr</span>
             </div>
             <div class="info-item">
-                <span class="info-label">Potência Aparente ($S_{tot}$):</span>
+                <span class="info-label">Potência Aparente (S<sub>tot</sub>):</span>
                 <span id="res-tri-s" class="info-valor">0.00 VA</span>
             </div>
         </div>
